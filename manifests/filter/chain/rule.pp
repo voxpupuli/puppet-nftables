@@ -17,7 +17,7 @@ define nftables::filter::chain::rule(
     $data = split($rulename,'-')
     concat::fragment{
       "nftables-filter-chain-rule-${rulename}":
-        order   => $order,
+        order  => $order,
         target => "nftables-chain-filter-${data[0]}",
     }
 

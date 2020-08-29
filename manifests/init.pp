@@ -16,9 +16,9 @@ class nftables (
       notify => Service['nftables'],
   } -> file{
     default:
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0640';
+      owner => 'root',
+      group => 'root',
+      mode  => '0640';
     '/etc/nftables/puppet.nft':
       source => 'puppet:///modules/nftables/config/puppet.nft';
     '/etc/nftables/puppet':
@@ -27,8 +27,8 @@ class nftables (
       force   => true,
       recurse => true;
   } ~> service{'nftables':
-    ensure    => running,
-    enable    => true,
+    ensure => running,
+    enable => true,
   }
 
   nftables::config{
