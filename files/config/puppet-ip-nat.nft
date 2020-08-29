@@ -1,29 +1,29 @@
-table nat {
-  include "/etc/nftables/puppet/nat-chains-*.nft"
+table ip nat {
+  include "/etc/nftables/puppet/ip-nat-chains-*.nft"
 
   chain PREROUTING {
     type nat hook prerouting priority 0
     policy accept
 
-    include "/etc/nftables/puppet/nat-chain-prerouting-*.nft"
+    include "/etc/nftables/puppet/ip-nat-chain-prerouting-*.nft"
   }
   chain INPUT {
     type nat hook input priority 100
     policy accept
 
-    include "/etc/nftables/puppet/nat-chain-input-*.nft"
+    include "/etc/nftables/puppet/ip-nat-chain-input-*.nft"
   }
   chain OUTPUT {
     type nat hook output priority 0
     policy accept
 
-    include "/etc/nftables/puppet/nat-chain-output-*.nft"
+    include "/etc/nftables/puppet/ip-nat-chain-output-*.nft"
   }
 
   chain POSTROUTING {
     type nat hook postrouting priority 100
     policy accept
 
-    include "/etc/nftables/puppet/nat-chain-postrouting-*.nft"
+    include "/etc/nftables/puppet/ip-nat-chain-postrouting-*.nft"
   }
 }

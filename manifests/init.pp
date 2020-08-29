@@ -34,8 +34,8 @@ class nftables (
   nftables::config{
     'filter':
       source => 'puppet:///modules/nftables/config/puppet-filter.nft';
-    'nat':
-      source => 'puppet:///modules/nftables/config/puppet-nat.nft';
+    'ip-nat':
+      source => 'puppet:///modules/nftables/config/puppet-ip-nat.nft';
   }
 
   nftables::filter::chain{
