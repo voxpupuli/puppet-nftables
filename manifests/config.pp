@@ -7,9 +7,10 @@ define nftables::config(
 ){
   Package['nftables'] -> file{
     "/etc/nftables/puppet/${name}.nft":
-      owner => root,
-      group => root,
-      mode  => '0640',
+      ensure => file,
+      owner  => root,
+      group  => root,
+      mode   => '0640',
   } ~> Service['nftables']
 
   if $source {
