@@ -11,7 +11,7 @@ define nftables::filter::chain(
   $data = split($chain_name,'-')
   nftables::config{
     "filter-${data[0]}-chains-${order}-${data[1]}":
-      content => "jump ${data[1]}",
+      content => "jump ${data[1]}\n",
   }
   nftables::chain_file{
     "filter@${data[1]}":;
