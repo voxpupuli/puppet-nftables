@@ -1,5 +1,5 @@
 table inet filter {
-  include "/etc/nftables/puppet/filter-chains-*.nft"
+  include "/etc/nftables/puppet/filter-chain-*.nft"
 
   # something we want for all
   chain global {
@@ -10,42 +10,5 @@ table inet filter {
     ip6 nexthdr ipv6-icmp icmpv6 type { destination-unreachable, packet-too-big, time-exceeded, parameter-problem, mld-listener-query, mld-listener-report, mld-listener-reduction, nd-neighbor-solicit, nd-neighbor-advert, ind-neighbor-solicit, ind-neighbor-advert, mld2-listener-report } accept
     ip protocol icmp icmp type echo-request limit rate 4/second accept
     ip6 nexthdr ipv6-icmp icmpv6 type echo-request limit rate 4/second accept
-  }
-
-  chain INPUT {
-    type filter hook input priority 0
-    policy drop
-
-    jump global
-
-    iifname lo accept
-
-    include "/etc/nftables/puppet/filter-input-chains-*.nft"
-
-    log prefix "[nftables] INPUT Rejected: " flags all counter reject with icmpx type port-unreachable
-  }
-
-  chain FORWARD {
-    type filter hook forward priority 0
-    policy drop
-
-    jump global
-
-    include "/etc/nftables/puppet/filter-forward-chains-*.nft"
-
-    log prefix "[nftables] FORWARD Rejected: " flags all counter reject with icmpx type port-unreachable
-  }
-
-  chain OUTPUT {
-    type filter hook output priority 0
-    policy drop
-
-    jump global
-
-    oifname lo accept
-
-    include "/etc/nftables/puppet/filter-output-chains-*.nft"
-
-    log prefix "[nftables] OUTPUT Rejected: " flags all counter reject with icmpx type port-unreachable
   }
 }

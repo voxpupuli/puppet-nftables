@@ -6,34 +6,34 @@ class nftables::rules::out::dns (
   if $dns_server {
     any2array($dns_server).each |$index,$dns| {
 
-      nftables::filter::chain::rule{
+      nftables::rule{
         "default_out-dnsudp-${index}":
       }
       if $dns =~ /:/ {
-        Nftables::Filter::Chain::Rule["default_out-dnsudp-${index}"]{
+        Nftables::Rule["default_out-dnsudp-${index}"]{
           content => "ip6 daddr ${dns} udp dport 53 accept",
         }
       } else {
-        Nftables::Filter::Chain::Rule["default_out-dnsudp-${index}"]{
+        Nftables::Rule["default_out-dnsudp-${index}"]{
           content => "ip daddr ${dns} udp dport 53 accept",
         }
       }
 
-      nftables::filter::chain::rule{
+      nftables::rule{
         "default_out-dnstcp-${index}":
       }
       if $dns =~ /:/ {
-        Nftables::Filter::Chain::Rule["default_out-dnstcp-${index}"]{
+        Nftables::Rule["default_out-dnstcp-${index}"]{
           content => "ip6 daddr ${dns} tcp dport 53 accept",
         }
       } else {
-        Nftables::Filter::Chain::Rule["default_out-dnstcp-${index}"]{
+        Nftables::Rule["default_out-dnstcp-${index}"]{
           content => "ip daddr ${dns} tcp dport 53 accept",
         }
       }
     }
   } else {
-    nftables::filter::chain::rule{
+    nftables::rule{
       'default_out-dnsudp':
         content => 'udp dport 53 accept';
       'default_out-dnstcp':

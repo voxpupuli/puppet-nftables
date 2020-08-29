@@ -1,32 +1,36 @@
-# manage a filter chain rule
+# manage a chain rule
 # Name should be:
 #   CHAIN_NAME-rulename
-define nftables::filter::chain::rule(
+define nftables::rule(
   Enum['present','absent']
     $ensure = 'present',
-  Pattern[/^[a-z0-9_]+\-[0-9a-z]+$/]
+  Pattern[/^[a-zA-Z0-9_]+-[a-zA-Z0-9_]+$/]
     $rulename = $title,
   Pattern[/^\d\d$/]
     $order = '50',
+  Optional[String]
+    $table = 'filter',
   Optional[String]
     $content = undef,
   Optional[Variant[String,Array[String,1]]]
     $source = undef,
 ){
+
   if $ensure == 'present' {
-    $data = split($rulename,'-')
+    $data = split($rulename, '-')
+
     concat::fragment{
-      "nftables-filter-chain-rule-${rulename}":
+      "nftables-${table}-chain-${data[0]}-rule-${data[1]}":
         order  => $order,
-        target => "nftables-chain-filter-${data[0]}",
+        target => "nftables-${table}-chain-${data[0]}",
     }
 
     if $content {
-      Concat::Fragment["nftables-filter-chain-rule-${rulename}"]{
+      Concat::Fragment["nftables-${table}-chain-${data[0]}-rule-${data[1]}"]{
         content => "  ${content}",
       }
     } else {
-      Concat::Fragment["nftables-filter-chain-rule-${rulename}"]{
+      Concat::Fragment["nftables-${table}-chain-${data[0]}-rule-${data[1]}"]{
         source => $source,
       }
     }
