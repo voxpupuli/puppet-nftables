@@ -13,7 +13,7 @@ table nat {
 
     include "/etc/nftables/puppet/nat-chain-input-*.nft"
   }
-  chain OUTPUT            {
+  chain OUTPUT {
     type nat hook output priority 0
     policy accept
 
