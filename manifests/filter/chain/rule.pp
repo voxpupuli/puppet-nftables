@@ -1,6 +1,6 @@
 # manage a filter chain rule
 # Name should be:
-#   TABLE_NAME-rulename
+#   CHAIN_NAME-rulename
 define nftables::filter::chain::rule(
   Enum['present','absent']
     $ensure = 'present',
