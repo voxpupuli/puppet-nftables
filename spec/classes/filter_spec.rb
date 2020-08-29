@@ -1,11 +1,7 @@
 require 'spec_helper'
 
 describe 'nftables' do
-  let(:pre_condition) {
-    <<-EOS
-    Exec{path => "/bin"}
-    EOS
-  }
+  let(:pre_condition) { 'Exec{path => "/bin"}' }
 
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
@@ -20,7 +16,7 @@ describe 'nftables' do
         :mode   => '0640',
       )}
 
-      context "chain input" do
+      context 'chain input' do
         it { is_expected.to contain_file('/etc/nftables/puppet/filter-input-chains-50-default_in.nft').with(
           :ensure => 'file',
           :owner  => 'root',
@@ -28,11 +24,11 @@ describe 'nftables' do
           :mode   => '0640',
         )}
         it { is_expected.to contain_file('/etc/nftables/puppet/filter-input-chains-50-default_in.nft').with_content(
-          /^jump default_in$/
+          /^jump default_in$/,
         )}
 
         it { is_expected.to contain_concat('nftables-chain-filter-default_in').with(
-          :path           => "/etc/nftables/puppet/filter-chains-default_in.nft",
+          :path           => '/etc/nftables/puppet/filter-chains-default_in.nft',
           :owner          => 'root',
           :group          => 'root',
           :mode           => '0644',
@@ -55,7 +51,7 @@ describe 'nftables' do
         )}
       end
 
-      context "chain forward" do
+      context 'chain forward' do
         it { is_expected.to contain_file('/etc/nftables/puppet/filter-forward-chains-50-default_fwd.nft').with(
           :ensure => 'file',
           :owner  => 'root',
@@ -63,11 +59,11 @@ describe 'nftables' do
           :mode   => '0640',
         )}
         it { is_expected.to contain_file('/etc/nftables/puppet/filter-forward-chains-50-default_fwd.nft').with_content(
-          /^jump default_fwd$/
+          /^jump default_fwd$/,
         )}
 
         it { is_expected.to contain_concat('nftables-chain-filter-default_fwd').with(
-          :path           => "/etc/nftables/puppet/filter-chains-default_fwd.nft",
+          :path           => '/etc/nftables/puppet/filter-chains-default_fwd.nft',
           :owner          => 'root',
           :group          => 'root',
           :mode           => '0644',
@@ -85,7 +81,7 @@ describe 'nftables' do
         )}
       end
 
-      context "chain output" do
+      context 'chain output' do
         it { is_expected.to contain_file('/etc/nftables/puppet/filter-output-chains-50-default_out.nft').with(
           :ensure => 'file',
           :owner  => 'root',
@@ -93,11 +89,11 @@ describe 'nftables' do
           :mode   => '0640',
         )}
         it { is_expected.to contain_file('/etc/nftables/puppet/filter-output-chains-50-default_out.nft').with_content(
-          /^jump default_out$/
+          /^jump default_out$/,
         )}
 
         it { is_expected.to contain_concat('nftables-chain-filter-default_out').with(
-          :path           => "/etc/nftables/puppet/filter-chains-default_out.nft",
+          :path           => '/etc/nftables/puppet/filter-chains-default_out.nft',
           :owner          => 'root',
           :group          => 'root',
           :mode           => '0644',
