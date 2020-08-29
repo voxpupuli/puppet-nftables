@@ -1,5 +1,11 @@
 # manage nftables
-class nftables {
+class nftables (
+  Boolean $in_ssh    = true,
+  Boolean $out_ntp   = true,
+  Boolean $out_dns   = true,
+  Boolean $out_https = true,
+) {
+
   package{'nftables':
     ensure => installed,
   } -> file_line{
@@ -38,13 +44,20 @@ class nftables {
       'input-default_in',
     ]:;
   }
+
+  # basic ingoing rules
+  if $in_ssh {
+    include nftables::rules::ssh
+  }
+
   # basic outgoing rules
-  nftables::filter::chain::rule{
-    'default_out-dnsudp':
-      content => 'udp dport 53 accept';
-    'default_out-dnstcp':
-      content => 'tcp dport 53 accept';
-    'default_out-web':
-      content => 'tcp dport {80, 443} accept';
+  if $out_ntp {
+    include nftables::rules::out::ntp
+  }
+  if $out_dns {
+    include nftables::rules::out::dns
+  }
+  if $out_https {
+    include nftables::rules::out::https
   }
 }
