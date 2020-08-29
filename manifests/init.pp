@@ -3,6 +3,7 @@ class nftables (
   Boolean $in_ssh    = true,
   Boolean $out_ntp   = true,
   Boolean $out_dns   = true,
+  Boolean $out_http  = true,
   Boolean $out_https = true,
 ) {
 
@@ -56,6 +57,9 @@ class nftables (
   }
   if $out_dns {
     include nftables::rules::out::dns
+  }
+  if $out_http {
+    include nftables::rules::out::http
   }
   if $out_https {
     include nftables::rules::out::https
