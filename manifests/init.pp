@@ -20,9 +20,11 @@ class nftables (
       group => 'root',
       mode  => '0640';
     '/etc/nftables/puppet.nft':
+      ensure => file,
       source => 'puppet:///modules/nftables/config/puppet.nft';
     '/etc/nftables/puppet':
       ensure  => directory,
+      mode    => '0750',
       purge   => true,
       force   => true,
       recurse => true;
