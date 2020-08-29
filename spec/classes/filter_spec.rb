@@ -48,6 +48,11 @@ describe 'nftables' do
           :content => /^}$/,
           :order   => '99',
         )}
+        it { is_expected.to contain_concat__fragment('nftables-filter-chain-rule-default_in-ssh').with(
+          :target  => 'nftables-chain-filter-default_in',
+          :content => /^  tcp dport \{22\} accept$/,
+          :order   => '50',
+        )}
       end
 
       context "chain forward" do
@@ -107,6 +112,31 @@ describe 'nftables' do
           :target  => 'nftables-chain-filter-default_out',
           :content => /^}$/,
           :order   => '99',
+        )}
+        it { is_expected.to contain_concat__fragment('nftables-filter-chain-rule-default_out-chrony').with(
+          :target  => 'nftables-chain-filter-default_out',
+          :content => /^  udp dport 123 accept$/,
+          :order   => '50',
+        )}
+        it { is_expected.to contain_concat__fragment('nftables-filter-chain-rule-default_out-dnsudp').with(
+          :target  => 'nftables-chain-filter-default_out',
+          :content => /^  udp dport 53 accept$/,
+          :order   => '50',
+        )}
+        it { is_expected.to contain_concat__fragment('nftables-filter-chain-rule-default_out-dnstcp').with(
+          :target  => 'nftables-chain-filter-default_out',
+          :content => /^  tcp dport 53 accept$/,
+          :order   => '50',
+        )}
+        it { is_expected.to contain_concat__fragment('nftables-filter-chain-rule-default_out-http').with(
+          :target  => 'nftables-chain-filter-default_out',
+          :content => /^  tcp dport 80 accept$/,
+          :order   => '50',
+        )}
+        it { is_expected.to contain_concat__fragment('nftables-filter-chain-rule-default_out-https').with(
+          :target  => 'nftables-chain-filter-default_out',
+          :content => /^  tcp dport 443 accept$/,
+          :order   => '50',
         )}
       end
     end
