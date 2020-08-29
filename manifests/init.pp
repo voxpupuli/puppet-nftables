@@ -53,7 +53,7 @@ class nftables (
 
   # basic outgoing rules
   if $out_ntp {
-    include nftables::rules::out::ntp
+    include nftables::rules::out::chrony
   }
   if $out_dns {
     include nftables::rules::out::dns
