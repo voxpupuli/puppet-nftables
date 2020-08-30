@@ -49,6 +49,14 @@ class nftables (
   }
 
   nftables::chain{
+    [
+      'PREROUTING',
+      'POSTROUTING',
+    ]:
+      table => 'ip-nat';
+  }
+
+  nftables::chain{
     'default_in':
       inject => '10-INPUT';
     'default_out':
@@ -57,7 +65,7 @@ class nftables (
       inject => '10-FORWARD';
   }
 
-  # filter-chain-INPUT
+  # inet-filter-chain-INPUT
   nftables::rule{
     'INPUT-type':
       order   => '01',
@@ -76,7 +84,7 @@ class nftables (
       content => 'log prefix "[nftables] INPUT Rejected: " flags all counter reject with icmpx type port-unreachable';
   }
 
-  # filter-chain-OUTPUT
+  # inet-filter-chain-OUTPUT
   nftables::rule{
     'OUTPUT-type':
       order   => '01',
@@ -95,7 +103,7 @@ class nftables (
       content => 'log prefix "[nftables] OUTPUT Rejected: " flags all counter reject with icmpx type port-unreachable';
   }
 
-  # filter-chain-FORWARD
+  # inet-filter-chain-FORWARD
   nftables::rule{
     'FORWARD-type':
       order   => '01',
@@ -109,6 +117,30 @@ class nftables (
     'FORWARD-log_rejected':
       order   => '98',
       content => 'log prefix "[nftables] FORWARD Rejected: " flags all counter reject with icmpx type port-unreachable';
+  }
+
+  # ip-nat-chain-PREROUTING
+  nftables::rule{
+    'PREROUTING-type':
+      table   => 'ip-nat',
+      order   => '01',
+      content => 'type nat hook prerouting priority -100';
+    'PREROUTING-policy':
+      table   => 'ip-nat',
+      order   => '02',
+      content => 'policy accept';
+  }
+
+  # ip-nat-chain-POSTROUTING
+  nftables::rule{
+    'POSTROUTING-type':
+      table   => 'ip-nat',
+      order   => '01',
+      content => 'type nat hook postrouting priority 100';
+    'POSTROUTING-policy':
+      table   => 'ip-nat',
+      order   => '02',
+      content => 'policy accept';
   }
 
   # basic ingoing rules
