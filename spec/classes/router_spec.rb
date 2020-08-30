@@ -18,6 +18,35 @@ describe 'nftables' do
           }
 
           # inet-filter-chain-default_fwd
+          nftables::rules::dnat4{
+            'http':
+              order => '10',
+              chain => 'ingoing',
+              daddr => '192.0.2.2',
+              port  => 'http';
+            'https':
+              order => '10',
+              chain => 'ingoing',
+              daddr => '192.0.2.2',
+              port  => 'https';
+            'http_alt':
+              order => '10',
+              chain => 'ingoing',
+              iif   => 'eth0',
+              daddr => '192.0.2.2',
+              proto => 'tcp',
+              port  => 8080,
+              dport => 80;
+            'wireguard':
+              order => '10',
+              chain => 'ingoing',
+              iif   => 'eth0',
+              daddr => '192.0.2.3',
+              proto => 'udp',
+              port  => '51820';
+          }
+
+          # inet-filter-chain-default_fwd
           nftables::rule{
             'default_fwd-out':
               order   => '20',
@@ -26,13 +55,6 @@ describe 'nftables' do
               order   => '90',
               content => 'iifname eth0 drop';
 
-            'ingoing-web':
-              order   => '10',
-              content => 'ip daddr 192.0.2.2 tcp dport { http, https } accept';
-            'PREROUTING-web':
-              table   => 'ip-nat',
-              order   => '30',
-              content => 'iifname eth0 tcp dport { http, https } dnat to 192.0.2.2';
             'POSTROUTING-masquerade':
               table   => 'ip-nat',
               order   => '20',
@@ -81,9 +103,24 @@ describe 'nftables' do
           :content => /^chain ingoing {$/,
           :order   => '00',
         )}
-        it { is_expected.to contain_concat__fragment('nftables-inet-filter-chain-ingoing-rule-web').with(
+        it { is_expected.to contain_concat__fragment('nftables-inet-filter-chain-ingoing-rule-http').with(
           :target  => 'nftables-inet-filter-chain-ingoing',
-          :content => /^  ip daddr 192.0.2.2 tcp dport \{ http, https \} accept$/,
+          :content => /^  ip daddr 192.0.2.2 tcp dport http accept$/,
+          :order   => '10',
+        )}
+        it { is_expected.to contain_concat__fragment('nftables-inet-filter-chain-ingoing-rule-https').with(
+          :target  => 'nftables-inet-filter-chain-ingoing',
+          :content => /^  ip daddr 192.0.2.2 tcp dport https accept$/,
+          :order   => '10',
+        )}
+        it { is_expected.to contain_concat__fragment('nftables-inet-filter-chain-ingoing-rule-http_alt').with(
+          :target  => 'nftables-inet-filter-chain-ingoing',
+          :content => /^  iifname eth0 ip daddr 192.0.2.2 tcp dport 80 accept$/,
+          :order   => '10',
+        )}
+        it { is_expected.to contain_concat__fragment('nftables-inet-filter-chain-ingoing-rule-wireguard').with(
+          :target  => 'nftables-inet-filter-chain-ingoing',
+          :content => /^  iifname eth0 ip daddr 192.0.2.3 udp dport 51820 accept$/,
           :order   => '10',
         )}
         it { is_expected.to contain_concat__fragment('nftables-inet-filter-chain-ingoing-footer').with(
@@ -114,10 +151,25 @@ describe 'nftables' do
           :content => /^  policy accept$/,
           :order   => '02',
         )}
-        it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-web').with(
+        it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-http').with(
           :target  => 'nftables-ip-nat-chain-PREROUTING',
-          :content => /^  iifname eth0 tcp dport \{ http, https \} dnat to 192.0.2.2$/,
-          :order   => '30',
+          :content => /^  tcp dport http dnat to 192.0.2.2$/,
+          :order   => '10',
+        )}
+        it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-https').with(
+          :target  => 'nftables-ip-nat-chain-PREROUTING',
+          :content => /^  tcp dport https dnat to 192.0.2.2$/,
+          :order   => '10',
+        )}
+        it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-http_alt').with(
+          :target  => 'nftables-ip-nat-chain-PREROUTING',
+          :content => /^  iifname eth0 tcp dport 8080 dnat to 192.0.2.2:80$/,
+          :order   => '10',
+        )}
+        it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-wireguard').with(
+          :target  => 'nftables-ip-nat-chain-PREROUTING',
+          :content => /^  iifname eth0 udp dport 51820 dnat to 192.0.2.3$/,
+          :order   => '10',
         )}
         it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-footer').with(
           :target  => 'nftables-ip-nat-chain-PREROUTING',
