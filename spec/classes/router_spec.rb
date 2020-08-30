@@ -7,8 +7,8 @@ describe 'nftables' do
     context "on #{os}" do
       let(:facts) { os_facts }
 
-      context "as router" do
-        let(:pre_condition) {
+      context 'as router' do
+        let(:pre_condition) do
           """
           # inet-filter-chain-default_fwd
           nftables::rule{
@@ -31,7 +31,7 @@ describe 'nftables' do
               content => 'oifname eth0 masquerade';
           }
           """
-        }
+        end
 
         it { is_expected.to compile }
 

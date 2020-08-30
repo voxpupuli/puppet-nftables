@@ -11,6 +11,7 @@ AllCops:
   - "**/Gemfile"
   - "**/Rakefile"
   - pkg/**/*
+  - spec/classes/*_spec.rb
   - spec/fixtures/**/*
   - vendor/**/*
   - "**/Puppetfile"
@@ -24,15 +25,6 @@ RSpec/BeforeAfterAll:
     A necessary evil in acceptance testing.
   Exclude:
   - spec/acceptance/**/*.rb
-Layout/MultilineBlockLayout:
-  Exclude:
-  - spec/classes/*_spec.rb
-Style/HashSyntax:
-  Exclude:
-  - spec/classes/*_spec.rb
-Layout/BlockEndNewline:
-  Exclude:
-  - spec/classes/*_spec.rb
 RSpec/HookArgument:
   Description: Prefer explicit :each argument, matching existing module's style
   EnforcedStyle: each
@@ -59,8 +51,6 @@ Style/Lambda:
 Style/RegexpLiteral:
   Description: Community preference. See https://github.com/voxpupuli/modulesync_config/issues/168
   EnforcedStyle: percent_r
-  Exclude:
-  - spec/classes/*_spec.rb
 Style/TernaryParentheses:
   Description: Checks for use of parentheses around ternary conditions. Enforce parentheses
     on complex expressions for better readability, but seriously consider breaking
