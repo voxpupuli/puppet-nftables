@@ -5,7 +5,8 @@ This module manages an opinionated nftables configuration
 By default it sets up a firewall that drops every incoming
 and outgoing connection.
 
-It only allows outgoing dns,ntp and web traffic.
+It only allows outgoing dns, ntp and web and ingoing ssh
+traffic.
 
 The config file has a inet filter and a ip nat table setup.
 
@@ -24,8 +25,10 @@ the filter and nat tables, as well as processes any
 `custom-*.nft` files before hand.
 
 The filter and NAT tables both have all the master chains
-(INPUT,OUTPUT,FORWARD) configured, to which you can hook
-in your own chains that can contain specific rules.
+(INPUT, OUTPUT, FORWARD in case of filter and PREROUTING
+and POSTROUTING in case of NAT) configured, to which you
+can hook in your own chains that can contain specific
+rules.
 
 All filter masterchains drop by default.
 By default we have a set of default_MASTERCHAIN chains
@@ -36,8 +39,8 @@ For specific needs you can add your own chain.
 There is a global chain, that defines the default behavior
 for all masterchains.
 
-INPUT and OUTPUT to the loopback device is allowed by default,
-though you could restrict it later.
+INPUT and OUTPUT to the loopback device is allowed by
+default, though you could restrict it later.
 
 ### nftables::config
 
@@ -45,37 +48,25 @@ Manages a raw file in `/etc/nftables/puppet/${name}.nft`
 
 Use this for any custom table files.
 
-## nftables::chain_file
+## nftables::chain
 
-Prepares a chain file as a `concat` file to which you will be
-able to add dedicated rules through `concat::fragments`.
+Prepares a chain file as a `concat` file to which you will
+be able to add dedicated rules through `nftables::rule`.
 
-The name must follow the pattern `TABLE@chain_name`, e.g.
-`filter@my_chain`. This will a) prepare a snippet defining
-the chain, that will be included in the filter table.
+The name must be unique for all chains. The inject
+parameter can be used to directly add a jump to a
+masterchain. inject must follow the pattern
+`ORDER-MASTERCHAIN`, where order references a 2-digit
+number which defines the rule order (by default use e.g. 20)
+and masterchain references the chain to hook in the new
+chain.
 
-This define is more intended as a helper to setup chains
-that will be used for the different tables, through their
-own defines. See `nftables::filter::chain` as an example.
+## nftables::rule
 
-## nftables::filter::chain
-
-This setups a chain for the filter table. You will be able
-to add rules to that chain by using `nftables::filter::chain::rule`.
-
-The name must follow the pattern: `MASTERCHAIN-new_chain_name`, which
-defines to which masterchain that custom chain should be hooked into.
-
-new_chain_name must be unique for all chains.
-
-There is automatically a `jump` instruction added to the masterchain,
-with the order preference.
-
-## nftables::filter::chain::rule
-
-A simple way to add rules to your custom chain. The name must be:
-`CHAIN_NAME-rulename`, where CHAIN_NAME refers to your chain and
-an arbitrary name for your rule.
-The rule will be a `concat::fragment` to the chain `concat`.
+A simple way to add rules to any chain. The name must be:
+`CHAIN_NAME-rulename`, where CHAIN_NAME refers to your
+chain and an arbitrary name for your rule.
+The rule will be a `concat::fragment` to the chain
+`CHAIN_NAME`.
 
 You can define the order by using the `order` param.
