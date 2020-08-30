@@ -121,24 +121,24 @@ class nftables (
 
   # ip-nat-chain-PREROUTING
   nftables::rule{
+    default:
+      table   => 'ip-nat';
     'PREROUTING-type':
-      table   => 'ip-nat',
       order   => '01',
       content => 'type nat hook prerouting priority -100';
     'PREROUTING-policy':
-      table   => 'ip-nat',
       order   => '02',
       content => 'policy accept';
   }
 
   # ip-nat-chain-POSTROUTING
   nftables::rule{
+    default:
+      table   => 'ip-nat';
     'POSTROUTING-type':
-      table   => 'ip-nat',
       order   => '01',
       content => 'type nat hook postrouting priority 100';
     'POSTROUTING-policy':
-      table   => 'ip-nat',
       order   => '02',
       content => 'policy accept';
   }
