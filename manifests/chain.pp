@@ -6,6 +6,10 @@ define nftables::chain(
     $chain = $title,
   Optional[Pattern[/^\d\d-[a-zA-Z0-9_]+$/]]
     $inject = undef,
+  Optional[String]
+    $inject_iif = undef,
+  Optional[String]
+    $inject_oif = undef,
 ){
   $concat_name = "nftables-${table}-chain-${chain}"
 
@@ -33,9 +37,17 @@ define nftables::chain(
 
   if $inject {
     $data = split($inject, '-')
+    $iif = $inject_iif ? {
+      undef => '',
+      default => "iifname ${inject_iif} ",
+    }
+    $oif = $inject_oif ? {
+      undef => '',
+      default => "oifname ${inject_oif} ",
+    }
     nftables::rule{ "${data[1]}-jump_${chain}":
       order   => $data[0],
-      content => "jump ${chain}",
+      content => "${iif}${oif}jump ${chain}",
     }
   }
 }

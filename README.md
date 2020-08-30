@@ -59,7 +59,8 @@ masterchain. inject must follow the pattern
 `ORDER-MASTERCHAIN`, where order references a 2-digit
 number which defines the rule order (by default use e.g. 20)
 and masterchain references the chain to hook in the new
-chain.
+chain. It's possible to specify the in-interface name and
+out-interface name for the inject rule.
 
 ## nftables::rule
 

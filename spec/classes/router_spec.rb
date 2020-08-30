@@ -10,6 +10,13 @@ describe 'nftables' do
       context 'as router' do
         let(:pre_condition) do
           """
+          # inet-filter-chain-ingoing
+          nftables::chain{ 'ingoing':
+            inject     => '20-default_fwd',
+            inject_iif => 'eth0',
+            inject_oif => 'eth1';
+          }
+
           # inet-filter-chain-default_fwd
           nftables::rule{
             'default_fwd-out':
@@ -18,10 +25,11 @@ describe 'nftables' do
             'default_fwd-drop':
               order   => '90',
               content => 'iifname eth0 drop';
-            'default_fwd-in_web':
-              order   => '30',
-              content => 'iifname eth0 oifname eth1 ip daddr 192.0.2.2 tcp dport { http, https } accept';
-            'PREROUTING-in_web':
+
+            'ingoing-web':
+              order   => '10',
+              content => 'ip daddr 192.0.2.2 tcp dport { http, https } accept';
+            'PREROUTING-web':
               table   => 'ip-nat',
               order   => '30',
               content => 'iifname eth0 tcp dport { http, https } dnat to 192.0.2.2';
@@ -52,10 +60,10 @@ describe 'nftables' do
           :content => /^  iifname eth1 oifname eth0 accept$/,
           :order   => '20',
         )}
-        it { is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-rule-in_web').with(
+        it { is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-rule-jump_ingoing').with(
           :target  => 'nftables-inet-filter-chain-default_fwd',
-          :content => /^  iifname eth0 oifname eth1 ip daddr 192.0.2.2 tcp dport \{ http, https \} accept$/,
-          :order   => '30',
+          :content => /^  iifname eth0 oifname eth1 jump ingoing$/,
+          :order   => '20',
         )}
         it { is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-rule-drop').with(
           :target  => 'nftables-inet-filter-chain-default_fwd',
@@ -64,6 +72,22 @@ describe 'nftables' do
         )}
         it { is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-footer').with(
           :target  => 'nftables-inet-filter-chain-default_fwd',
+          :content => /^}$/,
+          :order   => '99',
+        )}
+
+        it { is_expected.to contain_concat__fragment('nftables-inet-filter-chain-ingoing-header').with(
+          :target  => 'nftables-inet-filter-chain-ingoing',
+          :content => /^chain ingoing {$/,
+          :order   => '00',
+        )}
+        it { is_expected.to contain_concat__fragment('nftables-inet-filter-chain-ingoing-rule-web').with(
+          :target  => 'nftables-inet-filter-chain-ingoing',
+          :content => /^  ip daddr 192.0.2.2 tcp dport \{ http, https \} accept$/,
+          :order   => '10',
+        )}
+        it { is_expected.to contain_concat__fragment('nftables-inet-filter-chain-ingoing-footer').with(
+          :target  => 'nftables-inet-filter-chain-ingoing',
           :content => /^}$/,
           :order   => '99',
         )}
@@ -90,7 +114,7 @@ describe 'nftables' do
           :content => /^  policy accept$/,
           :order   => '02',
         )}
-        it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-in_web').with(
+        it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-web').with(
           :target  => 'nftables-ip-nat-chain-PREROUTING',
           :content => /^  iifname eth0 tcp dport \{ http, https \} dnat to 192.0.2.2$/,
           :order   => '30',
