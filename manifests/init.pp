@@ -33,6 +33,11 @@ class nftables (
     enable => true,
   }
 
+  service{'firewalld':
+    ensure => stopped,
+    enable => mask,
+  }
+
   include nftables::inet_filter
   include nftables::ip_nat
 }

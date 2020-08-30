@@ -33,6 +33,11 @@ describe 'nftables' do
         :ensure => 'running',
         :enable => true,
       )}
+
+      it { is_expected.to contain_service('firewalld').with(
+        :ensure => 'stopped',
+        :enable => 'mask',
+      )}
     end
   end
 end
