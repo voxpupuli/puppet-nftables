@@ -9,7 +9,7 @@ define nftables::rule(
   Pattern[/^\d\d$/]
     $order = '50',
   Optional[String]
-    $table = 'filter',
+    $table = 'inet-filter',
   Optional[String]
     $content = undef,
   Optional[Variant[String,Array[String,1]]]

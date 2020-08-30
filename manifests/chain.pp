@@ -1,7 +1,7 @@
 # manage a chain
 define nftables::chain(
-  String[1]
-    $table = 'filter',
+  Pattern[/^(ip|ip6|inet)-[a-zA-Z0-9_]+$/]
+    $table = 'inet-filter',
   Pattern[/^[a-zA-Z0-9_]+$/]
     $chain = $title,
   Optional[Pattern[/^\d\d-[a-zA-Z0-9_]+$/]]

@@ -34,7 +34,7 @@ class nftables (
   }
 
   nftables::config{
-    'filter':
+    'inet-filter':
       source => 'puppet:///modules/nftables/config/puppet-filter.nft';
     'ip-nat':
       source => 'puppet:///modules/nftables/config/puppet-ip-nat.nft';
