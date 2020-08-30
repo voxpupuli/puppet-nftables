@@ -3,7 +3,7 @@ class nftables::inet_filter inherits nftables {
 
   nftables::config{
     'inet-filter':
-      source => 'puppet:///modules/nftables/config/puppet-filter.nft';
+      source => 'puppet:///modules/nftables/config/puppet-inet-filter.nft';
   }
 
   nftables::chain{
