@@ -31,7 +31,7 @@ describe 'nftables' do
         )}
         it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-type').with(
           :target  => 'nftables-ip-nat-chain-PREROUTING',
-          :content => /^  type filter hook prerouting priority -100$/,
+          :content => /^  type nat hook prerouting priority -100$/,
           :order   => '01',
         )}
         it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-footer').with(
@@ -56,7 +56,7 @@ describe 'nftables' do
         )}
         it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-type').with(
           :target  => 'nftables-ip-nat-chain-POSTROUTING',
-          :content => /^  type filter hook postrouting priority 100$/,
+          :content => /^  type nat hook postrouting priority 100$/,
           :order   => '01',
         )}
         it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-footer').with(
