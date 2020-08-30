@@ -18,6 +18,13 @@ describe 'nftables' do
             'default_fwd-drop':
               order   => '90',
               content => 'iifname eth0 drop';
+            'default_fwd-in_web':
+              order   => '30',
+              content => 'iifname eth0 oifname eth1 ip daddr 192.0.2.2 tcp dport { http, https } accept';
+            'PREROUTING-in_web':
+              table   => 'ip-nat',
+              order   => '30',
+              content => 'iifname eth0 tcp dport { http, https } dnat to 192.0.2.2';
             'POSTROUTING-masquerade':
               table   => 'ip-nat',
               order   => '20',
@@ -44,6 +51,11 @@ describe 'nftables' do
           :target  => 'nftables-inet-filter-chain-default_fwd',
           :content => /^  iifname eth1 oifname eth0 accept$/,
           :order   => '20',
+        )}
+        it { is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-rule-in_web').with(
+          :target  => 'nftables-inet-filter-chain-default_fwd',
+          :content => /^  iifname eth0 oifname eth1 ip daddr 192.0.2.2 tcp dport \{ http, https \} accept$/,
+          :order   => '30',
         )}
         it { is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-rule-drop').with(
           :target  => 'nftables-inet-filter-chain-default_fwd',
@@ -77,6 +89,11 @@ describe 'nftables' do
           :target  => 'nftables-ip-nat-chain-PREROUTING',
           :content => /^  policy accept$/,
           :order   => '02',
+        )}
+        it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-in_web').with(
+          :target  => 'nftables-ip-nat-chain-PREROUTING',
+          :content => /^  iifname eth0 tcp dport \{ http, https \} dnat to 192.0.2.2$/,
+          :order   => '30',
         )}
         it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-footer').with(
           :target  => 'nftables-ip-nat-chain-PREROUTING',
