@@ -34,6 +34,11 @@ describe 'nftables' do
           :content => /^  type nat hook prerouting priority -100$/,
           :order   => '01',
         )}
+        it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-policy').with(
+          :target  => 'nftables-ip-nat-chain-PREROUTING',
+          :content => /^  policy accept$/,
+          :order   => '02',
+        )}
         it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-footer').with(
           :target  => 'nftables-ip-nat-chain-PREROUTING',
           :content => /^}$/,
@@ -58,6 +63,11 @@ describe 'nftables' do
           :target  => 'nftables-ip-nat-chain-POSTROUTING',
           :content => /^  type nat hook postrouting priority 100$/,
           :order   => '01',
+        )}
+        it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-policy').with(
+          :target  => 'nftables-ip-nat-chain-POSTROUTING',
+          :content => /^  policy accept$/,
+          :order   => '02',
         )}
         it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-footer').with(
           :target  => 'nftables-ip-nat-chain-POSTROUTING',
