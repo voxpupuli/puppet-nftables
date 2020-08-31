@@ -16,10 +16,14 @@ describe 'nftables' do
             'masquerade_eth1_vpn':
               oif   => 'eth1',
               saddr => '192.0.2.0/24';
-            'masquerade_ssh_gitlab':
+            'masquerade_ssh':
               saddr => '192.0.2.0/24',
               daddr => '198.51.100.2',
               proto => 'tcp',
+              dport => '22';
+            'masquerade_ssh_gitlab':
+              saddr => '192.0.2.0/24',
+              daddr => '198.51.100.2',
               dport => '22';
             'masquerade_wireguard':
               proto => 'udp',
@@ -60,6 +64,11 @@ describe 'nftables' do
         it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-masquerade_eth1_vpn').with(
           :target  => 'nftables-ip-nat-chain-POSTROUTING',
           :content => /^  oifname eth1 ip saddr 192\.0\.2\.0\/24 masquerade$/,
+          :order   => '70',
+        )}
+        it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-masquerade_ssh').with(
+          :target  => 'nftables-ip-nat-chain-POSTROUTING',
+          :content => /^  ip saddr 192\.0\.2\.0\/24 ip daddr 198.51.100.2 tcp dport 22 masquerade$/,
           :order   => '70',
         )}
         it { is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-masquerade_ssh_gitlab').with(
