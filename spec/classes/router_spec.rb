@@ -18,11 +18,12 @@ describe 'nftables' do
             'default_fwd-drop':
               order   => '90',
               content => 'iifname eth0 drop';
+          }
 
-            'POSTROUTING-masquerade':
-              table   => 'ip-nat',
-              order   => '20',
-              content => 'oifname eth0 masquerade';
+          nftables::rules::masquerade{
+            'masquerade':
+              order => '20',
+              oif   => 'eth0';
           }
           """
         end
