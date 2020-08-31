@@ -12,7 +12,7 @@ define nftables::rules::dnat4(
     $chain = 'default_fwd',
   Optional[String[1]]
     $iif = undef,
-  Pattern[/^(tcp|udp)$/]
+  Enum['tcp','udp']
     $proto = 'tcp',
   Optional[Variant[String,Integer[1,65535]]]
     $dport = '',

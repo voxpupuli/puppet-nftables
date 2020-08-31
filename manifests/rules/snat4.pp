@@ -12,7 +12,7 @@ define nftables::rules::snat4(
     $oif = undef,
   Optional[String[1]]
     $saddr = undef,
-  Optional[Pattern[/^(tcp|udp)$/]]
+  Optional[Enum['tcp','udp']]
     $proto = undef,
   Optional[Variant[String,Integer[1,65535]]]
     $dport = undef,

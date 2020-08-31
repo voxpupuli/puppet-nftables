@@ -12,7 +12,7 @@ define nftables::rules::masquerade(
     $saddr = undef,
   Optional[String[1]]
     $daddr = undef,
-  Optional[Pattern[/^(tcp|udp)$/]]
+  Optional[Enum['tcp','udp']]
     $proto = undef,
   Optional[Variant[String,Integer[1,65535]]]
     $dport = undef,
