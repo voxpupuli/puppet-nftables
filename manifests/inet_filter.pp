@@ -95,6 +95,9 @@ class nftables::inet_filter inherits nftables {
     }
   }
 
+  # allow forwarding traffic on bridges
+  include nftables::bridges
+
   # basic ingoing rules
   if $nftables::in_ssh {
     include nftables::rules::ssh
