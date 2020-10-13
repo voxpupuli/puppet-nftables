@@ -5,6 +5,7 @@ class nftables (
   Boolean $out_dns   = true,
   Boolean $out_http  = true,
   Boolean $out_https = true,
+  Boolean $out_all   = false,
 ) {
 
   package{'nftables':

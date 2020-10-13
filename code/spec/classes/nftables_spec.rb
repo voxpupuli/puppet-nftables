@@ -38,6 +38,19 @@ describe 'nftables' do
         :ensure => 'stopped',
         :enable => 'mask',
       )}
+
+      it { is_expected.not_to contain_class('nftables::rules::out::all') }
+      it { is_expected.not_to contain_nftables__rule('default_out-all') }
+
+      context 'with out_all set true' do
+        let(:params) do {
+          out_all: true
+        }
+        end
+
+        it { is_expected.to contain_class('nftables::rules::out::all') }
+        it { is_expected.to contain_nftables__rule('default_out-all').with_content('accept') }
+      end
     end
   end
 end

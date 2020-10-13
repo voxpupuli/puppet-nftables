@@ -51,4 +51,7 @@ class nftables::ip_nat inherits nftables {
   if $nftables::out_https {
     include nftables::rules::out::https
   }
+  if $nftables::out_all {
+    include nftables::rules::out::all
+  }
 }
