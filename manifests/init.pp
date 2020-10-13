@@ -1,10 +1,38 @@
-# manage nftables
+# @summary Configure nftables
+#
+# @example
+#   class{'nftables:
+#     out_ntp = false,
+#     out_dns = true,
+#   }   
+#
+# @param out_all 
+#   Allow all outbound connections. If `true` then all other
+#   out parameters `out_ntp`, `out_dns`, ... will be assuemed
+#   false.
+#
+# @param out_ntp
+#   Allow outbound to ntp servers.
+#
+# @param out_http
+#   Allow outbound to http servers.
+#
+# @param out_https
+#   Allow outbound to https servers.
+#
+# @param out_https
+#   Allow outbound to https servers.
+#
+# @param in_ssh
+#   Allow inbound to ssh servers.
+#
 class nftables (
   Boolean $in_ssh    = true,
   Boolean $out_ntp   = true,
   Boolean $out_dns   = true,
   Boolean $out_http  = true,
   Boolean $out_https = true,
+  Boolean $out_all   = false,
 ) {
 
   package{'nftables':

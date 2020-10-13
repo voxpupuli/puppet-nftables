@@ -39,16 +39,21 @@ class nftables::ip_nat inherits nftables {
   }
 
   # basic outgoing rules
-  if $nftables::out_ntp {
-    include nftables::rules::out::chrony
-  }
-  if $nftables::out_dns {
-    include nftables::rules::out::dns
-  }
-  if $nftables::out_http {
-    include nftables::rules::out::http
-  }
-  if $nftables::out_https {
-    include nftables::rules::out::https
+  if $nftables::out_all {
+
+    include nftables::rules::out::all
+  } else {
+    if $nftables::out_ntp {
+      include nftables::rules::out::chrony
+    }
+    if $nftables::out_dns {
+      include nftables::rules::out::dns
+    }
+    if $nftables::out_http {
+      include nftables::rules::out::http
+    }
+    if $nftables::out_https {
+      include nftables::rules::out::https
+    }
   }
 }

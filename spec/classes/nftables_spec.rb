@@ -46,6 +46,27 @@ describe 'nftables' do
           enable: 'mask',
         )
       }
+      it { is_expected.to contain_class('nftables::rules::out::http') }
+      it { is_expected.to contain_class('nftables::rules::out::https') }
+      it { is_expected.to contain_class('nftables::rules::out::dns') }
+      it { is_expected.to contain_class('nftables::rules::out::chrony') }
+      it { is_expected.not_to contain_class('nftables::rules::out::all') }
+      it { is_expected.not_to contain_nftables__rule('default_out-all') }
+
+      context 'with out_all set true' do
+        let(:params) do {
+          out_all: true
+        }
+        end
+
+        it { is_expected.to contain_class('nftables::rules::out::all') }
+        it { is_expected.not_to contain_class('nftables::rules::out::http') }
+        it { is_expected.not_to contain_class('nftables::rules::out::https') }
+        it { is_expected.not_to contain_class('nftables::rules::out::dns') }
+        it { is_expected.not_to contain_class('nftables::rules::out::chrony') }
+        it { is_expected.to contain_nftables__rule('default_out-all').with_content('accept') }
+        it { is_expected.to contain_nftables__rule('default_out-all').with_order('90') }
+      end
     end
   end
 end
