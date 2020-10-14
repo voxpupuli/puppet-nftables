@@ -10,11 +10,11 @@ class nftables::rules::out::puppet(
       "default_out-puppet-${index}":
     }
     if $pm =~ /:/ {
-      nftables::rule["default_out-puppet-${index}"]{
+      Nftables::Rule["default_out-puppet-${index}"]{
         content => "ip6 daddr ${pm} tcp dport ${puppetserver_port} accept",
       }
     } else {
-      nftables::rule["default_out-puppet-${index}"]{
+      Nftables::Rule["default_out-puppet-${index}"]{
         content => "ip daddr ${pm} tcp dport ${puppetserver_port} accept",
       }
     }
