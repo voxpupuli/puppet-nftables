@@ -4,7 +4,7 @@
 define nftables::rule(
   Enum['present','absent']
     $ensure = 'present',
-  Pattern[/^[a-zA-Z0-9_]+-[a-zA-Z0-9_]+$/]
+  Pattern[/^[a-zA-Z0-9_]+-[a-zA-Z0-9_]+(-\d+)?$/]
     $rulename = $title,
   Pattern[/^\d\d$/]
     $order = '50',
