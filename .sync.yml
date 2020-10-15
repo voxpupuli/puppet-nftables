@@ -1,0 +1,9 @@
+---
+.gitlab-ci.yml:
+  custom:
+    custom_before_steps:
+      - echo -e "machine code.immerda.ch\nlogin gitlab-ci-token\npassword $CI_JOB_TOKEN" > ~/.netrc
+    image: 'registry.code.immerda.ch/immerda/container-images/ruby/devel:2.7'
+
+.travis.yml:
+  delete: true
