@@ -10,7 +10,6 @@ cache:
     - vendor/bundle
 
 before_script:
-  - echo -e "machine code.immerda.ch\nlogin gitlab-ci-token\npassword $CI_JOB_TOKEN" > ~/.netrc
   - bundle -v
   - rm Gemfile.lock || true
   - "# Update system gems if requested. This is useful to temporarily workaround troubles in the test runner"
