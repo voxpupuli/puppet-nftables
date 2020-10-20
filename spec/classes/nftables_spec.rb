@@ -54,9 +54,10 @@ describe 'nftables' do
       it { is_expected.not_to contain_nftables__rule('default_out-all') }
 
       context 'with out_all set true' do
-        let(:params) do {
-          out_all: true
-        }
+        let(:params) do
+          {
+            out_all: true,
+          }
         end
 
         it { is_expected.to contain_class('nftables::rules::out::all') }
