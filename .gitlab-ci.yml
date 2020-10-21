@@ -1,0 +1,108 @@
+---
+
+# For reference the following ENV are uses in this file.
+# CI_REGISTRY_IMAGE, e.g. gitlab-registry.cern.ch/ai/it-puppet-module-ci_images
+# AI_CI_SSH_KEY, contains a private key for fetching deps.
+
+stages:
+  - images
+  - tests
+
+# Only in the it-puppet-module-ci_images is the docker image actually created.
+# In all other repositories we simply skip this and use the image
+# created in it-puppet-module-ci_images, this can be overridden
+# via msync.
+
+cc7-puppet-ci:
+  stage: images
+  tags:
+    - docker-image-build
+  only:
+    - branches@ai/it-puppet-module-ci_images
+  script: "echo"
+  variables:
+    CONTEXT_DIR: .
+    DOCKER_FILE: ci/Dockerfile
+    FROM:    gitlab-registry.cern.ch/linuxsupport/cc7-base
+    TO:      ${CI_REGISTRY_IMAGE}:cc7-puppet-ci-1.6.2
+
+
+before_script:
+  - yum install -y openssh-clients
+  - '[ -n "${AI_CI_SSH_KEY}" ] && eval $(ssh-agent -s)'
+  - '[ -n "${AI_CI_SSH_KEY}" ] && ssh-add <(echo "$AI_CI_SSH_KEY")'
+
+puppet5:
+  stage: tests
+  tags:
+   - docker
+  image: gitlab-registry.cern.ch/ai/it-puppet-module-ci_images:cc7-puppet-ci-1.6.2
+  variables:
+    SPEC_OPTS: "--format progress --format RspecJunitFormatter --out rspec.xml"
+  artifacts:
+    reports:
+      junit: code/rspec.xml
+  script:
+    - cd code
+    - rm -f ../ci/Gemfile.lock
+    - BUNDLE_GEMFILE=../ci/Gemfile PUPPET_VERSION='~> 5.5.19' scl enable rh-ruby24 'bundle install --local'
+    - LANG=en_US.UTF-8 BUNDLE_GEMFILE=../ci/Gemfile PUPPET_VERSION='~> 5.5.19' scl enable rh-ruby24 'bundle exec rake --rakefile ../ci/Rakefile test'
+
+puppet6:
+  stage: tests
+  tags:
+   - docker
+  image: gitlab-registry.cern.ch/ai/it-puppet-module-ci_images:cc7-puppet-ci-1.6.2
+  variables:
+    SPEC_OPTS: "--format progress --format RspecJunitFormatter --out rspec.xml"
+  artifacts:
+    reports:
+      junit: code/rspec.xml
+  script:
+    - cd code
+    - rm -f ../ci/Gemfile.lock
+    - BUNDLE_GEMFILE=../ci/Gemfile PUPPET_VERSION='~> 6.15.0' scl enable rh-ruby25 'bundle install --local'
+    - LANG=en_US.UTF-8 BUNDLE_GEMFILE=../ci/Gemfile PUPPET_VERSION='~> 6.15.0' scl enable rh-ruby25 'bundle exec rake --rakefile ../ci/Rakefile test'
+
+puppet6_latest:
+  stage: tests
+  tags:
+   - docker
+  image: gitlab-registry.cern.ch/ai/it-puppet-module-ci_images:cc7-puppet-ci-1.6.2
+  variables:
+    SPEC_OPTS: "--format progress --format RspecJunitFormatter --out rspec.xml"
+  artifacts:
+    reports:
+      junit: code/rspec.xml
+  script:
+    - cd code
+    - rm -f ../ci/Gemfile.lock
+    - BUNDLE_GEMFILE=../ci/Gemfile PUPPET_VERSION='~> 6.0' scl enable rh-ruby25 'bundle install --local'
+    - LANG=en_US.UTF-8 BUNDLE_GEMFILE=../ci/Gemfile PUPPET_VERSION='~> 6.0' scl enable rh-ruby25 'bundle exec rake --rakefile ../ci/Rakefile test'
+  allow_failure: true
+
+
+rubocop:
+  stage: tests
+  tags:
+   - docker
+  image: gitlab-registry.cern.ch/ai/it-puppet-module-ci_images:cc7-puppet-ci-1.6.2
+  script:
+    - cd code
+    - rm -f ../ci/Gemfile.lock
+    - /usr/bin/test -f .rubocop.yml || cp -p ../ci/boilerplate/.rubocop.yml .rubocop.yml
+    - BUNDLE_GEMFILE=../ci/Gemfile PUPPET_VERSION='~> 5.0' scl enable rh-ruby24 'bundle install --local'
+    - LANG=en_US.UTF-8 BUNDLE_GEMFILE=../ci/Gemfile PUPPET_VERSION='~> 5.0' scl enable rh-ruby24 'bundle exec rake --rakefile ../ci/Rakefile rubocop'
+  allow_failure: true
+
+yaml-validate:
+  stage: tests
+  tags:
+   - docker
+  image: gitlab-registry.cern.ch/ai/it-puppet-module-ci_images:cc7-puppet-ci-1.6.2
+  script:
+    - if [ -d data ] && [ -d code/data ] ; then echo "Directory data and code/data cannot both exist." ; /bin/false ; else true; fi
+    - if [ -d data ] ; then yaml-lint data ; else true; fi
+    - if [ -d data ] ; then ruby ci/extra-yaml-checks.rb ; fi
+    - if [ -f .sync.yml ] ; then yaml-lint .sync.yml ; else true; fi
+
