@@ -1,4 +1,8 @@
 ---
+.gitignore:
+  paths:
+    - .ruby-version
+
 .gitlab-ci.yml:
   override: true
   custom:
