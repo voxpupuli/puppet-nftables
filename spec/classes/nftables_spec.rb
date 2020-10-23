@@ -68,6 +68,27 @@ describe 'nftables' do
         it { is_expected.to contain_nftables__rule('default_out-all').with_content('accept') }
         it { is_expected.to contain_nftables__rule('default_out-all').with_order('90') }
       end
+
+      context 'with custom rules' do
+        let(:params) do
+          {
+            rules: {
+              'INPUT-web_accept' => {
+                order: '50',
+                content: 'iifname eth0 tcp dport { 80, 443 } accept',
+              },
+            },
+          }
+        end
+
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-web_accept').with(
+            target:  'nftables-inet-filter-chain-INPUT',
+            content: %r{^  iifname eth0 tcp dport \{ 80, 443 \} accept$},
+            order:   '50',
+          )
+        }
+      end
     end
   end
 end

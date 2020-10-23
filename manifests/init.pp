@@ -4,9 +4,9 @@
 #   class{'nftables:
 #     out_ntp = false,
 #     out_dns = true,
-#   }   
+#   }
 #
-# @param out_all 
+# @param out_all
 #   Allow all outbound connections. If `true` then all other
 #   out parameters `out_ntp`, `out_dns`, ... will be assuemed
 #   false.
@@ -33,6 +33,7 @@ class nftables (
   Boolean $out_http  = true,
   Boolean $out_https = true,
   Boolean $out_all   = false,
+  Hash $rules        = {},
 ) {
 
   package{'nftables':
@@ -68,4 +69,7 @@ class nftables (
 
   include nftables::inet_filter
   include nftables::ip_nat
+
+  # inject custom rules e.g. from hiera
+  create_resources(nftables::rule, $rules)
 }
