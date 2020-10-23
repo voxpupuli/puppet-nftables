@@ -18,9 +18,9 @@ before_script:
   - bundle -v
   - bundle install --without system_tests --path vendor/bundle --jobs $(nproc)
 
-syntax lint metadata_lint check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop-Ruby 2.7-Puppet ~> 6:
+syntax lint metadata_lint check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop-Ruby 2.5-Puppet ~> 6:
   stage: syntax
-  image: registry.code.immerda.ch/immerda/container-images/ruby/devel:2.7
+  image: registry.code.immerda.ch/immerda/container-images/ruby/devel:2.5
   script:
     - bundle exec rake syntax lint metadata_lint check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop
   variables:
@@ -28,9 +28,9 @@ syntax lint metadata_lint check:symlinks check:git_ignore check:dot_underscore c
   tags:
     - container
 
-parallel_spec-Ruby 2.7-Puppet ~> 6:
+parallel_spec-Ruby 2.5-Puppet ~> 6:
   stage: unit
-  image: registry.code.immerda.ch/immerda/container-images/ruby/devel:2.7
+  image: registry.code.immerda.ch/immerda/container-images/ruby/devel:2.5
   script:
     - bundle exec rake parallel_spec
   variables:
