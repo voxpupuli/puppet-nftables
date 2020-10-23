@@ -77,6 +77,24 @@ class nftables::inet_filter inherits nftables {
       content => 'log prefix "[nftables] FORWARD Rejected: " flags all counter reject with icmpx type port-unreachable';
   }
 
+  # basic outgoing rules
+  if $nftables::out_all {
+    include nftables::rules::out::all
+  } else {
+    if $nftables::out_ntp {
+      include nftables::rules::out::chrony
+    }
+    if $nftables::out_dns {
+      include nftables::rules::out::dns
+    }
+    if $nftables::out_http {
+      include nftables::rules::out::http
+    }
+    if $nftables::out_https {
+      include nftables::rules::out::https
+    }
+  }
+
   # basic ingoing rules
   if $nftables::in_ssh {
     include nftables::rules::ssh
