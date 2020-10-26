@@ -71,5 +71,10 @@ class nftables (
   include nftables::ip_nat
 
   # inject custom rules e.g. from hiera
-  create_resources(nftables::rule, $rules)
+  $rules.each |$n,$v| {
+    nftables::rule{
+      $n:
+        * => $v
+    }
+  }
 }
