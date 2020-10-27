@@ -3,7 +3,7 @@ class nftables::bridges(
   Enum['present','absent']
     $ensure = 'present',
   Regexp
-    $bridgenames = /br+/
+    $bridgenames = /^br.+/
 ) {
   if $ensure == 'present' {
     $interfaces = keys($facts['networking']['interfaces'])
