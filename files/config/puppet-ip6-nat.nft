@@ -1,0 +1,3 @@
+table ip6 nat {
+  include "/etc/nftables/puppet/ip6-nat-chain-*.nft"
+}
