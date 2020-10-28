@@ -1,0 +1,14 @@
+table inet filter {
+  include "/etc/nftables/puppet/inet-filter-chain-*.nft"
+
+  # something we want for all
+  chain global {
+    ct state established,related accept
+    ct state invalid drop
+
+    ip protocol icmp icmp type { destination-unreachable, time-exceeded, parameter-problem } accept
+    ip6 nexthdr ipv6-icmp icmpv6 type { destination-unreachable, packet-too-big, time-exceeded, parameter-problem, mld-listener-query, mld-listener-report, mld-listener-done, nd-router-advert, nd-neighbor-solicit, nd-neighbor-advert, ind-neighbor-solicit, ind-neighbor-advert, mld2-listener-report } accept
+    ip protocol icmp icmp type echo-request limit rate 4/second accept
+    ip6 nexthdr ipv6-icmp icmpv6 type echo-request limit rate 4/second accept
+  }
+}

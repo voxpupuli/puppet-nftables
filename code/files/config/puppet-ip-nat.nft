@@ -1,0 +1,3 @@
+table ip nat {
+  include "/etc/nftables/puppet/ip-nat-chain-*.nft"
+}
