@@ -1,0 +1,56 @@
+require 'puppetlabs_spec_helper/rake_tasks'
+
+begin
+  require 'puppet_blacksmith/rake_tasks'
+  require 'puppet-strings/tasks'
+rescue LoadError
+end
+
+RuboCop::RakeTask.new(:rubocop) do |task|
+  # These make the rubocop experience maybe slightly less terrible
+  task.options = ['-D', '-S', '-E']
+end
+
+PuppetLint.configuration.log_format = '%{path}:%{line}:%{check}:%{KIND}:%{message}'
+PuppetLint.configuration.fail_on_warnings = true
+PuppetLint.configuration.send('relative')
+PuppetLint.configuration.send('disable_140chars')
+PuppetLint.configuration.send('disable_class_inherits_from_params_class')
+PuppetLint.configuration.send('disable_documentation')
+PuppetLint.configuration.send('disable_single_quote_string_with_variables')
+PuppetLint.configuration.send('disable_strict_indent')
+PuppetLint.configuration.send('disable_manifest_whitespace_arrows_single_space_after')
+PuppetLint.configuration.send('disable_manifest_whitespace_class_name_single_space_after')
+PuppetLint.configuration.send('disable_manifest_whitespace_closing_brace_before')
+PuppetLint.configuration.send('disable_manifest_whitespace_closing_bracket_after')
+PuppetLint.configuration.send('disable_manifest_whitespace_closing_bracket_before')
+PuppetLint.configuration.send('disable_manifest_whitespace_double_newline_end_of_file')
+PuppetLint.configuration.send('disable_manifest_whitespace_newline_beginning_of_file')
+PuppetLint.configuration.send('disable_manifest_whitespace_opening_brace_after')
+PuppetLint.configuration.send('disable_manifest_whitespace_opening_brace_before')
+PuppetLint.configuration.send('disable_manifest_whitespace_opening_bracket_after')
+PuppetLint.configuration.send('disable_manifest_whitespace_opening_bracket_before')
+PuppetLint.configuration.send('disable_manifest_whitespace_two_empty_lines')
+PuppetLint.configuration.send('disable_trailing_comma')
+
+exclude_paths = %w(
+  pkg/**/*
+  vendor/**/*
+  .vendor/**/*
+  spec/**/*
+)
+PuppetLint.configuration.ignore_paths = exclude_paths
+PuppetSyntax.exclude_paths = exclude_paths
+
+desc 'Run acceptance tests'
+RSpec::Core::RakeTask.new(:acceptance) do |t|
+  t.pattern = 'spec/acceptance'
+end
+
+desc 'Run tests lint, validate, parallel_spec'
+task test: [
+  :lint,
+  :validate,
+  :parallel_spec,
+]
+# vim: syntax=ruby

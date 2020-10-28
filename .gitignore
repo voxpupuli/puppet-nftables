@@ -1,0 +1,24 @@
+# maintained by modulesync
+code/pkg/
+code/rspec.xml
+code/Gemfile.lock
+code/vendor/
+code/spec/fixtures/manifests/
+code/spec/fixtures/modules/
+code/.vagrant/
+code/.yardoc/
+code/.bundle/
+code/coverage/
+code/log/
+code/.idea/
+code/*.iml
+code/.*.sw
+ci/Gemfile.lock
+ci/vendor
+.__afs*
+*.sw?
+.project
+.pydevproject
+.pyproject
+.settings
+.metadata

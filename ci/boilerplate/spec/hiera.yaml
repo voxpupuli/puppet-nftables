@@ -1,0 +1,15 @@
+---
+
+# Copy this file to spec/hiera.yaml
+# if you need to access hiera from spec tests
+
+:backends:
+  - yaml
+
+:yaml:
+  :datadir: '.'
+
+:hierarchy:
+  - ../data/nftables
+  - spec/fixtures/modules/lemonfwd/data/lemonfwd
+  - spec/custom

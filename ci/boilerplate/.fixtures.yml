@@ -1,0 +1,24 @@
+---
+# Copy this file to code/.fixtures.yml and adjust
+# for your needs
+#
+# Format:
+# https://github.com/puppetlabs/puppetlabs_spec_helper#using-fixtures
+#
+# The list of repositories details dependencies for your module
+# to install. You may well have to add extra puppet modules
+# here as shown in the logrotate example. The default branch
+# within AI is the QA branch.
+# The symlink entry to this module should almost certainly be
+# left untouched.
+
+fixtures:
+  repositories:
+    "stdlib": "https://github.com/puppetlabs/puppetlabs-stdlib"
+    "concat": "https://github.com/puppetlabs/puppetlabs-concat"
+    #"logrotate":
+      #repo:   "ssh://git@gitlab.cern.ch:7999/ai/it-puppet-module-logrotate.git"
+      #subdir: "code"
+      #branch: "mybranch"
+  symlinks:
+    "nftables": "#{source_dir}"
