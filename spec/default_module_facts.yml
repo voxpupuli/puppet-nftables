@@ -1,0 +1,89 @@
+---
+networking:
+  dhcp: 192.0.2.1
+  domain: example.com
+  fqdn: centos8.example.com
+  hostname: centos8
+  interfaces:
+    ens3:
+      bindings:
+      - address: 192.0.2.2
+        netmask: 255.255.255.0
+        network: 192.0.2.0
+      bindings6:
+      - address: 2001:db8::2
+        netmask: 'ffff:ffff:ffff:ffff::'
+        network: '2001:db8::'
+      dhcp: 192.0.2.1
+      ip: 192.0.2.2
+      ip6: 2001:db8::1
+      mac: 00:00:00:00:00:00
+      mtu: 1500
+      netmask: 255.255.255.0
+      netmask6: 'ffff:ffff:ffff:ffff::'
+      network: 192.0.2.0
+      network6: '2001:db8::'
+      scope6: global
+    br0:
+      bindings:
+      - address: 198.51.100.1
+        netmask: 255.255.255.224
+        network: 198.51.100.0
+      bindings6:
+      - address: 2001:db8:1::1
+        netmask: 'ffff:ffff:ffff:ffff:ffff::'
+        network: '2001:db8:1::'
+      ip: 198.51.100.1
+      ip6: 2001:db8:1::1
+      mac: AA:AA:AA:AA:AA:AA
+      mtu: 1500
+      netmask: 255.255.255.224
+      netmask6: 'ffff:ffff:ffff:ffff:ffff::'
+      network: 198.51.100.0
+      network6: '2001:db8:1::'
+      scope6: global
+    br1:
+      bindings:
+      - address: 198.51.100.33
+        netmask: 255.255.255.224
+        network: 198.51.100.32
+      bindings6:
+      - address: 2001:db8:2::1
+        netmask: 'ffff:ffff:ffff:ffff:ffff::'
+        network: '2001:db8:2::'
+      ip: 198.51.100.33
+      ip6: 2001:db8:2::1
+      mac: BB:BB:BB:BB:BB:BB
+      mtu: 1500
+      netmask: 255.255.255.224
+      netmask6: 'ffff:ffff:ffff:ffff:ffff::'
+      network: 198.51.100.32
+      network6: '2001:db8:2::'
+      scope6: global
+    lo:
+      bindings:
+      - address: 127.0.0.1
+        netmask: 255.0.0.0
+        network: 127.0.0.0
+      bindings6:
+      - address: "::1"
+        netmask: ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+        network: "::1"
+      ip: 127.0.0.1
+      ip6: "::1"
+      mtu: 65536
+      netmask: 255.0.0.0
+      netmask6: ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+      network: 127.0.0.0
+      network6: "::1"
+      scope6: host
+  ip: 192.0.2.2
+  ip6: 2001:db8::2
+  mac: 00:00:00:00:00:00
+  mtu: 1500
+  netmask: 255.255.255.0
+  netmask6: 'ffff:ffff:ffff:ffff::'
+  network: 192.0.2.0
+  network6: '2001:db8::'
+  primary: ens3
+  scope6: global
