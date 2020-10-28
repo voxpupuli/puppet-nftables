@@ -1,0 +1,6 @@
+---
+ci/Rakefile:
+  extra_disabled_lint_checks:
+    - 'trailing_trailing_comma'
+
+

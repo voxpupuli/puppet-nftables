@@ -31,6 +31,7 @@ PuppetLint.configuration.send('disable_manifest_whitespace_opening_brace_before'
 PuppetLint.configuration.send('disable_manifest_whitespace_opening_bracket_after')
 PuppetLint.configuration.send('disable_manifest_whitespace_opening_bracket_before')
 PuppetLint.configuration.send('disable_manifest_whitespace_two_empty_lines')
+PuppetLint.configuration.send('disable_trailing_comma')
 
 exclude_paths = %w(
   pkg/**/*
