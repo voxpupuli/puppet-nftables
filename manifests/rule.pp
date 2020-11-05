@@ -19,18 +19,24 @@ define nftables::rule(
   if $ensure == 'present' {
     $data = split($rulename, '-')
 
+    if $data[2] {
+      $fragment = "nftables-${table}-chain-${data[0]}-rule-${data[1]}-${data[2]}"
+    } else {
+      $fragment = "nftables-${table}-chain-${data[0]}-rule-${data[1]}"
+    }
+
     concat::fragment{
-      "nftables-${table}-chain-${data[0]}-rule-${data[1]}":
+      $fragment:
         order  => $order,
         target => "nftables-${table}-chain-${data[0]}",
     }
 
     if $content {
-      Concat::Fragment["nftables-${table}-chain-${data[0]}-rule-${data[1]}"]{
+      Concat::Fragment[$fragment]{
         content => "  ${content}",
       }
     } else {
-      Concat::Fragment["nftables-${table}-chain-${data[0]}-rule-${data[1]}"]{
+      Concat::Fragment[$fragment]{
         source => $source,
       }
     }
