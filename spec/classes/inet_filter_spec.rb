@@ -10,11 +10,35 @@ describe 'nftables' do
       it { is_expected.to compile }
 
       it {
-        is_expected.to contain_file('/etc/nftables/puppet/inet-filter.nft').with(
-          ensure: 'file',
+        is_expected.to contain_concat('nftables-inet-filter').with(
+          path:   '/etc/nftables/puppet/inet-filter.nft',
+          ensure: 'present',
           owner:  'root',
           group:  'root',
           mode:   '0640',
+        )
+      }
+
+      it {
+        is_expected.to contain_concat__fragment('nftables-inet-filter-header').with(
+          target:  'nftables-inet-filter',
+          content: %r{^table inet filter \{$},
+          order:   '00',
+        )
+      }
+
+      it {
+        is_expected.to contain_concat__fragment('nftables-inet-filter-body').with(
+          target:  'nftables-inet-filter',
+          order:   '98',
+        )
+      }
+
+      it {
+        is_expected.to contain_concat__fragment('nftables-inet-filter-footer').with(
+          target:  'nftables-inet-filter',
+          content: %r{^\}$},
+          order:   '99',
         )
       }
 

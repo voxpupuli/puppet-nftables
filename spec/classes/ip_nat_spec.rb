@@ -10,8 +10,9 @@ describe 'nftables' do
       it { is_expected.to compile }
 
       it {
-        is_expected.to contain_file('/etc/nftables/puppet/ip-nat.nft').with(
-          ensure: 'file',
+        is_expected.to contain_concat('nftables-ip-nat').with(
+          path:   '/etc/nftables/puppet/ip-nat.nft',
+          ensure: 'present',
           owner:  'root',
           group:  'root',
           mode:   '0640',
@@ -19,11 +20,58 @@ describe 'nftables' do
       }
 
       it {
-        is_expected.to contain_file('/etc/nftables/puppet/ip6-nat.nft').with(
-          ensure: 'file',
+        is_expected.to contain_concat__fragment('nftables-ip-nat-header').with(
+          target:  'nftables-ip-nat',
+          content: %r{^table ip nat \{$},
+          order:   '00',
+        )
+      }
+
+      it {
+        is_expected.to contain_concat__fragment('nftables-ip-nat-body').with(
+          target:  'nftables-ip-nat',
+          order:   '98',
+        )
+      }
+
+      it {
+        is_expected.to contain_concat__fragment('nftables-ip-nat-footer').with(
+          target:  'nftables-ip-nat',
+          content: %r{^\}$},
+          order:   '99',
+        )
+      }
+
+      it {
+        is_expected.to contain_concat('nftables-ip6-nat').with(
+          path:   '/etc/nftables/puppet/ip6-nat.nft',
+          ensure: 'present',
           owner:  'root',
           group:  'root',
           mode:   '0640',
+        )
+      }
+
+      it {
+        is_expected.to contain_concat__fragment('nftables-ip6-nat-header').with(
+          target:  'nftables-ip6-nat',
+          content: %r{^table ip6 nat \{$},
+          order:   '00',
+        )
+      }
+
+      it {
+        is_expected.to contain_concat__fragment('nftables-ip6-nat-body').with(
+          target:  'nftables-ip6-nat',
+          order:   '98',
+        )
+      }
+
+      it {
+        is_expected.to contain_concat__fragment('nftables-ip6-nat-footer').with(
+          target:  'nftables-ip6-nat',
+          content: %r{^\}$},
+          order:   '99',
         )
       }
 
