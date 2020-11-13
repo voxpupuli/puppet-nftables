@@ -1,4 +1,3 @@
-table inet filter {
   include "/etc/nftables/puppet/inet-filter-chain-*.nft"
 
   # something we want for all
@@ -11,4 +10,3 @@ table inet filter {
     ip protocol icmp icmp type echo-request limit rate 4/second accept
     ip6 nexthdr ipv6-icmp icmpv6 type echo-request limit rate 4/second accept
   }
-}
