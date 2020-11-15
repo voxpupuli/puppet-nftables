@@ -39,7 +39,7 @@ class nftables::inet_filter inherits nftables {
       content => 'jump global';
     'INPUT-log_rejected':
       order   => '98',
-      content => 'log prefix "[nftables] INPUT Rejected: " flags all counter reject with icmpx type port-unreachable';
+      content => "log prefix \"${sprintf($nftables::log_prefix, { 'chain' => 'INPUT' })}\" flags all counter reject with icmpx type port-unreachable";
   }
 
   # inet-filter-chain-OUTPUT
@@ -58,7 +58,7 @@ class nftables::inet_filter inherits nftables {
       content => 'jump global';
     'OUTPUT-log_rejected':
       order   => '98',
-      content => 'log prefix "[nftables] OUTPUT Rejected: " flags all counter reject with icmpx type port-unreachable';
+      content => "log prefix \"${sprintf($nftables::log_prefix, { 'chain' => 'OUTPUT' })}\" flags all counter reject with icmpx type port-unreachable";
   }
 
   # inet-filter-chain-FORWARD
@@ -74,7 +74,7 @@ class nftables::inet_filter inherits nftables {
       content => 'jump global';
     'FORWARD-log_rejected':
       order   => '98',
-      content => 'log prefix "[nftables] FORWARD Rejected: " flags all counter reject with icmpx type port-unreachable';
+      content => "log prefix \"${sprintf($nftables::log_prefix, { 'chain' => 'FORWARD' })}\" flags all counter reject with icmpx type port-unreachable";
   }
 
   # basic outgoing rules
