@@ -1,13 +1,13 @@
 # manage a named set
 define nftables::set(
-  Enum['ipv4_addr', 'ipv6_addr', 'ether_addr', 'inet_proto', 'inet_service', 'mark']
-    $type,
   Enum['present','absent']
     $ensure = 'present',
   Pattern[/^[a-zA-Z0-9_]+$/]
     $setname = $title,
   Pattern[/^\d\d$/]
     $order = '10',
+  Optional[Enum['ipv4_addr', 'ipv6_addr', 'ether_addr', 'inet_proto', 'inet_service', 'mark']]
+    $type = undef,
   String
     $table = 'inet-filter',
   Array[Enum['constant', 'dynamic', 'interval', 'timeout'], 0, 4]
@@ -52,6 +52,9 @@ define nftables::set(
         source => $source,
       }
     } else {
+      if $type == undef {
+        fail('The way the resource is configured must have a type set')
+      }
       Concat::Fragment["nftables-${table}-set-${setname}"]{
         content => epp('nftables/set.epp',
           {

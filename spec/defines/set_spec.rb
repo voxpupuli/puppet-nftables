@@ -115,6 +115,27 @@ describe 'nftables::set' do
           )
         }
       end
+
+      describe 'using raw content' do
+        let(:params) do
+          {
+            content: 'set my_set { }',
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-set-my_set').with(
+            target:  'nftables-inet-filter',
+            content: '  set my_set { }',
+            order:   '10',
+          )
+        }
+      end
+
+      describe 'fails without a type and not source/content' do
+        it { is_expected.not_to compile }
+      end
     end
   end
 end
