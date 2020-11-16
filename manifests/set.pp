@@ -2,7 +2,7 @@
 define nftables::set(
   Enum['present','absent']
     $ensure = 'present',
-  Pattern[/^[a-zA-Z0-9_]+$/]
+  Pattern[/^[-a-zA-Z0-9_]+$/]
     $setname = $title,
   Pattern[/^\d\d$/]
     $order = '10',
