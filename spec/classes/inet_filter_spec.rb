@@ -95,9 +95,16 @@ describe 'nftables' do
           )
         }
         it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_rejected').with(
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-INPUT',
-            content: %r{^  log prefix \"\[nftables\] INPUT Rejected: \" flags all counter reject with icmpx type port-unreachable$},
+            content: %r{^  log prefix \"\[nftables\] INPUT Rejected: \" flags all counter$},
+            order:   '97',
+          )
+        }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-reject').with(
+            target:  'nftables-inet-filter-chain-INPUT',
+            content: %r{^  reject with icmpx type port-unreachable$},
             order:   '98',
           )
         }
@@ -194,9 +201,16 @@ describe 'nftables' do
           )
         }
         it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_rejected').with(
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
-            content: %r{^  log prefix \"\[nftables\] OUTPUT Rejected: \" flags all counter reject with icmpx type port-unreachable$},
+            content: %r{^  log prefix \"\[nftables\] OUTPUT Rejected: \" flags all counter$},
+            order:   '97',
+          )
+        }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-reject').with(
+            target:  'nftables-inet-filter-chain-OUTPUT',
+            content: %r{^  reject with icmpx type port-unreachable$},
             order:   '98',
           )
         }
@@ -314,9 +328,16 @@ describe 'nftables' do
           )
         }
         it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_rejected').with(
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-FORWARD',
-            content: %r{^  log prefix \"\[nftables\] FORWARD Rejected: \" flags all counter reject with icmpx type port-unreachable$},
+            content: %r{^  log prefix \"\[nftables\] FORWARD Rejected: \" flags all counter$},
+            order:   '97',
+          )
+        }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-reject').with(
+            target:  'nftables-inet-filter-chain-FORWARD',
+            content: %r{^  reject with icmpx type port-unreachable$},
             order:   '98',
           )
         }
@@ -357,24 +378,24 @@ describe 'nftables' do
         let(:pre_condition) { 'class{\'nftables\': log_prefix => "test "}' }
 
         it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_rejected').with(
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-INPUT',
-            content: %r{^  log prefix \"test " flags all counter reject with icmpx type port-unreachable$},
-            order:   '98',
+            content: %r{^  log prefix \"test " flags all counter$},
+            order:   '97',
           )
         }
         it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_rejected').with(
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
-            content: %r{^  log prefix \"test " flags all counter reject with icmpx type port-unreachable$},
-            order:   '98',
+            content: %r{^  log prefix \"test " flags all counter$},
+            order:   '97',
           )
         }
         it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_rejected').with(
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-FORWARD',
-            content: %r{^  log prefix \"test " flags all counter reject with icmpx type port-unreachable$},
-            order:   '98',
+            content: %r{^  log prefix \"test " flags all counter$},
+            order:   '97',
           )
         }
       end
@@ -383,26 +404,93 @@ describe 'nftables' do
         let(:pre_condition) { 'class{\'nftables\': log_prefix => " bar [%<chain>s] "}' } # rubocop:disable Style/FormatStringToken
 
         it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_rejected').with(
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-INPUT',
-            content: %r{^  log prefix \" bar \[INPUT\] " flags all counter reject with icmpx type port-unreachable$},
-            order:   '98',
+            content: %r{^  log prefix \" bar \[INPUT\] " flags all counter$},
+            order:   '97',
           )
         }
         it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_rejected').with(
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
-            content: %r{^  log prefix \" bar \[OUTPUT\] " flags all counter reject with icmpx type port-unreachable$},
+            content: %r{^  log prefix \" bar \[OUTPUT\] " flags all counter$},
+            order:   '97',
+          )
+        }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_discarded').with(
+            target:  'nftables-inet-filter-chain-FORWARD',
+            content: %r{^  log prefix \" bar \[FORWARD\] " flags all counter$},
+            order:   '97',
+          )
+        }
+      end
+
+      context 'no reject rule, use chain policy without explicit reject' do
+        let(:params) do
+          {
+            'reject_with' => false,
+          }
+        end
+
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_discarded')
+        }
+        it {
+          is_expected.not_to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-reject')
+        }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_discarded')
+        }
+        it {
+          is_expected.not_to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-reject')
+        }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_discarded')
+        }
+        it {
+          is_expected.not_to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-reject')
+        }
+      end
+
+      context 'custom reject configuration is allowed' do
+        let(:params) do
+          {
+            'reject_with' => 'tcp reset',
+          }
+        end
+
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-reject').with(
+            target:  'nftables-inet-filter-chain-INPUT',
+            content: %r{^  reject with tcp reset$},
             order:   '98',
           )
         }
         it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_rejected').with(
-            target:  'nftables-inet-filter-chain-FORWARD',
-            content: %r{^  log prefix \" bar \[FORWARD\] " flags all counter reject with icmpx type port-unreachable$},
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-reject').with(
+            target:  'nftables-inet-filter-chain-OUTPUT',
+            content: %r{^  reject with tcp reset$},
             order:   '98',
           )
         }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-reject').with(
+            target:  'nftables-inet-filter-chain-FORWARD',
+            content: %r{^  reject with tcp reset$},
+            order:   '98',
+          )
+        }
+      end
+
+      context 'fails with unvalid reject with' do
+        let(:params) do
+          {
+            'reject_with' => true,
+          }
+        end
+
+        it { is_expected.not_to compile }
       end
     end
   end
