@@ -71,3 +71,9 @@ The rule will be a `concat::fragment` to the chain
 `CHAIN_NAME`.
 
 You can define the order by using the `order` param.
+
+## nftsables::set
+
+Adds a named set to a given table. It allows composing the
+set using individual parameters but also takes raw input
+via the content and source parameters.

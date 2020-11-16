@@ -1,0 +1,120 @@
+require 'spec_helper'
+
+describe 'nftables::set' do
+  let(:pre_condition) { 'include nftables' }
+
+  let(:title) { 'my_set' }
+
+  on_supported_os.each do |os, os_facts|
+    context "on #{os}" do
+      let(:facts) { os_facts }
+
+      describe 'minimum instantiation' do
+        let(:params) do
+          {
+            type: 'ipv4_addr',
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-set-my_set').with(
+            target:  'nftables-inet-filter',
+            content: %r{^  set my_set \{\n    type ipv4_addr\n  \}$}m,
+            order:   '10',
+          )
+        }
+      end
+
+      describe 'max size exceeding the prepopulated elements' do
+        let(:params) do
+          {
+            type: 'ipv6_addr',
+            elements: ['2001:1458::/32', '2001:1458:1::/48'],
+            size: 1,
+          }
+        end
+
+        it { is_expected.not_to compile }
+      end
+
+      describe 'invalid type' do
+        let(:params) do
+          {
+            type: 'foo',
+          }
+        end
+
+        it { is_expected.not_to compile }
+      end
+
+      describe 'invalid flags' do
+        let(:params) do
+          {
+            type: 'ipv4_addr',
+            flags: ['foo'],
+          }
+        end
+
+        it { is_expected.not_to compile }
+      end
+
+      describe 'ipv6 prepopulated' do
+        let(:params) do
+          {
+            type: 'ipv6_addr',
+            elements: ['2001:1458::/32', '2001:1458:1::/48'],
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-set-my_set').with(
+            target:  'nftables-inet-filter',
+            content: %r{^  set my_set \{\n    type ipv6_addr\n    elements = \{ 2001:1458::/32, 2001:1458:1::/48 \}\n  \}$}m,
+            order:   '10',
+          )
+        }
+      end
+
+      describe 'using flags and auto-merge' do
+        let(:params) do
+          {
+            type: 'ipv4_addr',
+            flags: ['interval', 'timeout'],
+            elements: ['192.168.0.1/24'],
+            auto_merge: true,
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-set-my_set').with(
+            target:  'nftables-inet-filter',
+            content: %r{^  set my_set \{\n    type ipv4_addr\n    flags interval, timeout\n    elements = \{ 192.168.0.1/24 \}\n    auto-merge\n  \}$}m,
+            order:   '10',
+          )
+        }
+      end
+
+      describe 'using ether_addr as type and custom policy' do
+        let(:params) do
+          {
+            type: 'ether_addr',
+            elements: ['aa:bb:cc:dd:ee:ff'],
+            policy: 'memory',
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-set-my_set').with(
+            target:  'nftables-inet-filter',
+            content: %r{^  set my_set \{\n    type ether_addr\n    elements = \{ aa:bb:cc:dd:ee:ff \}\n    policy memory\n  \}$}m,
+            order:   '10',
+          )
+        }
+      end
+    end
+  end
+end
