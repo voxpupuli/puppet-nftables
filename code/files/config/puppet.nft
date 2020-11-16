@@ -4,3 +4,4 @@ flush ruleset
 include "/etc/nftables/puppet/custom-*.nft"
 include "/etc/nftables/puppet/inet-filter.nft"
 include "/etc/nftables/puppet/ip-nat.nft"
+include "/etc/nftables/puppet/ip6-nat.nft"

@@ -1,0 +1,76 @@
+require 'spec_helper'
+
+describe 'nftables' do
+  let(:pre_condition) { 'Exec{path => "/bin"}' }
+
+  on_supported_os.each do |os, os_facts|
+    context "on #{os}" do
+      let(:facts) { os_facts }
+
+      context 'with standard dns' do
+        let(:pre_condition) do
+          '
+          include nftables::rules::out::dns
+          '
+        end
+
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnsudp').with(
+            target:  'nftables-inet-filter-chain-default_out',
+            content: %r{^  udp dport 53 accept$},
+            order:   '50',
+          )
+        }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnstcp').with(
+            target:  'nftables-inet-filter-chain-default_out',
+            content: %r{^  tcp dport 53 accept$},
+            order:   '50',
+          )
+        }
+      end
+
+      context 'with custom dns servers' do
+        let(:pre_condition) do
+          "
+          class{'nftables::rules::out::dns':
+            dns_server => ['192.0.2.1', '2001:db8::1'],
+          }
+          "
+        end
+
+        it { is_expected.to compile }
+
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnsudp-0').with(
+            target:  'nftables-inet-filter-chain-default_out',
+            content: %r{^  ip daddr 192.0.2.1 udp dport 53 accept$},
+            order:   '50',
+          )
+        }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnstcp-0').with(
+            target:  'nftables-inet-filter-chain-default_out',
+            content: %r{^  ip daddr 192.0.2.1 tcp dport 53 accept$},
+            order:   '50',
+          )
+        }
+
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnsudp-1').with(
+            target:  'nftables-inet-filter-chain-default_out',
+            content: %r{^  ip6 daddr 2001:db8::1 udp dport 53 accept$},
+            order:   '50',
+          )
+        }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnstcp-1').with(
+            target:  'nftables-inet-filter-chain-default_out',
+            content: %r{^  ip6 daddr 2001:db8::1 tcp dport 53 accept$},
+            order:   '50',
+          )
+        }
+      end
+    end
+  end
+end

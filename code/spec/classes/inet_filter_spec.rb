@@ -10,11 +10,35 @@ describe 'nftables' do
       it { is_expected.to compile }
 
       it {
-        is_expected.to contain_file('/etc/nftables/puppet/inet-filter.nft').with(
-          ensure: 'file',
+        is_expected.to contain_concat('nftables-inet-filter').with(
+          path:   '/etc/nftables/puppet/inet-filter.nft',
+          ensure: 'present',
           owner:  'root',
           group:  'root',
           mode:   '0640',
+        )
+      }
+
+      it {
+        is_expected.to contain_concat__fragment('nftables-inet-filter-header').with(
+          target:  'nftables-inet-filter',
+          content: %r{^table inet filter \{$},
+          order:   '00',
+        )
+      }
+
+      it {
+        is_expected.to contain_concat__fragment('nftables-inet-filter-body').with(
+          target:  'nftables-inet-filter',
+          order:   '98',
+        )
+      }
+
+      it {
+        is_expected.to contain_concat__fragment('nftables-inet-filter-footer').with(
+          target:  'nftables-inet-filter',
+          content: %r{^\}$},
+          order:   '99',
         )
       }
 
@@ -325,6 +349,58 @@ describe 'nftables' do
             target:  'nftables-inet-filter-chain-default_fwd',
             content: %r{^\}$},
             order:   '99',
+          )
+        }
+      end
+
+      context 'custom log prefix without variable substitution' do
+        let(:pre_condition) { 'class{\'nftables\': log_prefix => "test "}' }
+
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_rejected').with(
+            target:  'nftables-inet-filter-chain-INPUT',
+            content: %r{^  log prefix \"test " flags all counter reject with icmpx type port-unreachable$},
+            order:   '98',
+          )
+        }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_rejected').with(
+            target:  'nftables-inet-filter-chain-OUTPUT',
+            content: %r{^  log prefix \"test " flags all counter reject with icmpx type port-unreachable$},
+            order:   '98',
+          )
+        }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_rejected').with(
+            target:  'nftables-inet-filter-chain-FORWARD',
+            content: %r{^  log prefix \"test " flags all counter reject with icmpx type port-unreachable$},
+            order:   '98',
+          )
+        }
+      end
+
+      context 'custom log prefix with variable substitution' do
+        let(:pre_condition) { 'class{\'nftables\': log_prefix => " bar [%<chain>s] "}' } # rubocop:disable Style/FormatStringToken
+
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_rejected').with(
+            target:  'nftables-inet-filter-chain-INPUT',
+            content: %r{^  log prefix \" bar \[INPUT\] " flags all counter reject with icmpx type port-unreachable$},
+            order:   '98',
+          )
+        }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_rejected').with(
+            target:  'nftables-inet-filter-chain-OUTPUT',
+            content: %r{^  log prefix \" bar \[OUTPUT\] " flags all counter reject with icmpx type port-unreachable$},
+            order:   '98',
+          )
+        }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_rejected').with(
+            target:  'nftables-inet-filter-chain-FORWARD',
+            content: %r{^  log prefix \" bar \[FORWARD\] " flags all counter reject with icmpx type port-unreachable$},
+            order:   '98',
           )
         }
       end

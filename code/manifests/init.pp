@@ -34,6 +34,7 @@ class nftables (
   Boolean $out_https = true,
   Boolean $out_all   = false,
   Hash $rules        = {},
+  String $log_prefix = '[nftables] %<chain>s Rejected: ',
 ) {
 
   package{'nftables':
