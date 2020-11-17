@@ -37,9 +37,16 @@ class nftables::inet_filter inherits nftables {
     'INPUT-jump_global':
       order   => '04',
       content => 'jump global';
-    'INPUT-log_rejected':
-      order   => '98',
-      content => "log prefix \"${sprintf($nftables::log_prefix, { 'chain' => 'INPUT' })}\" flags all counter reject with icmpx type port-unreachable";
+    'INPUT-log_discarded':
+      order   => '97',
+      content => "log prefix \"${sprintf($nftables::log_prefix, { 'chain' => 'INPUT' })}\" flags all counter";
+  }
+  if $nftables::reject_with {
+    nftables::rule{
+      'INPUT-reject':
+        order   => '98',
+        content => "reject with ${$nftables::reject_with}";
+    }
   }
 
   # inet-filter-chain-OUTPUT
@@ -56,9 +63,16 @@ class nftables::inet_filter inherits nftables {
     'OUTPUT-jump_global':
       order   => '04',
       content => 'jump global';
-    'OUTPUT-log_rejected':
-      order   => '98',
-      content => "log prefix \"${sprintf($nftables::log_prefix, { 'chain' => 'OUTPUT' })}\" flags all counter reject with icmpx type port-unreachable";
+    'OUTPUT-log_discarded':
+      order   => '97',
+      content => "log prefix \"${sprintf($nftables::log_prefix, { 'chain' => 'OUTPUT' })}\" flags all counter";
+  }
+  if $nftables::reject_with {
+    nftables::rule{
+      'OUTPUT-reject':
+        order   => '98',
+        content => "reject with ${$nftables::reject_with}";
+    }
   }
 
   # inet-filter-chain-FORWARD
@@ -72,9 +86,16 @@ class nftables::inet_filter inherits nftables {
     'FORWARD-jump_global':
       order   => '03',
       content => 'jump global';
-    'FORWARD-log_rejected':
-      order   => '98',
-      content => "log prefix \"${sprintf($nftables::log_prefix, { 'chain' => 'FORWARD' })}\" flags all counter reject with icmpx type port-unreachable";
+    'FORWARD-log_discarded':
+      order   => '97',
+      content => "log prefix \"${sprintf($nftables::log_prefix, { 'chain' => 'FORWARD' })}\" flags all counter";
+  }
+  if $nftables::reject_with {
+    nftables::rule{
+      'FORWARD-reject':
+        order   => '98',
+        content => "reject with ${$nftables::reject_with}";
+    }
   }
 
   # basic outgoing rules
