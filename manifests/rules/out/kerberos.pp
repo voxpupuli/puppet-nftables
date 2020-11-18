@@ -3,9 +3,9 @@ class nftables::rules::out::kerberos {
 
   nftables::rule{
     'default_out-kerberos_udp':
-       content =>  'udp dport 88 accept';
+      content =>  'udp dport 88 accept';
     'default_out-kerberos_tcp':
-       content =>  'tcp dport 88 accept';
+      content =>  'tcp dport 88 accept';
   }
 
 }
