@@ -84,6 +84,24 @@ class nftables (
       owner => 'root',
       group => 'root',
       mode  => '0640';
+    '/etc/nftables/puppet-preflight':
+      ensure  => directory,
+      mode    => '0750',
+      purge   => true,
+      force   => true,
+      recurse => true;
+    '/etc/nftables/puppet-preflight.nft':
+      ensure => file,
+      source => 'puppet:///modules/nftables/config/puppet.nft';
+  } ~> exec{
+    'nft validate':
+      refreshonly => true,
+      command     => '/usr/sbin/nft -I /etc/nftables/puppet-preflight -c -f /etc/nftables/puppet-preflight.nft || ( /usr/bin/echo "#CONFIG BROKEN" >> /etc/nftables/puppet-preflight.nft && /bin/false)';
+  } -> file{
+    default:
+      owner => 'root',
+      group => 'root',
+      mode  => '0640';
     '/etc/nftables/puppet.nft':
       ensure => file,
       source => 'puppet:///modules/nftables/config/puppet.nft';
@@ -94,8 +112,17 @@ class nftables (
       force   => true,
       recurse => true;
   } ~> service{'nftables':
-    ensure => running,
-    enable => true,
+    ensure     => running,
+    enable     => true,
+    hasrestart => true,
+    restart    => '/usr/bin/systemctl reload nftables',
+  }
+
+  systemd::dropin_file{'puppet_nft.conf':
+    ensure => present,
+    unit   => 'nftables.service',
+    source => 'puppet:///modules/nftables/systemd/puppet_nft.conf',
+    notify => Service['nftables'],
   }
 
   service{'firewalld':

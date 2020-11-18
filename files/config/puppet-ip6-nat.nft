@@ -1,1 +1,1 @@
-  include "/etc/nftables/puppet/ip6-nat-chain-*.nft"
+  include "ip6-nat-chain-*.nft"
