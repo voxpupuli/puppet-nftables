@@ -25,9 +25,15 @@ define nftables::rule(
       $fragment = "nftables-${table}-chain-${data[0]}-rule-${data[1]}"
     }
 
+    concat::fragment{"${fragment}_header":
+      content => "#   Start of fragment order:${order} rulename:${rulename}",
+      order   => "${order}${fragment}a",
+      target  => "nftables-${table}-chain-${data[0]}",
+    }
+
     concat::fragment{
       $fragment:
-        order  => $order,
+        order  => "${order}${fragment}b",
         target => "nftables-${table}-chain-${data[0]}",
     }
 

@@ -50,14 +50,14 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-rule-out').with(
             target:  'nftables-inet-filter-chain-default_fwd',
             content: %r{^  iifname eth1 oifname eth0 accept$},
-            order:   '20',
+            order:   '20nftables-inet-filter-chain-default_fwd-rule-outb',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-rule-drop').with(
             target:  'nftables-inet-filter-chain-default_fwd',
             content: %r{^  iifname eth0 drop$},
-            order:   '90',
+            order:   '90nftables-inet-filter-chain-default_fwd-rule-dropb',
           )
         }
         it {
@@ -88,14 +88,14 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-type').with(
             target:  'nftables-ip-nat-chain-PREROUTING',
             content: %r{^  type nat hook prerouting priority -100$},
-            order:   '01',
+            order:   '01nftables-ip-nat-chain-PREROUTING-rule-typeb',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-policy').with(
             target:  'nftables-ip-nat-chain-PREROUTING',
             content: %r{^  policy accept$},
-            order:   '02',
+            order:   '02nftables-ip-nat-chain-PREROUTING-rule-policyb',
           )
         }
         it {
@@ -126,21 +126,21 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-type').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  type nat hook postrouting priority 100$},
-            order:   '01',
+            order:   '01nftables-ip-nat-chain-POSTROUTING-rule-typeb',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-policy').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  policy accept$},
-            order:   '02',
+            order:   '02nftables-ip-nat-chain-POSTROUTING-rule-policyb',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-masquerade').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  oifname eth0 masquerade$},
-            order:   '20',
+            order:   '20nftables-ip-nat-chain-POSTROUTING-rule-masqueradeb',
           )
         }
         it {

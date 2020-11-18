@@ -85,7 +85,7 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-web_accept').with(
             target:  'nftables-inet-filter-chain-INPUT',
             content: %r{^  iifname eth0 tcp dport \{ 80, 443 \} accept$},
-            order:   '50',
+            order:   '50nftables-inet-filter-chain-INPUT-rule-web_acceptb',
           )
         }
       end

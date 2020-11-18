@@ -55,42 +55,42 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-type').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  type nat hook postrouting priority 100$},
-            order:   '01',
+            order:   '01nftables-ip-nat-chain-POSTROUTING-rule-typeb',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-policy').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  policy accept$},
-            order:   '02',
+            order:   '02nftables-ip-nat-chain-POSTROUTING-rule-policyb',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-static').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  oifname eth0 snat 198\.51\.100\.1$},
-            order:   '60',
+            order:   '60nftables-ip-nat-chain-POSTROUTING-rule-staticb',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-1_1').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  oifname eth0 ip saddr 192\.0\.2\.2 snat 198\.51\.100\.3$},
-            order:   '61',
+            order:   '61nftables-ip-nat-chain-POSTROUTING-rule-1_1b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-1_1_smtp').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  ip saddr 192\.0\.2\.2 tcp dport 25 snat 198\.51\.100\.2$},
-            order:   '70',
+            order:   '70nftables-ip-nat-chain-POSTROUTING-rule-1_1_smtpb',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-1_1_wireguard').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  ip saddr 192\.0\.2\.2 udp dport 51820 snat 198\.51\.100\.2$},
-            order:   '70',
+            order:   '70nftables-ip-nat-chain-POSTROUTING-rule-1_1_wireguardb',
           )
         }
         it {

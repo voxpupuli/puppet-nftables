@@ -96,14 +96,14 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-type').with(
             target:  'nftables-ip-nat-chain-PREROUTING',
             content: %r{^  type nat hook prerouting priority -100$},
-            order:   '01',
+            order:   '01nftables-ip-nat-chain-PREROUTING-rule-typeb',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-policy').with(
             target:  'nftables-ip-nat-chain-PREROUTING',
             content: %r{^  policy accept$},
-            order:   '02',
+            order:   '02nftables-ip-nat-chain-PREROUTING-rule-policyb',
           )
         }
         it {
@@ -136,14 +136,14 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-type').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  type nat hook postrouting priority 100$},
-            order:   '01',
+            order:   '01nftables-ip-nat-chain-POSTROUTING-rule-typeb',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-policy').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  policy accept$},
-            order:   '02',
+            order:   '02nftables-ip-nat-chain-POSTROUTING-rule-policyb',
           )
         }
         it {
@@ -176,14 +176,14 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-ip6-nat-chain-PREROUTING6-rule-type').with(
             target:  'nftables-ip6-nat-chain-PREROUTING6',
             content: %r{^  type nat hook prerouting priority -100$},
-            order:   '01',
+            order:   '01nftables-ip6-nat-chain-PREROUTING6-rule-typeb',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip6-nat-chain-PREROUTING6-rule-policy').with(
             target:  'nftables-ip6-nat-chain-PREROUTING6',
             content: %r{^  policy accept$},
-            order:   '02',
+            order:   '02nftables-ip6-nat-chain-PREROUTING6-rule-policyb',
           )
         }
         it {
@@ -216,14 +216,14 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-ip6-nat-chain-POSTROUTING6-rule-type').with(
             target:  'nftables-ip6-nat-chain-POSTROUTING6',
             content: %r{^  type nat hook postrouting priority 100$},
-            order:   '01',
+            order:   '01nftables-ip6-nat-chain-POSTROUTING6-rule-typeb',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip6-nat-chain-POSTROUTING6-rule-policy').with(
             target:  'nftables-ip6-nat-chain-POSTROUTING6',
             content: %r{^  policy accept$},
-            order:   '02',
+            order:   '02nftables-ip6-nat-chain-POSTROUTING6-rule-policyb',
           )
         }
         it {
