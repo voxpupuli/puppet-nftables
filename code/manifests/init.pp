@@ -26,15 +26,24 @@
 # @param in_ssh
 #   Allow inbound to ssh servers.
 #
+# @param reject_with
+#   How to discard packets not matching any rule. If `false`, the
+#   fate of the packet will be defined by the chain policy (normally
+#   drop), otherwise the packet will be rejected with the REJECT_WITH
+#   policy indicated by the value of this parameter.
+#
 class nftables (
-  Boolean $in_ssh    = true,
-  Boolean $out_ntp   = true,
-  Boolean $out_dns   = true,
-  Boolean $out_http  = true,
-  Boolean $out_https = true,
-  Boolean $out_all   = false,
-  Hash $rules        = {},
-  String $log_prefix = '[nftables] %<chain>s Rejected: ',
+  Boolean $in_ssh                = true,
+  Boolean $out_ntp               = true,
+  Boolean $out_dns               = true,
+  Boolean $out_http              = true,
+  Boolean $out_https             = true,
+  Boolean $out_all               = false,
+  Hash $rules                    = {},
+  String $log_prefix             = '[nftables] %<chain>s Rejected: ',
+  Variant[Boolean[false], Pattern[
+    /icmp(v6|x)? type .+|tcp reset/]]
+    $reject_with                 = 'icmpx type port-unreachable',
 ) {
 
   package{'nftables':
