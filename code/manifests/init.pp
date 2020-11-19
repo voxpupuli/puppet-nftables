@@ -26,6 +26,12 @@
 # @param in_ssh
 #   Allow inbound to ssh servers.
 #
+# @param log_prefix
+#   String that will be used as prefix when logging packets. It can contain
+#   two variables using standard sprintf() string-formatting:
+#    * chain: Will be replaced by the name of the chain.
+#    * comment: Allows chains to add extra comments.
+#
 # @param reject_with
 #   How to discard packets not matching any rule. If `false`, the
 #   fate of the packet will be defined by the chain policy (normally
@@ -40,7 +46,7 @@ class nftables (
   Boolean $out_https             = true,
   Boolean $out_all               = false,
   Hash $rules                    = {},
-  String $log_prefix             = '[nftables] %<chain>s Rejected: ',
+  String $log_prefix             = '[nftables] %<chain>s %<comment>s',
   Variant[Boolean[false], Pattern[
     /icmp(v6|x)? type .+|tcp reset/]]
     $reject_with                 = 'icmpx type port-unreachable',
