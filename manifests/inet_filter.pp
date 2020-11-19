@@ -50,6 +50,16 @@ class nftables::inet_filter inherits nftables {
         content => "reject with ${$nftables::reject_with}";
     }
   }
+  if $nftables::in_out_conntrack {
+    nftables::rule{
+      'INPUT-accept_established_related':
+        order   => '05',
+        content => 'ct state established,related accept';
+      'INPUT-drop_invalid':
+        order   => '06',
+        content => 'ct state invalid drop';
+    }
+  }
 
   # inet-filter-chain-OUTPUT
   nftables::rule{
@@ -74,6 +84,16 @@ class nftables::inet_filter inherits nftables {
       'OUTPUT-reject':
         order   => '98',
         content => "reject with ${$nftables::reject_with}";
+    }
+  }
+  if $nftables::in_out_conntrack {
+    nftables::rule{
+      'OUTPUT-accept_established_related':
+        order   => '05',
+        content => 'ct state established,related accept';
+      'OUTPUT-drop_invalid':
+        order   => '06',
+        content => 'ct state invalid drop';
     }
   }
 
