@@ -63,49 +63,49 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-type').with(
             target:  'nftables-inet-filter-chain-INPUT',
             content: %r{^  type filter hook input priority 0$},
-            order:   '01nftables-inet-filter-chain-INPUT-rule-typeb',
+            order:   '01-nftables-inet-filter-chain-INPUT-rule-type-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-policy').with(
             target:  'nftables-inet-filter-chain-INPUT',
             content: %r{^  policy drop$},
-            order:   '02nftables-inet-filter-chain-INPUT-rule-policyb',
+            order:   '02-nftables-inet-filter-chain-INPUT-rule-policy-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-lo').with(
             target:  'nftables-inet-filter-chain-INPUT',
             content: %r{^  iifname lo accept$},
-            order:   '03nftables-inet-filter-chain-INPUT-rule-lob',
+            order:   '03-nftables-inet-filter-chain-INPUT-rule-lo-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-jump_global').with(
             target:  'nftables-inet-filter-chain-INPUT',
             content: %r{^  jump global$},
-            order:   '04nftables-inet-filter-chain-INPUT-rule-jump_globalb',
+            order:   '04-nftables-inet-filter-chain-INPUT-rule-jump_global-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-jump_default_in').with(
             target:  'nftables-inet-filter-chain-INPUT',
             content: %r{^  jump default_in$},
-            order:   '10nftables-inet-filter-chain-INPUT-rule-jump_default_inb',
+            order:   '10-nftables-inet-filter-chain-INPUT-rule-jump_default_in-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-INPUT',
             content: %r{^  log prefix \"\[nftables\] INPUT Rejected: \" flags all counter$},
-            order:   '97nftables-inet-filter-chain-INPUT-rule-log_discardedb',
+            order:   '97-nftables-inet-filter-chain-INPUT-rule-log_discarded-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-reject').with(
             target:  'nftables-inet-filter-chain-INPUT',
             content: %r{^  reject with icmpx type port-unreachable$},
-            order:   '98nftables-inet-filter-chain-INPUT-rule-rejectb',
+            order:   '98-nftables-inet-filter-chain-INPUT-rule-reject-b',
           )
         }
         it {
@@ -143,7 +143,7 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_in-rule-ssh').with(
             target:  'nftables-inet-filter-chain-default_in',
             content: %r{^  tcp dport \{22\} accept$},
-            order:   '50nftables-inet-filter-chain-default_in-rule-sshb',
+            order:   '50-nftables-inet-filter-chain-default_in-rule-ssh-b',
           )
         }
       end
@@ -169,49 +169,49 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-type').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
             content: %r{^  type filter hook output priority 0$},
-            order:   '01nftables-inet-filter-chain-OUTPUT-rule-typeb',
+            order:   '01-nftables-inet-filter-chain-OUTPUT-rule-type-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-policy').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
             content: %r{^  policy drop$},
-            order:   '02nftables-inet-filter-chain-OUTPUT-rule-policyb',
+            order:   '02-nftables-inet-filter-chain-OUTPUT-rule-policy-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-lo').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
             content: %r{^  oifname lo accept$},
-            order:   '03nftables-inet-filter-chain-OUTPUT-rule-lob',
+            order:   '03-nftables-inet-filter-chain-OUTPUT-rule-lo-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-jump_global').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
             content: %r{^  jump global$},
-            order:   '04nftables-inet-filter-chain-OUTPUT-rule-jump_globalb',
+            order:   '04-nftables-inet-filter-chain-OUTPUT-rule-jump_global-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-jump_default_out').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
             content: %r{^  jump default_out$},
-            order:   '10nftables-inet-filter-chain-OUTPUT-rule-jump_default_outb',
+            order:   '10-nftables-inet-filter-chain-OUTPUT-rule-jump_default_out-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
             content: %r{^  log prefix \"\[nftables\] OUTPUT Rejected: \" flags all counter$},
-            order:   '97nftables-inet-filter-chain-OUTPUT-rule-log_discardedb',
+            order:   '97-nftables-inet-filter-chain-OUTPUT-rule-log_discarded-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-reject').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
             content: %r{^  reject with icmpx type port-unreachable$},
-            order:   '98nftables-inet-filter-chain-OUTPUT-rule-rejectb',
+            order:   '98-nftables-inet-filter-chain-OUTPUT-rule-reject-b',
           )
         }
         it {
@@ -249,35 +249,35 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnsudp').with(
             target:  'nftables-inet-filter-chain-default_out',
             content: %r{^  udp dport 53 accept$},
-            order:   '50nftables-inet-filter-chain-default_out-rule-dnsudpb',
+            order:   '50-nftables-inet-filter-chain-default_out-rule-dnsudp-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnstcp').with(
             target:  'nftables-inet-filter-chain-default_out',
             content: %r{^  tcp dport 53 accept$},
-            order:   '50nftables-inet-filter-chain-default_out-rule-dnstcpb',
+            order:   '50-nftables-inet-filter-chain-default_out-rule-dnstcp-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-chrony').with(
             target:  'nftables-inet-filter-chain-default_out',
             content: %r{^  udp dport 123 accept$},
-            order:   '50nftables-inet-filter-chain-default_out-rule-chronyb',
+            order:   '50-nftables-inet-filter-chain-default_out-rule-chrony-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-http').with(
             target:  'nftables-inet-filter-chain-default_out',
             content: %r{^  tcp dport 80 accept$},
-            order:   '50nftables-inet-filter-chain-default_out-rule-httpb',
+            order:   '50-nftables-inet-filter-chain-default_out-rule-http-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-https').with(
             target:  'nftables-inet-filter-chain-default_out',
             content: %r{^  tcp dport 443 accept$},
-            order:   '50nftables-inet-filter-chain-default_out-rule-httpsb',
+            order:   '50-nftables-inet-filter-chain-default_out-rule-https-b',
           )
         }
       end
@@ -303,42 +303,42 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-type').with(
             target:  'nftables-inet-filter-chain-FORWARD',
             content: %r{^  type filter hook forward priority 0$},
-            order:   '01nftables-inet-filter-chain-FORWARD-rule-typeb',
+            order:   '01-nftables-inet-filter-chain-FORWARD-rule-type-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-policy').with(
             target:  'nftables-inet-filter-chain-FORWARD',
             content: %r{^  policy drop$},
-            order:   '02nftables-inet-filter-chain-FORWARD-rule-policyb',
+            order:   '02-nftables-inet-filter-chain-FORWARD-rule-policy-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-jump_global').with(
             target:  'nftables-inet-filter-chain-FORWARD',
             content: %r{^  jump global$},
-            order:   '03nftables-inet-filter-chain-FORWARD-rule-jump_globalb',
+            order:   '03-nftables-inet-filter-chain-FORWARD-rule-jump_global-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-jump_default_fwd').with(
             target:  'nftables-inet-filter-chain-FORWARD',
             content: %r{^  jump default_fwd$},
-            order:   '10nftables-inet-filter-chain-FORWARD-rule-jump_default_fwdb',
+            order:   '10-nftables-inet-filter-chain-FORWARD-rule-jump_default_fwd-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-FORWARD',
             content: %r{^  log prefix \"\[nftables\] FORWARD Rejected: \" flags all counter$},
-            order:   '97nftables-inet-filter-chain-FORWARD-rule-log_discardedb',
+            order:   '97-nftables-inet-filter-chain-FORWARD-rule-log_discarded-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-reject').with(
             target:  'nftables-inet-filter-chain-FORWARD',
             content: %r{^  reject with icmpx type port-unreachable$},
-            order:   '98nftables-inet-filter-chain-FORWARD-rule-rejectb',
+            order:   '98-nftables-inet-filter-chain-FORWARD-rule-reject-b',
           )
         }
         it {
@@ -381,21 +381,21 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-INPUT',
             content: %r{^  log prefix \"test " flags all counter$},
-            order:   '97nftables-inet-filter-chain-INPUT-rule-log_discardedb',
+            order:   '97-nftables-inet-filter-chain-INPUT-rule-log_discarded-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
             content: %r{^  log prefix \"test " flags all counter$},
-            order:   '97nftables-inet-filter-chain-OUTPUT-rule-log_discardedb',
+            order:   '97-nftables-inet-filter-chain-OUTPUT-rule-log_discarded-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-FORWARD',
             content: %r{^  log prefix \"test " flags all counter$},
-            order:   '97nftables-inet-filter-chain-FORWARD-rule-log_discardedb',
+            order:   '97-nftables-inet-filter-chain-FORWARD-rule-log_discarded-b',
           )
         }
       end
@@ -407,21 +407,21 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-INPUT',
             content: %r{^  log prefix \" bar \[INPUT\] " flags all counter$},
-            order:   '97nftables-inet-filter-chain-INPUT-rule-log_discardedb',
+            order:   '97-nftables-inet-filter-chain-INPUT-rule-log_discarded-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
             content: %r{^  log prefix \" bar \[OUTPUT\] " flags all counter$},
-            order:   '97nftables-inet-filter-chain-OUTPUT-rule-log_discardedb',
+            order:   '97-nftables-inet-filter-chain-OUTPUT-rule-log_discarded-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-FORWARD',
             content: %r{^  log prefix \" bar \[FORWARD\] " flags all counter$},
-            order:   '97nftables-inet-filter-chain-FORWARD-rule-log_discardedb',
+            order:   '97-nftables-inet-filter-chain-FORWARD-rule-log_discarded-b',
           )
         }
       end
@@ -464,21 +464,21 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-reject').with(
             target:  'nftables-inet-filter-chain-INPUT',
             content: %r{^  reject with tcp reset$},
-            order:   '98nftables-inet-filter-chain-INPUT-rule-rejectb',
+            order:   '98-nftables-inet-filter-chain-INPUT-rule-reject-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-reject').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
             content: %r{^  reject with tcp reset$},
-            order:   '98nftables-inet-filter-chain-OUTPUT-rule-rejectb',
+            order:   '98-nftables-inet-filter-chain-OUTPUT-rule-reject-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-reject').with(
             target:  'nftables-inet-filter-chain-FORWARD',
             content: %r{^  reject with tcp reset$},
-            order:   '98nftables-inet-filter-chain-FORWARD-rule-rejectb',
+            order:   '98-nftables-inet-filter-chain-FORWARD-rule-reject-b',
           )
         }
       end

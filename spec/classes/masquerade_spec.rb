@@ -54,49 +54,49 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-type').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  type nat hook postrouting priority 100$},
-            order:   '01nftables-ip-nat-chain-POSTROUTING-rule-typeb',
+            order:   '01-nftables-ip-nat-chain-POSTROUTING-rule-type-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-policy').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  policy accept$},
-            order:   '02nftables-ip-nat-chain-POSTROUTING-rule-policyb',
+            order:   '02-nftables-ip-nat-chain-POSTROUTING-rule-policy-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-masquerade_eth0').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  oifname eth0 masquerade$},
-            order:   '70nftables-ip-nat-chain-POSTROUTING-rule-masquerade_eth0b',
+            order:   '70-nftables-ip-nat-chain-POSTROUTING-rule-masquerade_eth0-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-masquerade_eth1_vpn').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  oifname eth1 ip saddr 192\.0\.2\.0\/24 masquerade$},
-            order:   '70nftables-ip-nat-chain-POSTROUTING-rule-masquerade_eth1_vpnb',
+            order:   '70-nftables-ip-nat-chain-POSTROUTING-rule-masquerade_eth1_vpn-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-masquerade_ssh').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  ip saddr 192\.0\.2\.0\/24 ip daddr 198.51.100.2 tcp dport 22 masquerade$},
-            order:   '70nftables-ip-nat-chain-POSTROUTING-rule-masquerade_sshb',
+            order:   '70-nftables-ip-nat-chain-POSTROUTING-rule-masquerade_ssh-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-masquerade_ssh_gitlab').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  ip saddr 192\.0\.2\.0\/24 ip daddr 198.51.100.2 tcp dport 22 masquerade$},
-            order:   '70nftables-ip-nat-chain-POSTROUTING-rule-masquerade_ssh_gitlabb',
+            order:   '70-nftables-ip-nat-chain-POSTROUTING-rule-masquerade_ssh_gitlab-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-masquerade_wireguard').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  udp dport 51820 masquerade$},
-            order:   '70nftables-ip-nat-chain-POSTROUTING-rule-masquerade_wireguardb',
+            order:   '70-nftables-ip-nat-chain-POSTROUTING-rule-masquerade_wireguard-b',
           )
         }
         it {

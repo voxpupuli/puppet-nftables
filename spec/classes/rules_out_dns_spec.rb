@@ -18,14 +18,14 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnsudp').with(
             target:  'nftables-inet-filter-chain-default_out',
             content: %r{^  udp dport 53 accept$},
-            order:   '50nftables-inet-filter-chain-default_out-rule-dnsudpb',
+            order:   '50-nftables-inet-filter-chain-default_out-rule-dnsudp-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnstcp').with(
             target:  'nftables-inet-filter-chain-default_out',
             content: %r{^  tcp dport 53 accept$},
-            order:   '50nftables-inet-filter-chain-default_out-rule-dnstcpb',
+            order:   '50-nftables-inet-filter-chain-default_out-rule-dnstcp-b',
           )
         }
       end
@@ -45,14 +45,14 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnsudp-0').with(
             target:  'nftables-inet-filter-chain-default_out',
             content: %r{^  ip daddr 192.0.2.1 udp dport 53 accept$},
-            order:   '50nftables-inet-filter-chain-default_out-rule-dnsudp-0b',
+            order:   '50-nftables-inet-filter-chain-default_out-rule-dnsudp-0-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnstcp-0').with(
             target:  'nftables-inet-filter-chain-default_out',
             content: %r{^  ip daddr 192.0.2.1 tcp dport 53 accept$},
-            order:   '50nftables-inet-filter-chain-default_out-rule-dnstcp-0b',
+            order:   '50-nftables-inet-filter-chain-default_out-rule-dnstcp-0-b',
           )
         }
 
@@ -60,14 +60,14 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnsudp-1').with(
             target:  'nftables-inet-filter-chain-default_out',
             content: %r{^  ip6 daddr 2001:db8::1 udp dport 53 accept$},
-            order:   '50nftables-inet-filter-chain-default_out-rule-dnsudp-1b',
+            order:   '50-nftables-inet-filter-chain-default_out-rule-dnsudp-1-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnstcp-1').with(
             target:  'nftables-inet-filter-chain-default_out',
             content: %r{^  ip6 daddr 2001:db8::1 tcp dport 53 accept$},
-            order:   '50nftables-inet-filter-chain-default_out-rule-dnstcp-1b',
+            order:   '50-nftables-inet-filter-chain-default_out-rule-dnstcp-1-b',
           )
         }
       end
