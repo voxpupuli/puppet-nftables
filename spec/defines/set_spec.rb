@@ -115,6 +115,45 @@ describe 'nftables::set' do
           )
         }
       end
+
+      describe 'using raw content' do
+        let(:params) do
+          {
+            content: 'set my_set { }',
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-set-my_set').with(
+            target:  'nftables-inet-filter',
+            content: '  set my_set { }',
+            order:   '10',
+          )
+        }
+      end
+
+      describe 'fails without a type and not source/content' do
+        it { is_expected.not_to compile }
+      end
+
+      describe 'set names with dashes are allowed' do
+        let(:title) { 'my-set' }
+        let(:params) do
+          {
+            type: 'ether_addr',
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-set-my-set').with(
+            target:  'nftables-inet-filter',
+            content: %r{^  set my-set \{\n    type ether_addr\n  \}$}m,
+            order:   '10',
+          )
+        }
+      end
     end
   end
 end
