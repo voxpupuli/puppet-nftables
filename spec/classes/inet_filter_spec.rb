@@ -375,52 +375,60 @@ describe 'nftables' do
       end
 
       context 'custom log prefix without variable substitution' do
-        let(:pre_condition) { 'class{\'nftables\': log_prefix => "test "}' }
+        let(:params) do
+          {
+            'log_prefix' => 'test',
+          }
+        end
 
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-INPUT',
-            content: %r{^  log prefix \"test " flags all counter$},
+            content: %r{^  log prefix "test" flags all counter$},
             order:   '97',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
-            content: %r{^  log prefix \"test " flags all counter$},
+            content: %r{^  log prefix "test" flags all counter$},
             order:   '97',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-FORWARD',
-            content: %r{^  log prefix \"test " flags all counter$},
+            content: %r{^  log prefix "test" flags all counter$},
             order:   '97',
           )
         }
       end
 
       context 'custom log prefix with variable substitution' do
-        let(:pre_condition) { 'class{\'nftables\': log_prefix => " bar [%<chain>s] "}' } # rubocop:disable Style/FormatStringToken
+        let(:params) do
+          {
+            'log_prefix' => ' bar [%<chain>s] ', # rubocop:disable Style/FormatStringToken
+          }
+        end
 
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-INPUT',
-            content: %r{^  log prefix \" bar \[INPUT\] " flags all counter$},
+            content: %r{^  log prefix " bar \[INPUT\] " flags all counter$},
             order:   '97',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
-            content: %r{^  log prefix \" bar \[OUTPUT\] " flags all counter$},
+            content: %r{^  log prefix " bar \[OUTPUT\] " flags all counter$},
             order:   '97',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-FORWARD',
-            content: %r{^  log prefix \" bar \[FORWARD\] " flags all counter$},
+            content: %r{^  log prefix " bar \[FORWARD\] " flags all counter$},
             order:   '97',
           )
         }

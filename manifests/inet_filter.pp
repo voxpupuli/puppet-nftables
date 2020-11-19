@@ -1,6 +1,8 @@
 # manage basic chains in table inet filter
 class nftables::inet_filter inherits nftables {
 
+  $_log_prefix_discard = sprintf($nftables::log_prefix, { 'chain' => '%<chain>s', 'comment' => 'Rejected: ' })
+
   nftables::config{
     'inet-filter':
       source => 'puppet:///modules/nftables/config/puppet-inet-filter.nft';
@@ -39,7 +41,7 @@ class nftables::inet_filter inherits nftables {
       content => 'jump global';
     'INPUT-log_discarded':
       order   => '97',
-      content => "log prefix \"${sprintf($nftables::log_prefix, { 'chain' => 'INPUT' })}\" flags all counter";
+      content => "log prefix \"${sprintf($_log_prefix_discard, { 'chain' => 'INPUT' })}\" flags all counter";
   }
   if $nftables::reject_with {
     nftables::rule{
@@ -65,7 +67,7 @@ class nftables::inet_filter inherits nftables {
       content => 'jump global';
     'OUTPUT-log_discarded':
       order   => '97',
-      content => "log prefix \"${sprintf($nftables::log_prefix, { 'chain' => 'OUTPUT' })}\" flags all counter";
+      content => "log prefix \"${sprintf($_log_prefix_discard, { 'chain' => 'OUTPUT' })}\" flags all counter";
   }
   if $nftables::reject_with {
     nftables::rule{
@@ -88,7 +90,7 @@ class nftables::inet_filter inherits nftables {
       content => 'jump global';
     'FORWARD-log_discarded':
       order   => '97',
-      content => "log prefix \"${sprintf($nftables::log_prefix, { 'chain' => 'FORWARD' })}\" flags all counter";
+      content => "log prefix \"${sprintf($_log_prefix_discard, { 'chain' => 'FORWARD' })}\" flags all counter";
   }
   if $nftables::reject_with {
     nftables::rule{
