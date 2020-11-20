@@ -29,10 +29,10 @@ define nftables::chain(
       target => $concat_name;
     "${concat_name}-header":
       order   => '00',
-      content => "chain ${chain} {";
+      content => "# Start of fragment order:00 ${chain} header\nchain ${chain} {";
     "${concat_name}-footer":
       order   => '99',
-      content => '}';
+      content => "# Start of fragment order:99 ${chain} footer\n}";
   }
 
   if $inject {
