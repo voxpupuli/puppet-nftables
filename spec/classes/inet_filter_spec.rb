@@ -91,14 +91,14 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-accept_established_related').with(
             target:  'nftables-inet-filter-chain-INPUT',
             content: %r{^  ct state established,related accept$},
-            order:   '05',
+            order:   '05-nftables-inet-filter-chain-INPUT-rule-accept_established_related-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-drop_invalid').with(
             target:  'nftables-inet-filter-chain-INPUT',
             content: %r{^  ct state invalid drop$},
-            order:   '06',
+            order:   '06-nftables-inet-filter-chain-INPUT-rule-drop_invalid-b',
           )
         }
         it {
@@ -211,14 +211,14 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-accept_established_related').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
             content: %r{^  ct state established,related accept$},
-            order:   '05',
+            order:   '05-nftables-inet-filter-chain-OUTPUT-rule-accept_established_related-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-drop_invalid').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
             content: %r{^  ct state invalid drop$},
-            order:   '06',
+            order:   '06-nftables-inet-filter-chain-OUTPUT-rule-drop_invalid-b',
           )
         }
         it {
