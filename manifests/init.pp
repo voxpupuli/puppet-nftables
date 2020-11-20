@@ -23,8 +23,14 @@
 # @param out_https
 #   Allow outbound to https servers.
 #
+# @param out_icmp
+#   Allow outbound ICMPv4/v6 traffic.
+#
 # @param in_ssh
 #   Allow inbound to ssh servers.
+#
+# @param in_icmp
+#   Allow inbound ICMPv4/v6 traffic.
 #
 # @param log_prefix
 #   String that will be used as prefix when logging packets. It can contain
@@ -44,10 +50,12 @@
 #
 class nftables (
   Boolean $in_ssh                = true,
+  Boolean $in_icmp               = true,
   Boolean $out_ntp               = true,
   Boolean $out_dns               = true,
   Boolean $out_http              = true,
   Boolean $out_https             = true,
+  Boolean $out_icmp              = true,
   Boolean $out_all               = false,
   Boolean $in_out_conntrack      = true,
   Hash $rules                    = {},

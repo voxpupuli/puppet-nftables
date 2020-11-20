@@ -160,6 +160,9 @@ describe 'nftables' do
             order:   '50-nftables-inet-filter-chain-default_in-rule-ssh-b',
           )
         }
+        it {
+          is_expected.to contain_class('nftables::rules::icmp')
+        }
       end
 
       context 'chain output' do
@@ -307,6 +310,9 @@ describe 'nftables' do
             content: %r{^  tcp dport 443 accept$},
             order:   '50-nftables-inet-filter-chain-default_out-rule-https-b',
           )
+        }
+        it {
+          is_expected.to contain_class('nftables::rules::out::icmp')
         }
       end
 
@@ -551,6 +557,22 @@ describe 'nftables' do
         }
         it {
           is_expected.not_to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-drop_invalid')
+        }
+      end
+
+      context 'without ICMP configuration' do
+        let(:params) do
+          {
+            'in_icmp' => false,
+            'out_icmp' => false,
+          }
+        end
+
+        it {
+          is_expected.not_to contain_class('nftables::rules::icmp')
+        }
+        it {
+          is_expected.not_to contain_class('nftables::rules::out::icmp')
         }
       end
     end
