@@ -29,14 +29,14 @@ describe 'nftables' do
         is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-rule-bridge_br0_br0').with(
           target:  'nftables-inet-filter-chain-default_fwd',
           content: %r{^  iifname br0 oifname br0 accept$},
-          order:   '08',
+          order:   '08-nftables-inet-filter-chain-default_fwd-rule-bridge_br0_br0-b',
         )
       }
       it {
         is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-rule-bridge_br1_br1').with(
           target:  'nftables-inet-filter-chain-default_fwd',
           content: %r{^  iifname br1 oifname br1 accept$},
-          order:   '08',
+          order:   '08-nftables-inet-filter-chain-default_fwd-rule-bridge_br1_br1-b',
         )
       }
       it { is_expected.not_to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-bridge_br0_br1') }

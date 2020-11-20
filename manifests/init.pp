@@ -38,6 +38,10 @@
 #   drop), otherwise the packet will be rejected with the REJECT_WITH
 #   policy indicated by the value of this parameter.
 #
+# @param in_out_conntrack
+#   Adds INPUT and OUTPUT rules to allow traffic that's part of an
+#   established connection and also to drop invalid packets.
+#
 class nftables (
   Boolean $in_ssh                = true,
   Boolean $out_ntp               = true,
@@ -45,6 +49,7 @@ class nftables (
   Boolean $out_http              = true,
   Boolean $out_https             = true,
   Boolean $out_all               = false,
+  Boolean $in_out_conntrack      = true,
   Hash $rules                    = {},
   String $log_prefix             = '[nftables] %<chain>s %<comment>s',
   Variant[Boolean[false], Pattern[
