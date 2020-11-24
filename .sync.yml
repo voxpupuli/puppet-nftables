@@ -3,7 +3,4 @@ ci/Rakefile:
   extra_disabled_lint_checks:
     - 'disable_trailing_comma'
 
-ci/Gemfile:
-  required:
-    ':test':
-      - gem: rubocop-i18n
+
