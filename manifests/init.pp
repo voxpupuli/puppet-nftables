@@ -42,6 +42,11 @@
 #   Adds INPUT and OUTPUT rules to allow traffic that's part of an
 #   established connection and also to drop invalid packets.
 #
+# @param firewalld_enable
+#   Configures how the firewalld systemd service unit is enabled. It might be
+#   useful to set this to false if you're externaly removing firewalld from
+#   the system completely.
+#
 class nftables (
   Boolean $in_ssh                = true,
   Boolean $out_ntp               = true,
@@ -55,6 +60,8 @@ class nftables (
   Variant[Boolean[false], Pattern[
     /icmp(v6|x)? type .+|tcp reset/]]
     $reject_with                 = 'icmpx type port-unreachable',
+  Variant[Boolean[false], Enum['mask']]
+    $firewalld_enable            = 'mask',
 ) {
 
   package{'nftables':
@@ -85,7 +92,7 @@ class nftables (
 
   service{'firewalld':
     ensure => stopped,
-    enable => mask,
+    enable => $firewalld_enable,
   }
 
   include nftables::inet_filter
