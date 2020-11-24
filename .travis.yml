@@ -47,3 +47,9 @@ branches:
     - /^v\d/
 notifications:
   email: false
+
+#deploy:
+#  provider: puppetforge
+#  user: "duritong"
+#  password:
+#    secure: "B4fafYY42laQDkpb2AACHaPgZgsXXy6PPzHQy/qQH22md7Vq5lfw/m6q1y6znMDa49prAFWQGC0H9OlHjibV/sB12hE6BGN0xt/ixeeIh7Zn47lb5lX9WWPRALuQlZmUdVWQZ3hfYEYQDY02/FReyZfdPB4uCIKMUyClMX3b5p9Q8X0FTMAO5nam3JYdNxByXqtWmRQ8d3O7WINO3RhSdY2LWtINWXrfsPqegjJ8hxnFpOF6cigu2+h9UBUHrRJy/YETFdYGipF0DyNrjbnrMziRT6Nh5/i0vKZz0oFbOivq3dGT5xY7ntVGfs92zI+0lykt82351jQ9V06rykg/BZWLClpQaEN/7zUngtEz9RJBvd8Lbi8L3YKsI1l2lDrIc+1zs/Y1v0u2XElcYI9ncRF5QlFcI27rGGlZVpkZf9GNM8/2kM54bgeg3zsq67iySb4lhT2RzcJbLZwV71zM0eMa6elYH5uqy0SnBOlCcsKVwNxqfAmwGmNPEMNrNcgRWfEWI4Uh+R7Qp9Tp/nug8726eV3fpyh2Gq4QeYdsEV6ct3t71fHL3SslxrdsIRqcjeus4q80CgabZfQggdTbn03exRfgv7W65me1TeGNum5KUZnJSbLTjGH/YZl/avHHvM9kHWv8Aiq/GerN7qaGYMNx6rEowEPQaR/+MBL4DWM="
