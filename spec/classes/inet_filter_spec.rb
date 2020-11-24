@@ -111,7 +111,7 @@ describe 'nftables' do
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-INPUT',
-            content: %r{^  log prefix \"\[nftables\] INPUT Rejected: \" flags all counter$},
+            content: %r{^  limit rate 3/minute burst 5 packets log prefix \"\[nftables\] INPUT Rejected: \" flags all counter$},
             order:   '97-nftables-inet-filter-chain-INPUT-rule-log_discarded-b',
           )
         }
@@ -234,7 +234,7 @@ describe 'nftables' do
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
-            content: %r{^  log prefix \"\[nftables\] OUTPUT Rejected: \" flags all counter$},
+            content: %r{^  limit rate 3/minute burst 5 packets log prefix \"\[nftables\] OUTPUT Rejected: \" flags all counter$},
             order:   '97-nftables-inet-filter-chain-OUTPUT-rule-log_discarded-b',
           )
         }
@@ -370,7 +370,7 @@ describe 'nftables' do
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-FORWARD',
-            content: %r{^  log prefix \"\[nftables\] FORWARD Rejected: \" flags all counter$},
+            content: %r{^  limit rate 3/minute burst 5 packets log prefix \"\[nftables\] FORWARD Rejected: \" flags all counter$},
             order:   '97-nftables-inet-filter-chain-FORWARD-rule-log_discarded-b',
           )
         }
@@ -420,21 +420,21 @@ describe 'nftables' do
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-INPUT',
-            content: %r{^  log prefix \"test " flags all counter$},
+            content: %r{^  limit rate 3/minute burst 5 packets log prefix \"test " flags all counter$},
             order:   '97-nftables-inet-filter-chain-INPUT-rule-log_discarded-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
-            content: %r{^  log prefix \"test " flags all counter$},
+            content: %r{^  limit rate 3/minute burst 5 packets log prefix \"test " flags all counter$},
             order:   '97-nftables-inet-filter-chain-OUTPUT-rule-log_discarded-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-FORWARD',
-            content: %r{^  log prefix \"test " flags all counter$},
+            content: %r{^  limit rate 3/minute burst 5 packets log prefix \"test " flags all counter$},
             order:   '97-nftables-inet-filter-chain-FORWARD-rule-log_discarded-b',
           )
         }
@@ -446,21 +446,81 @@ describe 'nftables' do
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-INPUT',
-            content: %r{^  log prefix \" bar \[INPUT\] " flags all counter$},
+            content: %r{^  limit rate 3/minute burst 5 packets log prefix \" bar \[INPUT\] " flags all counter$},
             order:   '97-nftables-inet-filter-chain-INPUT-rule-log_discarded-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-OUTPUT',
-            content: %r{^  log prefix \" bar \[OUTPUT\] " flags all counter$},
+            content: %r{^  limit rate 3/minute burst 5 packets log prefix \" bar \[OUTPUT\] " flags all counter$},
             order:   '97-nftables-inet-filter-chain-OUTPUT-rule-log_discarded-b',
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_discarded').with(
             target:  'nftables-inet-filter-chain-FORWARD',
-            content: %r{^  log prefix \" bar \[FORWARD\] " flags all counter$},
+            content: %r{^  limit rate 3/minute burst 5 packets log prefix \" bar \[FORWARD\] " flags all counter$},
+            order:   '97-nftables-inet-filter-chain-FORWARD-rule-log_discarded-b',
+          )
+        }
+      end
+
+      context 'no log limit' do
+        let(:params) do
+          {
+            'log_limit' => false,
+          }
+        end
+
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_discarded').with(
+            target:  'nftables-inet-filter-chain-INPUT',
+            content: %r{^  log prefix \"\[nftables\] INPUT Rejected: \" flags all counter$},
+            order:   '97-nftables-inet-filter-chain-INPUT-rule-log_discarded-b',
+          )
+        }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_discarded').with(
+            target:  'nftables-inet-filter-chain-OUTPUT',
+            content: %r{^  log prefix \"\[nftables\] OUTPUT Rejected: \" flags all counter$},
+            order:   '97-nftables-inet-filter-chain-OUTPUT-rule-log_discarded-b',
+          )
+        }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_discarded').with(
+            target:  'nftables-inet-filter-chain-FORWARD',
+            content: %r{^  log prefix \"\[nftables\] FORWARD Rejected: \" flags all counter$},
+            order:   '97-nftables-inet-filter-chain-FORWARD-rule-log_discarded-b',
+          )
+        }
+      end
+
+      context 'custom log limit' do
+        let(:params) do
+          {
+            'log_limit' => '5/minute',
+          }
+        end
+
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_discarded').with(
+            target:  'nftables-inet-filter-chain-INPUT',
+            content: %r{^  limit rate 5/minute log prefix \"\[nftables\] INPUT Rejected: \" flags all counter$},
+            order:   '97-nftables-inet-filter-chain-INPUT-rule-log_discarded-b',
+          )
+        }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_discarded').with(
+            target:  'nftables-inet-filter-chain-OUTPUT',
+            content: %r{^  limit rate 5/minute log prefix \"\[nftables\] OUTPUT Rejected: \" flags all counter$},
+            order:   '97-nftables-inet-filter-chain-OUTPUT-rule-log_discarded-b',
+          )
+        }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_discarded').with(
+            target:  'nftables-inet-filter-chain-FORWARD',
+            content: %r{^  limit rate 5/minute log prefix \"\[nftables\] FORWARD Rejected: \" flags all counter$},
             order:   '97-nftables-inet-filter-chain-FORWARD-rule-log_discarded-b',
           )
         }

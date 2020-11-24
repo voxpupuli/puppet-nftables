@@ -38,6 +38,11 @@
 #    * chain: Will be replaced by the name of the chain.
 #    * comment: Allows chains to add extra comments.
 #
+# @param log_limit
+#  String with the content of a limit statement to be applied
+#  to the rules that log discarded traffic. Set to false to
+#  disable rate limiting.
+#
 # @param reject_with
 #   How to discard packets not matching any rule. If `false`, the
 #   fate of the packet will be defined by the chain policy (normally
@@ -65,6 +70,8 @@ class nftables (
   Boolean $in_out_conntrack      = true,
   Hash $rules                    = {},
   String $log_prefix             = '[nftables] %<chain>s %<comment>s',
+  Variant[Boolean[false], String]
+    $log_limit                   = '3/minute burst 5 packets',
   Variant[Boolean[false], Pattern[
     /icmp(v6|x)? type .+|tcp reset/]]
     $reject_with                 = 'icmpx type port-unreachable',
