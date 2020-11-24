@@ -136,6 +136,9 @@ class nftables::inet_filter inherits nftables {
     if $nftables::out_https {
       include nftables::rules::out::https
     }
+    if $nftables::out_icmp {
+      include nftables::rules::out::icmp
+    }
   }
 
   # allow forwarding traffic on bridges
@@ -144,5 +147,8 @@ class nftables::inet_filter inherits nftables {
   # basic ingoing rules
   if $nftables::in_ssh {
     include nftables::rules::ssh
+  }
+  if $nftables::in_icmp {
+    include nftables::rules::icmp
   }
 }

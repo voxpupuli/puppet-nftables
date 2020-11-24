@@ -23,8 +23,14 @@
 # @param out_https
 #   Allow outbound to https servers.
 #
+# @param out_icmp
+#   Allow outbound ICMPv4/v6 traffic.
+#
 # @param in_ssh
 #   Allow inbound to ssh servers.
+#
+# @param in_icmp
+#   Allow inbound ICMPv4/v6 traffic.
 #
 # @param log_prefix
 #   String that will be used as prefix when logging packets. It can contain
@@ -42,12 +48,19 @@
 #   Adds INPUT and OUTPUT rules to allow traffic that's part of an
 #   established connection and also to drop invalid packets.
 #
+# @param firewalld_enable
+#   Configures how the firewalld systemd service unit is enabled. It might be
+#   useful to set this to false if you're externaly removing firewalld from
+#   the system completely.
+#
 class nftables (
   Boolean $in_ssh                = true,
+  Boolean $in_icmp               = true,
   Boolean $out_ntp               = true,
   Boolean $out_dns               = true,
   Boolean $out_http              = true,
   Boolean $out_https             = true,
+  Boolean $out_icmp              = true,
   Boolean $out_all               = false,
   Boolean $in_out_conntrack      = true,
   Hash $rules                    = {},
@@ -55,6 +68,8 @@ class nftables (
   Variant[Boolean[false], Pattern[
     /icmp(v6|x)? type .+|tcp reset/]]
     $reject_with                 = 'icmpx type port-unreachable',
+  Variant[Boolean[false], Enum['mask']]
+    $firewalld_enable            = 'mask',
 ) {
 
   package{'nftables':
@@ -85,7 +100,7 @@ class nftables (
 
   service{'firewalld':
     ensure => stopped,
-    enable => mask,
+    enable => $firewalld_enable,
   }
 
   include nftables::inet_filter
