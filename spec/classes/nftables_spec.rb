@@ -89,6 +89,21 @@ describe 'nftables' do
           )
         }
       end
+
+      context 'without masking firewalld' do
+        let(:params) do
+          {
+            'firewalld_enable' => false,
+          }
+        end
+
+        it {
+          is_expected.to contain_service('firewalld').with(
+            ensure: 'stopped',
+            enable: false,
+          )
+        }
+      end
     end
   end
 end
