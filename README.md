@@ -42,6 +42,14 @@ for all masterchains.
 INPUT and OUTPUT to the loopback device is allowed by
 default, though you could restrict it later.
 
+### Rules Validation
+Initially puppet deploys all configuration to
+`/etc/nftables/puppet-preflight/` and
+`/etc/nftables/puppet-preflight.nft`. This is validated with
+`nfc -c -L /etc/nftables/puppet-preflight/ -f /etc/nftables/puppet-preflight.nft`.
+If and only if successful the configuration will be copied to
+the real locations before the service is reloaded.
+
 ### nftables::config
 
 Manages a raw file in `/etc/nftables/puppet/${name}.nft`

@@ -15,14 +15,20 @@ define nftables::chain(
 
   concat{
     $concat_name:
-      path           => "/etc/nftables/puppet/${table}-chain-${chain}.nft",
+      path           => "/etc/nftables/puppet-preflight/${table}-chain-${chain}.nft",
       owner          => root,
       group          => root,
       mode           => '0640',
       ensure_newline => true,
       require        => Package['nftables'],
-      notify         => Service['nftables'],
-  }
+  } ~> Exec['nft validate'] -> file{
+    "/etc/nftables/puppet/${table}-chain-${chain}.nft":
+    ensure => file,
+    source => "/etc/nftables/puppet-preflight/${table}-chain-${chain}.nft",
+    owner  => root,
+    group  => root,
+    mode   => '0640',
+  } ~> Service['nftables']
 
   concat::fragment{
     default:

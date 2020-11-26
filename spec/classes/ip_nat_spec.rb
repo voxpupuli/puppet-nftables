@@ -11,7 +11,7 @@ describe 'nftables' do
 
       it {
         is_expected.to contain_concat('nftables-ip-nat').with(
-          path:   '/etc/nftables/puppet/ip-nat.nft',
+          path:   '/etc/nftables/puppet-preflight/ip-nat.nft',
           ensure: 'present',
           owner:  'root',
           group:  'root',
@@ -44,7 +44,7 @@ describe 'nftables' do
 
       it {
         is_expected.to contain_concat('nftables-ip6-nat').with(
-          path:   '/etc/nftables/puppet/ip6-nat.nft',
+          path:   '/etc/nftables/puppet-preflight/ip6-nat.nft',
           ensure: 'present',
           owner:  'root',
           group:  'root',
@@ -78,7 +78,7 @@ describe 'nftables' do
       context 'table ip nat chain prerouting' do
         it {
           is_expected.to contain_concat('nftables-ip-nat-chain-PREROUTING').with(
-            path:           '/etc/nftables/puppet/ip-nat-chain-PREROUTING.nft',
+            path:           '/etc/nftables/puppet-preflight/ip-nat-chain-PREROUTING.nft',
             owner:          'root',
             group:          'root',
             mode:           '0640',
@@ -118,7 +118,7 @@ describe 'nftables' do
       context 'table ip nat chain postrouting' do
         it {
           is_expected.to contain_concat('nftables-ip-nat-chain-POSTROUTING').with(
-            path:           '/etc/nftables/puppet/ip-nat-chain-POSTROUTING.nft',
+            path:           '/etc/nftables/puppet-preflight/ip-nat-chain-POSTROUTING.nft',
             owner:          'root',
             group:          'root',
             mode:           '0640',
@@ -158,7 +158,7 @@ describe 'nftables' do
       context 'table ip6 nat chain prerouting' do
         it {
           is_expected.to contain_concat('nftables-ip6-nat-chain-PREROUTING6').with(
-            path:           '/etc/nftables/puppet/ip6-nat-chain-PREROUTING6.nft',
+            path:           '/etc/nftables/puppet-preflight/ip6-nat-chain-PREROUTING6.nft',
             owner:          'root',
             group:          'root',
             mode:           '0640',
@@ -198,7 +198,7 @@ describe 'nftables' do
       context 'table ip nat chain postrouting' do
         it {
           is_expected.to contain_concat('nftables-ip6-nat-chain-POSTROUTING6').with(
-            path:           '/etc/nftables/puppet/ip6-nat-chain-POSTROUTING6.nft',
+            path:           '/etc/nftables/puppet-preflight/ip6-nat-chain-POSTROUTING6.nft',
             owner:          'root',
             group:          'root',
             mode:           '0640',
