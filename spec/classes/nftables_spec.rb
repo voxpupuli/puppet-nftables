@@ -17,7 +17,7 @@ describe 'nftables' do
           owner:  'root',
           group:  'root',
           mode:   '0640',
-          source: 'puppet:///modules/nftables/config/puppet.nft',
+          content: %r{flush ruleset},
         )
       }
 
@@ -39,7 +39,7 @@ describe 'nftables' do
           owner:  'root',
           group:  'root',
           mode:   '0640',
-          source: 'puppet:///modules/nftables/config/puppet.nft',
+          content: %r{flush ruleset},
         )
       }
 

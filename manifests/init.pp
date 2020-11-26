@@ -32,6 +32,9 @@
 # @param in_icmp
 #   Allow inbound ICMPv4/v6 traffic.
 #
+# @param nat
+#   Add default tables and chains to process NAT traffic.
+#
 # @param log_prefix
 #   String that will be used as prefix when logging packets. It can contain
 #   two variables using standard sprintf() string-formatting:
@@ -63,6 +66,7 @@ class nftables (
   Boolean $out_icmp              = true,
   Boolean $out_all               = false,
   Boolean $in_out_conntrack      = true,
+  Boolean $nat                   = true,
   Hash $rules                    = {},
   String $log_prefix             = '[nftables] %<chain>s %<comment>s',
   Variant[Boolean[false], Pattern[
@@ -91,8 +95,8 @@ class nftables (
       force   => true,
       recurse => true;
     '/etc/nftables/puppet-preflight.nft':
-      ensure => file,
-      source => 'puppet:///modules/nftables/config/puppet.nft';
+      ensure  => file,
+      content => epp('nftables/config/puppet.nft.epp', { 'nat' => $nat });
   } ~> exec{
     'nft validate':
       refreshonly => true,
@@ -103,8 +107,8 @@ class nftables (
       group => 'root',
       mode  => '0640';
     '/etc/nftables/puppet.nft':
-      ensure => file,
-      source => 'puppet:///modules/nftables/config/puppet.nft';
+      ensure  => file,
+      content => epp('nftables/config/puppet.nft.epp', { 'nat' => $nat });
     '/etc/nftables/puppet':
       ensure  => directory,
       mode    => '0750',
@@ -131,7 +135,9 @@ class nftables (
   }
 
   include nftables::inet_filter
-  include nftables::ip_nat
+  if $nat {
+    include nftables::ip_nat
+  }
 
   # inject custom rules e.g. from hiera
   $rules.each |$n,$v| {
