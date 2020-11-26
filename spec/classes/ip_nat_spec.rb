@@ -234,6 +234,22 @@ describe 'nftables' do
           )
         }
       end
+
+      context 'all nat tables disabled' do
+        let(:params) do
+          {
+            'nat' => false,
+          }
+        end
+
+        it { is_expected.not_to contain_class('nftables::ip_nat') }
+        it { is_expected.not_to contain_nftables__config('ip-nat') }
+        it { is_expected.not_to contain_nftables__config('ip6-nat') }
+        it { is_expected.not_to contain_nftables__chain('PREROUTING') }
+        it { is_expected.not_to contain_nftables__chain('POSTROUTING') }
+        it { is_expected.not_to contain_nftables__chain('PREROUTING6') }
+        it { is_expected.not_to contain_nftables__chain('POSTROUTING6') }
+      end
     end
   end
 end

@@ -9,5 +9,7 @@ flush ruleset
 
 include "custom-*.nft"
 include "inet-filter.nft"
+<% if $nat { -%>
 include "ip-nat.nft"
 include "ip6-nat.nft"
+<% } -%>
