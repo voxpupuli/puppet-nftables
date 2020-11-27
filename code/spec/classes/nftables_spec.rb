@@ -121,6 +121,38 @@ describe 'nftables' do
         }
       end
 
+      context 'with custom sets' do
+        let(:params) do
+          {
+            sets: {
+              'testset1' => {
+                type: 'ipv4_addr',
+                gc_interval: 2,
+              },
+              'testset2' => {
+                type: 'ipv6_addr',
+                elements: ['2a02:62:c601::dead:beef'],
+              },
+            },
+          }
+        end
+
+        it {
+          is_expected.to contain_nftables__set('testset1').with(
+            type: 'ipv4_addr',
+            gc_interval: 2,
+            table: 'inet-filter',
+          )
+        }
+        it {
+          is_expected.to contain_nftables__set('testset2').with(
+            type: 'ipv6_addr',
+            elements: ['2a02:62:c601::dead:beef'],
+            table: 'inet-filter',
+          )
+        }
+      end
+
       context 'without masking firewalld' do
         let(:params) do
           {

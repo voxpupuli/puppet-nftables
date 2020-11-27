@@ -7,20 +7,30 @@
 ### Classes
 
 * [`nftables`](#nftables): Configure nftables
+* [`nftables::bridges`](#nftablesbridges): allow forwarding traffic on bridges
 * [`nftables::inet_filter`](#nftablesinet_filter): manage basic chains in table inet filter
 * [`nftables::ip_nat`](#nftablesip_nat): manage basic chains in table ip nat
+* [`nftables::rules::afs3_callback`](#nftablesrulesafs3_callback): Open call back port for AFS clients
+* [`nftables::rules::dhcpv6_client`](#nftablesrulesdhcpv6_client)
+* [`nftables::rules::dns`](#nftablesrulesdns): manage in dns
 * [`nftables::rules::http`](#nftablesruleshttp): manage in http
 * [`nftables::rules::https`](#nftablesruleshttps): manage in https
 * [`nftables::rules::icinga2`](#nftablesrulesicinga2): manage in icinga2
+* [`nftables::rules::icmp`](#nftablesrulesicmp)
+* [`nftables::rules::node_exporter`](#nftablesrulesnode_exporter): manage in node exporter
 * [`nftables::rules::ospf`](#nftablesrulesospf): manage in ospf
 * [`nftables::rules::ospf3`](#nftablesrulesospf3): manage in ospf3
 * [`nftables::rules::out::all`](#nftablesrulesoutall): allow all outbound
 * [`nftables::rules::out::chrony`](#nftablesrulesoutchrony): manage out chrony
 * [`nftables::rules::out::dhcp`](#nftablesrulesoutdhcp): manage out dhcp
+* [`nftables::rules::out::dhcpv6_client`](#nftablesrulesoutdhcpv6_client)
 * [`nftables::rules::out::dns`](#nftablesrulesoutdns): manage out dns
 * [`nftables::rules::out::http`](#nftablesrulesouthttp): manage out http
 * [`nftables::rules::out::https`](#nftablesrulesouthttps): manage out https
+* [`nftables::rules::out::icmp`](#nftablesrulesouticmp)
+* [`nftables::rules::out::kerberos`](#nftablesrulesoutkerberos): allows outbound access for kerberos
 * [`nftables::rules::out::mysql`](#nftablesrulesoutmysql): manage out mysql
+* [`nftables::rules::out::openafs_client`](#nftablesrulesoutopenafs_client): allows outbound access for afs clients
 * [`nftables::rules::out::ospf`](#nftablesrulesoutospf): manage out ospf
 * [`nftables::rules::out::ospf3`](#nftablesrulesoutospf3): manage out ospf3
 * [`nftables::rules::out::postgres`](#nftablesrulesoutpostgres): manage out postgres
@@ -37,6 +47,8 @@
 * [`nftables::rules::ssh`](#nftablesrulesssh): manage in ssh
 * [`nftables::rules::tor`](#nftablesrulestor): manage in tor
 * [`nftables::rules::wireguard`](#nftablesruleswireguard): manage in wireguard
+* [`nftables::services::dhcpv6_client`](#nftablesservicesdhcpv6_client)
+* [`nftables::services::openafs_client`](#nftablesservicesopenafs_client)
 
 ### Defined types
 
@@ -46,6 +58,7 @@
 * [`nftables::rules::dnat4`](#nftablesrulesdnat4): manage a ipv4 dnat rule
 * [`nftables::rules::masquerade`](#nftablesrulesmasquerade): masquerade all outgoing traffic
 * [`nftables::rules::snat4`](#nftablesrulessnat4): manage a ipv4 snat rule
+* [`nftables::set`](#nftablesset): manage a named set
 
 ## Classes
 
@@ -108,6 +121,14 @@ Allow outbound to https servers.
 
 Default value: ``true``
 
+##### `out_icmp`
+
+Data type: `Boolean`
+
+Allow outbound ICMPv4/v6 traffic.
+
+Default value: ``true``
+
 ##### `in_ssh`
 
 Data type: `Boolean`
@@ -115,6 +136,64 @@ Data type: `Boolean`
 Allow inbound to ssh servers.
 
 Default value: ``true``
+
+##### `in_icmp`
+
+Data type: `Boolean`
+
+Allow inbound ICMPv4/v6 traffic.
+
+Default value: ``true``
+
+##### `nat`
+
+Data type: `Boolean`
+
+Add default tables and chains to process NAT traffic.
+
+Default value: ``true``
+
+##### `log_prefix`
+
+Data type: `String`
+
+String that will be used as prefix when logging packets. It can contain
+two variables using standard sprintf() string-formatting:
+ * chain: Will be replaced by the name of the chain.
+ * comment: Allows chains to add extra comments.
+
+Default value: `'[nftables] %<chain>s %<comment>s'`
+
+##### `reject_with`
+
+Data type: `Variant[Boolean[false], Pattern[
+    /icmp(v6|x)? type .+|tcp reset/]]`
+
+How to discard packets not matching any rule. If `false`, the
+fate of the packet will be defined by the chain policy (normally
+drop), otherwise the packet will be rejected with the REJECT_WITH
+policy indicated by the value of this parameter.
+
+Default value: `'icmpx type port-unreachable'`
+
+##### `in_out_conntrack`
+
+Data type: `Boolean`
+
+Adds INPUT and OUTPUT rules to allow traffic that's part of an
+established connection and also to drop invalid packets.
+
+Default value: ``true``
+
+##### `firewalld_enable`
+
+Data type: `Variant[Boolean[false], Enum['mask']]`
+
+Configures how the firewalld systemd service unit is enabled. It might be
+useful to set this to false if you're externaly removing firewalld from
+the system completely.
+
+Default value: `'mask'`
 
 ##### `out_dns`
 
@@ -124,6 +203,38 @@ Data type: `Boolean`
 
 Default value: ``true``
 
+##### `rules`
+
+Data type: `Hash`
+
+
+
+Default value: `{}`
+
+### `nftables::bridges`
+
+allow forwarding traffic on bridges
+
+#### Parameters
+
+The following parameters are available in the `nftables::bridges` class.
+
+##### `ensure`
+
+Data type: `Enum['present','absent']`
+
+
+
+Default value: `'present'`
+
+##### `bridgenames`
+
+Data type: `Regexp`
+
+
+
+Default value: `/^br.+/`
+
 ### `nftables::inet_filter`
 
 manage basic chains in table inet filter
@@ -131,6 +242,44 @@ manage basic chains in table inet filter
 ### `nftables::ip_nat`
 
 manage basic chains in table ip nat
+
+### `nftables::rules::afs3_callback`
+
+class{'nftables::rules::afs3_callback':
+  saddr => ['192.168.0.0/16', '10.0.0.222']
+}
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::afs3_callback` class.
+
+##### `saddr`
+
+Data type: `Array[Stdlib::IP::Address::V4,1]`
+
+list of source network ranges to a
+
+Default value: `['0.0.0.0/0']`
+
+### `nftables::rules::dhcpv6_client`
+
+The nftables::rules::dhcpv6_client class.
+
+### `nftables::rules::dns`
+
+manage in dns
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::dns` class.
+
+##### `ports`
+
+Data type: `Array[Integer,1]`
+
+
+
+Default value: `[53]`
 
 ### `nftables::rules::http`
 
@@ -156,6 +305,62 @@ Data type: `Array[Integer,1]`
 
 Default value: `[5665]`
 
+### `nftables::rules::icmp`
+
+The nftables::rules::icmp class.
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::icmp` class.
+
+##### `v4_types`
+
+Data type: `Optional[Array[String]]`
+
+
+
+Default value: ``undef``
+
+##### `v6_types`
+
+Data type: `Optional[Array[String]]`
+
+
+
+Default value: ``undef``
+
+##### `order`
+
+Data type: `String`
+
+
+
+Default value: `'10'`
+
+### `nftables::rules::node_exporter`
+
+manage in node exporter
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::node_exporter` class.
+
+##### `prometheus_server`
+
+Data type: `Optional[Variant[String,Array[String,1]]]`
+
+
+
+Default value: ``undef``
+
+##### `port`
+
+Data type: `Integer`
+
+
+
+Default value: `9100`
+
 ### `nftables::rules::ospf`
 
 manage in ospf
@@ -175,6 +380,10 @@ manage out chrony
 ### `nftables::rules::out::dhcp`
 
 manage out dhcp
+
+### `nftables::rules::out::dhcpv6_client`
+
+The nftables::rules::out::dhcpv6_client class.
 
 ### `nftables::rules::out::dns`
 
@@ -200,9 +409,67 @@ manage out http
 
 manage out https
 
+### `nftables::rules::out::icmp`
+
+The nftables::rules::out::icmp class.
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::out::icmp` class.
+
+##### `v4_types`
+
+Data type: `Optional[Array[String]]`
+
+
+
+Default value: ``undef``
+
+##### `v6_types`
+
+Data type: `Optional[Array[String]]`
+
+
+
+Default value: ``undef``
+
+##### `order`
+
+Data type: `String`
+
+
+
+Default value: `'10'`
+
+### `nftables::rules::out::kerberos`
+
+allows outbound access for kerberos
+
 ### `nftables::rules::out::mysql`
 
 manage out mysql
+
+### `nftables::rules::out::openafs_client`
+
+7000 - afs3-fileserver
+7002 - afs3-ptserver
+7003 - vlserver
+
+* **See also**
+  * https://wiki.openafs.org/devel/AFSServicePorts/
+    * AFS Service Ports
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::out::openafs_client` class.
+
+##### `ports`
+
+Data type: `Array[Integer,1]`
+
+
+
+Default value: `[7000, 7002, 7003]`
 
 ### `nftables::rules::out::ospf`
 
@@ -345,6 +612,14 @@ Data type: `Array[Integer,1]`
 
 
 Default value: `[51820]`
+
+### `nftables::services::dhcpv6_client`
+
+The nftables::services::dhcpv6_client class.
+
+### `nftables::services::openafs_client`
+
+The nftables::services::openafs_client class.
 
 ## Defined types
 
@@ -711,4 +986,124 @@ Data type: `Enum['present','absent']`
 
 
 Default value: `'present'`
+
+### `nftables::set`
+
+manage a named set
+
+#### Parameters
+
+The following parameters are available in the `nftables::set` defined type.
+
+##### `ensure`
+
+Data type: `Enum['present','absent']`
+
+
+
+Default value: `'present'`
+
+##### `setname`
+
+Data type: `Pattern[/^[-a-zA-Z0-9_]+$/]`
+
+
+
+Default value: `$title`
+
+##### `order`
+
+Data type: `Pattern[/^\d\d$/]`
+
+
+
+Default value: `'10'`
+
+##### `type`
+
+Data type: `Optional[Enum['ipv4_addr', 'ipv6_addr', 'ether_addr', 'inet_proto', 'inet_service', 'mark']]`
+
+
+
+Default value: ``undef``
+
+##### `table`
+
+Data type: `String`
+
+
+
+Default value: `'inet-filter'`
+
+##### `flags`
+
+Data type: `Array[Enum['constant', 'dynamic', 'interval', 'timeout'], 0, 4]`
+
+
+
+Default value: `[]`
+
+##### `timeout`
+
+Data type: `Optional[Integer]`
+
+
+
+Default value: ``undef``
+
+##### `gc_interval`
+
+Data type: `Optional[Integer]`
+
+
+
+Default value: ``undef``
+
+##### `elements`
+
+Data type: `Optional[Array[String]]`
+
+
+
+Default value: ``undef``
+
+##### `size`
+
+Data type: `Optional[Integer]`
+
+
+
+Default value: ``undef``
+
+##### `policy`
+
+Data type: `Optional[Enum['performance', 'memory']]`
+
+
+
+Default value: ``undef``
+
+##### `auto_merge`
+
+Data type: `Boolean`
+
+
+
+Default value: ``false``
+
+##### `content`
+
+Data type: `Optional[String]`
+
+
+
+Default value: ``undef``
+
+##### `source`
+
+Data type: `Optional[Variant[String,Array[String,1]]]`
+
+
+
+Default value: ``undef``
 
