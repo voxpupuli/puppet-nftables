@@ -36,7 +36,7 @@ describe 'nftables' do
 
         it {
           is_expected.to contain_concat('nftables-ip-nat-chain-POSTROUTING').with(
-            path:           '/etc/nftables/puppet/ip-nat-chain-POSTROUTING.nft',
+            path:           '/etc/nftables/puppet-preflight/ip-nat-chain-POSTROUTING.nft',
             owner:          'root',
             group:          'root',
             mode:           '0640',
