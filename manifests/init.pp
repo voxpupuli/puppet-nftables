@@ -35,6 +35,9 @@
 # @param nat
 #   Add default tables and chains to process NAT traffic.
 #
+# @param sets
+#   Allows sourcing set definitions directly from Hiera.
+#
 # @param log_prefix
 #   String that will be used as prefix when logging packets. It can contain
 #   two variables using standard sprintf() string-formatting:
@@ -68,6 +71,7 @@ class nftables (
   Boolean $in_out_conntrack      = true,
   Boolean $nat                   = true,
   Hash $rules                    = {},
+  Hash $sets                     = {},
   String $log_prefix             = '[nftables] %<chain>s %<comment>s',
   Variant[Boolean[false], Pattern[
     /icmp(v6|x)? type .+|tcp reset/]]
@@ -142,6 +146,14 @@ class nftables (
   # inject custom rules e.g. from hiera
   $rules.each |$n,$v| {
     nftables::rule{
+      $n:
+        * => $v
+    }
+  }
+
+  # inject custom sets e.g. from hiera
+  $sets.each |$n,$v| {
+    nftables::set{
       $n:
         * => $v
     }
