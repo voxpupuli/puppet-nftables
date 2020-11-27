@@ -1,4 +1,4 @@
-  include "/etc/nftables/puppet/inet-filter-chain-*.nft"
+  include "inet-filter-chain-*.nft"
 
   # something we want for all
   chain global {

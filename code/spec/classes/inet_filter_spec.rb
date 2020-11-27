@@ -11,7 +11,7 @@ describe 'nftables' do
 
       it {
         is_expected.to contain_concat('nftables-inet-filter').with(
-          path:   '/etc/nftables/puppet/inet-filter.nft',
+          path:   '/etc/nftables/puppet-preflight/inet-filter.nft',
           ensure: 'present',
           owner:  'root',
           group:  'root',
@@ -45,7 +45,7 @@ describe 'nftables' do
       context 'chain input' do
         it {
           is_expected.to contain_concat('nftables-inet-filter-chain-INPUT').with(
-            path:           '/etc/nftables/puppet/inet-filter-chain-INPUT.nft',
+            path:           '/etc/nftables/puppet-preflight/inet-filter-chain-INPUT.nft',
             owner:          'root',
             group:          'root',
             mode:           '0640',
@@ -132,7 +132,7 @@ describe 'nftables' do
 
         it {
           is_expected.to contain_concat('nftables-inet-filter-chain-default_in').with(
-            path:           '/etc/nftables/puppet/inet-filter-chain-default_in.nft',
+            path:           '/etc/nftables/puppet-preflight/inet-filter-chain-default_in.nft',
             owner:          'root',
             group:          'root',
             mode:           '0640',
@@ -168,7 +168,7 @@ describe 'nftables' do
       context 'chain output' do
         it {
           is_expected.to contain_concat('nftables-inet-filter-chain-OUTPUT').with(
-            path:           '/etc/nftables/puppet/inet-filter-chain-OUTPUT.nft',
+            path:           '/etc/nftables/puppet-preflight/inet-filter-chain-OUTPUT.nft',
             owner:          'root',
             group:          'root',
             mode:           '0640',
@@ -255,7 +255,7 @@ describe 'nftables' do
 
         it {
           is_expected.to contain_concat('nftables-inet-filter-chain-default_out').with(
-            path:           '/etc/nftables/puppet/inet-filter-chain-default_out.nft',
+            path:           '/etc/nftables/puppet-preflight/inet-filter-chain-default_out.nft',
             owner:          'root',
             group:          'root',
             mode:           '0640',
@@ -319,7 +319,7 @@ describe 'nftables' do
       context 'chain forward' do
         it {
           is_expected.to contain_concat('nftables-inet-filter-chain-FORWARD').with(
-            path:           '/etc/nftables/puppet/inet-filter-chain-FORWARD.nft',
+            path:           '/etc/nftables/puppet-preflight/inet-filter-chain-FORWARD.nft',
             owner:          'root',
             group:          'root',
             mode:           '0640',
@@ -391,7 +391,7 @@ describe 'nftables' do
 
         it {
           is_expected.to contain_concat('nftables-inet-filter-chain-default_fwd').with(
-            path:           '/etc/nftables/puppet/inet-filter-chain-default_fwd.nft',
+            path:           '/etc/nftables/puppet-preflight/inet-filter-chain-default_fwd.nft',
             owner:          'root',
             group:          'root',
             mode:           '0640',

@@ -1,0 +1,15 @@
+# puppet-preflight.nft is only used by puppet for validating new configs
+# puppet.nft is real configuration that the nftables services uses.
+# To process either the -I flag must be specified.
+# nft -c -I /etc/nftables/puppet -f /etc/nftables/puppet.nft
+# nft -c -I /etc/nftables/puppet-preflight -f /etc/nftables/puppet-preflight.nft
+
+# drop any existing nftables ruleset
+flush ruleset
+
+include "custom-*.nft"
+include "inet-filter.nft"
+<% if $nat { -%>
+include "ip-nat.nft"
+include "ip6-nat.nft"
+<% } -%>
