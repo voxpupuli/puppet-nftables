@@ -59,6 +59,10 @@
 #   Adds INPUT and OUTPUT rules to allow traffic that's part of an
 #   established connection and also to drop invalid packets.
 #
+# @param fwd_conntrack
+#   Adds FORWARD rules to allow traffic that's part of an
+#   established connection and also to drop invalid packets.
+#
 # @param firewalld_enable
 #   Configures how the firewalld systemd service unit is enabled. It might be
 #   useful to set this to false if you're externaly removing firewalld from
@@ -74,6 +78,7 @@ class nftables (
   Boolean $out_icmp              = true,
   Boolean $out_all               = false,
   Boolean $in_out_conntrack      = true,
+  Boolean $fwd_conntrack         = false,
   Boolean $nat                   = true,
   Hash $rules                    = {},
   Hash $sets                     = {},

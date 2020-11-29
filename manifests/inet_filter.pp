@@ -115,13 +115,23 @@ class nftables::inet_filter inherits nftables {
       content => 'jump global';
     'FORWARD-log_discarded':
       order   => '97',
-      content => sprintf($_reject_rule, { 'chain' => 'FORWARD' }),
+      content => sprintf($_reject_rule, { 'chain' => 'FORWARD' });
   }
   if $nftables::reject_with {
     nftables::rule{
       'FORWARD-reject':
         order   => '98',
         content => "reject with ${$nftables::reject_with}";
+    }
+  }
+  if $nftables::fwd_conntrack {
+    nftables::rule{
+      'FORWARD-accept_established_related':
+        order   => '05',
+        content => 'ct state established,related accept';
+      'FORWARD-drop_invalid':
+        order   => '06',
+        content => 'ct state invalid drop';
     }
   }
 
