@@ -1,9 +1,16 @@
 # @summary Configure nftables
 #
-# @example
+# @example allow dns out and do not allow ntp out
 #   class{'nftables:
 #     out_ntp = false,
 #     out_dns = true,
+#   }
+#
+# @example do not flush particular tables
+# In this case ignoring the fail2ban maintained
+# table
+#   class{'nftables':
+#     noflush_tables = ['inet-f2b-table'],
 #   }
 #
 # @param out_all
@@ -64,6 +71,10 @@
 #   useful to set this to false if you're externaly removing firewalld from
 #   the system completely.
 #
+# @param noflush_tables
+#   If specified only other existings tables will be flushed.
+#   If left unset all tables will be flushed via a `flush ruleset`
+#
 class nftables (
   Boolean $in_ssh                = true,
   Boolean $in_icmp               = true,
@@ -85,6 +96,8 @@ class nftables (
     $reject_with                 = 'icmpx type port-unreachable',
   Variant[Boolean[false], Enum['mask']]
     $firewalld_enable            = 'mask',
+  Optional[Array[Pattern[/^(ip|ip6|inet)-[-a-zA-Z0-9_]+$/],1]]
+    $noflush_tables = undef,
 ) {
 
   package{'nftables':
@@ -107,7 +120,7 @@ class nftables (
       recurse => true;
     '/etc/nftables/puppet-preflight.nft':
       ensure  => file,
-      content => epp('nftables/config/puppet.nft.epp', { 'nat' => $nat });
+      content => epp('nftables/config/puppet.nft.epp', { 'nat' => $nat, 'noflush' => $noflush_tables });
   } ~> exec{
     'nft validate':
       refreshonly => true,
@@ -119,7 +132,7 @@ class nftables (
       mode  => '0640';
     '/etc/nftables/puppet.nft':
       ensure  => file,
-      content => epp('nftables/config/puppet.nft.epp', { 'nat' => $nat });
+      content => epp('nftables/config/puppet.nft.epp', { 'nat' => $nat, 'noflush' => $noflush_tables });
     '/etc/nftables/puppet':
       ensure  => directory,
       mode    => '0750',
@@ -134,10 +147,10 @@ class nftables (
   }
 
   systemd::dropin_file{'puppet_nft.conf':
-    ensure => present,
-    unit   => 'nftables.service',
-    source => 'puppet:///modules/nftables/systemd/puppet_nft.conf',
-    notify => Service['nftables'],
+    ensure  => present,
+    unit    => 'nftables.service',
+    content => epp('nftables/systemd/puppet_nft.conf.epp', { 'noflush' => $noflush_tables }),
+    notify  => Service['nftables'],
   }
 
   service{'firewalld':
