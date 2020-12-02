@@ -1,3 +1,16 @@
+<%- |
+  Boolean $nat,
+  Optional[Array[String[1],1]] $noflush = undef,
+|-%>
+<%-
+if $noflush and $facts['nftables'] and $facts['nftables']['tables'] {
+ $_flush_command = $facts['nftables']['tables'].filter |$_tab| { ! ($_tab in $noflush) }.map |$_table| {
+   "flush table ${regsubst($_table,'-',' ')}"
+ }
+} else {
+ $_flush_command = ['flush ruleset']
+}
+-%>
 # puppet-preflight.nft is only used by puppet for validating new configs
 # puppet.nft is real configuration that the nftables services uses.
 # To process either the -I flag must be specified.
@@ -5,7 +18,7 @@
 # nft -c -I /etc/nftables/puppet-preflight -f /etc/nftables/puppet-preflight.nft
 
 # drop any existing nftables ruleset
-flush ruleset
+<%= $_flush_command.join('; ') %>
 
 include "custom-*.nft"
 include "inet-filter.nft"
