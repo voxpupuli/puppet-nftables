@@ -167,6 +167,51 @@ describe 'nftables' do
           )
         }
       end
+
+      context 'with with noflush_tables parameter' do
+        let(:params) do
+          {
+            noflush_tables: ['inet-f2b-table'],
+          }
+        end
+
+        context 'with no nftables fact' do
+          it {
+            is_expected.to contain_systemd__dropin_file('puppet_nft.conf')
+              .with_content(%r{^ExecReload.*flush ruleset; include.*$})
+          }
+          it { is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').with_content(%r{^flush ruleset$}) }
+        end
+
+        context 'with nftables fact matching' do
+          let(:facts) do
+            super().merge(nftables: { tables: ['inet-abc', 'inet-f2b-table'] })
+          end
+
+          it {
+            is_expected.to contain_systemd__dropin_file('puppet_nft.conf')
+              .with_content(%r{^ExecReload.*flush table inet abc; include.*$})
+          }
+          it {
+            is_expected.to contain_file('/etc/nftables/puppet-preflight.nft')
+              .with_content(%r{^flush table inet abc$})
+          }
+        end
+        context 'with nftables fact not matching' do
+          let(:facts) do
+            super().merge(nftables: { tables: ['inet-abc', 'inet-ijk'] })
+          end
+
+          it {
+            is_expected.to contain_systemd__dropin_file('puppet_nft.conf')
+              .with_content(%r{^ExecReload.*flush table inet abc; flush table inet ijk; include.*$})
+          }
+          it {
+            is_expected.to contain_file('/etc/nftables/puppet-preflight.nft')
+              .with_content(%r{^flush table inet abc; flush table inet ijk$})
+          }
+        end
+      end
     end
   end
 end
