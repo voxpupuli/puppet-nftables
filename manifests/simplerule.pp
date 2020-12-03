@@ -19,7 +19,7 @@ define nftables::simplerule(
     $order = '50',
   String
     $chain  = 'default_in',
-  Optional[String]
+  String
     $table = 'inet-filter',
   Enum['accept', 'drop']
     $action = 'accept',
