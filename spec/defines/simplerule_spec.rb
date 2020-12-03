@@ -14,7 +14,7 @@ describe 'nftables::simplerule' do
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
             content: 'accept',
-            order: 50,
+            order: '50',
           )
         }
       end
@@ -35,7 +35,39 @@ describe 'nftables::simplerule' do
         it {
           is_expected.to contain_nftables__rule('default_out-my_big_rule').with(
             content: 'udp dport 333 comment "this is my rule" accept',
-            order: 50,
+            order: '50',
+          )
+        }
+      end
+
+      describe 'port range' do
+        let(:params) do
+          {
+            dport: '333-334',
+            proto: 'tcp',
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'tcp dport 333-334 accept',
+          )
+        }
+      end
+
+      describe 'port array' do
+        let(:params) do
+          {
+            dport: [333, 335],
+            proto: 'tcp',
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'tcp dport {333, 335} accept',
           )
         }
       end

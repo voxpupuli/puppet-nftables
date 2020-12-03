@@ -1,10 +1,14 @@
 <%- | String                  $action,
       Optional[String]        $comment,
-      Optional[Integer]       $dport,
+      Optional[Variant[Array[Stdlib::Port, 1], Stdlib::Port, String]] $dport,
       Optional[String]        $proto,
 | -%>
-<%- if $proto and $dport  {
-  $_destination = "${proto} dport ${dport}"
+<%- if $proto and $dport {
+  if $dport =~ Array {
+    $_destination = "${proto} dport {${dport.join(', ')}}"
+  } else {
+    $_destination = "${proto} dport $dport"
+  }
 } else {
   $_destination = undef
 } -%>
@@ -13,4 +17,4 @@
 } else {
   $_comment = undef
 } -%>
-<%= strip([$_destination, $_comment, $action].join(' ')) -%>
+<%= regsubst(strip([$_destination, $_comment, $action].join(' ')), '\s+', ' ', 'G') -%>

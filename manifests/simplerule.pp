@@ -16,11 +16,15 @@ define nftables::simplerule(
     $action = 'accept',
   Optional[String]
     $comment = undef,
-  Optional[Integer[1, 65535]]
+  Optional[Variant[Array[Stdlib::Port, 1], Stdlib::Port, Pattern[/\d+-\d+/]]]
     $dport  = undef,
   Optional[Enum['tcp', 'udp']]
     $proto  = undef,
 ){
+
+  if $dport and !$proto {
+    fail('Specifying a transport protocol via $proto is mandatory when passing a port')
+  }
 
   if $ensure == 'present' {
     nftables::rule{"${chain}-${rulename}":
