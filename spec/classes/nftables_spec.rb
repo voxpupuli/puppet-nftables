@@ -72,6 +72,12 @@ describe 'nftables' do
       }
 
       it {
+        is_expected.to contain_systemd__dropin_file('puppet_nft.conf').with(
+          content: %r{^ExecReload=/sbin/nft -I /etc/nftables/puppet -f /etc/sysconfig/nftables.conf$},
+        )
+      }
+
+      it {
         is_expected.to contain_service('firewalld').with(
           ensure: 'stopped',
           enable: 'mask',
@@ -176,10 +182,6 @@ describe 'nftables' do
         end
 
         context 'with no nftables fact' do
-          it {
-            is_expected.to contain_systemd__dropin_file('puppet_nft.conf').
-              with_content(%r{^ExecReload.*flush ruleset; include.*$})
-          }
           it { is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').with_content(%r{^flush ruleset$}) }
         end
 
@@ -188,10 +190,6 @@ describe 'nftables' do
             super().merge(nftables: { tables: ['inet-abc', 'inet-f2b-table'] })
           end
 
-          it {
-            is_expected.to contain_systemd__dropin_file('puppet_nft.conf').
-              with_content(%r{^ExecReload.*flush table inet abc; include.*$})
-          }
           it {
             is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').
               with_content(%r{^flush table inet abc$})
@@ -202,10 +200,6 @@ describe 'nftables' do
             super().merge(nftables: { tables: ['inet-abc', 'inet-ijk'] })
           end
 
-          it {
-            is_expected.to contain_systemd__dropin_file('puppet_nft.conf').
-              with_content(%r{^ExecReload.*flush table inet abc; flush table inet ijk; include.*$})
-          }
           it {
             is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').
               with_content(%r{^flush table inet abc; flush table inet ijk$})
