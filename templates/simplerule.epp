@@ -3,11 +3,24 @@
       Optional[Variant[Array[Stdlib::Port, 1], Stdlib::Port, String]] $dport,
       Optional[String]        $proto,
 | -%>
+<%- if $proto {
+  $_proto = $proto ? {
+    /tcp(4|6)?/ => 'tcp',
+    /udp(4|6)?/ => 'udp',
+  }
+  $_ip_version_filter = $proto ? {
+    /(tcp4|udp4)/ => 'ip version 4',
+    /(tcp6|udp6)/ => 'ip version 6',
+    default       => undef,
+  }
+} else {
+  $_ip_version_filter = undef
+} -%>
 <%- if $proto and $dport {
   if $dport =~ Array {
-    $_destination = "${proto} dport {${dport.join(', ')}}"
+    $_destination = "${_proto} dport {${dport.join(', ')}}"
   } else {
-    $_destination = "${proto} dport $dport"
+    $_destination = "${_proto} dport $dport"
   }
 } else {
   $_destination = undef
@@ -17,4 +30,4 @@
 } else {
   $_comment = undef
 } -%>
-<%= regsubst(strip([$_destination, $_comment, $action].join(' ')), '\s+', ' ', 'G') -%>
+<%= regsubst(strip([$_ip_version_filter, $_destination, $_comment, $action].join(' ')), '\s+', ' ', 'G') -%>

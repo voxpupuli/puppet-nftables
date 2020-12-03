@@ -71,6 +71,38 @@ describe 'nftables::simplerule' do
           )
         }
       end
+
+      describe 'only IPv4 TCP traffic' do
+        let(:params) do
+          {
+            dport: 333,
+            proto: 'tcp4',
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'ip version 4 tcp dport 333 accept',
+          )
+        }
+      end
+
+      describe 'only IPv6 UDP traffic' do
+        let(:params) do
+          {
+            dport: 33,
+            proto: 'udp6',
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'ip version 6 udp dport 33 accept',
+          )
+        }
+      end
     end
   end
 end
