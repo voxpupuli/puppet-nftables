@@ -4,6 +4,7 @@
       Optional[String]        $proto,
       Optional[Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Pattern[/^@[-a-zA-Z0-9_]+$/]]] $daddr,
       Enum['ip', 'ip6']       $set_type,
+      Boolean                 $counter,
 | -%>
 <%- if $proto {
   $_proto = $proto ? {
@@ -46,4 +47,9 @@
 } else {
   $_comment = undef
 } -%>
-<%= regsubst(strip([$_ip_version_filter, $_dst_port, $_dst_hosts, $action, $_comment].join(' ')), '\s+', ' ', 'G') -%>
+<%- if $counter {
+  $_counter = "counter"
+} else {
+  $_counter = undef
+} -%>
+<%= regsubst(strip([$_ip_version_filter, $_dst_port, $_dst_hosts, $_counter, $action, $_comment].join(' ')), '\s+', ' ', 'G') -%>

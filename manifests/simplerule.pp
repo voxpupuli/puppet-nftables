@@ -24,6 +24,8 @@ define nftables::simplerule(
     $daddr = undef,
   Enum['ip', 'ip6']
     $set_type = 'ip6',
+  Boolean
+    $counter = false,
 ){
 
   if $dport and !$proto {
@@ -36,6 +38,7 @@ define nftables::simplerule(
         {
           'action'   => $action,
           'comment'  => $comment,
+          'counter'  => $counter,
           'dport'    => $dport,
           'proto'    => $proto,
           'daddr'    => $daddr,

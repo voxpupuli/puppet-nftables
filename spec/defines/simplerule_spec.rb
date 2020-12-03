@@ -35,6 +35,7 @@ describe 'nftables::simplerule' do
           {
             action: 'accept',
             comment: 'this is my rule',
+            counter: true,
             dport: 333,
             proto: 'udp',
             chain: 'default_out',
@@ -45,7 +46,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_out-my_big_rule').with(
-            content: 'udp dport 333 ip6 daddr 2001:1458::/32 accept comment "this is my rule"',
+            content: 'udp dport 333 ip6 daddr 2001:1458::/32 counter accept comment "this is my rule"',
             order: '50',
           )
         }
@@ -178,6 +179,20 @@ describe 'nftables::simplerule' do
         }
       end
 
+      describe 'with counter enabled' do
+        let(:params) do
+          {
+            counter: true,
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'counter accept',
+          )
+        }
+      end
     end
   end
 end
