@@ -5,7 +5,7 @@ define nftables::simplerule(
   Enum['present','absent']
     $ensure = 'present',
   Pattern[/^[-a-zA-Z0-9_]+$/]
-    $setname = $title,
+    $rulename = $title,
   Pattern[/^\d\d$/]
     $order = '50',
   String
@@ -23,7 +23,7 @@ define nftables::simplerule(
 ){
 
   if $ensure == 'present' {
-    nftables::rule{"${chain}-${title}":
+    nftables::rule{"${chain}-${rulename}":
       content => epp('nftables/simplerule.epp',
         {
           'action'  => $action,
