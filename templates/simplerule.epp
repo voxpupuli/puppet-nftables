@@ -1,0 +1,16 @@
+<%- | String                  $action,
+      Optional[String]        $comment,
+      Optional[Integer]       $dport,
+      Optional[String]        $proto,
+| -%>
+<%- if $proto and $dport  {
+  $_destination = "${proto} dport ${dport}"
+} else {
+  $_destination = undef
+} -%>
+<%- if $comment {
+  $_comment = "comment \"${comment}\""
+} else {
+  $_comment = undef
+} -%>
+<%= strip([$_destination, $_comment, $action].join(' ')) -%>
