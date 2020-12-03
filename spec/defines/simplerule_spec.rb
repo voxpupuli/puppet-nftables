@@ -19,6 +19,16 @@ describe 'nftables::simplerule' do
         }
       end
 
+      describe 'port without protocol' do
+        let(:params) do
+          {
+            dport: 333,
+          }
+        end
+
+        it { is_expected.not_to compile }
+      end
+
       describe 'all parameters provided' do
         let(:title) { 'my_big_rule' }
         let(:params) do
