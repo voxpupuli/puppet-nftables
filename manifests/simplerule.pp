@@ -1,6 +1,15 @@
-# This class is meant to be useful to ease the migration from the Firewall type
-# for simple use cases. The coverage of all the casuistry is rather low so for
-# any case not covered by nftables::simplerule please just use nftables::rule.
+# @summary Provides a simplified interface to nftables::rule for basic use cases
+#
+# @example allow incoming traffic on port 543 TCP to a given IP range and count packets
+#   nftables::simplerule{'my_service_in':
+#     action  => 'accept',
+#     comment => 'allow traffic to port 543',
+#     counter => true,
+#     proto   => 'tcp',
+#     dport   => 543,
+#     daddr   => '2001:1458::/32',
+#   }
+
 define nftables::simplerule(
   Enum['present','absent']
     $ensure = 'present',
