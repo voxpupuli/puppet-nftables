@@ -38,7 +38,7 @@ define nftables::simplerule(
 ){
 
   if $dport and !$proto {
-    fail('Specifying a transport protocol via $proto is mandatory when passing a port')
+    fail('Specifying a transport protocol via $proto is mandatory when passing a $dport')
   }
 
   if $ensure == 'present' {
