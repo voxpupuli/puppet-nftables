@@ -597,6 +597,7 @@ describe 'nftables' do
         let(:params) do
           {
             'in_out_conntrack' => false,
+            'fwd_conntrack'    => false,
           }
         end
 
