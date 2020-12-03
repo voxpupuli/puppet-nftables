@@ -2,6 +2,8 @@
       Optional[String]        $comment,
       Optional[Variant[Array[Stdlib::Port, 1], Stdlib::Port, String]] $dport,
       Optional[String]        $proto,
+      Optional[Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Pattern[/^@[-a-zA-Z0-9_]+$/]]] $daddr,
+      Enum['ip', 'ip6']       $set_type,
 | -%>
 <%- if $proto {
   $_proto = $proto ? {
@@ -16,18 +18,32 @@
 } else {
   $_ip_version_filter = undef
 } -%>
-<%- if $proto and $dport {
-  if $dport =~ Array {
-    $_destination = "${_proto} dport {${dport.join(', ')}}"
+<%- if $daddr {
+  if $daddr =~ Stdlib::IP::Address::V6 {
+    $_dst_hosts = "ip6 daddr ${daddr}"
+  } elsif $daddr =~ Stdlib::IP::Address::V4 {
+    $_dst_hosts = "ip daddr ${daddr}"
   } else {
-    $_destination = "${_proto} dport $dport"
+    $_dst_hosts = $set_type ? {
+      'ip'  => "ip daddr ${daddr}",
+      'ip6' => "ip6 daddr ${daddr}",
+    }
   }
 } else {
-  $_destination = undef
+  $_dst_hosts = undef
+} -%>
+<%- if $proto and $dport {
+  if $dport =~ Array {
+    $_dst_port = "${_proto} dport {${dport.join(', ')}}"
+  } else {
+    $_dst_port = "${_proto} dport $dport"
+  }
+} else {
+  $_dst_port = undef
 } -%>
 <%- if $comment {
   $_comment = "comment \"${comment}\""
 } else {
   $_comment = undef
 } -%>
-<%= regsubst(strip([$_ip_version_filter, $_destination, $_comment, $action].join(' ')), '\s+', ' ', 'G') -%>
+<%= regsubst(strip([$_ip_version_filter, $_dst_port, $_dst_hosts, $action, $_comment].join(' ')), '\s+', ' ', 'G') -%>

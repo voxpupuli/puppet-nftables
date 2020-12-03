@@ -20,6 +20,10 @@ define nftables::simplerule(
     $dport  = undef,
   Optional[Enum['tcp', 'tcp4', 'tcp6', 'udp', 'udp4', 'udp6']]
     $proto  = undef,
+  Optional[Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Pattern[/^@[-a-zA-Z0-9_]+$/]]]
+    $daddr = undef,
+  Enum['ip', 'ip6']
+    $set_type = 'ip6',
 ){
 
   if $dport and !$proto {
@@ -30,10 +34,12 @@ define nftables::simplerule(
     nftables::rule{"${chain}-${rulename}":
       content => epp('nftables/simplerule.epp',
         {
-          'action'  => $action,
-          'comment' => $comment,
-          'dport'   => $dport,
-          'proto'   => $proto,
+          'action'   => $action,
+          'comment'  => $comment,
+          'dport'    => $dport,
+          'proto'    => $proto,
+          'daddr'    => $daddr,
+          'set_type' => $set_type,
         }
       ),
       order   => $order,
