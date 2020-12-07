@@ -1,11 +1,18 @@
 {
   "name": "puppet-nftables",
   "version": "0.1.0",
-  "author": "puppet",
+  "author": "Vox Pupuli",
   "summary": "Puppet nftables module",
   "license": "Apache-2.0",
+  "tags": [
+    "firewall",
+    "security",
+    "nftables",
+    "iptables"
+  ],
   "source": "https://github.com/voxpupuli/puppet-nftables.git",
   "project_page": "https://github.com/voxpupuli/puppet-nftables",
+  "issues_url": "https://github.com/voxpupuli/puppet-nftables/issues",
   "dependencies": [
     {
       "name": "puppetlabs/concat",
