@@ -1,14 +1,13 @@
 # manage basic chains in table ip nat
 class nftables::ip_nat inherits nftables {
-
-  nftables::config{
+  nftables::config {
     'ip-nat':
       source => 'puppet:///modules/nftables/config/puppet-ip-nat.nft';
     'ip6-nat':
       source => 'puppet:///modules/nftables/config/puppet-ip6-nat.nft';
   }
 
-  nftables::chain{
+  nftables::chain {
     [
       'PREROUTING',
       'POSTROUTING',
@@ -16,7 +15,7 @@ class nftables::ip_nat inherits nftables {
       table => 'ip-nat';
   }
 
-  nftables::chain{
+  nftables::chain {
     [
       'PREROUTING6',
       'POSTROUTING6',
@@ -25,7 +24,7 @@ class nftables::ip_nat inherits nftables {
   }
 
   # ip-nat-chain-PREROUTING
-  nftables::rule{
+  nftables::rule {
     'PREROUTING-type':
       table   => 'ip-nat',
       order   => '01',
@@ -45,7 +44,7 @@ class nftables::ip_nat inherits nftables {
   }
 
   # ip-nat-chain-POSTROUTING
-  nftables::rule{
+  nftables::rule {
     'POSTROUTING-type':
       table   => 'ip-nat',
       order   => '01',

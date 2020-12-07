@@ -95,24 +95,23 @@ class nftables (
   Hash $sets                     = {},
   String $log_prefix             = '[nftables] %<chain>s %<comment>s',
   Variant[Boolean[false], String]
-    $log_limit                   = '3/minute burst 5 packets',
+  $log_limit                   = '3/minute burst 5 packets',
   Variant[Boolean[false], Pattern[
-    /icmp(v6|x)? type .+|tcp reset/]]
-    $reject_with                 = 'icmpx type port-unreachable',
+  /icmp(v6|x)? type .+|tcp reset/]]
+  $reject_with                 = 'icmpx type port-unreachable',
   Variant[Boolean[false], Enum['mask']]
-    $firewalld_enable            = 'mask',
+  $firewalld_enable            = 'mask',
   Optional[Array[Pattern[/^(ip|ip6|inet)-[-a-zA-Z0-9_]+$/],1]]
-    $noflush_tables = undef,
+  $noflush_tables = undef,
 ) {
-
-  package{'nftables':
+  package { 'nftables':
     ensure => installed,
-  } -> file_line{
+  } -> file_line {
     'enable_nftables':
       line   => 'include "/etc/nftables/puppet.nft"',
       path   => '/etc/sysconfig/nftables.conf',
       notify => Service['nftables'],
-  } -> file{
+  } -> file {
     default:
       owner => 'root',
       group => 'root',
@@ -126,11 +125,11 @@ class nftables (
     '/etc/nftables/puppet-preflight.nft':
       ensure  => file,
       content => epp('nftables/config/puppet.nft.epp', { 'nat' => $nat, 'noflush' => $noflush_tables });
-  } ~> exec{
+  } ~> exec {
     'nft validate':
       refreshonly => true,
       command     => '/usr/sbin/nft -I /etc/nftables/puppet-preflight -c -f /etc/nftables/puppet-preflight.nft || ( /usr/bin/echo "#CONFIG BROKEN" >> /etc/nftables/puppet-preflight.nft && /bin/false)';
-  } -> file{
+  } -> file {
     default:
       owner => 'root',
       group => 'root',
@@ -144,21 +143,21 @@ class nftables (
       purge   => true,
       force   => true,
       recurse => true;
-  } ~> service{'nftables':
+  } ~> service { 'nftables':
     ensure     => running,
     enable     => true,
     hasrestart => true,
     restart    => '/usr/bin/systemctl reload nftables',
   }
 
-  systemd::dropin_file{'puppet_nft.conf':
+  systemd::dropin_file { 'puppet_nft.conf':
     ensure  => present,
     unit    => 'nftables.service',
     content => epp('nftables/systemd/puppet_nft.conf.epp', { 'noflush' => $noflush_tables }),
     notify  => Service['nftables'],
   }
 
-  service{'firewalld':
+  service { 'firewalld':
     ensure => stopped,
     enable => $firewalld_enable,
   }
@@ -170,17 +169,17 @@ class nftables (
 
   # inject custom rules e.g. from hiera
   $rules.each |$n,$v| {
-    nftables::rule{
+    nftables::rule {
       $n:
-        * => $v
+        * => $v,
     }
   }
 
   # inject custom sets e.g. from hiera
   $sets.each |$n,$v| {
-    nftables::set{
+    nftables::set {
       $n:
-        * => $v
+        * => $v,
     }
   }
 }

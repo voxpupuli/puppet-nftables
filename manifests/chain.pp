@@ -1,19 +1,19 @@
 # manage a chain
-define nftables::chain(
+define nftables::chain (
   Pattern[/^(ip|ip6|inet)-[a-zA-Z0-9_]+$/]
-    $table = 'inet-filter',
+  $table = 'inet-filter',
   Pattern[/^[a-zA-Z0-9_]+$/]
-    $chain = $title,
+  $chain = $title,
   Optional[Pattern[/^\d\d-[a-zA-Z0-9_]+$/]]
-    $inject = undef,
+  $inject = undef,
   Optional[String]
-    $inject_iif = undef,
+  $inject_iif = undef,
   Optional[String]
-    $inject_oif = undef,
-){
+  $inject_oif = undef,
+) {
   $concat_name = "nftables-${table}-chain-${chain}"
 
-  concat{
+  concat {
     $concat_name:
       path           => "/etc/nftables/puppet-preflight/${table}-chain-${chain}.nft",
       owner          => root,
@@ -21,16 +21,16 @@ define nftables::chain(
       mode           => '0640',
       ensure_newline => true,
       require        => Package['nftables'],
-  } ~> Exec['nft validate'] -> file{
+  } ~> Exec['nft validate'] -> file {
     "/etc/nftables/puppet/${table}-chain-${chain}.nft":
-    ensure => file,
-    source => "/etc/nftables/puppet-preflight/${table}-chain-${chain}.nft",
-    owner  => root,
-    group  => root,
-    mode   => '0640',
+      ensure => file,
+      source => "/etc/nftables/puppet-preflight/${table}-chain-${chain}.nft",
+      owner  => root,
+      group  => root,
+      mode   => '0640',
   } ~> Service['nftables']
 
-  concat::fragment{
+  concat::fragment {
     default:
       target => $concat_name;
     "${concat_name}-header":
@@ -51,7 +51,7 @@ define nftables::chain(
       undef => '',
       default => "oifname ${inject_oif} ",
     }
-    nftables::rule{ "${data[1]}-jump_${chain}":
+    nftables::rule { "${data[1]}-jump_${chain}":
       order   => $data[0],
       content => "${iif}${oif}jump ${chain}",
     }

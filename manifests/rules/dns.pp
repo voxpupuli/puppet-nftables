@@ -1,9 +1,9 @@
 # manage in dns
-class nftables::rules::dns(
+class nftables::rules::dns (
   Array[Integer,1]
-    $ports = [53],
+  $ports = [53],
 ) {
-  nftables::rule{
+  nftables::rule {
     'default_in-dns_tcp':
       content => "tcp dport {${join($ports,', ')}} accept";
     'default_in-dns_udp':

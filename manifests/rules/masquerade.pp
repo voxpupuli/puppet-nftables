@@ -1,25 +1,24 @@
 # masquerade all outgoing traffic
-define nftables::rules::masquerade(
+define nftables::rules::masquerade (
   Pattern[/^[a-zA-Z0-9_]+$/]
-    $rulename = $title,
+  $rulename = $title,
   Pattern[/^\d\d$/]
-    $order = '70',
+  $order = '70',
   String[1]
-    $chain = 'POSTROUTING',
+  $chain = 'POSTROUTING',
   Optional[String[1]]
-    $oif = undef,
+  $oif = undef,
   Optional[String[1]]
-    $saddr = undef,
+  $saddr = undef,
   Optional[String[1]]
-    $daddr = undef,
+  $daddr = undef,
   Optional[Enum['tcp','udp']]
-    $proto = undef,
+  $proto = undef,
   Optional[Variant[String,Integer[1,65535]]]
-    $dport = undef,
+  $dport = undef,
   Enum['present','absent']
-    $ensure = 'present',
+  $ensure = 'present',
 ) {
-
   $oifname = $oif ? {
     undef   => '',
     default => "oifname ${oif} ",
@@ -47,7 +46,7 @@ define nftables::rules::masquerade(
     $port     = ''
   }
 
-  nftables::rule{
+  nftables::rule {
     "${chain}-${rulename}":
       ensure  => $ensure,
       table   => 'ip-nat',

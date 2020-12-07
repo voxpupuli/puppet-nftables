@@ -1,25 +1,24 @@
 # manage a ipv4 dnat rule
-define nftables::rules::dnat4(
+define nftables::rules::dnat4 (
   Pattern[/^[12]?\d{1,2}\.[12]?\d{1,2}\.[12]?\d{1,2}\.[12]?\d{1,2}$/]
-    $daddr,
+  $daddr,
   Variant[String,Integer[1,65535]]
-    $port,
+  $port,
   Pattern[/^[a-zA-Z0-9_]+$/]
-    $rulename = $title,
+  $rulename = $title,
   Pattern[/^\d\d$/]
-    $order = '50',
+  $order = '50',
   String[1]
-    $chain = 'default_fwd',
+  $chain = 'default_fwd',
   Optional[String[1]]
-    $iif = undef,
+  $iif = undef,
   Enum['tcp','udp']
-    $proto = 'tcp',
+  $proto = 'tcp',
   Optional[Variant[String,Integer[1,65535]]]
-    $dport = '',
+  $dport = '',
   Enum['present','absent']
-    $ensure = 'present',
+  $ensure = 'present',
 ) {
-
   $iifname = $iif ? {
     undef   => '',
     default => "iifname ${iif} ",
@@ -33,7 +32,7 @@ define nftables::rules::dnat4(
     default => ":${dport}",
   }
 
-  nftables::rule{
+  nftables::rule {
     default:
       ensure => $ensure,
       order  => $order;
