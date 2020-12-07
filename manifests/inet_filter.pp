@@ -1,6 +1,5 @@
 # manage basic chains in table inet filter
 class nftables::inet_filter inherits nftables {
-
   $_reject_rule = epp('nftables/reject_rule.epp',
     {
       'log_prefix' => sprintf($nftables::log_prefix, { 'chain' => '%<chain>s', 'comment' => 'Rejected: ' }),
@@ -8,12 +7,12 @@ class nftables::inet_filter inherits nftables {
     }
   )
 
-  nftables::config{
+  nftables::config {
     'inet-filter':
       source => 'puppet:///modules/nftables/config/puppet-inet-filter.nft';
   }
 
-  nftables::chain{
+  nftables::chain {
     [
       'INPUT',
       'OUTPUT',
@@ -21,7 +20,7 @@ class nftables::inet_filter inherits nftables {
     ]:;
   }
 
-  nftables::chain{
+  nftables::chain {
     'default_in':
       inject => '10-INPUT';
     'default_out':
@@ -31,7 +30,7 @@ class nftables::inet_filter inherits nftables {
   }
 
   # inet-filter-chain-INPUT
-  nftables::rule{
+  nftables::rule {
     'INPUT-type':
       order   => '01',
       content => 'type filter hook input priority 0';
@@ -49,14 +48,14 @@ class nftables::inet_filter inherits nftables {
       content => sprintf($_reject_rule, { 'chain' => 'INPUT' }),
   }
   if $nftables::reject_with {
-    nftables::rule{
+    nftables::rule {
       'INPUT-reject':
         order   => '98',
         content => "reject with ${$nftables::reject_with}";
     }
   }
   if $nftables::in_out_conntrack {
-    nftables::rule{
+    nftables::rule {
       'INPUT-accept_established_related':
         order   => '05',
         content => 'ct state established,related accept';
@@ -67,7 +66,7 @@ class nftables::inet_filter inherits nftables {
   }
 
   # inet-filter-chain-OUTPUT
-  nftables::rule{
+  nftables::rule {
     'OUTPUT-type':
       order   => '01',
       content => 'type filter hook output priority 0';
@@ -85,14 +84,14 @@ class nftables::inet_filter inherits nftables {
       content => sprintf($_reject_rule, { 'chain' => 'OUTPUT' }),
   }
   if $nftables::reject_with {
-    nftables::rule{
+    nftables::rule {
       'OUTPUT-reject':
         order   => '98',
         content => "reject with ${$nftables::reject_with}";
     }
   }
   if $nftables::in_out_conntrack {
-    nftables::rule{
+    nftables::rule {
       'OUTPUT-accept_established_related':
         order   => '05',
         content => 'ct state established,related accept';
@@ -103,7 +102,7 @@ class nftables::inet_filter inherits nftables {
   }
 
   # inet-filter-chain-FORWARD
-  nftables::rule{
+  nftables::rule {
     'FORWARD-type':
       order   => '01',
       content => 'type filter hook forward priority 0';
@@ -118,14 +117,14 @@ class nftables::inet_filter inherits nftables {
       content => sprintf($_reject_rule, { 'chain' => 'FORWARD' });
   }
   if $nftables::reject_with {
-    nftables::rule{
+    nftables::rule {
       'FORWARD-reject':
         order   => '98',
         content => "reject with ${$nftables::reject_with}";
     }
   }
   if $nftables::fwd_conntrack {
-    nftables::rule{
+    nftables::rule {
       'FORWARD-accept_established_related':
         order   => '05',
         content => 'ct state established,related accept';
