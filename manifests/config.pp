@@ -1,9 +1,7 @@
 # manage a config snippet
 define nftables::config (
-  Optional[String]
-  $content = undef,
-  Optional[Variant[String,Array[String,1]]]
-  $source = undef,
+  Optional[String] $content = undef,
+  Optional[Variant[String,Array[String,1]]] $source = undef,
 ) {
   $concat_name = "nftables-${name}"
 

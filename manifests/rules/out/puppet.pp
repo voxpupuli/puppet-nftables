@@ -1,9 +1,7 @@
 # manage outgoing puppet
 class nftables::rules::out::puppet (
-  Variant[String,Array[String,1]]
-  $puppetmaster,
-  Integer
-  $puppetserver_port = 8140,
+  Variant[String,Array[String,1]] $puppetmaster,
+  Integer $puppetserver_port = 8140,
 ) {
   any2array($puppetmaster).each |$index,$pm| {
     nftables::rule {

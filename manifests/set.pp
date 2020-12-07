@@ -1,33 +1,19 @@
 # manage a named set
 define nftables::set (
-  Enum['present','absent']
-  $ensure = 'present',
-  Pattern[/^[-a-zA-Z0-9_]+$/]
-  $setname = $title,
-  Pattern[/^\d\d$/]
-  $order = '10',
-  Optional[Enum['ipv4_addr', 'ipv6_addr', 'ether_addr', 'inet_proto', 'inet_service', 'mark']]
-  $type = undef,
-  String
-  $table = 'inet-filter',
-  Array[Enum['constant', 'dynamic', 'interval', 'timeout'], 0, 4]
-  $flags = [],
-  Optional[Integer]
-  $timeout = undef,
-  Optional[Integer]
-  $gc_interval = undef,
-  Optional[Array[String]]
-  $elements = undef,
-  Optional[Integer]
-  $size = undef,
-  Optional[Enum['performance', 'memory']]
-  $policy = undef,
-  Boolean
-  $auto_merge = false,
-  Optional[String]
-  $content = undef,
-  Optional[Variant[String,Array[String,1]]]
-  $source = undef,
+  Enum['present','absent'] $ensure = 'present',
+  Pattern[/^[-a-zA-Z0-9_]+$/] $setname = $title,
+  Pattern[/^\d\d$/] $order = '10',
+  Optional[Enum['ipv4_addr', 'ipv6_addr', 'ether_addr', 'inet_proto', 'inet_service', 'mark']] $type = undef,
+  String $table = 'inet-filter',
+  Array[Enum['constant', 'dynamic', 'interval', 'timeout'], 0, 4] $flags = [],
+  Optional[Integer] $timeout = undef,
+  Optional[Integer] $gc_interval = undef,
+  Optional[Array[String]] $elements = undef,
+  Optional[Integer] $size = undef,
+  Optional[Enum['performance', 'memory']] $policy = undef,
+  Boolean $auto_merge = false,
+  Optional[String] $content = undef,
+  Optional[Variant[String,Array[String,1]]] $source = undef,
 ) {
   if $size and $elements {
     if length($elements) > $size {

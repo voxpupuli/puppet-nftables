@@ -1,9 +1,7 @@
 # manage in node exporter
 class nftables::rules::node_exporter (
-  Optional[Variant[String,Array[String,1]]]
-  $prometheus_server = undef,
-  Integer
-  $port = 9100,
+  Optional[Variant[String,Array[String,1]]] $prometheus_server = undef,
+  Integer $port = 9100,
 ) {
   if $prometheus_server {
     any2array($prometheus_server).each |$index,$prom| {

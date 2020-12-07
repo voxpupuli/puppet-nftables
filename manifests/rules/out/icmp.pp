@@ -1,7 +1,7 @@
 class nftables::rules::out::icmp (
   Optional[Array[String]] $v4_types = undef,
   Optional[Array[String]] $v6_types = undef,
-  String $order                     = '10',
+  String $order = '10',
 ) {
   if $v4_types {
     $v4_types.each | String $icmp_type | {

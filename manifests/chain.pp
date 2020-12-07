@@ -1,15 +1,10 @@
 # manage a chain
 define nftables::chain (
-  Pattern[/^(ip|ip6|inet)-[a-zA-Z0-9_]+$/]
-  $table = 'inet-filter',
-  Pattern[/^[a-zA-Z0-9_]+$/]
-  $chain = $title,
-  Optional[Pattern[/^\d\d-[a-zA-Z0-9_]+$/]]
-  $inject = undef,
-  Optional[String]
-  $inject_iif = undef,
-  Optional[String]
-  $inject_oif = undef,
+  Pattern[/^(ip|ip6|inet)-[a-zA-Z0-9_]+$/] $table = 'inet-filter',
+  Pattern[/^[a-zA-Z0-9_]+$/] $chain = $title,
+  Optional[Pattern[/^\d\d-[a-zA-Z0-9_]+$/]] $inject = undef,
+  Optional[String] $inject_iif = undef,
+  Optional[String] $inject_oif = undef,
 ) {
   $concat_name = "nftables-${table}-chain-${chain}"
 

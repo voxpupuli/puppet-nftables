@@ -80,29 +80,24 @@
 #   If left unset all tables will be flushed via a `flush ruleset`
 #
 class nftables (
-  Boolean $in_ssh                = true,
-  Boolean $in_icmp               = true,
-  Boolean $out_ntp               = true,
-  Boolean $out_dns               = true,
-  Boolean $out_http              = true,
-  Boolean $out_https             = true,
-  Boolean $out_icmp              = true,
-  Boolean $out_all               = false,
-  Boolean $in_out_conntrack      = true,
-  Boolean $fwd_conntrack         = false,
-  Boolean $nat                   = true,
-  Hash $rules                    = {},
-  Hash $sets                     = {},
-  String $log_prefix             = '[nftables] %<chain>s %<comment>s',
-  Variant[Boolean[false], String]
-  $log_limit                   = '3/minute burst 5 packets',
-  Variant[Boolean[false], Pattern[
-  /icmp(v6|x)? type .+|tcp reset/]]
-  $reject_with                 = 'icmpx type port-unreachable',
-  Variant[Boolean[false], Enum['mask']]
-  $firewalld_enable            = 'mask',
-  Optional[Array[Pattern[/^(ip|ip6|inet)-[-a-zA-Z0-9_]+$/],1]]
-  $noflush_tables = undef,
+  Boolean $in_ssh = true,
+  Boolean $in_icmp = true,
+  Boolean $out_ntp = true,
+  Boolean $out_dns = true,
+  Boolean $out_http = true,
+  Boolean $out_https = true,
+  Boolean $out_icmp = true,
+  Boolean $out_all = false,
+  Boolean $in_out_conntrack = true,
+  Boolean $fwd_conntrack = false,
+  Boolean $nat = true,
+  Hash $rules = {},
+  Hash $sets = {},
+  String $log_prefix = '[nftables] %<chain>s %<comment>s',
+  Variant[Boolean[false], String] $log_limit = '3/minute burst 5 packets',
+  Variant[Boolean[false], Pattern[/icmp(v6|x)? type .+|tcp reset/]] $reject_with = 'icmpx type port-unreachable',
+  Variant[Boolean[false], Enum['mask']] $firewalld_enable = 'mask',
+  Optional[Array[Pattern[/^(ip|ip6|inet)-[-a-zA-Z0-9_]+$/],1]] $noflush_tables = undef,
 ) {
   package { 'nftables':
     ensure => installed,

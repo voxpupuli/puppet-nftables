@@ -1,7 +1,6 @@
 # manage out dns
 class nftables::rules::out::dns (
-  Optional[Variant[String,Array[String,1]]]
-  $dns_server = undef,
+  Optional[Variant[String,Array[String,1]]] $dns_server = undef,
 ) {
   if $dns_server {
     any2array($dns_server).each |$index,$dns| {

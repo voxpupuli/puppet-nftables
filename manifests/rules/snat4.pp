@@ -1,23 +1,14 @@
 # manage a ipv4 snat rule
 define nftables::rules::snat4 (
-  String[1]
-  $snat,
-  Pattern[/^[a-zA-Z0-9_]+$/]
-  $rulename = $title,
-  Pattern[/^\d\d$/]
-  $order = '70',
-  String[1]
-  $chain = 'POSTROUTING',
-  Optional[String[1]]
-  $oif = undef,
-  Optional[String[1]]
-  $saddr = undef,
-  Optional[Enum['tcp','udp']]
-  $proto = undef,
-  Optional[Variant[String,Integer[1,65535]]]
-  $dport = undef,
-  Enum['present','absent']
-  $ensure = 'present',
+  String[1] $snat,
+  Pattern[/^[a-zA-Z0-9_]+$/] $rulename = $title,
+  Pattern[/^\d\d$/] $order = '70',
+  String[1] $chain = 'POSTROUTING',
+  Optional[String[1]] $oif = undef,
+  Optional[String[1]] $saddr = undef,
+  Optional[Enum['tcp','udp']] $proto = undef,
+  Optional[Variant[String,Integer[1,65535]]] $dport = undef,
+  Enum['present','absent'] $ensure = 'present',
 ) {
   $oifname = $oif ? {
     undef   => '',

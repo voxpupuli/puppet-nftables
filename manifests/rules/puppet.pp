@@ -1,7 +1,6 @@
 # manage in puppet
 class nftables::rules::puppet (
-  Array[Integer,1]
-  $ports = [8140],
+  Array[Integer,1] $ports = [8140],
 ) {
   nftables::rule {
     'default_in-puppet':
