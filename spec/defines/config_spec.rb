@@ -46,7 +46,7 @@ describe 'nftables::config' do
           is_expected.to contain_concat('nftables-FOO-BAR').with(
             path: '/etc/nftables/puppet-preflight/FOO-BAR.nft',
             ensure_newline: true,
-            mode: '0640',
+            mode: '0640'
           )
         }
         it { is_expected.to contain_file('/etc/nftables/puppet/FOO-BAR.nft') }
@@ -54,7 +54,7 @@ describe 'nftables::config' do
           is_expected.to contain_file('/etc/nftables/puppet/FOO-BAR.nft').with(
             ensure: 'file',
             source: '/etc/nftables/puppet-preflight/FOO-BAR.nft',
-            mode: '0640',
+            mode: '0640'
           )
         }
         it { is_expected.to contain_concat_fragment('nftables-FOO-BAR-header') }
@@ -62,14 +62,14 @@ describe 'nftables::config' do
           is_expected.to contain_concat_fragment('nftables-FOO-BAR-header').with(
             target: 'nftables-FOO-BAR',
             order: '00',
-            content: 'table FOO BAR {',
+            content: 'table FOO BAR {'
           )
         }
         it {
           is_expected.to contain_concat_fragment('nftables-FOO-BAR-body').with(
             target: 'nftables-FOO-BAR',
             order: '98',
-            content: 'strange content',
+            content: 'strange content'
           )
         }
       end
@@ -84,7 +84,7 @@ describe 'nftables::config' do
           is_expected.to contain_concat_fragment('nftables-FOO-BAR-body').with(
             target: 'nftables-FOO-BAR',
             order: '98',
-            source: 'puppet:///modules/foo',
+            source: 'puppet:///modules/foo'
           )
         }
       end
