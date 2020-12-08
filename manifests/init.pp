@@ -152,6 +152,8 @@ class nftables (
     notify  => Service['nftables'],
   }
 
+  # firewalld.enable can be mask or false depending upon if firewalld is installed or not
+  # https://tickets.puppetlabs.com/browse/PUP-10814
   service { 'firewalld':
     ensure => stopped,
     enable => $firewalld_enable,
