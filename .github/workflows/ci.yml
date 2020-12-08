@@ -11,7 +11,7 @@ jobs:
       puppet_major_versions: ${{ steps.get-outputs.outputs.puppet_major_versions }}
       puppet_unit_test_matrix: ${{ steps.get-outputs.outputs.puppet_unit_test_matrix }}
     env:
-      BUNDLE_WITHOUT: development:test:release
+      BUNDLE_WITHOUT: development:release
     steps:
       - uses: actions/checkout@v2
       - name: Setup ruby
@@ -21,6 +21,8 @@ jobs:
           bundler-cache: true
       - name: Run rake validate
         run: bundle exec rake validate
+      - name: Run rake rubocop https://github.com/voxpupuli/modulesync_config/pull/690
+        run: bundle exec rake rubocop
       - name: Setup Test Matrix
         id: get-outputs
         run: bundle exec metadata2gha --use-fqdn --pidfile-workaround false
