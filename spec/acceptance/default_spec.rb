@@ -4,7 +4,8 @@ describe 'nftables class' do
   context 'configure default nftables service' do
     it 'works idempotently with no errors' do
       pp = <<-EOS
-      # default mask of firewalld service fails if service not installed.
+      # default mask of firewalld service fails if service is not installed.
+      # https://tickets.puppetlabs.com/browse/PUP-10814
       class { 'nftables':
         firewalld_enable => false,
       }
