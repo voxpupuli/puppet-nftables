@@ -177,8 +177,8 @@ describe 'nftables' do
 
         context 'with no nftables fact' do
           it {
-            is_expected.to contain_systemd__dropin_file('puppet_nft.conf')
-              .with_content(%r{^ExecReload.*flush ruleset; include.*$})
+            is_expected.to contain_systemd__dropin_file('puppet_nft.conf').
+              with_content(%r{^ExecReload.*flush ruleset; include.*$})
           }
           it { is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').with_content(%r{^flush ruleset$}) }
         end
@@ -189,12 +189,12 @@ describe 'nftables' do
           end
 
           it {
-            is_expected.to contain_systemd__dropin_file('puppet_nft.conf')
-              .with_content(%r{^ExecReload.*flush table inet abc; include.*$})
+            is_expected.to contain_systemd__dropin_file('puppet_nft.conf').
+              with_content(%r{^ExecReload.*flush table inet abc; include.*$})
           }
           it {
-            is_expected.to contain_file('/etc/nftables/puppet-preflight.nft')
-              .with_content(%r{^flush table inet abc$})
+            is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').
+              with_content(%r{^flush table inet abc$})
           }
         end
         context 'with nftables fact not matching' do
@@ -203,12 +203,12 @@ describe 'nftables' do
           end
 
           it {
-            is_expected.to contain_systemd__dropin_file('puppet_nft.conf')
-              .with_content(%r{^ExecReload.*flush table inet abc; flush table inet ijk; include.*$})
+            is_expected.to contain_systemd__dropin_file('puppet_nft.conf').
+              with_content(%r{^ExecReload.*flush table inet abc; flush table inet ijk; include.*$})
           }
           it {
-            is_expected.to contain_file('/etc/nftables/puppet-preflight.nft')
-              .with_content(%r{^flush table inet abc; flush table inet ijk$})
+            is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').
+              with_content(%r{^flush table inet abc; flush table inet ijk$})
           }
         end
       end
