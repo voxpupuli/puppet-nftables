@@ -1,9 +1,7 @@
 # allow forwarding traffic on bridges
-class nftables::bridges(
-  Enum['present','absent']
-    $ensure = 'present',
-  Regexp
-    $bridgenames = /^br.+/
+class nftables::bridges (
+  Enum['present','absent'] $ensure = 'present',
+  Regexp $bridgenames = /^br.+/
 ) {
   if $ensure == 'present' {
     $interfaces = keys($facts['networking']['interfaces'])

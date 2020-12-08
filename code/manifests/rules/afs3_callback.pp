@@ -8,9 +8,7 @@
 class nftables::rules::afs3_callback (
   Array[Stdlib::IP::Address::V4,1] $saddr = ['0.0.0.0/0'],
 ) {
-
-  nftables::rule{'default_in-afs3_callback':
-    content =>  "ip saddr { ${saddr.join(', ')} } udp dport 7001 accept";
+  nftables::rule { 'default_in-afs3_callback':
+    content => "ip saddr { ${saddr.join(', ')} } udp dport 7001 accept";
   }
-
 }

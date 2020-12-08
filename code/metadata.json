@@ -1,11 +1,18 @@
 {
-  "name": "duritong-nftables",
+  "name": "puppet-nftables",
   "version": "0.1.0",
-  "author": "duritong",
+  "author": "Vox Pupuli",
   "summary": "Puppet nftables module",
   "license": "Apache-2.0",
-  "source": "https://code.immerda.ch/immerda/puppet-modules/nftables.git",
-  "project_page": "https://code.immerda.ch/immerda/puppet-modules/nftables",
+  "tags": [
+    "firewall",
+    "security",
+    "nftables",
+    "iptables"
+  ],
+  "source": "https://github.com/voxpupuli/puppet-nftables.git",
+  "project_page": "https://github.com/voxpupuli/puppet-nftables",
+  "issues_url": "https://github.com/voxpupuli/puppet-nftables/issues",
   "dependencies": [
     {
       "name": "puppetlabs/concat",
@@ -43,10 +50,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.10.0 < 7.0.0"
+      "version_requirement": ">= 5.10.0 < 7.0.0"
     }
-  ],
-  "pdk-version": "1.18.1",
-  "template-url": "https://github.com/puppetlabs/pdk-templates#1.18.1",
-  "template-ref": "tags/1.18.1-0-g3d2e75c"
+  ]
 }

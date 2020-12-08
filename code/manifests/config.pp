@@ -1,26 +1,24 @@
 # manage a config snippet
-define nftables::config(
-  Optional[String]
-    $content = undef,
-  Optional[Variant[String,Array[String,1]]]
-    $source = undef,
-){
+define nftables::config (
+  Optional[String] $content = undef,
+  Optional[Variant[String,Array[String,1]]] $source = undef,
+) {
   $concat_name = "nftables-${name}"
 
-  Package['nftables'] -> concat{
+  Package['nftables'] -> concat {
     $concat_name:
       path           => "/etc/nftables/puppet-preflight/${name}.nft",
       ensure_newline => true,
       owner          => root,
       group          => root,
       mode           => '0640',
-  } ~> Exec['nft validate'] -> file{
+  } ~> Exec['nft validate'] -> file {
     "/etc/nftables/puppet/${name}.nft":
-    ensure => file,
-    source => "/etc/nftables/puppet-preflight/${name}.nft",
-    owner  => root,
-    group  => root,
-    mode   => '0640',
+      ensure => file,
+      source => "/etc/nftables/puppet-preflight/${name}.nft",
+      owner  => root,
+      group  => root,
+      mode   => '0640',
   } ~> Service['nftables']
 
   $data = split($name, '-')

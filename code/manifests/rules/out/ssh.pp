@@ -1,6 +1,6 @@
 # manage out ssh
 class nftables::rules::out::ssh {
-  nftables::rule{
+  nftables::rule {
     'default_out-ssh':
       content => 'tcp dport 22 accept',
   }

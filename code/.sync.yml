@@ -1,24 +1,3 @@
 ---
-.gitignore:
-  paths:
-    - .ruby-version
-
-.gitlab-ci.yml:
-  override: true
-  custom:
-    cache:
-      paths:
-        - 'vendor/bundle'
-    bundler_args: '--without system_tests --path vendor/bundle --jobs $(nproc)'
-    custom_stages:
-      - syntax
-      - unit
-    ruby_versions:
-      '2.5':
-        image: 'registry.code.immerda.ch/immerda/container-images/ruby/devel'
-        checks:
-          - 'syntax lint metadata_lint check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop'
-          - 'parallel_spec'
-        puppet_version: '~> 6'
-        tags:
-          - 'container'
+spec/spec_helper.rb:
+  mock_with: ':mocha'

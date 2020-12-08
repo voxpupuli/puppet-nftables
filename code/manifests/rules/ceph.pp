@@ -2,7 +2,7 @@
 # Enable this to support Ceph's Object Storage Daemons (OSD),
 # Metadata Server Daemons (MDS), or Manager Daemons (MGR).
 class nftables::rules::ceph {
-  nftables::rule{
+  nftables::rule {
     'default_in-ceph':
       content => 'tcp dport 6800-7300 accept comment "Accept Ceph OSD, MDS, MGR"',
   }
