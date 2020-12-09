@@ -6,7 +6,7 @@ By default it sets up a firewall that drops every incoming
 and outgoing connection.
 
 It only allows outgoing dns, ntp and web and ingoing ssh
-traffic.
+traffic, although this can be overridden using parameters.
 
 The config file has a inet filter and a ip nat table setup.
 
