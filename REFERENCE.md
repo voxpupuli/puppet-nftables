@@ -11,16 +11,21 @@
 * [`nftables::inet_filter`](#nftablesinet_filter): manage basic chains in table inet filter
 * [`nftables::ip_nat`](#nftablesip_nat): manage basic chains in table ip nat
 * [`nftables::rules::afs3_callback`](#nftablesrulesafs3_callback): Open call back port for AFS clients
+* [`nftables::rules::ceph`](#nftablesrulesceph): Ceph is a distributed object store and file system. Enable this to support Ceph's Object Storage Daemons (OSD), Metadata Server Daemons (MDS)
+* [`nftables::rules::ceph_mon`](#nftablesrulesceph_mon): Ceph is a distributed object store and file system. Enable this option to support Ceph's Monitor Daemon.
 * [`nftables::rules::dhcpv6_client`](#nftablesrulesdhcpv6_client)
 * [`nftables::rules::dns`](#nftablesrulesdns): manage in dns
 * [`nftables::rules::http`](#nftablesruleshttp): manage in http
 * [`nftables::rules::https`](#nftablesruleshttps): manage in https
 * [`nftables::rules::icinga2`](#nftablesrulesicinga2): manage in icinga2
 * [`nftables::rules::icmp`](#nftablesrulesicmp)
+* [`nftables::rules::nfs`](#nftablesrulesnfs): manage in nfs4
+* [`nftables::rules::nfs3`](#nftablesrulesnfs3): manage in nfs3
 * [`nftables::rules::node_exporter`](#nftablesrulesnode_exporter): manage in node exporter
 * [`nftables::rules::ospf`](#nftablesrulesospf): manage in ospf
 * [`nftables::rules::ospf3`](#nftablesrulesospf3): manage in ospf3
 * [`nftables::rules::out::all`](#nftablesrulesoutall): allow all outbound
+* [`nftables::rules::out::ceph_client`](#nftablesrulesoutceph_client): Ceph is a distributed object store and file system. Enable this to be a client of Ceph's Monitor (MON), Object Storage Daemons (OSD), Metadat
 * [`nftables::rules::out::chrony`](#nftablesrulesoutchrony): manage out chrony
 * [`nftables::rules::out::dhcp`](#nftablesrulesoutdhcp): manage out dhcp
 * [`nftables::rules::out::dhcpv6_client`](#nftablesrulesoutdhcpv6_client)
@@ -30,6 +35,8 @@
 * [`nftables::rules::out::icmp`](#nftablesrulesouticmp)
 * [`nftables::rules::out::kerberos`](#nftablesrulesoutkerberos): allows outbound access for kerberos
 * [`nftables::rules::out::mysql`](#nftablesrulesoutmysql): manage out mysql
+* [`nftables::rules::out::nfs`](#nftablesrulesoutnfs): manage out nfs
+* [`nftables::rules::out::nfs3`](#nftablesrulesoutnfs3): manage out nfs3
 * [`nftables::rules::out::openafs_client`](#nftablesrulesoutopenafs_client): allows outbound access for afs clients
 * [`nftables::rules::out::ospf`](#nftablesrulesoutospf): manage out ospf
 * [`nftables::rules::out::ospf3`](#nftablesrulesoutospf3): manage out ospf3
@@ -68,12 +75,20 @@ Configure nftables
 
 #### Examples
 
-##### 
+##### allow dns out and do not allow ntp out
 
 ```puppet
 class{'nftables:
   out_ntp = false,
   out_dns = true,
+}
+```
+
+##### do not flush particular tables, fail2ban in this case
+
+```puppet
+class{'nftables':
+  noflush_tables = ['inet-f2b-table'],
 }
 ```
 
@@ -153,6 +168,14 @@ Add default tables and chains to process NAT traffic.
 
 Default value: ``true``
 
+##### `sets`
+
+Data type: `Hash`
+
+Allows sourcing set definitions directly from Hiera.
+
+Default value: `{}`
+
 ##### `log_prefix`
 
 Data type: `String`
@@ -164,10 +187,19 @@ two variables using standard sprintf() string-formatting:
 
 Default value: `'[nftables] %<chain>s %<comment>s'`
 
+##### `log_limit`
+
+Data type: `Variant[Boolean[false], String]`
+
+String with the content of a limit statement to be applied
+to the rules that log discarded traffic. Set to false to
+disable rate limiting.
+
+Default value: `'3/minute burst 5 packets'`
+
 ##### `reject_with`
 
-Data type: `Variant[Boolean[false], Pattern[
-    /icmp(v6|x)? type .+|tcp reset/]]`
+Data type: `Variant[Boolean[false], Pattern[/icmp(v6|x)? type .+|tcp reset/]]`
 
 How to discard packets not matching any rule. If `false`, the
 fate of the packet will be defined by the chain policy (normally
@@ -185,6 +217,15 @@ established connection and also to drop invalid packets.
 
 Default value: ``true``
 
+##### `fwd_conntrack`
+
+Data type: `Boolean`
+
+Adds FORWARD rules to allow traffic that's part of an
+established connection and also to drop invalid packets.
+
+Default value: ``false``
+
 ##### `firewalld_enable`
 
 Data type: `Variant[Boolean[false], Enum['mask']]`
@@ -194,6 +235,15 @@ useful to set this to false if you're externaly removing firewalld from
 the system completely.
 
 Default value: `'mask'`
+
+##### `noflush_tables`
+
+Data type: `Optional[Array[Pattern[/^(ip|ip6|inet)-[-a-zA-Z0-9_]+$/],1]]`
+
+If specified only other existings tables will be flushed.
+If left unset all tables will be flushed via a `flush ruleset`
+
+Default value: ``undef``
 
 ##### `out_dns`
 
@@ -260,6 +310,29 @@ Data type: `Array[Stdlib::IP::Address::V4,1]`
 list of source network ranges to a
 
 Default value: `['0.0.0.0/0']`
+
+### `nftables::rules::ceph`
+
+Ceph is a distributed object store and file system.
+Enable this to support Ceph's Object Storage Daemons (OSD),
+Metadata Server Daemons (MDS), or Manager Daemons (MGR).
+
+### `nftables::rules::ceph_mon`
+
+Ceph is a distributed object store and file system.
+Enable this option to support Ceph's Monitor Daemon.
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::ceph_mon` class.
+
+##### `ports`
+
+Data type: `Array[Integer,1]`
+
+
+
+Default value: `[3300, 6789]`
 
 ### `nftables::rules::dhcpv6_client`
 
@@ -337,6 +410,14 @@ Data type: `String`
 
 Default value: `'10'`
 
+### `nftables::rules::nfs`
+
+manage in nfs4
+
+### `nftables::rules::nfs3`
+
+manage in nfs3
+
 ### `nftables::rules::node_exporter`
 
 manage in node exporter
@@ -372,6 +453,25 @@ manage in ospf3
 ### `nftables::rules::out::all`
 
 allow all outbound
+
+### `nftables::rules::out::ceph_client`
+
+Ceph is a distributed object store and file system.
+Enable this to be a client of Ceph's Monitor (MON),
+Object Storage Daemons (OSD), Metadata Server Daemons (MDS),
+and Manager Daemons (MGR).
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::out::ceph_client` class.
+
+##### `ports`
+
+Data type: `Array[Integer,1]`
+
+
+
+Default value: `[3300, 6789]`
 
 ### `nftables::rules::out::chrony`
 
@@ -448,6 +548,14 @@ allows outbound access for kerberos
 ### `nftables::rules::out::mysql`
 
 manage out mysql
+
+### `nftables::rules::out::nfs`
+
+manage out nfs
+
+### `nftables::rules::out::nfs3`
+
+manage out nfs3
 
 ### `nftables::rules::out::openafs_client`
 
