@@ -12,6 +12,43 @@
 #     daddr   => '2001:1458::/32',
 #     sport   => 541,
 #   }
+#
+# @param rulename
+#   The symbolic name for the rule to add. Defaults to the resource's title.
+#
+# @param order
+#   A number representing the order of the rule.
+#
+# @param chain
+#   The name of the chain to add this rule to.
+#
+# @param table
+#   The name of the table to add this rule to.
+#
+# @param action
+#   The verdict for the matched traffic.
+#
+# @param comment
+#   A typically human-readable comment for the rule.
+#
+# @param dport
+#   The destination port, ports or port range.
+#
+# @param proto
+#   The transport-layer protocol to match.
+#
+# @param daddr
+#   The destination address, CIDR or set to match.
+#
+# @param set_type
+#   When using sets as saddr or daddr, the type of the set.
+#   Use `ip` for sets of type `ipv4_addr`.
+#
+# @param sport
+#   The source port, ports or port range.
+#
+# @param counter
+#   Enable traffic counters for the matched traffic.
 
 define nftables::simplerule (
   Enum['present','absent'] $ensure = 'present',
