@@ -5,7 +5,7 @@
       Optional[Nftables::Port] $dport,
       Optional[String]         $proto,
       Optional[Nftables::Addr] $saddr,
-      Enum['ip', 'ip6']        $set_type,
+      String                   $set_type,
       Optional[Nftables::Port] $sport,
 | -%>
 <%- if $proto {
