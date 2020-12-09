@@ -44,6 +44,10 @@ describe 'nftables class' do
       it { is_expected.to be_file }
     end
 
+    describe file('/etc/systemd/system/nftables.service.d/puppet_nft.conf') do
+      it { is_expected.to be_file }
+    end
+
     describe file('/etc/nftables/puppet') do
       it { is_expected.to be_directory }
     end

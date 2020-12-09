@@ -146,7 +146,7 @@ class nftables (
   systemd::dropin_file { 'puppet_nft.conf':
     ensure  => present,
     unit    => 'nftables.service',
-    content => epp('nftables/systemd/puppet_nft.conf.epp', { 'noflush' => $noflush_tables }),
+    content => file('nftables/systemd/puppet_nft.conf'),
     notify  => Service['nftables'],
   }
 
