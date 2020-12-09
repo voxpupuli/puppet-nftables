@@ -43,6 +43,7 @@ INPUT and OUTPUT to the loopback device is allowed by
 default, though you could restrict it later.
 
 ### Rules Validation
+
 Initially puppet deploys all configuration to
 `/etc/nftables/puppet-preflight/` and
 `/etc/nftables/puppet-preflight.nft`. This is validated with
