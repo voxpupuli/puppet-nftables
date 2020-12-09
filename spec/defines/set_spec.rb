@@ -81,7 +81,7 @@ describe 'nftables::set' do
         let(:params) do
           {
             type: 'ipv4_addr',
-            flags: ['interval', 'timeout'],
+            flags: %w[interval timeout],
             elements: ['192.168.0.1/24'],
             auto_merge: true,
           }
