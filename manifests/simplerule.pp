@@ -63,10 +63,10 @@ define nftables::simplerule (
   Optional[String] $comment = undef,
   Optional[Nftables::Port] $dport = undef,
   Optional[Enum['tcp', 'tcp4', 'tcp6', 'udp', 'udp4', 'udp6']] $proto = undef,
-  Optional[Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Pattern[/^@[-a-zA-Z0-9_]+$/]]] $daddr = undef,
+  Optional[Nftables::Addr] $daddr = undef,
   Enum['ip', 'ip6'] $set_type = 'ip6',
   Optional[Nftables::Port] $sport = undef,
-  Optional[Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Pattern[/^@[-a-zA-Z0-9_]+$/]]] $saddr = undef,
+  Optional[Nftables::Addr] $saddr = undef,
   Boolean $counter = false,
 ) {
   if $dport and !$proto {

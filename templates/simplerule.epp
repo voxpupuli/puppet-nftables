@@ -1,10 +1,10 @@
 <%- | String                  $action,
       Optional[String]        $comment,
       Boolean                 $counter,
-      Optional[Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Pattern[/^@[-a-zA-Z0-9_]+$/]]] $daddr,
+      Optional[Nftables::Addr] $daddr,
       Optional[Nftables::Port] $dport,
       Optional[String]        $proto,
-      Optional[Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Pattern[/^@[-a-zA-Z0-9_]+$/]]] $saddr,
+      Optional[Nftables::Addr] $saddr,
       Enum['ip', 'ip6']       $set_type,
       Optional[Nftables::Port] $sport,
 | -%>
