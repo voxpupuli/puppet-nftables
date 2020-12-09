@@ -5,6 +5,7 @@
       Optional[Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Pattern[/^@[-a-zA-Z0-9_]+$/]]] $daddr,
       Enum['ip', 'ip6']       $set_type,
       Optional[Variant[Array[Stdlib::Port, 1], Stdlib::Port, String]] $sport,
+      Optional[Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Pattern[/^@[-a-zA-Z0-9_]+$/]]] $saddr,
       Boolean                 $counter,
 | -%>
 <%- if $proto {
@@ -34,6 +35,20 @@
 } else {
   $_dst_hosts = undef
 } -%>
+<%- if $saddr {
+  if $saddr =~ Stdlib::IP::Address::V6 {
+    $_src_hosts = "ip6 saddr ${saddr}"
+  } elsif $daddr =~ Stdlib::IP::Address::V4 {
+    $_src_hosts = "ip saddr ${saddr}"
+  } else {
+    $_src_hosts = $set_type ? {
+      'ip'  => "ip saddr ${saddr}",
+      'ip6' => "ip6 saddr ${saddr}",
+    }
+  }
+} else {
+  $_src_hosts = undef
+} -%>
 <%- if $proto and $dport {
   $_dst_port = "${_proto} dport {${Array($dport, true).join(', ')}}"
 } else {
@@ -54,4 +69,4 @@
 } else {
   $_counter = undef
 } -%>
-<%= regsubst(strip([$_ip_version_filter, $_src_port, $_dst_port, $_dst_hosts, $_counter, $action, $_comment].join(' ')), '\s+', ' ', 'G') -%>
+<%= regsubst(strip([$_ip_version_filter, $_src_port, $_dst_port, $_src_hosts, $_dst_hosts, $_counter, $action, $_comment].join(' ')), '\s+', ' ', 'G') -%>

@@ -47,6 +47,9 @@
 # @param sport
 #   The source port, ports or port range.
 #
+# @param saddr
+#   The source address, CIDR or set to match.
+#
 # @param counter
 #   Enable traffic counters for the matched traffic.
 
@@ -63,6 +66,7 @@ define nftables::simplerule (
   Optional[Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Pattern[/^@[-a-zA-Z0-9_]+$/]]] $daddr = undef,
   Enum['ip', 'ip6'] $set_type = 'ip6',
   Optional[Variant[Array[Stdlib::Port, 1], Stdlib::Port, Pattern[/\d+-\d+/]]] $sport = undef,
+  Optional[Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Pattern[/^@[-a-zA-Z0-9_]+$/]]] $saddr = undef,
   Boolean $counter = false,
 ) {
   if $dport and !$proto {
@@ -84,6 +88,7 @@ define nftables::simplerule (
           'proto'    => $proto,
           'daddr'    => $daddr,
           'set_type' => $set_type,
+          'saddr'    => $saddr,
           'sport'    => $sport,
         }
       ),

@@ -51,13 +51,14 @@ describe 'nftables::simplerule' do
             proto: 'udp',
             chain: 'default_out',
             daddr: '2001:1458::/32',
+            saddr: '2001:145c::/32',
           }
         end
 
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_out-my_big_rule').with(
-            content: 'udp sport {444} udp dport {333} ip6 daddr 2001:1458::/32 counter accept comment "this is my rule"',
+            content: 'udp sport {444} udp dport {333} ip6 saddr 2001:145c::/32 ip6 daddr 2001:1458::/32 counter accept comment "this is my rule"',
             order: '50',
           )
         }
@@ -177,6 +178,21 @@ describe 'nftables::simplerule' do
         }
       end
 
+      describe 'with an IPv6 address as saddr' do
+        let(:params) do
+          {
+            saddr: '2001:1458:0000:0000:0000:0000:0000:0003',
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'ip6 saddr 2001:1458:0000:0000:0000:0000:0000:0003 accept',
+          )
+        }
+      end
+
       describe 'with an IPv6 set as daddr, default set_type' do
         let(:params) do
           {
@@ -204,6 +220,22 @@ describe 'nftables::simplerule' do
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
             content: 'ip daddr @my4_set accept',
+          )
+        }
+      end
+
+      describe 'with a IPv6 set as saddr' do
+        let(:params) do
+          {
+            saddr: '@my6_set',
+            set_type: 'ip6',
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'ip6 saddr @my6_set accept',
           )
         }
       end
