@@ -1,11 +1,11 @@
-<%- | String                  $action,
-      Optional[String]        $comment,
-      Boolean                 $counter,
+<%- | String                   $action,
+      Optional[String]         $comment,
+      Boolean                  $counter,
       Optional[Nftables::Addr] $daddr,
       Optional[Nftables::Port] $dport,
-      Optional[String]        $proto,
+      Optional[String]         $proto,
       Optional[Nftables::Addr] $saddr,
-      Enum['ip', 'ip6']       $set_type,
+      Enum['ip', 'ip6']        $set_type,
       Optional[Nftables::Port] $sport,
 | -%>
 <%- if $proto {
