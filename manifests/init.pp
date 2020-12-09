@@ -6,9 +6,7 @@
 #     out_dns = true,
 #   }
 #
-# @example do not flush particular tables
-# In this case ignoring the fail2ban maintained
-# table
+# @example do not flush particular tables, fail2ban in this case
 #   class{'nftables':
 #     noflush_tables = ['inet-f2b-table'],
 #   }
