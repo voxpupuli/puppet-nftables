@@ -46,7 +46,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_out-my_big_rule').with(
-            content: 'udp dport 333 ip6 daddr 2001:1458::/32 counter accept comment "this is my rule"',
+            content: 'udp dport {333} ip6 daddr 2001:1458::/32 counter accept comment "this is my rule"',
             order: '50',
           )
         }
@@ -63,7 +63,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'tcp dport 333-334 accept',
+            content: 'tcp dport {333-334} accept',
           )
         }
       end
@@ -95,7 +95,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'ip version 4 tcp dport 333 accept',
+            content: 'ip version 4 tcp dport {333} accept',
           )
         }
       end
@@ -111,7 +111,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'ip version 6 udp dport 33 accept',
+            content: 'ip version 6 udp dport {33} accept',
           )
         }
       end
@@ -128,7 +128,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'tcp dport 33 ip daddr 192.168.0.1/24 accept',
+            content: 'tcp dport {33} ip daddr 192.168.0.1/24 accept',
           )
         }
       end

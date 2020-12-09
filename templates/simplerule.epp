@@ -34,11 +34,7 @@
   $_dst_hosts = undef
 } -%>
 <%- if $proto and $dport {
-  if $dport =~ Array {
-    $_dst_port = "${_proto} dport {${dport.join(', ')}}"
-  } else {
-    $_dst_port = "${_proto} dport $dport"
-  }
+  $_dst_port = "${_proto} dport {${Array($dport, true).join(', ')}}"
 } else {
   $_dst_port = undef
 } -%>
