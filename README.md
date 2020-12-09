@@ -1,6 +1,6 @@
 # nftables puppet module
 
-This module manages an opinionated nftables configuration
+This module manages an opinionated nftables configuration.
 
 By default it sets up a firewall that drops every incoming
 and outgoing connection.
