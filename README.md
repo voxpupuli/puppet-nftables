@@ -37,7 +37,7 @@ configured to which you can easily add your custom rules.
 For specific needs you can add your own chain.
 
 There is a global chain, that defines the default behavior
-for all masterchains.
+for all masterchains. This chain is empty by default.
 
 INPUT and OUTPUT to the loopback device is allowed by
 default, though you could restrict it later.
