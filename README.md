@@ -1,16 +1,16 @@
 # nftables puppet module
 
-This module manages an opinionated nftables configuration
+This module manages an opinionated nftables configuration.
 
 By default it sets up a firewall that drops every incoming
 and outgoing connection.
 
 It only allows outgoing dns, ntp and web and ingoing ssh
-traffic.
+traffic, although this can be overridden using parameters.
 
 The config file has a inet filter and a ip nat table setup.
 
-Additionally, the module comes with a basic infrastrcuture
+Additionally, the module comes with a basic infrastructure
 to hook into different places.
 
 ## nftables config
@@ -37,12 +37,13 @@ configured to which you can easily add your custom rules.
 For specific needs you can add your own chain.
 
 There is a global chain, that defines the default behavior
-for all masterchains.
+for all masterchains. This chain is empty by default.
 
 INPUT and OUTPUT to the loopback device is allowed by
 default, though you could restrict it later.
 
 ### Rules Validation
+
 Initially puppet deploys all configuration to
 `/etc/nftables/puppet-preflight/` and
 `/etc/nftables/puppet-preflight.nft`. This is validated with
@@ -80,7 +81,7 @@ The rule will be a `concat::fragment` to the chain
 
 You can define the order by using the `order` param.
 
-## nftsables::set
+## nftables::set
 
 Adds a named set to a given table. It allows composing the
 set using individual parameters but also takes raw input
