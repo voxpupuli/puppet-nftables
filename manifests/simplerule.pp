@@ -1,6 +1,6 @@
 # @summary Provides a simplified interface to nftables::rule for basic use cases
 #
-# @example allow incoming traffic on port 543 TCP to a given IP range and count packets
+# @example allow incoming traffic from port 541 on port 543 TCP to a given IP range and count packets
 #   nftables::simplerule{'my_service_in':
 #     action  => 'accept',
 #     comment => 'allow traffic to port 543',
@@ -8,6 +8,7 @@
 #     proto   => 'tcp',
 #     dport   => 543,
 #     daddr   => '2001:1458::/32',
+#     sport   => 541,
 #   }
 
 define nftables::simplerule (
@@ -22,10 +23,15 @@ define nftables::simplerule (
   Optional[Enum['tcp', 'tcp4', 'tcp6', 'udp', 'udp4', 'udp6']] $proto = undef,
   Optional[Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Pattern[/^@[-a-zA-Z0-9_]+$/]]] $daddr = undef,
   Enum['ip', 'ip6'] $set_type = 'ip6',
+  Optional[Variant[Array[Stdlib::Port, 1], Stdlib::Port, Pattern[/\d+-\d+/]]] $sport = undef,
   Boolean $counter = false,
 ) {
   if $dport and !$proto {
     fail('Specifying a transport protocol via $proto is mandatory when passing a $dport')
+  }
+
+  if $sport and !$proto {
+    fail('Specifying a transport protocol via $proto is mandatory when passing a $sport')
   }
 
   if $ensure == 'present' {
@@ -39,6 +45,7 @@ define nftables::simplerule (
           'proto'    => $proto,
           'daddr'    => $daddr,
           'set_type' => $set_type,
+          'sport'    => $sport,
         }
       ),
       order   => $order,

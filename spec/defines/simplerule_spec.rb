@@ -19,10 +19,20 @@ describe 'nftables::simplerule' do
         }
       end
 
-      describe 'port without protocol' do
+      describe 'dport without protocol' do
         let(:params) do
           {
             dport: 333,
+          }
+        end
+
+        it { is_expected.not_to compile }
+      end
+
+      describe 'sport without protocol' do
+        let(:params) do
+          {
+            sport: 333,
           }
         end
 
@@ -37,6 +47,7 @@ describe 'nftables::simplerule' do
             comment: 'this is my rule',
             counter: true,
             dport: 333,
+            sport: 444,
             proto: 'udp',
             chain: 'default_out',
             daddr: '2001:1458::/32',
@@ -46,7 +57,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_out-my_big_rule').with(
-            content: 'udp dport {333} ip6 daddr 2001:1458::/32 counter accept comment "this is my rule"',
+            content: 'udp sport {444} udp dport {333} ip6 daddr 2001:1458::/32 counter accept comment "this is my rule"',
             order: '50',
           )
         }
@@ -56,6 +67,7 @@ describe 'nftables::simplerule' do
         let(:params) do
           {
             dport: '333-334',
+            sport: '1-2',
             proto: 'tcp',
           }
         end
@@ -63,7 +75,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'tcp dport {333-334} accept',
+            content: 'tcp sport {1-2} tcp dport {333-334} accept',
           )
         }
       end
@@ -72,6 +84,7 @@ describe 'nftables::simplerule' do
         let(:params) do
           {
             dport: [333, 335],
+            sport: [433, 435],
             proto: 'tcp',
           }
         end
@@ -79,7 +92,23 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'tcp dport {333, 335} accept',
+            content: 'tcp sport {433, 435} tcp dport {333, 335} accept',
+          )
+        }
+      end
+
+      describe 'only sport TCP traffic' do
+        let(:params) do
+          {
+            sport: 555,
+            proto: 'tcp',
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'tcp sport {555} accept',
           )
         }
       end
