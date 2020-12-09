@@ -86,3 +86,10 @@ You can define the order by using the `order` param.
 Adds a named set to a given table. It allows composing the
 set using individual parameters but also takes raw input
 via the content and source parameters.
+
+## nftables::simplerule
+
+Allows expressing firewall rules without having to use nftables's language by
+adding an abstraction layer a-la-Firewall. It's rather limited how far you can
+go so if you need rather complex rules or you can speak nftables it's
+recommended to use `nftables::rule` directly.
