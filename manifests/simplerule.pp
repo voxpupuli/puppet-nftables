@@ -84,11 +84,11 @@ define nftables::simplerule (
           'action'   => $action,
           'comment'  => $comment,
           'counter'  => $counter,
+          'daddr'    => $daddr,
           'dport'    => $dport,
           'proto'    => $proto,
-          'daddr'    => $daddr,
-          'set_type' => $set_type,
           'saddr'    => $saddr,
+          'set_type' => $set_type,
           'sport'    => $sport,
         }
       ),
