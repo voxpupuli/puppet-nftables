@@ -222,6 +222,24 @@ describe 'nftables::simplerule' do
           )
         }
       end
+
+      describe 'counter and continue sport' do
+        let(:params) do
+          {
+            proto: 'tcp',
+            sport: 80,
+            counter: true,
+            action: 'continue',
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'tcp sport {80} counter continue',
+          )
+        }
+      end
     end
   end
 end

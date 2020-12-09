@@ -56,7 +56,7 @@ define nftables::simplerule (
   Pattern[/^\d\d$/] $order = '50',
   String $chain  = 'default_in',
   String $table = 'inet-filter',
-  Enum['accept', 'drop'] $action = 'accept',
+  Enum['accept', 'continue', 'drop', 'queue', 'return'] $action = 'accept',
   Optional[String] $comment = undef,
   Optional[Variant[Array[Stdlib::Port, 1], Stdlib::Port, Pattern[/\d+-\d+/]]] $dport = undef,
   Optional[Enum['tcp', 'tcp4', 'tcp6', 'udp', 'udp4', 'udp6']] $proto = undef,
