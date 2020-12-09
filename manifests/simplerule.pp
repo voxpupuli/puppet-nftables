@@ -61,11 +61,11 @@ define nftables::simplerule (
   String $table = 'inet-filter',
   Enum['accept', 'continue', 'drop', 'queue', 'return'] $action = 'accept',
   Optional[String] $comment = undef,
-  Optional[Variant[Array[Stdlib::Port, 1], Stdlib::Port, Pattern[/\d+-\d+/]]] $dport = undef,
+  Optional[Nftables::Port] $dport = undef,
   Optional[Enum['tcp', 'tcp4', 'tcp6', 'udp', 'udp4', 'udp6']] $proto = undef,
   Optional[Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Pattern[/^@[-a-zA-Z0-9_]+$/]]] $daddr = undef,
   Enum['ip', 'ip6'] $set_type = 'ip6',
-  Optional[Variant[Array[Stdlib::Port, 1], Stdlib::Port, Pattern[/\d+-\d+/]]] $sport = undef,
+  Optional[Nftables::Port] $sport = undef,
   Optional[Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Pattern[/^@[-a-zA-Z0-9_]+$/]]] $saddr = undef,
   Boolean $counter = false,
 ) {

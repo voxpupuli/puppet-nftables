@@ -2,11 +2,11 @@
       Optional[String]        $comment,
       Boolean                 $counter,
       Optional[Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Pattern[/^@[-a-zA-Z0-9_]+$/]]] $daddr,
-      Optional[Variant[Array[Stdlib::Port, 1], Stdlib::Port, String]] $dport,
+      Optional[Nftables::Port] $dport,
       Optional[String]        $proto,
       Optional[Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Pattern[/^@[-a-zA-Z0-9_]+$/]]] $saddr,
       Enum['ip', 'ip6']       $set_type,
-      Optional[Variant[Array[Stdlib::Port, 1], Stdlib::Port, String]] $sport,
+      Optional[Nftables::Port] $sport,
 | -%>
 <%- if $proto {
   $_proto = $proto ? {
