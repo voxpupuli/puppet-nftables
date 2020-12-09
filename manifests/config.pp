@@ -3,6 +3,7 @@ define nftables::config (
   Pattern[/^\w+-\w+$/] $tablespec = $title,
   Optional[String] $content = undef,
   Optional[Variant[String,Array[String,1]]] $source = undef,
+  String $prefix = 'custom-',
 ) {
   if $content and $source {
     fail('Please pass only $content or $source, not both.')
@@ -12,15 +13,15 @@ define nftables::config (
 
   Package['nftables'] -> concat {
     $concat_name:
-      path           => "/etc/nftables/puppet-preflight/${name}.nft",
+      path           => "/etc/nftables/puppet-preflight/${prefix}${name}.nft",
       ensure_newline => true,
       owner          => root,
       group          => root,
       mode           => '0640',
   } ~> Exec['nft validate'] -> file {
-    "/etc/nftables/puppet/${name}.nft":
+    "/etc/nftables/puppet/${prefix}${name}.nft":
       ensure => file,
-      source => "/etc/nftables/puppet-preflight/${name}.nft",
+      source => "/etc/nftables/puppet-preflight/${prefix}${name}.nft",
       owner  => root,
       group  => root,
       mode   => '0640',
