@@ -66,6 +66,14 @@
 * [`nftables::rules::masquerade`](#nftablesrulesmasquerade): masquerade all outgoing traffic
 * [`nftables::rules::snat4`](#nftablesrulessnat4): manage a ipv4 snat rule
 * [`nftables::set`](#nftablesset): manage a named set
+* [`nftables::simplerule`](#nftablessimplerule)
+
+### Data types
+
+* [`Nftables::Addr`](#nftablesaddr): Represents an address expression to be used within a rule.
+* [`Nftables::Addr::Set`](#nftablesaddrset): Represents a set expression to be used within a rule.
+* [`Nftables::Port`](#nftablesport): Represents a port expression to be used within a rule.
+* [`Nftables::Port::Range`](#nftablesportrange): Represents a port range expression to be used within a rule.
 
 ## Classes
 
@@ -1214,4 +1222,150 @@ Data type: `Optional[Variant[String,Array[String,1]]]`
 
 
 Default value: ``undef``
+
+### `nftables::simplerule`
+
+The nftables::simplerule class.
+
+#### Parameters
+
+The following parameters are available in the `nftables::simplerule` defined type.
+
+##### `ensure`
+
+Data type: `Enum['present','absent']`
+
+
+
+Default value: `'present'`
+
+##### `rulename`
+
+Data type: `Pattern[/^[-a-zA-Z0-9_]+$/]`
+
+
+
+Default value: `$title`
+
+##### `order`
+
+Data type: `Pattern[/^\d\d$/]`
+
+
+
+Default value: `'50'`
+
+##### `chain`
+
+Data type: `String`
+
+
+
+Default value: `'default_in'`
+
+##### `table`
+
+Data type: `String`
+
+
+
+Default value: `'inet-filter'`
+
+##### `action`
+
+Data type: `Enum['accept', 'continue', 'drop', 'queue', 'return']`
+
+
+
+Default value: `'accept'`
+
+##### `comment`
+
+Data type: `Optional[String]`
+
+
+
+Default value: ``undef``
+
+##### `dport`
+
+Data type: `Optional[Nftables::Port]`
+
+
+
+Default value: ``undef``
+
+##### `proto`
+
+Data type: `Optional[Enum['tcp', 'tcp4', 'tcp6', 'udp', 'udp4', 'udp6']]`
+
+
+
+Default value: ``undef``
+
+##### `daddr`
+
+Data type: `Optional[Nftables::Addr]`
+
+
+
+Default value: ``undef``
+
+##### `set_type`
+
+Data type: `Enum['ip', 'ip6']`
+
+
+
+Default value: `'ip6'`
+
+##### `sport`
+
+Data type: `Optional[Nftables::Port]`
+
+
+
+Default value: ``undef``
+
+##### `saddr`
+
+Data type: `Optional[Nftables::Addr]`
+
+
+
+Default value: ``undef``
+
+##### `counter`
+
+Data type: `Boolean`
+
+
+
+Default value: ``false``
+
+## Data types
+
+### `Nftables::Addr`
+
+Represents an address expression to be used within a rule.
+
+Alias of `Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Nftables::Addr::Set]`
+
+### `Nftables::Addr::Set`
+
+Represents a set expression to be used within a rule.
+
+Alias of `Pattern[/^@[-a-zA-Z0-9_]+$/]`
+
+### `Nftables::Port`
+
+Represents a port expression to be used within a rule.
+
+Alias of `Variant[Array[Stdlib::Port, 1], Stdlib::Port, Nftables::Port::Range]`
+
+### `Nftables::Port::Range`
+
+Represents a port range expression to be used within a rule.
+
+Alias of `Pattern[/^\d+-\d+$/]`
 
