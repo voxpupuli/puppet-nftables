@@ -60,7 +60,6 @@ describe 'nftables::config' do
         end
 
         it {
-          pending('Setting source and content should be made to fail')
           is_expected.not_to compile
         }
       end

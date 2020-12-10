@@ -3,6 +3,10 @@ define nftables::config (
   Optional[String] $content = undef,
   Optional[Variant[String,Array[String,1]]] $source = undef,
 ) {
+  if $content and $source {
+    fail('Please pass only $content or $source, not both.')
+  }
+
   $concat_name = "nftables-${name}"
 
   Package['nftables'] -> concat {
