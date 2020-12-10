@@ -1,6 +1,4 @@
-# @summary Provides a simplified interface to nftables::rule for basic use cases.
-#   It's recommended to use nftables::rule directly if you feel comfortable with
-#   nft's syntax.
+# @summary Provides a simplified interface to nftables::rule
 #
 # @example allow incoming traffic from port 541 on port 543 TCP to a given IP range and count packets
 #   nftables::simplerule{'my_service_in':
@@ -52,7 +50,6 @@
 #
 # @param counter
 #   Enable traffic counters for the matched traffic.
-
 define nftables::simplerule (
   Enum['present','absent'] $ensure = 'present',
   Pattern[/^[-a-zA-Z0-9_]+$/] $rulename = $title,

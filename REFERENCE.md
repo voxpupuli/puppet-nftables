@@ -66,7 +66,7 @@
 * [`nftables::rules::masquerade`](#nftablesrulesmasquerade): masquerade all outgoing traffic
 * [`nftables::rules::snat4`](#nftablesrulessnat4): manage a ipv4 snat rule
 * [`nftables::set`](#nftablesset): manage a named set
-* [`nftables::simplerule`](#nftablessimplerule)
+* [`nftables::simplerule`](#nftablessimplerule): Provides a simplified interface to nftables::rule
 
 ### Data types
 
@@ -1225,11 +1225,132 @@ Default value: ``undef``
 
 ### `nftables::simplerule`
 
-The nftables::simplerule class.
+Provides a simplified interface to nftables::rule
+
+#### Examples
+
+##### allow incoming traffic from port 541 on port 543 TCP to a given IP range and count packets
+
+```puppet
+nftables::simplerule{'my_service_in':
+  action  => 'accept',
+  comment => 'allow traffic to port 543',
+  counter => true,
+  proto   => 'tcp',
+  dport   => 543,
+  daddr   => '2001:1458::/32',
+  sport   => 541,
+}
+```
 
 #### Parameters
 
 The following parameters are available in the `nftables::simplerule` defined type.
+
+##### `rulename`
+
+Data type: `Pattern[/^[-a-zA-Z0-9_]+$/]`
+
+The symbolic name for the rule to add. Defaults to the resource's title.
+
+Default value: `$title`
+
+##### `order`
+
+Data type: `Pattern[/^\d\d$/]`
+
+A number representing the order of the rule.
+
+Default value: `'50'`
+
+##### `chain`
+
+Data type: `String`
+
+The name of the chain to add this rule to.
+
+Default value: `'default_in'`
+
+##### `table`
+
+Data type: `String`
+
+The name of the table to add this rule to.
+
+Default value: `'inet-filter'`
+
+##### `action`
+
+Data type: `Enum['accept', 'continue', 'drop', 'queue', 'return']`
+
+The verdict for the matched traffic.
+
+Default value: `'accept'`
+
+##### `comment`
+
+Data type: `Optional[String]`
+
+A typically human-readable comment for the rule.
+
+Default value: ``undef``
+
+##### `dport`
+
+Data type: `Optional[Nftables::Port]`
+
+The destination port, ports or port range.
+
+Default value: ``undef``
+
+##### `proto`
+
+Data type: `Optional[Enum['tcp', 'tcp4', 'tcp6', 'udp', 'udp4', 'udp6']]`
+
+The transport-layer protocol to match.
+
+Default value: ``undef``
+
+##### `daddr`
+
+Data type: `Optional[Nftables::Addr]`
+
+The destination address, CIDR or set to match.
+
+Default value: ``undef``
+
+##### `set_type`
+
+Data type: `Enum['ip', 'ip6']`
+
+When using sets as saddr or daddr, the type of the set.
+Use `ip` for sets of type `ipv4_addr`.
+
+Default value: `'ip6'`
+
+##### `sport`
+
+Data type: `Optional[Nftables::Port]`
+
+The source port, ports or port range.
+
+Default value: ``undef``
+
+##### `saddr`
+
+Data type: `Optional[Nftables::Addr]`
+
+The source address, CIDR or set to match.
+
+Default value: ``undef``
+
+##### `counter`
+
+Data type: `Boolean`
+
+Enable traffic counters for the matched traffic.
+
+Default value: ``false``
 
 ##### `ensure`
 
@@ -1238,110 +1359,6 @@ Data type: `Enum['present','absent']`
 
 
 Default value: `'present'`
-
-##### `rulename`
-
-Data type: `Pattern[/^[-a-zA-Z0-9_]+$/]`
-
-
-
-Default value: `$title`
-
-##### `order`
-
-Data type: `Pattern[/^\d\d$/]`
-
-
-
-Default value: `'50'`
-
-##### `chain`
-
-Data type: `String`
-
-
-
-Default value: `'default_in'`
-
-##### `table`
-
-Data type: `String`
-
-
-
-Default value: `'inet-filter'`
-
-##### `action`
-
-Data type: `Enum['accept', 'continue', 'drop', 'queue', 'return']`
-
-
-
-Default value: `'accept'`
-
-##### `comment`
-
-Data type: `Optional[String]`
-
-
-
-Default value: ``undef``
-
-##### `dport`
-
-Data type: `Optional[Nftables::Port]`
-
-
-
-Default value: ``undef``
-
-##### `proto`
-
-Data type: `Optional[Enum['tcp', 'tcp4', 'tcp6', 'udp', 'udp4', 'udp6']]`
-
-
-
-Default value: ``undef``
-
-##### `daddr`
-
-Data type: `Optional[Nftables::Addr]`
-
-
-
-Default value: ``undef``
-
-##### `set_type`
-
-Data type: `Enum['ip', 'ip6']`
-
-
-
-Default value: `'ip6'`
-
-##### `sport`
-
-Data type: `Optional[Nftables::Port]`
-
-
-
-Default value: ``undef``
-
-##### `saddr`
-
-Data type: `Optional[Nftables::Addr]`
-
-
-
-Default value: ``undef``
-
-##### `counter`
-
-Data type: `Boolean`
-
-
-
-Default value: ``false``
 
 ## Data types
 
