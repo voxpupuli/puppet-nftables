@@ -103,7 +103,7 @@ describe 'nftables::config' do
           )
         }
       end
-      context 'with content set' do
+      context 'with source set' do
         let(:params) do
           {
             source: 'puppet:///modules/foo',
