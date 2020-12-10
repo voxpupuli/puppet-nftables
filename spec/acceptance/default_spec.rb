@@ -52,4 +52,35 @@ describe 'nftables class' do
       it { is_expected.to be_directory }
     end
   end
+  context 'with bad invalid nft rules' do
+    it 'puppet fails but should leave nft service running' do
+      pp = <<-EOS
+      class{'nftables':
+        firewalld_enable => false,
+      }
+      nftables::rule{'default_out-junk':
+        content => 'A load of junk',
+      }
+      # nftables cannot be started in docker so replace service with a validation only.
+      systemd::dropin_file{"zzz_docker_nft.conf":
+        ensure  => present,
+        unit    => "nftables.service",
+        content => [
+          "[Service]",
+          "ExecStart=",
+          "ExecStart=/sbin/nft -c -I /etc/nftables/puppet -f /etc/sysconfig/nftables.conf",
+          "ExecReload=",
+          "ExecReload=/sbin/nft -c -I /etc/nftables/puppet -f /etc/sysconfig/nftables.conf",
+          "",
+          ].join("\n"),
+        notify  => Service["nftables"],
+      }
+      EOS
+      apply_manifest(pp, expect_failures: true)
+    end
+    describe service('nftables') do
+      it { is_expected.to be_running }
+      it { is_expected.to be_enabled }
+    end
+  end
 end
