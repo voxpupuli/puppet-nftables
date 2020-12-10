@@ -1,11 +1,6 @@
 # manage basic chains in table ip nat
 class nftables::ip_nat inherits nftables {
-  nftables::config {
-    'ip-nat':
-      source => 'puppet:///modules/nftables/config/puppet-ip-nat.nft';
-    'ip6-nat':
-      source => 'puppet:///modules/nftables/config/puppet-ip6-nat.nft';
-  }
+  nftables::config { ['ip-nat', 'ip6-nat']: }
 
   nftables::chain {
     [

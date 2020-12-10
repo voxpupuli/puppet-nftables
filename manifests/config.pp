@@ -38,11 +38,16 @@ define nftables::config (
         source => $source,
     }
   } else {
+    if $content {
+      $_content = $content
+    } else {
+      $_content = "  include \"${name}-chain-*.nft\""
+    }
     concat::fragment {
       "${concat_name}-body":
         target  => $concat_name,
         order   => '98',
-        content => $content,
+        content => $_content,
     }
   }
 

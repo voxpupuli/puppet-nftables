@@ -30,6 +30,7 @@ describe 'nftables' do
       it {
         is_expected.to contain_concat__fragment('nftables-ip-nat-body').with(
           target:  'nftables-ip-nat',
+          content: %r{^\s+include "ip-nat-chain-\*\.nft"$},
           order:   '98',
         )
       }
@@ -63,6 +64,7 @@ describe 'nftables' do
       it {
         is_expected.to contain_concat__fragment('nftables-ip6-nat-body').with(
           target:  'nftables-ip6-nat',
+          content: %r{^\s+include "ip6-nat-chain-\*\.nft"$},
           order:   '98',
         )
       }
