@@ -1,5 +1,6 @@
 # manage a config snippet
 define nftables::config (
+  Pattern[/^\w+-\w+$/] $tablespec = $title,
   Optional[String] $content = undef,
   Optional[Variant[String,Array[String,1]]] $source = undef,
 ) {
