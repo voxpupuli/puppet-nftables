@@ -70,6 +70,8 @@ jobs:
         with:
           ruby-version: '2.7'
           bundler-cache: true
+      - name: Check that all rules are declared in the all rules acceptance test
+        run: bash -c "awk '/^class / {print \$2}' manifests/rules/*.pp manifests/rules/out/*.pp | xargs -i sh -c 'grep -F {} spec/acceptance/all_rules_spec.rb -q || exit 255'"
       - name: Run tests
         run: bundle exec rake beaker
         env:
