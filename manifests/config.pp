@@ -1,8 +1,13 @@
 # manage a config snippet
 define nftables::config (
+  Pattern[/^\w+-\w+$/] $tablespec = $title,
   Optional[String] $content = undef,
   Optional[Variant[String,Array[String,1]]] $source = undef,
 ) {
+  if $content and $source {
+    fail('Please pass only $content or $source, not both.')
+  }
+
   $concat_name = "nftables-${name}"
 
   Package['nftables'] -> concat {
@@ -38,11 +43,16 @@ define nftables::config (
         source => $source,
     }
   } else {
+    if $content {
+      $_content = $content
+    } else {
+      $_content = "  include \"${name}-chain-*.nft\""
+    }
     concat::fragment {
       "${concat_name}-body":
         target  => $concat_name,
         order   => '98',
-        content => $content,
+        content => $_content,
     }
   }
 
