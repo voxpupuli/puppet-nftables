@@ -1,6 +1,11 @@
 # manage basic chains in table ip nat
 class nftables::ip_nat inherits nftables {
-  nftables::config { ['ip-nat', 'ip6-nat']: }
+  nftables::config {
+    'ip-nat':
+      prefix => '';
+    'ip6-nat':
+      prefix => '';
+  }
 
   nftables::chain {
     [
