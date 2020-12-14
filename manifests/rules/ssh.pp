@@ -1,6 +1,6 @@
 # manage in ssh
 class nftables::rules::ssh (
-  Array[Integer,1] $ports = [22],
+  Array[Stdlib::Port,1] $ports = [22],
 ) {
   nftables::rule {
     'default_in-ssh':

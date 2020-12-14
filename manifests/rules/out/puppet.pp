@@ -1,7 +1,7 @@
 # manage outgoing puppet
 class nftables::rules::out::puppet (
   Variant[Stdlib::IP::Address,Array[Stdlib::IP::Address,1]] $puppetserver,
-  Integer $puppetserver_port = 8140,
+  Stdlib::Port $puppetserver_port = 8140,
 ) {
   Array($puppetserver, true).each |$index,$ps| {
     nftables::rule {

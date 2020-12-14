@@ -7,7 +7,7 @@ define nftables::rules::masquerade (
   Optional[String[1]] $saddr = undef,
   Optional[String[1]] $daddr = undef,
   Optional[Enum['tcp','udp']] $proto = undef,
-  Optional[Variant[String,Integer[1,65535]]] $dport = undef,
+  Optional[Variant[String,Stdlib::Port]] $dport = undef,
   Enum['present','absent'] $ensure = 'present',
 ) {
   $oifname = $oif ? {
