@@ -10,6 +10,8 @@
 #     daddr   => '2001:1458::/32',
 #     sport   => 541,
 #   }
+# @param ensure
+#   Should the rule be created.
 #
 # @param rulename
 #   The symbolic name for the rule to add. Defaults to the resource's title.
