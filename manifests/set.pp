@@ -1,4 +1,27 @@
-# manage a named set
+# @summary  manage a named set
+#
+# @example simple set
+#  nftables::set{'my_set':
+#    type       => 'ipv4_addr',
+#    flags      => ['interval'],
+#    elements   => ['192.168.0.1/24', '10.0.0.2'],
+#    auto_merge => true,
+#  }
+#
+# @param ensure should the set be created.
+# @param setname name of set, equal to to title.
+# @param order concat ordering.
+# @param type type of set.
+# @param table table to add set to.
+# @param flags specify flags for set
+# @param timeout timeout in seconds
+# @param gc_interval garbage collection interval.
+# @param elements initialize the set with some elements in it.
+# @param size  limits the maximum number of elements of the set.
+# @param policy determines set selection policy.
+# @param auto_merge ?
+# @param content specify content of set.
+# @param source specify source of set.
 define nftables::set (
   Enum['present','absent'] $ensure = 'present',
   Pattern[/^[-a-zA-Z0-9_]+$/] $setname = $title,

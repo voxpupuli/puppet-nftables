@@ -607,9 +607,9 @@ manage outgoing puppet
 
 The following parameters are available in the `nftables::rules::out::puppet` class.
 
-##### `puppetmaster`
+##### `puppetserver`
 
-Data type: `Variant[String,Array[String,1]]`
+Data type: `Variant[Stdlib::IP::Address,Array[Stdlib::IP::Address,1]]`
 
 
 
@@ -795,6 +795,14 @@ manage a config snippet
 
 The following parameters are available in the `nftables::config` defined type.
 
+##### `tablespec`
+
+Data type: `Pattern[/^\w+-\w+$/]`
+
+
+
+Default value: `$title`
+
 ##### `content`
 
 Data type: `Optional[String]`
@@ -810,6 +818,14 @@ Data type: `Optional[Variant[String,Array[String,1]]]`
 
 
 Default value: ``undef``
+
+##### `prefix`
+
+Data type: `String`
+
+
+
+Default value: `'custom-'`
 
 ### `nftables::rule`
 
@@ -1107,6 +1123,19 @@ Default value: `'present'`
 
 manage a named set
 
+#### Examples
+
+##### simple set
+
+```puppet
+nftables::set{'my_set':
+  type       => 'ipv4_addr',
+  flags      => ['interval'],
+  elements   => ['192.168.0.1/24', '10.0.0.2'],
+  auto_merge => true,
+}
+```
+
 #### Parameters
 
 The following parameters are available in the `nftables::set` defined type.
@@ -1115,7 +1144,7 @@ The following parameters are available in the `nftables::set` defined type.
 
 Data type: `Enum['present','absent']`
 
-
+should the set be created.
 
 Default value: `'present'`
 
@@ -1123,7 +1152,7 @@ Default value: `'present'`
 
 Data type: `Pattern[/^[-a-zA-Z0-9_]+$/]`
 
-
+name of set, equal to to title.
 
 Default value: `$title`
 
@@ -1131,7 +1160,7 @@ Default value: `$title`
 
 Data type: `Pattern[/^\d\d$/]`
 
-
+concat ordering.
 
 Default value: `'10'`
 
@@ -1139,7 +1168,7 @@ Default value: `'10'`
 
 Data type: `Optional[Enum['ipv4_addr', 'ipv6_addr', 'ether_addr', 'inet_proto', 'inet_service', 'mark']]`
 
-
+type of set.
 
 Default value: ``undef``
 
@@ -1147,7 +1176,7 @@ Default value: ``undef``
 
 Data type: `String`
 
-
+table to add set to.
 
 Default value: `'inet-filter'`
 
@@ -1155,7 +1184,7 @@ Default value: `'inet-filter'`
 
 Data type: `Array[Enum['constant', 'dynamic', 'interval', 'timeout'], 0, 4]`
 
-
+specify flags for set
 
 Default value: `[]`
 
@@ -1163,7 +1192,7 @@ Default value: `[]`
 
 Data type: `Optional[Integer]`
 
-
+timeout in seconds
 
 Default value: ``undef``
 
@@ -1171,7 +1200,7 @@ Default value: ``undef``
 
 Data type: `Optional[Integer]`
 
-
+garbage collection interval.
 
 Default value: ``undef``
 
@@ -1179,7 +1208,7 @@ Default value: ``undef``
 
 Data type: `Optional[Array[String]]`
 
-
+initialize the set with some elements in it.
 
 Default value: ``undef``
 
@@ -1187,7 +1216,7 @@ Default value: ``undef``
 
 Data type: `Optional[Integer]`
 
-
+limits the maximum number of elements of the set.
 
 Default value: ``undef``
 
@@ -1195,7 +1224,7 @@ Default value: ``undef``
 
 Data type: `Optional[Enum['performance', 'memory']]`
 
-
+determines set selection policy.
 
 Default value: ``undef``
 
@@ -1203,7 +1232,7 @@ Default value: ``undef``
 
 Data type: `Boolean`
 
-
+?
 
 Default value: ``false``
 
@@ -1211,7 +1240,7 @@ Default value: ``false``
 
 Data type: `Optional[String]`
 
-
+specify content of set.
 
 Default value: ``undef``
 
@@ -1219,7 +1248,7 @@ Default value: ``undef``
 
 Data type: `Optional[Variant[String,Array[String,1]]]`
 
-
+specify source of set.
 
 Default value: ``undef``
 
@@ -1246,6 +1275,14 @@ nftables::simplerule{'my_service_in':
 #### Parameters
 
 The following parameters are available in the `nftables::simplerule` defined type.
+
+##### `ensure`
+
+Data type: `Enum['present','absent']`
+
+Should the rule be created.
+
+Default value: `'present'`
 
 ##### `rulename`
 
@@ -1351,14 +1388,6 @@ Data type: `Boolean`
 Enable traffic counters for the matched traffic.
 
 Default value: ``false``
-
-##### `ensure`
-
-Data type: `Enum['present','absent']`
-
-
-
-Default value: `'present'`
 
 ## Data types
 
