@@ -17,7 +17,7 @@
 # @param timeout timeout in seconds
 # @param gc_interval garbage collection interval.
 # @param elements initialize the set with some elements in it.
-# @param size  limits the maximum number of elements of the set.
+# @param size limits the maximum number of elements of the set.
 # @param policy determines set selection policy.
 # @param auto_merge ?
 # @param content specify content of set.
