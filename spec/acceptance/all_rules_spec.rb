@@ -48,7 +48,7 @@ describe 'nftables class' do
       include nftables::rules::out::http
       include nftables::rules::out::ssh::remove
       class{'nftables::rules::out::puppet':
-        puppetmaster => '127.0.0.1',
+        puppetserver => '127.0.0.1',
       }
       include nftables::rules::out::all
       include nftables::rules::out::tor
