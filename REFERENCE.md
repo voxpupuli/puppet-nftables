@@ -336,7 +336,7 @@ The following parameters are available in the `nftables::rules::ceph_mon` class.
 
 ##### `ports`
 
-Data type: `Array[Integer,1]`
+Data type: `Array[Stdlib::Port,1]`
 
 
 
@@ -356,7 +356,7 @@ The following parameters are available in the `nftables::rules::dns` class.
 
 ##### `ports`
 
-Data type: `Array[Integer,1]`
+Data type: `Array[Stdlib::Port,1]`
 
 
 
@@ -380,7 +380,7 @@ The following parameters are available in the `nftables::rules::icinga2` class.
 
 ##### `ports`
 
-Data type: `Array[Integer,1]`
+Data type: `Array[Stdlib::Port,1]`
 
 
 
@@ -444,7 +444,7 @@ Default value: ``undef``
 
 ##### `port`
 
-Data type: `Integer`
+Data type: `Stdlib::Port`
 
 
 
@@ -475,7 +475,7 @@ The following parameters are available in the `nftables::rules::out::ceph_client
 
 ##### `ports`
 
-Data type: `Array[Integer,1]`
+Data type: `Array[Stdlib::Port,1]`
 
 
 
@@ -581,7 +581,7 @@ The following parameters are available in the `nftables::rules::out::openafs_cli
 
 ##### `ports`
 
-Data type: `Array[Integer,1]`
+Data type: `Array[Stdlib::Port,1]`
 
 
 
@@ -615,7 +615,7 @@ Data type: `Variant[Stdlib::IP::Address,Array[Stdlib::IP::Address,1]]`
 
 ##### `puppetserver_port`
 
-Data type: `Integer`
+Data type: `Stdlib::Port`
 
 
 
@@ -691,7 +691,7 @@ The following parameters are available in the `nftables::rules::ssh` class.
 
 ##### `ports`
 
-Data type: `Array[Integer,1]`
+Data type: `Array[Stdlib::Port,1]`
 
 
 
@@ -707,7 +707,7 @@ The following parameters are available in the `nftables::rules::tor` class.
 
 ##### `ports`
 
-Data type: `Array[Integer,1]`
+Data type: `Array[Stdlib::Port,1]`
 
 
 
@@ -723,7 +723,7 @@ The following parameters are available in the `nftables::rules::wireguard` class
 
 ##### `ports`
 
-Data type: `Array[Integer,1]`
+Data type: `Array[Stdlib::Port,1]`
 
 
 
@@ -901,7 +901,7 @@ Data type: `Pattern[/^[12]?\d{1,2}\.[12]?\d{1,2}\.[12]?\d{1,2}\.[12]?\d{1,2}$/]`
 
 ##### `port`
 
-Data type: `Variant[String,Integer[1,65535]]`
+Data type: `Variant[String,Stdlib::Port]`
 
 
 
@@ -947,7 +947,7 @@ Default value: `'tcp'`
 
 ##### `dport`
 
-Data type: `Optional[Variant[String,Integer[1,65535]]]`
+Data type: `Optional[Variant[String,Stdlib::Port]]`
 
 
 
@@ -1027,7 +1027,7 @@ Default value: ``undef``
 
 ##### `dport`
 
-Data type: `Optional[Variant[String,Integer[1,65535]]]`
+Data type: `Optional[Variant[String,Stdlib::Port]]`
 
 
 
@@ -1105,7 +1105,7 @@ Default value: ``undef``
 
 ##### `dport`
 
-Data type: `Optional[Variant[String,Integer[1,65535]]]`
+Data type: `Optional[Variant[String,Stdlib::Port]]`
 
 
 
