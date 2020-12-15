@@ -10,7 +10,7 @@ These should not affect the functionality of the module.
 
 **Breaking changes:**
 
-- switch not the server naming [\#42](https://github.com/voxpupuli/puppet-nftables/pull/42) ([duritong](https://github.com/duritong))
+- switch the server naming [\#42](https://github.com/voxpupuli/puppet-nftables/pull/42) ([duritong](https://github.com/duritong))
 
 **Implemented enhancements:**
 
