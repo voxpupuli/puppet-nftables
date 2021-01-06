@@ -7,7 +7,7 @@ define nftables::rules::snat4 (
   Optional[String[1]] $oif = undef,
   Optional[String[1]] $saddr = undef,
   Optional[Enum['tcp','udp']] $proto = undef,
-  Optional[Variant[String,Integer[1,65535]]] $dport = undef,
+  Optional[Variant[String,Stdlib::Port]] $dport = undef,
   Enum['present','absent'] $ensure = 'present',
 ) {
   $oifname = $oif ? {

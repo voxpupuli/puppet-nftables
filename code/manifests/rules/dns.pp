@@ -1,6 +1,6 @@
 # manage in dns
 class nftables::rules::dns (
-  Array[Integer,1] $ports = [53],
+  Array[Stdlib::Port,1] $ports = [53],
 ) {
   nftables::rule {
     'default_in-dns_tcp':

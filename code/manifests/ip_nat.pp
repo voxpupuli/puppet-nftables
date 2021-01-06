@@ -2,9 +2,9 @@
 class nftables::ip_nat inherits nftables {
   nftables::config {
     'ip-nat':
-      source => 'puppet:///modules/nftables/config/puppet-ip-nat.nft';
+      prefix => '';
     'ip6-nat':
-      source => 'puppet:///modules/nftables/config/puppet-ip6-nat.nft';
+      prefix => '';
   }
 
   nftables::chain {

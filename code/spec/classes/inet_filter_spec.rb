@@ -441,7 +441,7 @@ describe 'nftables' do
       end
 
       context 'custom log prefix with variable substitution' do
-        let(:pre_condition) { 'class{\'nftables\': log_prefix => " bar [%<chain>s] "}' } # rubocop:disable Style/FormatStringToken
+        let(:pre_condition) { 'class{\'nftables\': log_prefix => " bar [%<chain>s] "}' }
 
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_discarded').with(

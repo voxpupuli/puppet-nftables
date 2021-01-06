@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'nftables' do
-  before(:each) do
+  before do
     Facter.clear
     Process.stubs(:uid).returns(0)
     Facter::Util::Resolution.stubs(:which).with('nft').returns('/usr/sbin/nft')
