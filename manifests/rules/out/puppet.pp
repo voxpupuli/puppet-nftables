@@ -1,19 +1,19 @@
 # manage outgoing puppet
 class nftables::rules::out::puppet (
-  Variant[String,Array[String,1]] $puppetmaster,
-  Integer $puppetserver_port = 8140,
+  Variant[Stdlib::IP::Address,Array[Stdlib::IP::Address,1]] $puppetserver,
+  Stdlib::Port $puppetserver_port = 8140,
 ) {
-  any2array($puppetmaster).each |$index,$pm| {
+  Array($puppetserver, true).each |$index,$ps| {
     nftables::rule {
       "default_out-puppet-${index}":
     }
-    if $pm =~ /:/ {
+    if $ps =~ Stdlib::IP::Address::V6 {
       Nftables::Rule["default_out-puppet-${index}"] {
-        content => "ip6 daddr ${pm} tcp dport ${puppetserver_port} accept",
+        content => "ip6 daddr ${ps} tcp dport ${puppetserver_port} accept",
       }
     } else {
       Nftables::Rule["default_out-puppet-${index}"] {
-        content => "ip daddr ${pm} tcp dport ${puppetserver_port} accept",
+        content => "ip daddr ${ps} tcp dport ${puppetserver_port} accept",
       }
     }
   }

@@ -3,7 +3,7 @@
 # Object Storage Daemons (OSD), Metadata Server Daemons (MDS),
 # and Manager Daemons (MGR).
 class nftables::rules::out::ceph_client (
-  Array[Integer,1] $ports = [3300, 6789],
+  Array[Stdlib::Port,1] $ports = [3300, 6789],
 ) {
   nftables::rule {
     'default_out-ceph_client':

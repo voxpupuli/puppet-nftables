@@ -6,9 +6,7 @@
 #     out_dns = true,
 #   }
 #
-# @example do not flush particular tables
-# In this case ignoring the fail2ban maintained
-# table
+# @example do not flush particular tables, fail2ban in this case
 #   class{'nftables':
 #     noflush_tables = ['inet-f2b-table'],
 #   }
@@ -148,10 +146,12 @@ class nftables (
   systemd::dropin_file { 'puppet_nft.conf':
     ensure  => present,
     unit    => 'nftables.service',
-    content => epp('nftables/systemd/puppet_nft.conf.epp', { 'noflush' => $noflush_tables }),
+    content => file('nftables/systemd/puppet_nft.conf'),
     notify  => Service['nftables'],
   }
 
+  # firewalld.enable can be mask or false depending upon if firewalld is installed or not
+  # https://tickets.puppetlabs.com/browse/PUP-10814
   service { 'firewalld':
     ensure => stopped,
     enable => $firewalld_enable,

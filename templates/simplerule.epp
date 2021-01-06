@@ -1,0 +1,72 @@
+<%- | String                   $action,
+      Optional[String]         $comment,
+      Boolean                  $counter,
+      Optional[Nftables::Addr] $daddr,
+      Optional[Nftables::Port] $dport,
+      Optional[String]         $proto,
+      Optional[Nftables::Addr] $saddr,
+      String                   $set_type,
+      Optional[Nftables::Port] $sport,
+| -%>
+<%- if $proto {
+  $_proto = $proto ? {
+    /tcp(4|6)?/ => 'tcp',
+    /udp(4|6)?/ => 'udp',
+  }
+  $_ip_version_filter = $proto ? {
+    /(tcp4|udp4)/ => 'ip version 4',
+    /(tcp6|udp6)/ => 'ip version 6',
+    default       => undef,
+  }
+} else {
+  $_ip_version_filter = undef
+} -%>
+<%- if $daddr {
+  if $daddr =~ Stdlib::IP::Address::V6 {
+    $_dst_hosts = "ip6 daddr ${daddr}"
+  } elsif $daddr =~ Stdlib::IP::Address::V4 {
+    $_dst_hosts = "ip daddr ${daddr}"
+  } else {
+    $_dst_hosts = $set_type ? {
+      'ip'  => "ip daddr ${daddr}",
+      'ip6' => "ip6 daddr ${daddr}",
+    }
+  }
+} else {
+  $_dst_hosts = undef
+} -%>
+<%- if $saddr {
+  if $saddr =~ Stdlib::IP::Address::V6 {
+    $_src_hosts = "ip6 saddr ${saddr}"
+  } elsif $daddr =~ Stdlib::IP::Address::V4 {
+    $_src_hosts = "ip saddr ${saddr}"
+  } else {
+    $_src_hosts = $set_type ? {
+      'ip'  => "ip saddr ${saddr}",
+      'ip6' => "ip6 saddr ${saddr}",
+    }
+  }
+} else {
+  $_src_hosts = undef
+} -%>
+<%- if $proto and $dport {
+  $_dst_port = "${_proto} dport {${Array($dport, true).join(', ')}}"
+} else {
+  $_dst_port = undef
+} -%>
+<%- if $comment {
+  $_comment = "comment \"${comment}\""
+} else {
+  $_comment = undef
+} -%>
+<%- if $proto and $sport {
+  $_src_port = "${_proto} sport {${Array($sport, true).join(', ')}}"
+} else {
+  $_src_port = undef
+} -%>
+<%- if $counter {
+  $_counter = "counter"
+} else {
+  $_counter = undef
+} -%>
+<%= regsubst(strip([$_ip_version_filter, $_src_port, $_dst_port, $_src_hosts, $_dst_hosts, $_counter, $action, $_comment].join(' ')), '\s+', ' ', 'G') -%>

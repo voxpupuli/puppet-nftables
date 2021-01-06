@@ -11,16 +11,21 @@
 * [`nftables::inet_filter`](#nftablesinet_filter): manage basic chains in table inet filter
 * [`nftables::ip_nat`](#nftablesip_nat): manage basic chains in table ip nat
 * [`nftables::rules::afs3_callback`](#nftablesrulesafs3_callback): Open call back port for AFS clients
+* [`nftables::rules::ceph`](#nftablesrulesceph): Ceph is a distributed object store and file system. Enable this to support Ceph's Object Storage Daemons (OSD), Metadata Server Daemons (MDS)
+* [`nftables::rules::ceph_mon`](#nftablesrulesceph_mon): Ceph is a distributed object store and file system. Enable this option to support Ceph's Monitor Daemon.
 * [`nftables::rules::dhcpv6_client`](#nftablesrulesdhcpv6_client)
 * [`nftables::rules::dns`](#nftablesrulesdns): manage in dns
 * [`nftables::rules::http`](#nftablesruleshttp): manage in http
 * [`nftables::rules::https`](#nftablesruleshttps): manage in https
 * [`nftables::rules::icinga2`](#nftablesrulesicinga2): manage in icinga2
 * [`nftables::rules::icmp`](#nftablesrulesicmp)
+* [`nftables::rules::nfs`](#nftablesrulesnfs): manage in nfs4
+* [`nftables::rules::nfs3`](#nftablesrulesnfs3): manage in nfs3
 * [`nftables::rules::node_exporter`](#nftablesrulesnode_exporter): manage in node exporter
 * [`nftables::rules::ospf`](#nftablesrulesospf): manage in ospf
 * [`nftables::rules::ospf3`](#nftablesrulesospf3): manage in ospf3
 * [`nftables::rules::out::all`](#nftablesrulesoutall): allow all outbound
+* [`nftables::rules::out::ceph_client`](#nftablesrulesoutceph_client): Ceph is a distributed object store and file system. Enable this to be a client of Ceph's Monitor (MON), Object Storage Daemons (OSD), Metadat
 * [`nftables::rules::out::chrony`](#nftablesrulesoutchrony): manage out chrony
 * [`nftables::rules::out::dhcp`](#nftablesrulesoutdhcp): manage out dhcp
 * [`nftables::rules::out::dhcpv6_client`](#nftablesrulesoutdhcpv6_client)
@@ -30,6 +35,8 @@
 * [`nftables::rules::out::icmp`](#nftablesrulesouticmp)
 * [`nftables::rules::out::kerberos`](#nftablesrulesoutkerberos): allows outbound access for kerberos
 * [`nftables::rules::out::mysql`](#nftablesrulesoutmysql): manage out mysql
+* [`nftables::rules::out::nfs`](#nftablesrulesoutnfs): manage out nfs
+* [`nftables::rules::out::nfs3`](#nftablesrulesoutnfs3): manage out nfs3
 * [`nftables::rules::out::openafs_client`](#nftablesrulesoutopenafs_client): allows outbound access for afs clients
 * [`nftables::rules::out::ospf`](#nftablesrulesoutospf): manage out ospf
 * [`nftables::rules::out::ospf3`](#nftablesrulesoutospf3): manage out ospf3
@@ -59,6 +66,14 @@
 * [`nftables::rules::masquerade`](#nftablesrulesmasquerade): masquerade all outgoing traffic
 * [`nftables::rules::snat4`](#nftablesrulessnat4): manage a ipv4 snat rule
 * [`nftables::set`](#nftablesset): manage a named set
+* [`nftables::simplerule`](#nftablessimplerule): Provides a simplified interface to nftables::rule
+
+### Data types
+
+* [`Nftables::Addr`](#nftablesaddr): Represents an address expression to be used within a rule.
+* [`Nftables::Addr::Set`](#nftablesaddrset): Represents a set expression to be used within a rule.
+* [`Nftables::Port`](#nftablesport): Represents a port expression to be used within a rule.
+* [`Nftables::Port::Range`](#nftablesportrange): Represents a port range expression to be used within a rule.
 
 ## Classes
 
@@ -68,12 +83,20 @@ Configure nftables
 
 #### Examples
 
-##### 
+##### allow dns out and do not allow ntp out
 
 ```puppet
 class{'nftables:
   out_ntp = false,
   out_dns = true,
+}
+```
+
+##### do not flush particular tables, fail2ban in this case
+
+```puppet
+class{'nftables':
+  noflush_tables = ['inet-f2b-table'],
 }
 ```
 
@@ -153,6 +176,14 @@ Add default tables and chains to process NAT traffic.
 
 Default value: ``true``
 
+##### `sets`
+
+Data type: `Hash`
+
+Allows sourcing set definitions directly from Hiera.
+
+Default value: `{}`
+
 ##### `log_prefix`
 
 Data type: `String`
@@ -164,10 +195,19 @@ two variables using standard sprintf() string-formatting:
 
 Default value: `'[nftables] %<chain>s %<comment>s'`
 
+##### `log_limit`
+
+Data type: `Variant[Boolean[false], String]`
+
+String with the content of a limit statement to be applied
+to the rules that log discarded traffic. Set to false to
+disable rate limiting.
+
+Default value: `'3/minute burst 5 packets'`
+
 ##### `reject_with`
 
-Data type: `Variant[Boolean[false], Pattern[
-    /icmp(v6|x)? type .+|tcp reset/]]`
+Data type: `Variant[Boolean[false], Pattern[/icmp(v6|x)? type .+|tcp reset/]]`
 
 How to discard packets not matching any rule. If `false`, the
 fate of the packet will be defined by the chain policy (normally
@@ -185,6 +225,15 @@ established connection and also to drop invalid packets.
 
 Default value: ``true``
 
+##### `fwd_conntrack`
+
+Data type: `Boolean`
+
+Adds FORWARD rules to allow traffic that's part of an
+established connection and also to drop invalid packets.
+
+Default value: ``false``
+
 ##### `firewalld_enable`
 
 Data type: `Variant[Boolean[false], Enum['mask']]`
@@ -194,6 +243,15 @@ useful to set this to false if you're externaly removing firewalld from
 the system completely.
 
 Default value: `'mask'`
+
+##### `noflush_tables`
+
+Data type: `Optional[Array[Pattern[/^(ip|ip6|inet)-[-a-zA-Z0-9_]+$/],1]]`
+
+If specified only other existings tables will be flushed.
+If left unset all tables will be flushed via a `flush ruleset`
+
+Default value: ``undef``
 
 ##### `out_dns`
 
@@ -261,6 +319,29 @@ list of source network ranges to a
 
 Default value: `['0.0.0.0/0']`
 
+### `nftables::rules::ceph`
+
+Ceph is a distributed object store and file system.
+Enable this to support Ceph's Object Storage Daemons (OSD),
+Metadata Server Daemons (MDS), or Manager Daemons (MGR).
+
+### `nftables::rules::ceph_mon`
+
+Ceph is a distributed object store and file system.
+Enable this option to support Ceph's Monitor Daemon.
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::ceph_mon` class.
+
+##### `ports`
+
+Data type: `Array[Stdlib::Port,1]`
+
+
+
+Default value: `[3300, 6789]`
+
 ### `nftables::rules::dhcpv6_client`
 
 The nftables::rules::dhcpv6_client class.
@@ -275,7 +356,7 @@ The following parameters are available in the `nftables::rules::dns` class.
 
 ##### `ports`
 
-Data type: `Array[Integer,1]`
+Data type: `Array[Stdlib::Port,1]`
 
 
 
@@ -299,7 +380,7 @@ The following parameters are available in the `nftables::rules::icinga2` class.
 
 ##### `ports`
 
-Data type: `Array[Integer,1]`
+Data type: `Array[Stdlib::Port,1]`
 
 
 
@@ -337,6 +418,14 @@ Data type: `String`
 
 Default value: `'10'`
 
+### `nftables::rules::nfs`
+
+manage in nfs4
+
+### `nftables::rules::nfs3`
+
+manage in nfs3
+
 ### `nftables::rules::node_exporter`
 
 manage in node exporter
@@ -355,7 +444,7 @@ Default value: ``undef``
 
 ##### `port`
 
-Data type: `Integer`
+Data type: `Stdlib::Port`
 
 
 
@@ -372,6 +461,25 @@ manage in ospf3
 ### `nftables::rules::out::all`
 
 allow all outbound
+
+### `nftables::rules::out::ceph_client`
+
+Ceph is a distributed object store and file system.
+Enable this to be a client of Ceph's Monitor (MON),
+Object Storage Daemons (OSD), Metadata Server Daemons (MDS),
+and Manager Daemons (MGR).
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::out::ceph_client` class.
+
+##### `ports`
+
+Data type: `Array[Stdlib::Port,1]`
+
+
+
+Default value: `[3300, 6789]`
 
 ### `nftables::rules::out::chrony`
 
@@ -449,6 +557,14 @@ allows outbound access for kerberos
 
 manage out mysql
 
+### `nftables::rules::out::nfs`
+
+manage out nfs
+
+### `nftables::rules::out::nfs3`
+
+manage out nfs3
+
 ### `nftables::rules::out::openafs_client`
 
 7000 - afs3-fileserver
@@ -465,7 +581,7 @@ The following parameters are available in the `nftables::rules::out::openafs_cli
 
 ##### `ports`
 
-Data type: `Array[Integer,1]`
+Data type: `Array[Stdlib::Port,1]`
 
 
 
@@ -491,15 +607,15 @@ manage outgoing puppet
 
 The following parameters are available in the `nftables::rules::out::puppet` class.
 
-##### `puppetmaster`
+##### `puppetserver`
 
-Data type: `Variant[String,Array[String,1]]`
+Data type: `Variant[Stdlib::IP::Address,Array[Stdlib::IP::Address,1]]`
 
 
 
 ##### `puppetserver_port`
 
-Data type: `Integer`
+Data type: `Stdlib::Port`
 
 
 
@@ -575,7 +691,7 @@ The following parameters are available in the `nftables::rules::ssh` class.
 
 ##### `ports`
 
-Data type: `Array[Integer,1]`
+Data type: `Array[Stdlib::Port,1]`
 
 
 
@@ -591,7 +707,7 @@ The following parameters are available in the `nftables::rules::tor` class.
 
 ##### `ports`
 
-Data type: `Array[Integer,1]`
+Data type: `Array[Stdlib::Port,1]`
 
 
 
@@ -607,7 +723,7 @@ The following parameters are available in the `nftables::rules::wireguard` class
 
 ##### `ports`
 
-Data type: `Array[Integer,1]`
+Data type: `Array[Stdlib::Port,1]`
 
 
 
@@ -679,6 +795,14 @@ manage a config snippet
 
 The following parameters are available in the `nftables::config` defined type.
 
+##### `tablespec`
+
+Data type: `Pattern[/^\w+-\w+$/]`
+
+
+
+Default value: `$title`
+
 ##### `content`
 
 Data type: `Optional[String]`
@@ -694,6 +818,14 @@ Data type: `Optional[Variant[String,Array[String,1]]]`
 
 
 Default value: ``undef``
+
+##### `prefix`
+
+Data type: `String`
+
+
+
+Default value: `'custom-'`
 
 ### `nftables::rule`
 
@@ -769,7 +901,7 @@ Data type: `Pattern[/^[12]?\d{1,2}\.[12]?\d{1,2}\.[12]?\d{1,2}\.[12]?\d{1,2}$/]`
 
 ##### `port`
 
-Data type: `Variant[String,Integer[1,65535]]`
+Data type: `Variant[String,Stdlib::Port]`
 
 
 
@@ -815,7 +947,7 @@ Default value: `'tcp'`
 
 ##### `dport`
 
-Data type: `Optional[Variant[String,Integer[1,65535]]]`
+Data type: `Optional[Variant[String,Stdlib::Port]]`
 
 
 
@@ -895,7 +1027,7 @@ Default value: ``undef``
 
 ##### `dport`
 
-Data type: `Optional[Variant[String,Integer[1,65535]]]`
+Data type: `Optional[Variant[String,Stdlib::Port]]`
 
 
 
@@ -973,7 +1105,7 @@ Default value: ``undef``
 
 ##### `dport`
 
-Data type: `Optional[Variant[String,Integer[1,65535]]]`
+Data type: `Optional[Variant[String,Stdlib::Port]]`
 
 
 
@@ -991,6 +1123,19 @@ Default value: `'present'`
 
 manage a named set
 
+#### Examples
+
+##### simple set
+
+```puppet
+nftables::set{'my_set':
+  type       => 'ipv4_addr',
+  flags      => ['interval'],
+  elements   => ['192.168.0.1/24', '10.0.0.2'],
+  auto_merge => true,
+}
+```
+
 #### Parameters
 
 The following parameters are available in the `nftables::set` defined type.
@@ -999,7 +1144,7 @@ The following parameters are available in the `nftables::set` defined type.
 
 Data type: `Enum['present','absent']`
 
-
+should the set be created.
 
 Default value: `'present'`
 
@@ -1007,7 +1152,7 @@ Default value: `'present'`
 
 Data type: `Pattern[/^[-a-zA-Z0-9_]+$/]`
 
-
+name of set, equal to to title.
 
 Default value: `$title`
 
@@ -1015,7 +1160,7 @@ Default value: `$title`
 
 Data type: `Pattern[/^\d\d$/]`
 
-
+concat ordering.
 
 Default value: `'10'`
 
@@ -1023,7 +1168,7 @@ Default value: `'10'`
 
 Data type: `Optional[Enum['ipv4_addr', 'ipv6_addr', 'ether_addr', 'inet_proto', 'inet_service', 'mark']]`
 
-
+type of set.
 
 Default value: ``undef``
 
@@ -1031,7 +1176,7 @@ Default value: ``undef``
 
 Data type: `String`
 
-
+table to add set to.
 
 Default value: `'inet-filter'`
 
@@ -1039,7 +1184,7 @@ Default value: `'inet-filter'`
 
 Data type: `Array[Enum['constant', 'dynamic', 'interval', 'timeout'], 0, 4]`
 
-
+specify flags for set
 
 Default value: `[]`
 
@@ -1047,7 +1192,7 @@ Default value: `[]`
 
 Data type: `Optional[Integer]`
 
-
+timeout in seconds
 
 Default value: ``undef``
 
@@ -1055,7 +1200,7 @@ Default value: ``undef``
 
 Data type: `Optional[Integer]`
 
-
+garbage collection interval.
 
 Default value: ``undef``
 
@@ -1063,7 +1208,7 @@ Default value: ``undef``
 
 Data type: `Optional[Array[String]]`
 
-
+initialize the set with some elements in it.
 
 Default value: ``undef``
 
@@ -1071,7 +1216,7 @@ Default value: ``undef``
 
 Data type: `Optional[Integer]`
 
-
+limits the maximum number of elements of the set.
 
 Default value: ``undef``
 
@@ -1079,7 +1224,7 @@ Default value: ``undef``
 
 Data type: `Optional[Enum['performance', 'memory']]`
 
-
+determines set selection policy.
 
 Default value: ``undef``
 
@@ -1087,7 +1232,7 @@ Default value: ``undef``
 
 Data type: `Boolean`
 
-
+?
 
 Default value: ``false``
 
@@ -1095,7 +1240,7 @@ Default value: ``false``
 
 Data type: `Optional[String]`
 
-
+specify content of set.
 
 Default value: ``undef``
 
@@ -1103,7 +1248,170 @@ Default value: ``undef``
 
 Data type: `Optional[Variant[String,Array[String,1]]]`
 
-
+specify source of set.
 
 Default value: ``undef``
+
+### `nftables::simplerule`
+
+Provides a simplified interface to nftables::rule
+
+#### Examples
+
+##### allow incoming traffic from port 541 on port 543 TCP to a given IP range and count packets
+
+```puppet
+nftables::simplerule{'my_service_in':
+  action  => 'accept',
+  comment => 'allow traffic to port 543',
+  counter => true,
+  proto   => 'tcp',
+  dport   => 543,
+  daddr   => '2001:1458::/32',
+  sport   => 541,
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `nftables::simplerule` defined type.
+
+##### `ensure`
+
+Data type: `Enum['present','absent']`
+
+Should the rule be created.
+
+Default value: `'present'`
+
+##### `rulename`
+
+Data type: `Pattern[/^[-a-zA-Z0-9_]+$/]`
+
+The symbolic name for the rule to add. Defaults to the resource's title.
+
+Default value: `$title`
+
+##### `order`
+
+Data type: `Pattern[/^\d\d$/]`
+
+A number representing the order of the rule.
+
+Default value: `'50'`
+
+##### `chain`
+
+Data type: `String`
+
+The name of the chain to add this rule to.
+
+Default value: `'default_in'`
+
+##### `table`
+
+Data type: `String`
+
+The name of the table to add this rule to.
+
+Default value: `'inet-filter'`
+
+##### `action`
+
+Data type: `Enum['accept', 'continue', 'drop', 'queue', 'return']`
+
+The verdict for the matched traffic.
+
+Default value: `'accept'`
+
+##### `comment`
+
+Data type: `Optional[String]`
+
+A typically human-readable comment for the rule.
+
+Default value: ``undef``
+
+##### `dport`
+
+Data type: `Optional[Nftables::Port]`
+
+The destination port, ports or port range.
+
+Default value: ``undef``
+
+##### `proto`
+
+Data type: `Optional[Enum['tcp', 'tcp4', 'tcp6', 'udp', 'udp4', 'udp6']]`
+
+The transport-layer protocol to match.
+
+Default value: ``undef``
+
+##### `daddr`
+
+Data type: `Optional[Nftables::Addr]`
+
+The destination address, CIDR or set to match.
+
+Default value: ``undef``
+
+##### `set_type`
+
+Data type: `Enum['ip', 'ip6']`
+
+When using sets as saddr or daddr, the type of the set.
+Use `ip` for sets of type `ipv4_addr`.
+
+Default value: `'ip6'`
+
+##### `sport`
+
+Data type: `Optional[Nftables::Port]`
+
+The source port, ports or port range.
+
+Default value: ``undef``
+
+##### `saddr`
+
+Data type: `Optional[Nftables::Addr]`
+
+The source address, CIDR or set to match.
+
+Default value: ``undef``
+
+##### `counter`
+
+Data type: `Boolean`
+
+Enable traffic counters for the matched traffic.
+
+Default value: ``false``
+
+## Data types
+
+### `Nftables::Addr`
+
+Represents an address expression to be used within a rule.
+
+Alias of `Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Nftables::Addr::Set]`
+
+### `Nftables::Addr::Set`
+
+Represents a set expression to be used within a rule.
+
+Alias of `Pattern[/^@[-a-zA-Z0-9_]+$/]`
+
+### `Nftables::Port`
+
+Represents a port expression to be used within a rule.
+
+Alias of `Variant[Array[Stdlib::Port, 1], Stdlib::Port, Nftables::Port::Range]`
+
+### `Nftables::Port::Range`
+
+Represents a port range expression to be used within a rule.
+
+Alias of `Pattern[/^\d+-\d+$/]`
 
