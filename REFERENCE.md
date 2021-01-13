@@ -1286,7 +1286,7 @@ Default value: `'present'`
 
 ##### `rulename`
 
-Data type: `Pattern[/^[-a-zA-Z0-9_]+$/]`
+Data type: `Pattern[/^[a-zA-Z0-9_]+(-\d+)?$/]`
 
 The symbolic name for the rule to add. Defaults to the resource's title.
 

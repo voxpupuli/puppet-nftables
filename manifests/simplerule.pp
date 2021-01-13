@@ -54,7 +54,7 @@
 #   Enable traffic counters for the matched traffic.
 define nftables::simplerule (
   Enum['present','absent'] $ensure = 'present',
-  Pattern[/^[-a-zA-Z0-9_]+$/] $rulename = $title,
+  Pattern[/^[a-zA-Z0-9_]+(-\d+)?$/] $rulename = $title,
   Pattern[/^\d\d$/] $order = '50',
   String $chain  = 'default_in',
   String $table = 'inet-filter',

@@ -272,6 +272,12 @@ describe 'nftables::simplerule' do
           )
         }
       end
+
+      describe 'illegal rule name' do
+        let(:title) { 'my_wrongrule-name' }
+
+        it { is_expected.to compile.and_raise_error(%r{Error while evaluating a Resource Statement, Nftables::Simplerule}) }
+      end
     end
   end
 end
