@@ -80,6 +80,9 @@
 # @param rules
 #   Specify hashes of `nftables::rule`s via hiera
 #
+# @param nftables_configuration_path
+#   The absolute path to the principal nftables configuration file.
+#
 class nftables (
   Boolean $in_ssh = true,
   Boolean $in_icmp = true,
@@ -99,19 +102,23 @@ class nftables (
   Variant[Boolean[false], Pattern[/icmp(v6|x)? type .+|tcp reset/]] $reject_with = 'icmpx type port-unreachable',
   Variant[Boolean[false], Enum['mask']] $firewalld_enable = 'mask',
   Optional[Array[Pattern[/^(ip|ip6|inet)-[-a-zA-Z0-9_]+$/],1]] $noflush_tables = undef,
+  Stdlib::AbsolutePath $nftables_configuration_path = '/etc/sysconfig/nftables.conf',
 ) {
   package { 'nftables':
     ensure => installed,
   } -> file_line {
     'enable_nftables':
       line   => 'include "/etc/nftables/puppet.nft"',
-      path   => '/etc/sysconfig/nftables.conf',
+      path   => $nftables_configuration_path,
       notify => Service['nftables'],
   } -> file {
     default:
       owner => 'root',
       group => 'root',
       mode  => '0640';
+    '/etc/nftables':
+      ensure => directory,
+      mode   => '0750';
     '/etc/nftables/puppet-preflight':
       ensure  => directory,
       mode    => '0750',
@@ -149,7 +156,10 @@ class nftables (
   systemd::dropin_file { 'puppet_nft.conf':
     ensure  => present,
     unit    => 'nftables.service',
-    content => file('nftables/systemd/puppet_nft.conf'),
+    content => file(
+      "nftables/systemd/puppet_nft.${facts['os']['family']}.conf",
+      'nftables/systemd/puppet_nft.conf'
+    ),
     notify  => Service['nftables'],
   }
 
