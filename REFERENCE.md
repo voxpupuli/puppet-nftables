@@ -37,6 +37,7 @@ and Manager Daemons (MGR).
 * [`nftables::rules::out::http`](#nftablesrulesouthttp): manage out http
 * [`nftables::rules::out::https`](#nftablesrulesouthttps): manage out https
 * [`nftables::rules::out::icmp`](#nftablesrulesouticmp): control outbound icmp packages
+* [`nftables::rules::out::imap`](#nftablesrulesoutimap): allow outgoing imap
 * [`nftables::rules::out::kerberos`](#nftablesrulesoutkerberos): allows outbound access for kerberos
 * [`nftables::rules::out::mysql`](#nftablesrulesoutmysql): manage out mysql
 * [`nftables::rules::out::nfs`](#nftablesrulesoutnfs): manage out nfs
@@ -47,14 +48,17 @@ and Manager Daemons (MGR).
 7003 - vlserver
 * [`nftables::rules::out::ospf`](#nftablesrulesoutospf): manage out ospf
 * [`nftables::rules::out::ospf3`](#nftablesrulesoutospf3): manage out ospf3
+* [`nftables::rules::out::pop3`](#nftablesrulesoutpop3): allow outgoing pop3
 * [`nftables::rules::out::postgres`](#nftablesrulesoutpostgres): manage out postgres
 * [`nftables::rules::out::puppet`](#nftablesrulesoutpuppet): manage outgoing puppet
-* [`nftables::rules::out::smtp`](#nftablesrulesoutsmtp): manage out smtp
+* [`nftables::rules::out::smtp`](#nftablesrulesoutsmtp): allow outgoing smtp
+* [`nftables::rules::out::smtp_client`](#nftablesrulesoutsmtp_client): allow outgoing smtp client
 * [`nftables::rules::out::ssh`](#nftablesrulesoutssh): manage out ssh
 * [`nftables::rules::out::ssh::remove`](#nftablesrulesoutsshremove): disable outgoing ssh
 * [`nftables::rules::out::tor`](#nftablesrulesouttor): manage out tor
 * [`nftables::rules::out::wireguard`](#nftablesrulesoutwireguard): manage out wireguard
 * [`nftables::rules::puppet`](#nftablesrulespuppet): manage in puppet
+* [`nftables::rules::samba`](#nftablesrulessamba): manage Samba, the suite to allow Windows file sharing on Linux resources.
 * [`nftables::rules::smtp`](#nftablesrulessmtp): manage in smtp
 * [`nftables::rules::smtp_submission`](#nftablesrulessmtp_submission): manage in smtp submission
 * [`nftables::rules::smtps`](#nftablesrulessmtps): manage in smtps
@@ -608,6 +612,10 @@ Data type: `String`
 
 Default value: `'10'`
 
+### <a name="nftablesrulesoutimap"></a>`nftables::rules::out::imap`
+
+allow outgoing imap
+
 ### <a name="nftablesrulesoutkerberos"></a>`nftables::rules::out::kerberos`
 
 allows outbound access for kerberos
@@ -657,6 +665,10 @@ manage out ospf
 
 manage out ospf3
 
+### <a name="nftablesrulesoutpop3"></a>`nftables::rules::out::pop3`
+
+allow outgoing pop3
+
 ### <a name="nftablesrulesoutpostgres"></a>`nftables::rules::out::postgres`
 
 manage out postgres
@@ -688,7 +700,11 @@ Default value: `8140`
 
 ### <a name="nftablesrulesoutsmtp"></a>`nftables::rules::out::smtp`
 
-manage out smtp
+allow outgoing smtp
+
+### <a name="nftablesrulesoutsmtp_client"></a>`nftables::rules::out::smtp_client`
+
+allow outgoing smtp client
 
 ### <a name="nftablesrulesoutssh"></a>`nftables::rules::out::ssh`
 
@@ -737,6 +753,24 @@ Data type: `Array[Integer,1]`
 puppet server ports
 
 Default value: `[8140]`
+
+### <a name="nftablesrulessamba"></a>`nftables::rules::samba`
+
+manage Samba, the suite to allow Windows file sharing on Linux resources.
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::samba` class:
+
+* [`ctdb`](#ctdb)
+
+##### <a name="ctdb"></a>`ctdb`
+
+Data type: `Boolean`
+
+Enable ctdb-driven clustered Samba setups.
+
+Default value: ``false``
 
 ### <a name="nftablesrulessmtp"></a>`nftables::rules::smtp`
 
