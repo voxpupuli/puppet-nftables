@@ -5,3 +5,4 @@ nftables::firewalld_enable: false
 
 nftables::configuration_path: /etc/nftables.conf
 nftables::nft_path: /usr/bin/nft
+nftables::echo: /usr/bin/echo

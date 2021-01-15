@@ -80,6 +80,7 @@ describe 'nftables class' do
       }
       $config_path = $facts['os']['family'] ? {
         'Archlinux' => '/etc/nftables.conf',
+        'Debian' => '/etc/nftables.conf',
         default => '/etc/sysconfig/nftables.conf',
       }
       $nft_path = $facts['os']['family'] ? {
