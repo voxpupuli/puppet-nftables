@@ -13,7 +13,7 @@ class nftables::rules::samba (
       content => 'udp dport {137,138} accept',
   }
 
-  if ($ctdb) {
+  if $ctdb {
     nftables::rule {
       'default_in-ctdb':
         content => 'tcp dport 4379 accept',
