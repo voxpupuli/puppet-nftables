@@ -20,3 +20,9 @@ if File.exist?(File.join(__dir__, 'default_module_facts.yml'))
     end
   end
 end
+
+# This loads the module data, needed to test different OSes.
+RSpec.shared_context "hiera", :shared_context => :metadata do
+  let (:hiera_config) { 'hiera.yaml' }
+  Hiera.new({:config => 'hiera.yaml'})
+end
