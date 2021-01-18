@@ -22,8 +22,8 @@
 # @param out_http
 #   Allow outbound to http servers.
 #
-# @param out_https
-#   Allow outbound to https servers.
+# @param out_dns
+#   Allow outbound to dns servers.
 #
 # @param out_https
 #   Allow outbound to https servers.
@@ -76,6 +76,9 @@
 # @param noflush_tables
 #   If specified only other existings tables will be flushed.
 #   If left unset all tables will be flushed via a `flush ruleset`
+#
+# @param rules
+#   Specify hashes of `nftables::rule`s via hiera
 #
 class nftables (
   Boolean $in_ssh = true,

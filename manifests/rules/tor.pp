@@ -1,4 +1,5 @@
-# manage in tor
+# @summary manage in tor
+# @param ports ports for tor
 class nftables::rules::tor (
   Array[Stdlib::Port,1] $ports = [9001],
 ) {

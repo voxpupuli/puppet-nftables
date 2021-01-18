@@ -1,7 +1,10 @@
+# @summary control outbound icmp packages
 class nftables::rules::out::icmp (
+  # lint:ignore:parameter_documentation
   Optional[Array[String]] $v4_types = undef,
   Optional[Array[String]] $v6_types = undef,
   String $order = '10',
+  # lint:endignore
 ) {
   if $v4_types {
     $v4_types.each | String $icmp_type | {
