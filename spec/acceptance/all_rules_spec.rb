@@ -60,6 +60,9 @@ describe 'nftables class' do
       include nftables::rules::out::dhcp
       include nftables::rules::out::nfs
       include nftables::rules::out::smtp
+      include nftables::rules::out::smtp_client
+      include nftables::rules::out::imap
+      include nftables::rules::out::pop3
       include nftables::rules::out::chrony
       include nftables::rules::out::wireguard
       include nftables::rules::wireguard
