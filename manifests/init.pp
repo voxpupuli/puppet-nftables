@@ -153,13 +153,13 @@ class nftables (
     restart    => '/usr/bin/systemctl reload nftables',
   }
 
+  $puppet_nft_vars = {
+    'nftables_configuration_path' => $nftables_configuration_path,
+  }
   systemd::dropin_file { 'puppet_nft.conf':
     ensure  => present,
     unit    => 'nftables.service',
-    content => file(
-      "nftables/systemd/puppet_nft.${facts['os']['family']}.conf",
-      'nftables/systemd/puppet_nft.conf'
-    ),
+    content => epp('nftables/systemd/puppet_nft.conf.epp', $puppet_nft_vars),
     notify  => Service['nftables'],
   }
 
