@@ -1,4 +1,5 @@
-# manage in icinga2
+# @summary manage in icinga2
+# @param ports Specify ports for icinga1
 class nftables::rules::icinga2 (
   Array[Stdlib::Port,1] $ports = [5665],
 ) {

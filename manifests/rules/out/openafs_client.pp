@@ -1,8 +1,9 @@
-# @summary allows outbound access for afs clients
-# 7000 - afs3-fileserver
-# 7002 - afs3-ptserver
-# 7003 - vlserver
-#
+# @summary
+#  allows outbound access for afs clients
+#  7000 - afs3-fileserver
+#  7002 - afs3-ptserver
+#  7003 - vlserver
+# @param ports port numbers to use
 # @see https://wiki.openafs.org/devel/AFSServicePorts/ AFS Service Ports
 #
 class nftables::rules::out::openafs_client (

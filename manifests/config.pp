@@ -1,9 +1,11 @@
 # manage a config snippet
 define nftables::config (
+  # lint:ignore:parameter_documentation
   Pattern[/^\w+-\w+$/] $tablespec = $title,
   Optional[String] $content = undef,
   Optional[Variant[String,Array[String,1]]] $source = undef,
   String $prefix = 'custom-',
+  # lint:endignore
 ) {
   if $content and $source {
     fail('Please pass only $content or $source, not both.')

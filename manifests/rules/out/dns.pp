@@ -1,4 +1,5 @@
-# manage out dns
+# @summary manage out dns
+# @param dns_server specify dns_server name
 class nftables::rules::out::dns (
   Optional[Variant[String,Array[String,1]]] $dns_server = undef,
 ) {

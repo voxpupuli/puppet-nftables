@@ -1,5 +1,6 @@
 # masquerade all outgoing traffic
 define nftables::rules::masquerade (
+  # lint:ignore:parameter_documentation
   Pattern[/^[a-zA-Z0-9_]+$/] $rulename = $title,
   Pattern[/^\d\d$/] $order = '70',
   String[1] $chain = 'POSTROUTING',
@@ -9,6 +10,7 @@ define nftables::rules::masquerade (
   Optional[Enum['tcp','udp']] $proto = undef,
   Optional[Variant[String,Stdlib::Port]] $dport = undef,
   Enum['present','absent'] $ensure = 'present',
+  # lint:endignore
 ) {
   $oifname = $oif ? {
     undef   => '',

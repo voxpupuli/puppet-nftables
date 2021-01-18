@@ -1,4 +1,7 @@
-# manage outgoing puppet
+# @summary manage outgoing puppet
+# @param puppetserver puppetserver hostname
+# @param puppetserver_port puppetserver port
+#
 class nftables::rules::out::puppet (
   Variant[Stdlib::IP::Address,Array[Stdlib::IP::Address,1]] $puppetserver,
   Stdlib::Port $puppetserver_port = 8140,
