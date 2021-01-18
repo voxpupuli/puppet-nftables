@@ -1,6 +1,6 @@
 ---
 
 # firewalld is not installed by default in Debian
-firewalld_enable: false
+nftables::firewalld_enable: false
 
-nftables_configuration_path: /etc/nftables.conf
+nftables::nftables_configuration_path: /etc/nftables.conf
