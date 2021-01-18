@@ -1,5 +1,7 @@
 # manage in samba/ctdb
-class nftables::rules::samba {
+class nftables::rules::samba (
+  Boolean $ctdb = false,
+) {
   nftables::rule {
     'default_in-netbios_tcp':
       content => 'tcp dport {139,445} accept',
@@ -10,8 +12,10 @@ class nftables::rules::samba {
       content => 'udp dport {137,138} accept',
   }
 
-  nftables::rule {
-    'default_in-ctdb':
-      content => 'tcp dport 4379 accept',
+  if ($ctdb) {
+    nftables::rule {
+      'default_in-ctdb':
+        content => 'tcp dport 4379 accept',
+    }
   }
 }
