@@ -74,6 +74,11 @@
 * [`Nftables::Addr::Set`](#nftablesaddrset): Represents a set expression to be used within a rule.
 * [`Nftables::Port`](#nftablesport): Represents a port expression to be used within a rule.
 * [`Nftables::Port::Range`](#nftablesportrange): Represents a port range expression to be used within a rule.
+* [`Nftables::RuleName`](#nftablesrulename): Represents a rule name to be used in a raw rule created via nftables::rule.
+It's a dash separated string. The first component describes the chain to
+add the rule to, the second the rule name and the (optional) third a number.
+Ex: 'default_in-sshd', 'default_out-my_service-2'.
+* [`Nftables::SimpleRuleName`](#nftablessimplerulename): Represents a simple rule name to be used in a rule created via nftables::simplerule
 
 ## Classes
 
@@ -847,7 +852,7 @@ Default value: `'present'`
 
 ##### `rulename`
 
-Data type: `Pattern[/^[a-zA-Z0-9_]+-[a-zA-Z0-9_]+(-\d+)?$/]`
+Data type: `Nftables::RuleName`
 
 
 
@@ -1286,7 +1291,7 @@ Default value: `'present'`
 
 ##### `rulename`
 
-Data type: `Pattern[/^[-a-zA-Z0-9_]+$/]`
+Data type: `Nftables::SimpleRuleName`
 
 The symbolic name for the rule to add. Defaults to the resource's title.
 
@@ -1414,4 +1419,19 @@ Alias of `Variant[Array[Stdlib::Port, 1], Stdlib::Port, Nftables::Port::Range]`
 Represents a port range expression to be used within a rule.
 
 Alias of `Pattern[/^\d+-\d+$/]`
+
+### `Nftables::RuleName`
+
+Represents a rule name to be used in a raw rule created via nftables::rule.
+It's a dash separated string. The first component describes the chain to
+add the rule to, the second the rule name and the (optional) third a number.
+Ex: 'default_in-sshd', 'default_out-my_service-2'.
+
+Alias of `Pattern[/^[a-zA-Z0-9_]+-[a-zA-Z0-9_]+(-\d+)?$/]`
+
+### `Nftables::SimpleRuleName`
+
+Represents a simple rule name to be used in a rule created via nftables::simplerule
+
+Alias of `Pattern[/^[a-zA-Z0-9_]+(-\d+)?$/]`
 
