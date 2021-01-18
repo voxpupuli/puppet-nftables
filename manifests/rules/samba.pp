@@ -1,4 +1,5 @@
-# manage in samba/ctdb
+# @summary manage Samba, the suite to allow Windows file sharing on Linux resources.
+# @param ctdb Enable ctdb-driven clustered Samba setups.
 class nftables::rules::samba (
   Boolean $ctdb = false,
 ) {
