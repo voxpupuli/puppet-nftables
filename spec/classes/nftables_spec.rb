@@ -80,7 +80,7 @@ describe 'nftables' do
         )
       }
 
-      if os_facts[:os]['family']  == 'Debian'
+      if os_facts[:os]['family'] == 'Debian'
         it {
           is_expected.to contain_systemd__dropin_file('puppet_nft.conf').with(
             content: %r{^ExecReload=/sbin/nft -I /etc/nftables/puppet -f /etc/nftables.conf$},
