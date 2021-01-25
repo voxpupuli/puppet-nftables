@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v1.1.0](https://github.com/voxpupuli/puppet-nftables/tree/v1.1.0) (2021-01-25)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v1.0.0...v1.1.0)
+
+**Implemented enhancements:**
+
+- Enable parameter\_documentation lint [\#64](https://github.com/voxpupuli/puppet-nftables/pull/64) ([traylenator](https://github.com/traylenator))
+- Add Samba in rules [\#62](https://github.com/voxpupuli/puppet-nftables/pull/62) ([glpatcern](https://github.com/glpatcern))
+- Add some mail related outgoing rules [\#60](https://github.com/voxpupuli/puppet-nftables/pull/60) ([duritong](https://github.com/duritong))
+
+**Fixed bugs:**
+
+- nftables::simplerule should follow the same rules as nftables::rule [\#58](https://github.com/voxpupuli/puppet-nftables/issues/58)
+- Align simplerule and rule rulename requirements [\#59](https://github.com/voxpupuli/puppet-nftables/pull/59) ([nbarrientos](https://github.com/nbarrientos))
+
+**Closed issues:**
+
+- Get it under the voxpupuli umbrella [\#35](https://github.com/voxpupuli/puppet-nftables/issues/35)
+
+**Merged pull requests:**
+
+- Add badges to README [\#63](https://github.com/voxpupuli/puppet-nftables/pull/63) ([traylenator](https://github.com/traylenator))
+- Check that all the predefined rules are declared in the all rules acceptance test [\#53](https://github.com/voxpupuli/puppet-nftables/pull/53) ([nbarrientos](https://github.com/nbarrientos))
+
 ## [v1.0.0](https://github.com/voxpupuli/puppet-nftables/tree/v1.0.0) (2020-12-15)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/0ba57c66a35ed4e9b570d8a6315a33a1c4ba3181...v1.0.0)
@@ -65,6 +89,7 @@ These should not affect the functionality of the module.
 
 - Docs for nftables::set [\#55](https://github.com/voxpupuli/puppet-nftables/pull/55) ([traylenator](https://github.com/traylenator))
 - Remove a blank separating the doc string and the code [\#52](https://github.com/voxpupuli/puppet-nftables/pull/52) ([nbarrientos](https://github.com/nbarrientos))
+- Release 1.0.0 [\#49](https://github.com/voxpupuli/puppet-nftables/pull/49) ([traylenator](https://github.com/traylenator))
 - Correct layout of ignore table example [\#44](https://github.com/voxpupuli/puppet-nftables/pull/44) ([traylenator](https://github.com/traylenator))
 - Fix typos and formatting in the README [\#43](https://github.com/voxpupuli/puppet-nftables/pull/43) ([nbarrientos](https://github.com/nbarrientos))
 - Comment why firewalld\_enable parameter is required [\#40](https://github.com/voxpupuli/puppet-nftables/pull/40) ([traylenator](https://github.com/traylenator))
