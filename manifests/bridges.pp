@@ -1,7 +1,9 @@
 # allow forwarding traffic on bridges
 class nftables::bridges (
+  # lint:ignore:parameter_documentation
   Enum['present','absent'] $ensure = 'present',
   Regexp $bridgenames = /^br.+/
+  # lint:endignore
 ) {
   if $ensure == 'present' {
     $interfaces = keys($facts['networking']['interfaces'])

@@ -1,3 +1,4 @@
+# @summary allow DHCPv6 requests in to a host
 class nftables::rules::dhcpv6_client {
   nftables::rule {
     'default_in-dhcpv6_client':

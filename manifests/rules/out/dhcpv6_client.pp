@@ -1,3 +1,4 @@
+# @summary Allow DHCPv6 requests out of a host
 class nftables::rules::out::dhcpv6_client {
   nftables::rule {
     'default_out-dhcpv6_client':

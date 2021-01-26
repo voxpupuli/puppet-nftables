@@ -1,4 +1,4 @@
-# manage out smtp
+# @summary allow outgoing smtp
 class nftables::rules::out::smtp {
   nftables::rule {
     'default_out-smtp':

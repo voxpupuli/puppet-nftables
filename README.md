@@ -1,5 +1,10 @@
 # nftables puppet module
 
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/nftables.svg)](https://forge.puppetlabs.com/puppet/nftables)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/nftables.svg)](https://forge.puppetlabs.com/puppet/nftables)
+[![puppetmodule.info docs](http://www.puppetmodule.info/images/badge.png)](http://www.puppetmodule.info/m/puppet-nftables)
+[![Apache-2.0 License](https://img.shields.io/github/license/voxpupuli/puppet-nftables.svg)](LICENSE)
+
 This module manages an opinionated nftables configuration.
 
 By default it sets up a firewall that drops every incoming

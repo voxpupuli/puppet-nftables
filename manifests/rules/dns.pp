@@ -1,4 +1,5 @@
-# manage in dns
+# @summary manage in dns
+# @param ports Specify ports for dns.
 class nftables::rules::dns (
   Array[Stdlib::Port,1] $ports = [53],
 ) {
