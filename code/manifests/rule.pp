@@ -2,12 +2,14 @@
 # Name should be:
 #   CHAIN_NAME-rulename
 define nftables::rule (
+  # lint:ignore:parameter_documentation
   Enum['present','absent'] $ensure = 'present',
-  Pattern[/^[a-zA-Z0-9_]+-[a-zA-Z0-9_]+(-\d+)?$/] $rulename = $title,
+  Nftables::RuleName $rulename = $title,
   Pattern[/^\d\d$/] $order = '50',
   Optional[String] $table = 'inet-filter',
   Optional[String] $content = undef,
   Optional[Variant[String,Array[String,1]]] $source = undef,
+  # lint:endignore
 ) {
   if $ensure == 'present' {
     $data = split($rulename, '-')

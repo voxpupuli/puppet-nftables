@@ -1,4 +1,5 @@
-# manage in wireguard
+# @summary manage in wireguard
+# @param ports wiregueard port
 class nftables::rules::wireguard (
   Array[Stdlib::Port,1] $ports = [51820],
 ) {

@@ -1,4 +1,6 @@
-# manage in node exporter
+# @summary manage in node exporter
+# @param prometheus_server Specify server name
+# @param port Specify port to open
 class nftables::rules::node_exporter (
   Optional[Variant[String,Array[String,1]]] $prometheus_server = undef,
   Stdlib::Port $port = 9100,

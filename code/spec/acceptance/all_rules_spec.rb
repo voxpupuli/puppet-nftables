@@ -36,6 +36,7 @@ describe 'nftables class' do
       include nftables::rules::smtps
       include nftables::rules::smtp
       include nftables::rules::ceph
+      include nftables::rules::samba
       include nftables::rules::out::postgres
       include nftables::rules::out::icmp
       include nftables::rules::out::dns
@@ -59,6 +60,9 @@ describe 'nftables class' do
       include nftables::rules::out::dhcp
       include nftables::rules::out::nfs
       include nftables::rules::out::smtp
+      include nftables::rules::out::smtp_client
+      include nftables::rules::out::imap
+      include nftables::rules::out::pop3
       include nftables::rules::out::chrony
       include nftables::rules::out::wireguard
       include nftables::rules::wireguard

@@ -1,0 +1,12 @@
+name: nftables
+
+on: pull_request
+
+jobs:
+  all_rules_acceptance:
+    runs-on: ubuntu-latest
+    name: "All rules included in acceptance tests"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check
+        run: bash -c "awk '/^class / {print \$2}' manifests/rules/*.pp manifests/rules/out/*.pp | xargs -i sh -c 'grep -F {} spec/acceptance/all_rules_spec.rb -q || exit 255'"
