@@ -146,6 +146,22 @@ describe 'nftables::simplerule' do
         }
       end
 
+      describe 'only IPv6 TCP traffic' do
+        let(:params) do
+          {
+            dport: 35,
+            proto: 'tcp6',
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'ip6 version 6 tcp dport {35} accept',
+          )
+        }
+      end
+
       describe 'with an IPv4 CIDR as daddr' do
         let(:params) do
           {
