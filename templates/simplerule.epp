@@ -15,7 +15,7 @@
   }
   $_ip_version_filter = $proto ? {
     /(tcp4|udp4)/ => 'ip version 4',
-    /(tcp6|udp6)/ => 'ip version 6',
+    /(tcp6|udp6)/ => 'ip6 version 6',
     default       => undef,
   }
 } else {
