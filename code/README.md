@@ -86,6 +86,11 @@ The rule will be a `concat::fragment` to the chain
 
 You can define the order by using the `order` param.
 
+Before defining your own rule, take a look to the list of ready-to-use rules
+available in the
+[REFERENCE](https://github.com/voxpupuli/puppet-nftables/blob/master/REFERENCE.md),
+somebody might have encapsulated a rule definition for you already.
+
 ## nftables::set
 
 Adds a named set to a given table. It allows composing the
