@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v1.1.1](https://github.com/voxpupuli/puppet-nftables/tree/v1.1.1) (2021-01-29)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v1.1.0...v1.1.1)
+
+**Fixed bugs:**
+
+- Simplerule: wrong IP protocol version filter statement for IPv6 traffic [\#69](https://github.com/voxpupuli/puppet-nftables/issues/69)
+- Fix IP version filter for IPv6 traffic [\#70](https://github.com/voxpupuli/puppet-nftables/pull/70) ([nbarrientos](https://github.com/nbarrientos))
+
+**Merged pull requests:**
+
+- Improve nftables::rule's documentation [\#68](https://github.com/voxpupuli/puppet-nftables/pull/68) ([nbarrientos](https://github.com/nbarrientos))
+
 ## [v1.1.0](https://github.com/voxpupuli/puppet-nftables/tree/v1.1.0) (2021-01-25)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v1.0.0...v1.1.0)
