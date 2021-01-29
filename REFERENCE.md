@@ -72,7 +72,7 @@ and Manager Daemons (MGR).
 
 * [`nftables::chain`](#nftableschain): manage a chain
 * [`nftables::config`](#nftablesconfig): manage a config snippet
-* [`nftables::rule`](#nftablesrule): manage a chain rule Name should be:   CHAIN_NAME-rulename
+* [`nftables::rule`](#nftablesrule): Provides an interface to create a firewall rule
 * [`nftables::rules::dnat4`](#nftablesrulesdnat4): manage a ipv4 dnat rule
 * [`nftables::rules::masquerade`](#nftablesrulesmasquerade): masquerade all outgoing traffic
 * [`nftables::rules::snat4`](#nftablesrulessnat4): manage a ipv4 snat rule
@@ -949,9 +949,28 @@ Default value: `'custom-'`
 
 ### <a name="nftablesrule"></a>`nftables::rule`
 
-manage a chain rule
-Name should be:
-  CHAIN_NAME-rulename
+Provides an interface to create a firewall rule
+
+#### Examples
+
+##### add a rule named 'myhttp' to the 'default_in' chain to allow incoming traffic to TCP port 80
+
+```puppet
+nftables::rule {
+  'default_in-myhttp':
+    content => 'tcp dport 80 accept',
+}
+```
+
+##### add a rule named 'count' to the 'PREROUTING6' chain in table 'ip6 nat' to count traffic
+
+```puppet
+nftables::rule {
+  'PREROUTING6-count':
+    content => 'counter',
+    table   => 'ip6-nat'
+}
+```
 
 #### Parameters
 
@@ -968,7 +987,7 @@ The following parameters are available in the `nftables::rule` defined type:
 
 Data type: `Enum['present','absent']`
 
-
+Should the rule be created.
 
 Default value: `'present'`
 
@@ -976,7 +995,8 @@ Default value: `'present'`
 
 Data type: `Nftables::RuleName`
 
-
+The symbolic name for the rule and to what chain to add it. The
+format is defined by the Nftables::RuleName type.
 
 Default value: `$title`
 
@@ -984,7 +1004,7 @@ Default value: `$title`
 
 Data type: `Pattern[/^\d\d$/]`
 
-
+A number representing the order of the rule.
 
 Default value: `'50'`
 
@@ -992,7 +1012,7 @@ Default value: `'50'`
 
 Data type: `Optional[String]`
 
-
+The name of the table to add this rule to.
 
 Default value: `'inet-filter'`
 
@@ -1000,7 +1020,8 @@ Default value: `'inet-filter'`
 
 Data type: `Optional[String]`
 
-
+The raw statements that compose the rule represented using the nftables
+language.
 
 Default value: ``undef``
 
@@ -1008,7 +1029,7 @@ Default value: ``undef``
 
 Data type: `Optional[Variant[String,Array[String,1]]]`
 
-
+Same goal as content but sourcing the value from a file.
 
 Default value: ``undef``
 
