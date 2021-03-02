@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v1.2.0](https://github.com/voxpupuli/puppet-nftables/tree/v1.2.0) (2021-03-02)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v1.1.1...v1.2.0)
+
+**Implemented enhancements:**
+
+- start declaring the 'global' chain with module resources [\#73](https://github.com/voxpupuli/puppet-nftables/pull/73) ([lelutin](https://github.com/lelutin))
+
+**Fixed bugs:**
+
+- nftables service is broken after reboot [\#74](https://github.com/voxpupuli/puppet-nftables/issues/74)
+- fix \#74 - ensure table are initialized before flushing them [\#75](https://github.com/voxpupuli/puppet-nftables/pull/75) ([duritong](https://github.com/duritong))
+
 ## [v1.1.1](https://github.com/voxpupuli/puppet-nftables/tree/v1.1.1) (2021-01-29)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v1.1.0...v1.1.1)
