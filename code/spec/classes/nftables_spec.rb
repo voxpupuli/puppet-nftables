@@ -192,6 +192,10 @@ describe 'nftables' do
 
           it {
             is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').
+              with_content(%r{^table inet abc \{\}$})
+          }
+          it {
+            is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').
               with_content(%r{^flush table inet abc$})
           }
         end
@@ -202,7 +206,19 @@ describe 'nftables' do
 
           it {
             is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').
-              with_content(%r{^flush table inet abc; flush table inet ijk$})
+              with_content(%r{^table inet abc \{\}$})
+          }
+          it {
+            is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').
+              with_content(%r{^flush table inet abc$})
+          }
+          it {
+            is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').
+              with_content(%r{^table inet ijk \{\}$})
+          }
+          it {
+            is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').
+              with_content(%r{^flush table inet ijk$})
           }
         end
       end

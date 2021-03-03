@@ -5,8 +5,8 @@
 <%-
 if $noflush and $facts['nftables'] and $facts['nftables']['tables'] {
  $_flush_command = $facts['nftables']['tables'].filter |$_tab| { ! ($_tab in $noflush) }.map |$_table| {
-   "flush table ${regsubst($_table,'-',' ')}"
- }
+   [ "table ${regsubst($_table,'-',' ')} {}", "flush table ${regsubst($_table,'-',' ')}" ]
+ }.flatten
 } else {
  $_flush_command = ['flush ruleset']
 }
@@ -17,8 +17,8 @@ if $noflush and $facts['nftables'] and $facts['nftables']['tables'] {
 # nft -c -I /etc/nftables/puppet -f /etc/nftables/puppet.nft
 # nft -c -I /etc/nftables/puppet-preflight -f /etc/nftables/puppet-preflight.nft
 
-# drop any existing nftables ruleset
-<%= $_flush_command.join('; ') %>
+# drop any existing nftables ruleset, ensure tables are initialized
+<%= $_flush_command.join("\n") %>
 
 include "custom-*.nft"
 include "inet-filter.nft"
