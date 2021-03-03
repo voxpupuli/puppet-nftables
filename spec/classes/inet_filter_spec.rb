@@ -414,6 +414,25 @@ describe 'nftables' do
         }
       end
 
+      context 'chain global' do
+        it {
+          is_expected.to contain_concat('nftables-inet-filter-chain-global').with(
+            path:           '/etc/nftables/puppet-preflight/inet-filter-chain-global.nft',
+            owner:          'root',
+            group:          'root',
+            mode:           '0640',
+            ensure_newline: true,
+          )
+        }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-global-header').with(
+            target:  'nftables-inet-filter-chain-global',
+            content: %r{^chain global \{$},
+            order:   '00',
+          )
+        }
+      end
+
       context 'custom log prefix without variable substitution' do
         let(:pre_condition) { 'class{\'nftables\': log_prefix => "test "}' }
 
