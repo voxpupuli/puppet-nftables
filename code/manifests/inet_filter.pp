@@ -18,6 +18,7 @@ class nftables::inet_filter inherits nftables {
       'INPUT',
       'OUTPUT',
       'FORWARD',
+      'global',
     ]:;
   }
 
