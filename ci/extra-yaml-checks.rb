@@ -1,7 +1,7 @@
 require 'yaml'
 require 'find'
 
-Find.find("data").grep(/.*\.yaml/).each do |f|
+Find.find(ARGV.first).grep(/.*\.yaml/).each do |f|
   data = YAML.load_file(f)
   abort "Hiera file \"#{f}\" must contain a hash if it exists" unless data.class == Hash
   data.each do | key, value |
