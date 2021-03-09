@@ -105,3 +105,13 @@ Allows expressing firewall rules without having to use nftables's language by
 adding an abstraction layer a-la-Firewall. It's rather limited how far you can
 go so if you need rather complex rules or you can speak nftables it's
 recommended to use `nftables::rule` directly.
+
+## Editor goodies
+
+If you're using Emacs there are some snippets for
+[Yasnippet](https://github.com/joaotavora/yasnippet) available
+[here](https://github.com/nbarrientos/dotfiles/tree/cern/emacs/snippets/puppet-mode)
+that could make your life easier when using the module. This is third
+party configuration that's only included here for reference so changes
+in the interfaces exposed by this module are not guaranteed to be
+automatically applied there.
