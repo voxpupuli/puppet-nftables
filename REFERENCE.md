@@ -10,6 +10,7 @@
 * [`nftables::bridges`](#nftablesbridges): allow forwarding traffic on bridges
 * [`nftables::inet_filter`](#nftablesinet_filter): manage basic chains in table inet filter
 * [`nftables::ip_nat`](#nftablesip_nat): manage basic chains in table ip nat
+* [`nftables::rules::activemq`](#nftablesrulesactivemq): Provides input rules for Apache ActiveMQ
 * [`nftables::rules::afs3_callback`](#nftablesrulesafs3_callback): Open call back port for AFS clients
 * [`nftables::rules::ceph`](#nftablesrulesceph): Ceph is a distributed object store and file system. Enable this to support Ceph's Object Storage Daemons (OSD), Metadata Server Daemons (MDS)
 * [`nftables::rules::ceph_mon`](#nftablesrulesceph_mon): Ceph is a distributed object store and file system.
@@ -332,6 +333,42 @@ manage basic chains in table inet filter
 ### <a name="nftablesip_nat"></a>`nftables::ip_nat`
 
 manage basic chains in table ip nat
+
+### <a name="nftablesrulesactivemq"></a>`nftables::rules::activemq`
+
+Provides input rules for Apache ActiveMQ
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::activemq` class:
+
+* [`tcp`](#tcp)
+* [`udp`](#udp)
+* [`port`](#port)
+
+##### <a name="tcp"></a>`tcp`
+
+Data type: `Boolean`
+
+Create the rule for TCP traffic.
+
+Default value: ``true``
+
+##### <a name="udp"></a>`udp`
+
+Data type: `Boolean`
+
+Create the rule for UDP traffic.
+
+Default value: ``true``
+
+##### <a name="port"></a>`port`
+
+Data type: `Stdlib::Port`
+
+The port number for the ActiveMQ daemon.
+
+Default value: `61616`
 
 ### <a name="nftablesrulesafs3_callback"></a>`nftables::rules::afs3_callback`
 
