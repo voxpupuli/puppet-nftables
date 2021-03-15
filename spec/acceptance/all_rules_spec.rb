@@ -37,6 +37,7 @@ describe 'nftables class' do
       include nftables::rules::smtp
       include nftables::rules::ceph
       include nftables::rules::samba
+      include nftables::rules::activemq
       include nftables::rules::out::postgres
       include nftables::rules::out::icmp
       include nftables::rules::out::dns
