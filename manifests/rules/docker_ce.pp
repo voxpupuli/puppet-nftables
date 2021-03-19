@@ -91,9 +91,9 @@ class nftables::rules::docker_ce (
       table   => 'ip-nat',
       content => 'fib daddr type local counter jump DOCKER';
     'OUTPUT-jump_docker@ip-nat':
-      rule_name => 'OUTPUT-jump_docker',
-      table     => 'ip-nat',
-      content   => 'ip daddr != 127.0.0.0/8 fib daddr type local counter jump DOCKER';
+      rulename => 'OUTPUT-jump_docker',
+      table    => 'ip-nat',
+      content  => 'ip daddr != 127.0.0.0/8 fib daddr type local counter jump DOCKER';
     'DOCKER-counter':
       table   => 'ip-nat',
       content => "iifname \"${docker_interface}\" counter return";
