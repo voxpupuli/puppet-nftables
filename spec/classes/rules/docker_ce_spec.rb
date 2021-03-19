@@ -57,7 +57,7 @@ describe 'nftables::rules::docker_ce' do
         }
         it {
           is_expected.to contain_nftables__rule('OUTPUT-jump_docker@ip-nat').with(
-            rule_name: 'OUTPUT-jump_docker',
+            rulename: 'OUTPUT-jump_docker',
             content: 'ip daddr != 127.0.0.0/8 fib daddr type local counter jump DOCKER',
             table: 'ip-nat',
           )
