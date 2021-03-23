@@ -106,6 +106,26 @@ adding an abstraction layer a-la-Firewall. It's rather limited how far you can
 go so if you need rather complex rules or you can speak nftables it's
 recommended to use `nftables::rule` directly.
 
+## Facts
+
+One structured fact `nftables` is available
+
+```
+{
+  tables => [
+    "bridge-filter",
+    "bridge-nat",
+    "inet-firewalld",
+    "ip-firewalld",
+    "ip6-firewalld"
+  ],
+  version => "0.9.3"
+}
+```
+
+* `nftables.version` is the version of the nft command from `nft --version`.
+* `nftables.tables` is the list of tables installed on the machine from `nft list tables`.
+
 ## Editor goodies
 
 If you're using Emacs there are some snippets for
