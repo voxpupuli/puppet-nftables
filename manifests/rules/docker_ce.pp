@@ -9,9 +9,9 @@
 # When using this class 'docker::iptables: false' should be set.
 #
 # @param docker_interface
-#   Interface name used by docker. It defaults to docker0.
+#   Interface name used by docker.
 # @param docker_prefix
-#   The address space used by docker. It defaults to 172.17.0.0/16.
+#   The address space used by docker.
 #
 class nftables::rules::docker_ce (
   String[1]                     $docker_interface = 'docker0',
