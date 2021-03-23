@@ -12,20 +12,26 @@
 #   Interface name used by docker.
 # @param docker_prefix
 #   The address space used by docker.
-#
+# @param manage_docker_chains
+#   Flag to control whether the class should create the docker related chains.
+# @param manage_base_chains
+#   Flag to control whether the class should create the base common chains.
 class nftables::rules::docker_ce (
-  String[1]                     $docker_interface = 'docker0',
-  Stdlib::IP::Address::V4::CIDR $docker_prefix    = '172.17.0.0/16',
+  String[1]                     $docker_interface     = 'docker0',
+  Stdlib::IP::Address::V4::CIDR $docker_prefix        = '172.17.0.0/16',
+  Boolean                       $manage_docker_chains = true,
+  Boolean                       $manage_base_chains   = true,
 ) {
   #
   # inet-filter
   #
-
-  nftables::chain {
-    'DOCKER': ;
-    'DOCKER_ISOLATION_STAGE_1': ;
-    'DOCKER_ISOLATION_STAGE_2': ;
-    'DOCKER_USER': ;
+  if $manage_docker_chains {
+    nftables::chain {
+      'DOCKER': ;
+      'DOCKER_ISOLATION_STAGE_1': ;
+      'DOCKER_ISOLATION_STAGE_2': ;
+      'DOCKER_USER': ;
+    }
   }
 
   nftables::rule {
@@ -71,16 +77,23 @@ class nftables::rules::docker_ce (
   # ip-nat
   #
 
-  nftables::chain {
-    'DOCKER-nat':
-      table => 'ip-nat',
-      chain => 'DOCKER';
-    'OUTPUT-nat':
-      table => 'ip-nat',
-      chain => 'OUTPUT';
-    'INPUT-nat':
-      table => 'ip-nat',
-      chain => 'INPUT';
+  if $manage_docker_chains {
+    nftables::chain {
+      'DOCKER-nat':
+        table => 'ip-nat',
+        chain => 'DOCKER';
+    }
+  }
+
+  if $manage_base_chains {
+    nftables::chain {
+      'OUTPUT-nat':
+        table => 'ip-nat',
+        chain => 'OUTPUT';
+      'INPUT-nat':
+        table => 'ip-nat',
+        chain => 'INPUT';
+    }
   }
 
   nftables::rule {

@@ -84,6 +84,44 @@ describe 'nftables::rules::docker_ce' do
         }
       end
 
+      context 'with base chain management false' do
+        let(:params) do
+          {
+            manage_base_chains: false,
+          }
+        end
+
+        it { is_expected.to compile }
+
+        it { is_expected.to contain_nftables__chain('DOCKER') }
+        it { is_expected.to contain_nftables__chain('DOCKER_ISOLATION_STAGE_1') }
+        it { is_expected.to contain_nftables__chain('DOCKER_ISOLATION_STAGE_2') }
+        it { is_expected.to contain_nftables__chain('DOCKER_USER') }
+        it { is_expected.to contain_nftables__chain('DOCKER-nat') }
+
+        it { is_expected.not_to contain_nftables__chain('OUTPUT-nat') }
+        it { is_expected.not_to contain_nftables__chain('INPUT-nat') }
+      end
+
+      context 'with docker chain management false' do
+        let(:params) do
+          {
+            manage_docker_chains: false,
+          }
+        end
+
+        it { is_expected.to compile }
+
+        it { is_expected.not_to contain_nftables__chain('DOCKER') }
+        it { is_expected.not_to contain_nftables__chain('DOCKER_ISOLATION_STAGE_1') }
+        it { is_expected.not_to contain_nftables__chain('DOCKER_ISOLATION_STAGE_2') }
+        it { is_expected.not_to contain_nftables__chain('DOCKER_USER') }
+        it { is_expected.not_to contain_nftables__chain('DOCKER-nat') }
+
+        it { is_expected.to contain_nftables__chain('OUTPUT-nat') }
+        it { is_expected.to contain_nftables__chain('INPUT-nat') }
+      end
+
       context 'with custom interface and subnet' do
         let(:params) do
           {
