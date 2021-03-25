@@ -4,7 +4,22 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v1.2.0](https://github.com/voxpupuli/puppet-nftables/tree/v1.2.0) (2021-03-02)
+## [v1.3.0](https://github.com/voxpupuli/puppet-nftables/tree/v1.3.0) (2021-03-25)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v1.2.0...v1.3.0)
+
+**Implemented enhancements:**
+
+- Add rules for QEMU/libvirt guests \(bridged virtual networking\) [\#85](https://github.com/voxpupuli/puppet-nftables/pull/85) ([nbarrientos](https://github.com/nbarrientos))
+- Add nftables.version to structured fact. [\#84](https://github.com/voxpupuli/puppet-nftables/pull/84) ([traylenator](https://github.com/traylenator))
+- Add rules for Apache ActiveMQ [\#82](https://github.com/voxpupuli/puppet-nftables/pull/82) ([nbarrientos](https://github.com/nbarrientos))
+- Add Docker-CE default rules [\#80](https://github.com/voxpupuli/puppet-nftables/pull/80) ([luisfdez](https://github.com/luisfdez))
+
+**Merged pull requests:**
+
+- Fix sections and add a pointer to code snippets for Emacs [\#81](https://github.com/voxpupuli/puppet-nftables/pull/81) ([nbarrientos](https://github.com/nbarrientos))
+
+## [v1.2.0](https://github.com/voxpupuli/puppet-nftables/tree/v1.2.0) (2021-03-03)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v1.1.1...v1.2.0)
 
