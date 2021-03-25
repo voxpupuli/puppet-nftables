@@ -39,6 +39,7 @@ describe 'nftables class' do
       include nftables::rules::samba
       include nftables::rules::activemq
       include nftables::rules::docker_ce
+      include nftables::rules::qemu
       include nftables::rules::out::postgres
       include nftables::rules::out::icmp
       include nftables::rules::out::dns
