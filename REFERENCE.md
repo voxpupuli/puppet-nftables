@@ -17,6 +17,7 @@
 Enable this option to support Ceph's Monitor Daemon.
 * [`nftables::rules::dhcpv6_client`](#nftablesrulesdhcpv6_client): allow DHCPv6 requests in to a host
 * [`nftables::rules::dns`](#nftablesrulesdns): manage in dns
+* [`nftables::rules::docker_ce`](#nftablesrulesdocker_ce): Default firewall configuration for Docker-CE
 * [`nftables::rules::http`](#nftablesruleshttp): manage in http
 * [`nftables::rules::https`](#nftablesruleshttps): manage in https
 * [`nftables::rules::icinga2`](#nftablesrulesicinga2): manage in icinga2
@@ -445,6 +446,57 @@ Data type: `Array[Stdlib::Port,1]`
 Specify ports for dns.
 
 Default value: `[53]`
+
+### <a name="nftablesrulesdocker_ce"></a>`nftables::rules::docker_ce`
+
+The configuration distributed in this class represents the default firewall
+configuration done by docker-ce when the iptables integration is enabled.
+
+This class is needed as the default docker-ce rules added to ip-filter conflict
+with the inet-filter forward rules set by default in this module.
+
+When using this class 'docker::iptables: false' should be set.
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::docker_ce` class:
+
+* [`docker_interface`](#docker_interface)
+* [`docker_prefix`](#docker_prefix)
+* [`manage_docker_chains`](#manage_docker_chains)
+* [`manage_base_chains`](#manage_base_chains)
+
+##### <a name="docker_interface"></a>`docker_interface`
+
+Data type: `String[1]`
+
+Interface name used by docker.
+
+Default value: `'docker0'`
+
+##### <a name="docker_prefix"></a>`docker_prefix`
+
+Data type: `Stdlib::IP::Address::V4::CIDR`
+
+The address space used by docker.
+
+Default value: `'172.17.0.0/16'`
+
+##### <a name="manage_docker_chains"></a>`manage_docker_chains`
+
+Data type: `Boolean`
+
+Flag to control whether the class should create the docker related chains.
+
+Default value: ``true``
+
+##### <a name="manage_base_chains"></a>`manage_base_chains`
+
+Data type: `Boolean`
+
+Flag to control whether the class should create the base common chains.
+
+Default value: ``true``
 
 ### <a name="nftablesruleshttp"></a>`nftables::rules::http`
 
