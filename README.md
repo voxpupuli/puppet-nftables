@@ -130,7 +130,7 @@ One structured fact `nftables` is available
 
 If you're using Emacs there are some snippets for
 [Yasnippet](https://github.com/joaotavora/yasnippet) available
-[here](https://github.com/nbarrientos/dotfiles/tree/cern/emacs/snippets/puppet-mode)
+[here](https://github.com/nbarrientos/dotfiles/tree/master/.emacs.d/snippets/puppet-mode)
 that could make your life easier when using the module. This is third
 party configuration that's only included here for reference so changes
 in the interfaces exposed by this module are not guaranteed to be
