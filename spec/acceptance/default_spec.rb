@@ -23,8 +23,6 @@ describe 'nftables class' do
           ].join("\n"),
         notify  => Service["nftables"],
       }
-      # Puppet 5 only to ensure ordering.
-      Class['systemd::systemctl::daemon_reload'] -> Service['nftables']
       EOS
       # Run it twice and test for idempotency
       apply_manifest(pp, catch_failures: true)
