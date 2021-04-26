@@ -209,6 +209,21 @@ describe 'nftables::simplerule' do
         }
       end
 
+      describe 'with an IPv4 address as saddr' do
+        let(:params) do
+          {
+            saddr: '172.16.1.5',
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'ip saddr 172.16.1.5 accept',
+          )
+        }
+      end
+
       describe 'with an IPv6 set as daddr, default set_type' do
         let(:params) do
           {
