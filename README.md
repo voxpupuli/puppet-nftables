@@ -47,6 +47,13 @@ for all masterchains. This chain is empty by default.
 INPUT and OUTPUT to the loopback device is allowed by
 default, though you could restrict it later.
 
+On the other hand, if you don't want any of the default tables, chains
+and rules created by the module, you can set `nftables::inet_filter`
+and/or `nftables::nat` to `false` and build your whole nftables
+configuration from scratch by using the building blocks provided by
+this module. Looking at `nftables::inet_filter` for inspiration might
+be a good idea.
+
 ## Rules Validation
 
 Initially puppet deploys all configuration to

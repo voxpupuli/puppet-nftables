@@ -1,4 +1,5 @@
 <%- |
+  Boolean $inet_filter,
   Boolean $nat,
   Optional[Array[String[1],1]] $noflush = undef,
 |-%>
@@ -21,7 +22,9 @@ if $noflush and $facts['nftables'] and $facts['nftables']['tables'] {
 <%= $_flush_command.join("\n") %>
 
 include "custom-*.nft"
+<% if $inet_filter { -%>
 include "inet-filter.nft"
+<% } -%>
 <% if $nat { -%>
 include "ip-nat.nft"
 include "ip6-nat.nft"
