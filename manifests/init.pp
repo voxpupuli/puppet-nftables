@@ -37,6 +37,9 @@
 # @param in_icmp
 #   Allow inbound ICMPv4/v6 traffic.
 #
+# @param inet_filter
+#   Add default tables, chains and rules to process traffic.
+#
 # @param nat
 #   Add default tables and chains to process NAT traffic.
 #
@@ -91,6 +94,7 @@ class nftables (
   Boolean $out_all = false,
   Boolean $in_out_conntrack = true,
   Boolean $fwd_conntrack = false,
+  Boolean $inet_filter = true,
   Boolean $nat = true,
   Hash $rules = {},
   Hash $sets = {},
@@ -120,7 +124,12 @@ class nftables (
       recurse => true;
     '/etc/nftables/puppet-preflight.nft':
       ensure  => file,
-      content => epp('nftables/config/puppet.nft.epp', { 'nat' => $nat, 'noflush' => $noflush_tables });
+      content => epp('nftables/config/puppet.nft.epp', {
+          'inet_filter' => $inet_filter,
+          'nat'         => $nat,
+          'noflush'     => $noflush_tables
+        }
+      );
   } ~> exec {
     'nft validate':
       refreshonly => true,
@@ -132,7 +141,12 @@ class nftables (
       mode  => '0640';
     '/etc/nftables/puppet.nft':
       ensure  => file,
-      content => epp('nftables/config/puppet.nft.epp', { 'nat' => $nat, 'noflush' => $noflush_tables });
+      content => epp('nftables/config/puppet.nft.epp', {
+          'inet_filter' => $inet_filter,
+          'nat'         => $nat,
+          'noflush'     => $noflush_tables
+        }
+      );
     '/etc/nftables/puppet':
       ensure  => directory,
       mode    => '0750',
@@ -160,7 +174,10 @@ class nftables (
     enable => $firewalld_enable,
   }
 
-  include nftables::inet_filter
+  if $inet_filter {
+    include nftables::inet_filter
+  }
+
   if $nat {
     include nftables::ip_nat
   }
