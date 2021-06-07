@@ -131,6 +131,7 @@ The following parameters are available in the `nftables` class:
 * [`out_icmp`](#out_icmp)
 * [`in_ssh`](#in_ssh)
 * [`in_icmp`](#in_icmp)
+* [`inet_filter`](#inet_filter)
 * [`nat`](#nat)
 * [`sets`](#sets)
 * [`log_prefix`](#log_prefix)
@@ -205,6 +206,14 @@ Default value: ``true``
 Data type: `Boolean`
 
 Allow inbound ICMPv4/v6 traffic.
+
+Default value: ``true``
+
+##### <a name="inet_filter"></a>`inet_filter`
+
+Data type: `Boolean`
+
+Add default tables, chains and rules to process traffic.
 
 Default value: ``true``
 

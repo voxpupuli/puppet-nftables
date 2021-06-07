@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.0.0](https://github.com/voxpupuli/puppet-nftables/tree/v2.0.0) (2021-06-01)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v1.3.0...v2.0.0)
+
+**Breaking changes:**
+
+- Drop Puppet 5, puppetlabs/concat 7.x, puppetlabs/stdlib 7.x, camptocamp/systemd: 3.x [\#92](https://github.com/voxpupuli/puppet-nftables/pull/92) ([traylenator](https://github.com/traylenator))
+- Drop Puppet 5 support [\#79](https://github.com/voxpupuli/puppet-nftables/pull/79) ([kenyon](https://github.com/kenyon))
+
+**Implemented enhancements:**
+
+- Ability to set base chains [\#95](https://github.com/voxpupuli/puppet-nftables/issues/95)
+- puppetlabs/concat: Allow 7.x [\#91](https://github.com/voxpupuli/puppet-nftables/pull/91) ([bastelfreak](https://github.com/bastelfreak))
+- puppetlabs/stdlib: Allow 7.x [\#90](https://github.com/voxpupuli/puppet-nftables/pull/90) ([bastelfreak](https://github.com/bastelfreak))
+- camptocamp/systemd: allow 3.x [\#89](https://github.com/voxpupuli/puppet-nftables/pull/89) ([bastelfreak](https://github.com/bastelfreak))
+
+**Fixed bugs:**
+
+- Fix IPv4 source address type detection [\#93](https://github.com/voxpupuli/puppet-nftables/pull/93) ([nbarrientos](https://github.com/nbarrientos))
+
+**Closed issues:**
+
+- Class\[Nftables::Bridges\]\['bridgenames'\] contains a Regexp value. It will be converted to the String '/^br.+/' [\#83](https://github.com/voxpupuli/puppet-nftables/issues/83)
+
+**Merged pull requests:**
+
+- Allow creating a totally empty firewall [\#96](https://github.com/voxpupuli/puppet-nftables/pull/96) ([nbarrientos](https://github.com/nbarrientos))
+- Amend link to Yasnippets [\#88](https://github.com/voxpupuli/puppet-nftables/pull/88) ([nbarrientos](https://github.com/nbarrientos))
+
 ## [v1.3.0](https://github.com/voxpupuli/puppet-nftables/tree/v1.3.0) (2021-03-25)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v1.2.0...v1.3.0)
