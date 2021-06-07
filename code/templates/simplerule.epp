@@ -38,7 +38,7 @@
 <%- if $saddr {
   if $saddr =~ Stdlib::IP::Address::V6 {
     $_src_hosts = "ip6 saddr ${saddr}"
-  } elsif $daddr =~ Stdlib::IP::Address::V4 {
+  } elsif $saddr =~ Stdlib::IP::Address::V4 {
     $_src_hosts = "ip saddr ${saddr}"
   } else {
     $_src_hosts = $set_type ? {

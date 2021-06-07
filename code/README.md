@@ -47,6 +47,13 @@ for all masterchains. This chain is empty by default.
 INPUT and OUTPUT to the loopback device is allowed by
 default, though you could restrict it later.
 
+On the other hand, if you don't want any of the default tables, chains
+and rules created by the module, you can set `nftables::inet_filter`
+and/or `nftables::nat` to `false` and build your whole nftables
+configuration from scratch by using the building blocks provided by
+this module. Looking at `nftables::inet_filter` for inspiration might
+be a good idea.
+
 ## Rules Validation
 
 Initially puppet deploys all configuration to
@@ -130,7 +137,7 @@ One structured fact `nftables` is available
 
 If you're using Emacs there are some snippets for
 [Yasnippet](https://github.com/joaotavora/yasnippet) available
-[here](https://github.com/nbarrientos/dotfiles/tree/cern/emacs/snippets/puppet-mode)
+[here](https://github.com/nbarrientos/dotfiles/tree/master/.emacs.d/snippets/puppet-mode)
 that could make your life easier when using the module. This is third
 party configuration that's only included here for reference so changes
 in the interfaces exposed by this module are not guaranteed to be

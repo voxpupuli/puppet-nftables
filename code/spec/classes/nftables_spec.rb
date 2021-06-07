@@ -83,6 +83,8 @@ describe 'nftables' do
           enable: 'mask',
         )
       }
+      it { is_expected.to contain_class('nftables::inet_filter') }
+      it { is_expected.to contain_class('nftables::ip_nat') }
       it { is_expected.to contain_class('nftables::rules::out::http') }
       it { is_expected.to contain_class('nftables::rules::out::https') }
       it { is_expected.to contain_class('nftables::rules::out::dns') }
@@ -172,6 +174,33 @@ describe 'nftables' do
             enable: false,
           )
         }
+      end
+
+      context 'with no default filtering rules' do
+        let(:params) do
+          {
+            'inet_filter' => false,
+          }
+        end
+
+        it { is_expected.to contain_class('nftables::ip_nat') }
+        it { is_expected.not_to contain_class('nftables::inet_filter') }
+      end
+
+      context 'with no default tables, chains or rules' do
+        let(:params) do
+          {
+            'inet_filter' => false,
+            'nat' => false,
+          }
+        end
+
+        it { is_expected.not_to contain_class('nftables::ip_nat') }
+        it { is_expected.not_to contain_class('nftables::inet_filter') }
+        it { is_expected.to have_nftables__config_resource_count(0) }
+        it { is_expected.to have_nftables__chain_resource_count(0) }
+        it { is_expected.to have_nftables__rule_resource_count(0) }
+        it { is_expected.to have_nftables__set_resource_count(0) }
       end
 
       context 'with with noflush_tables parameter' do

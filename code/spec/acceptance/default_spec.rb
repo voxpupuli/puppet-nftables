@@ -23,8 +23,6 @@ describe 'nftables class' do
           ].join("\n"),
         notify  => Service["nftables"],
       }
-      # Puppet 5 only to ensure ordering.
-      Class['systemd::systemctl::daemon_reload'] -> Service['nftables']
       EOS
       # Run it twice and test for idempotency
       apply_manifest(pp, catch_failures: true)
@@ -77,6 +75,36 @@ describe 'nftables class' do
       }
       EOS
       apply_manifest(pp, expect_failures: true)
+    end
+    describe service('nftables') do
+      it { is_expected.to be_running }
+      it { is_expected.to be_enabled }
+    end
+  end
+  context 'with totally empty firewall' do
+    it 'no rules validate okay' do
+      pp = <<-EOS
+      class{'nftables':
+        firewalld_enable => false,
+        inet_filter => false,
+        nat => false,
+      }
+      # nftables cannot be started in docker so replace service with a validation only.
+      systemd::dropin_file{"zzz_docker_nft.conf":
+        ensure  => present,
+        unit    => "nftables.service",
+        content => [
+          "[Service]",
+          "ExecStart=",
+          "ExecStart=/sbin/nft -c -I /etc/nftables/puppet -f /etc/sysconfig/nftables.conf",
+          "ExecReload=",
+          "ExecReload=/sbin/nft -c -I /etc/nftables/puppet -f /etc/sysconfig/nftables.conf",
+          "",
+          ].join("\n"),
+        notify  => Service["nftables"],
+      }
+      EOS
+      apply_manifest(pp, catch_failures: true)
     end
     describe service('nftables') do
       it { is_expected.to be_running }
