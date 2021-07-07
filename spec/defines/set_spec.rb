@@ -154,6 +154,61 @@ describe 'nftables::set' do
           )
         }
       end
+
+      describe 'default table can be changed' do
+        let(:params) do
+          {
+            type: 'ipv6_addr',
+            elements: ['2001:1458::1', '2001:1458:1::2'],
+            table: 'ip-nat'
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_concat__fragment('nftables-ip-nat-set-my_set').with(
+            target:  'nftables-ip-nat',
+            content: %r{^  set my_set \{\n    type ipv6_addr\n    elements = \{ 2001:1458::1, 2001:1458:1::2 \}\n  \}$}m,
+            order:   '10',
+          )
+        }
+      end
+
+      describe 'multiple tables no tables' do
+        let(:params) do
+          {
+            type: 'ipv6_addr',
+            elements: ['2001:1458::1', '2001:1458:1::2'],
+            table: []
+          }
+        end
+
+        it { is_expected.not_to compile }
+      end
+
+      describe 'multiple tables' do
+        let(:params) do
+          {
+            type: 'ipv6_addr',
+            elements: ['2001:1458::1', '2001:1458:1::2'],
+            table: ['inet-filter', 'ip-nat']
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_concat__fragment('nftables-inet-filter-set-my_set').with(
+            target:  'nftables-inet-filter',
+            content: %r{^  set my_set \{\n    type ipv6_addr\n    elements = \{ 2001:1458::1, 2001:1458:1::2 \}\n  \}$}m,
+            order:   '10',
+          )
+          is_expected.to contain_concat__fragment('nftables-ip-nat-set-my_set').with(
+            target:  'nftables-ip-nat',
+            content: %r{^  set my_set \{\n    type ipv6_addr\n    elements = \{ 2001:1458::1, 2001:1458:1::2 \}\n  \}$}m,
+            order:   '10',
+          )
+        }
+      end
     end
   end
 end

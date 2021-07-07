@@ -1554,9 +1554,9 @@ Default value: ``undef``
 
 ##### <a name="table"></a>`table`
 
-Data type: `String`
+Data type: `Variant[String, Array[String, 1]]`
 
-table to add set to.
+table or array of tables to add the set to.
 
 Default value: `'inet-filter'`
 

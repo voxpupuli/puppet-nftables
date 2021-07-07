@@ -12,7 +12,7 @@
 # @param setname name of set, equal to to title.
 # @param order concat ordering.
 # @param type type of set.
-# @param table table to add set to.
+# @param table table or array of tables to add the set to.
 # @param flags specify flags for set
 # @param timeout timeout in seconds
 # @param gc_interval garbage collection interval.
@@ -27,7 +27,7 @@ define nftables::set (
   Pattern[/^[-a-zA-Z0-9_]+$/] $setname = $title,
   Pattern[/^\d\d$/] $order = '10',
   Optional[Enum['ipv4_addr', 'ipv6_addr', 'ether_addr', 'inet_proto', 'inet_service', 'mark']] $type = undef,
-  String $table = 'inet-filter',
+  Variant[String, Array[String, 1]] $table = 'inet-filter',
   Array[Enum['constant', 'dynamic', 'interval', 'timeout'], 0, 4] $flags = [],
   Optional[Integer] $timeout = undef,
   Optional[Integer] $gc_interval = undef,
@@ -44,39 +44,43 @@ define nftables::set (
     }
   }
 
-  if $ensure == 'present' {
-    concat::fragment {
-      "nftables-${table}-set-${setname}":
-        order  => $order,
-        target => "nftables-${table}",
-    }
+  $_tables = Array($table, true)
 
-    if $content {
-      Concat::Fragment["nftables-${table}-set-${setname}"] {
-        content => "  ${content}",
+  if $ensure == 'present' {
+    $_tables.each |Integer $index, String $_table| {
+      concat::fragment {
+        "nftables-${_table}-set-${setname}":
+          order  => $order,
+          target => "nftables-${_table}",
       }
-    } elsif $source {
-      Concat::Fragment["nftables-${table}-set-${setname}"] {
-        source => $source,
-      }
-    } else {
-      if $type == undef {
-        fail('The way the resource is configured must have a type set')
-      }
-      Concat::Fragment["nftables-${table}-set-${setname}"] {
-        content => epp('nftables/set.epp',
-          {
-            'name'        => $setname,
-            'type'        => $type,
-            'flags'       => $flags,
-            'timeout'     => $timeout,
-            'gc_interval' => $gc_interval,
-            'elements'    => $elements,
-            'size'        => $size,
-            'policy'      => $policy,
-            'auto_merge'  => $auto_merge,
-          }
-        )
+
+      if $content {
+        Concat::Fragment["nftables-${_table}-set-${setname}"] {
+          content => "  ${content}",
+        }
+      } elsif $source {
+        Concat::Fragment["nftables-${_table}-set-${setname}"] {
+          source => $source,
+        }
+      } else {
+        if $type == undef {
+          fail('The way the resource is configured must have a type set')
+        }
+        Concat::Fragment["nftables-${_table}-set-${setname}"] {
+          content => epp('nftables/set.epp',
+            {
+              'name'        => $setname,
+              'type'        => $type,
+              'flags'       => $flags,
+              'timeout'     => $timeout,
+              'gc_interval' => $gc_interval,
+              'elements'    => $elements,
+              'size'        => $size,
+              'policy'      => $policy,
+              'auto_merge'  => $auto_merge,
+            }
+          )
+        }
       }
     }
   }

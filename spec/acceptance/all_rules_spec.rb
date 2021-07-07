@@ -71,6 +71,11 @@ describe 'nftables class' do
       include nftables::rules::wireguard
       include nftables::services::dhcpv6_client
       include nftables::services::openafs_client
+      nftables::set{'my_test_set':
+        type       => 'ipv4_addr',
+        elements   => ['192.168.0.1', '10.0.0.2'],
+        table      => ['inet-filter', 'ip-nat'],
+      }
       # nftables cannot be started in docker so replace service with a validation only.
       systemd::dropin_file{"zzz_docker_nft.conf":
         ensure  => present,
