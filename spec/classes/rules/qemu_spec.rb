@@ -4,6 +4,7 @@ describe 'nftables::rules::qemu' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }
+      let(:pre_condition) { 'include nftables' }
 
       context 'default options' do
         it { is_expected.to compile }
@@ -77,7 +78,17 @@ describe 'nftables::rules::qemu' do
         end
 
         it { is_expected.to compile }
-        it { is_expected.to have_resource_count(0) }
+        it { is_expected.not_to contain_nftables__rule('default_in-qemu_udp_dns') }
+        it { is_expected.not_to contain_nftables__rule('default_in-qemu_tcp_dns') }
+        it { is_expected.not_to contain_nftables__rule('default_in-qemu_dhcpv4') }
+        it { is_expected.not_to contain_nftables__rule('default_fwd-qemu_oip_v4') }
+        it { is_expected.not_to contain_nftables__rule('default_fwd-qemu_iip_v4') }
+        it { is_expected.not_to contain_nftables__rule('default_fwd-qemu_io_internal') }
+        it { is_expected.not_to contain_nftables__rule('POSTROUTING-qemu_ignore_multicast') }
+        it { is_expected.not_to contain_nftables__rule('POSTROUTING-qemu_ignore_broadcast') }
+        it { is_expected.not_to contain_nftables__rule('POSTROUTING-qemu_masq_tcp') }
+        it { is_expected.not_to contain_nftables__rule('POSTROUTING-qemu_masq_udp') }
+        it { is_expected.not_to contain_nftables__rule('POSTROUTING-qemu_masq_ip') }
       end
 
       context 'ipv6 prefix' do

@@ -237,6 +237,25 @@ describe 'nftables' do
         }
       end
 
+      context 'custom ip nat table name' do
+        let(:params) do
+          {
+            'nat_table_name' => 'mycustomtablename',
+          }
+        end
+
+        it { is_expected.to compile }
+        it {
+          is_expected.to contain_concat('nftables-ip-mycustomtablename').with(
+            path:   '/etc/nftables/puppet-preflight/ip-mycustomtablename.nft',
+            ensure: 'present',
+            owner:  'root',
+            group:  'root',
+            mode:   '0640',
+          )
+        }
+      end
+
       context 'all nat tables disabled' do
         let(:params) do
           {
