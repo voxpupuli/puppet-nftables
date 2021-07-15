@@ -41,7 +41,7 @@ class nftables::rules::qemu (
   Boolean                                 $forward_traffic   = true,
   Boolean                                 $internal_traffic  = true,
   Boolean                                 $masquerade        = true,
-) {
+) inherits nftables {
   if $dns {
     nftables::rule {
       'default_in-qemu_udp_dns':
@@ -93,19 +93,19 @@ class nftables::rules::qemu (
   if $masquerade {
     nftables::rule {
       'POSTROUTING-qemu_ignore_multicast':
-        table   => 'ip-nat',
+        table   => "ip-${nftables::nat_table_name}",
         content => "ip saddr ${network_v4} ip daddr 224.0.0.0/24 return";
       'POSTROUTING-qemu_ignore_broadcast':
-        table   => 'ip-nat',
+        table   => "ip-${nftables::nat_table_name}",
         content => "ip saddr ${network_v4} ip daddr 255.255.255.255 return";
       'POSTROUTING-qemu_masq_tcp':
-        table   => 'ip-nat',
+        table   => "ip-${nftables::nat_table_name}",
         content => "meta l4proto tcp ip saddr ${network_v4} ip daddr != ${network_v4} masquerade to :1024-65535";
       'POSTROUTING-qemu_masq_udp':
-        table   => 'ip-nat',
+        table   => "ip-${nftables::nat_table_name}",
         content => "meta l4proto udp ip saddr ${network_v4} ip daddr != ${network_v4} masquerade to :1024-65535";
       'POSTROUTING-qemu_masq_ip':
-        table   => 'ip-nat',
+        table   => "ip-${nftables::nat_table_name}",
         content => "ip saddr ${network_v4} ip daddr != ${network_v4} masquerade";
     }
   }

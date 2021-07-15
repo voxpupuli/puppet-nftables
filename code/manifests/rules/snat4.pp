@@ -12,6 +12,7 @@ define nftables::rules::snat4 (
   Enum['present','absent'] $ensure = 'present',
   # lint:endignore
 ) {
+  include nftables
   $oifname = $oif ? {
     undef   => '',
     default => "oifname ${oif} ",
@@ -38,7 +39,7 @@ define nftables::rules::snat4 (
   nftables::rule {
     "${chain}-${rulename}":
       ensure  => $ensure,
-      table   => 'ip-nat',
+      table   => "ip-${nftables::nat_table_name}",
       order   => $order,
       content => "${oifname}${src}${protocol}${port}snat ${snat}";
   }

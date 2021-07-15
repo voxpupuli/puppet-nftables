@@ -21,7 +21,7 @@ class nftables::rules::docker_ce (
   Stdlib::IP::Address::V4::CIDR $docker_prefix        = '172.17.0.0/16',
   Boolean                       $manage_docker_chains = true,
   Boolean                       $manage_base_chains   = true,
-) {
+) inherits nftables {
   #
   # inet-filter
   #
@@ -80,7 +80,7 @@ class nftables::rules::docker_ce (
   if $manage_docker_chains {
     nftables::chain {
       'DOCKER-nat':
-        table => 'ip-nat',
+        table => "ip-${nftables::nat_table_name}",
         chain => 'DOCKER';
     }
   }
@@ -88,36 +88,36 @@ class nftables::rules::docker_ce (
   if $manage_base_chains {
     nftables::chain {
       'OUTPUT-nat':
-        table => 'ip-nat',
+        table => "ip-${nftables::nat_table_name}",
         chain => 'OUTPUT';
       'INPUT-nat':
-        table => 'ip-nat',
+        table => "ip-${nftables::nat_table_name}",
         chain => 'INPUT';
     }
   }
 
   nftables::rule {
     'POSTROUTING-docker':
-      table   => 'ip-nat',
+      table   => "ip-${nftables::nat_table_name}",
       content => "oifname != \"${docker_interface}\" ip saddr ${docker_prefix} counter masquerade";
     'PREROUTING-docker':
-      table   => 'ip-nat',
+      table   => "ip-${nftables::nat_table_name}",
       content => 'fib daddr type local counter jump DOCKER';
     'OUTPUT-jump_docker@ip-nat':
       rulename => 'OUTPUT-jump_docker',
-      table    => 'ip-nat',
+      table    => "ip-${nftables::nat_table_name}",
       content  => 'ip daddr != 127.0.0.0/8 fib daddr type local counter jump DOCKER';
     'DOCKER-counter':
-      table   => 'ip-nat',
+      table   => "ip-${nftables::nat_table_name}",
       content => "iifname \"${docker_interface}\" counter return";
     'INPUT-type@ip-nat':
       rulename => 'INPUT-type',
-      table    => 'ip-nat',
+      table    => "ip-${nftables::nat_table_name}",
       order    => '01',
       content  => 'type nat hook input priority 100';
     'INPUT-policy@ip-nat':
       rulename => 'INPUT-policy',
-      table    => 'ip-nat',
+      table    => "ip-${nftables::nat_table_name}",
       order    => '02',
       content  => 'policy accept';
   }

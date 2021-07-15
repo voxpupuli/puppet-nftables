@@ -12,6 +12,7 @@ define nftables::rules::dnat4 (
   Enum['present','absent'] $ensure = 'present',
   # lint:endignore
 ) {
+  include nftables
   $iifname = $iif ? {
     undef   => '',
     default => "iifname ${iif} ",
@@ -32,7 +33,7 @@ define nftables::rules::dnat4 (
     "${chain}-${rulename}":
       content => "${iifname}ip daddr ${daddr} ${proto} dport ${filter_port} accept";
     "PREROUTING-${rulename}":
-      table   => 'ip-nat',
+      table   => "ip-${nftables::nat_table_name}",
       content => "${iifname}${proto} dport ${port} dnat to ${daddr}${nat_port}";
   }
 }

@@ -77,7 +77,6 @@ describe 'nftables::rules::qemu' do
         end
 
         it { is_expected.to compile }
-        it { is_expected.to have_resource_count(0) }
       end
 
       context 'ipv6 prefix' do

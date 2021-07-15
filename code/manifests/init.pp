@@ -43,6 +43,9 @@
 # @param nat
 #   Add default tables and chains to process NAT traffic.
 #
+# @param nat_table_name
+#   The name of the 'nat' table: defaults to 'nat'
+#
 # @param sets
 #   Allows sourcing set definitions directly from Hiera.
 #
@@ -99,6 +102,7 @@ class nftables (
   Hash $rules = {},
   Hash $sets = {},
   String $log_prefix = '[nftables] %<chain>s %<comment>s',
+  String $nat_table_name = 'nat',
   Variant[Boolean[false], String] $log_limit = '3/minute burst 5 packets',
   Variant[Boolean[false], Pattern[/icmp(v6|x)? type .+|tcp reset/]] $reject_with = 'icmpx type port-unreachable',
   Variant[Boolean[false], Enum['mask']] $firewalld_enable = 'mask',

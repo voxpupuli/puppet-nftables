@@ -1,9 +1,9 @@
 # manage basic chains in table ip nat
 class nftables::ip_nat inherits nftables {
   nftables::config {
-    'ip-nat':
+    "ip-${nftables::nat_table_name}":
       prefix => '';
-    'ip6-nat':
+    "ip6-${nftables::nat_table_name}":
       prefix => '';
   }
 
@@ -12,7 +12,7 @@ class nftables::ip_nat inherits nftables {
       'PREROUTING',
       'POSTROUTING',
     ]:
-      table => 'ip-nat';
+      table => "ip-${nftables::nat_table_name}";
   }
 
   nftables::chain {
@@ -20,25 +20,25 @@ class nftables::ip_nat inherits nftables {
       'PREROUTING6',
       'POSTROUTING6',
     ]:
-      table => 'ip6-nat';
+      table => "ip6-${nftables::nat_table_name}";
   }
 
   # ip-nat-chain-PREROUTING
   nftables::rule {
     'PREROUTING-type':
-      table   => 'ip-nat',
+      table   => "ip-${nftables::nat_table_name}",
       order   => '01',
       content => 'type nat hook prerouting priority -100';
     'PREROUTING-policy':
-      table   => 'ip-nat',
+      table   => "ip-${nftables::nat_table_name}",
       order   => '02',
       content => 'policy accept';
     'PREROUTING6-type':
-      table   => 'ip6-nat',
+      table   => "ip6-${nftables::nat_table_name}",
       order   => '01',
       content => 'type nat hook prerouting priority -100';
     'PREROUTING6-policy':
-      table   => 'ip6-nat',
+      table   => "ip6-${nftables::nat_table_name}",
       order   => '02',
       content => 'policy accept';
   }
@@ -46,19 +46,19 @@ class nftables::ip_nat inherits nftables {
   # ip-nat-chain-POSTROUTING
   nftables::rule {
     'POSTROUTING-type':
-      table   => 'ip-nat',
+      table   => "ip-${nftables::nat_table_name}",
       order   => '01',
       content => 'type nat hook postrouting priority 100';
     'POSTROUTING-policy':
-      table   => 'ip-nat',
+      table   => "ip-${nftables::nat_table_name}",
       order   => '02',
       content => 'policy accept';
     'POSTROUTING6-type':
-      table   => 'ip6-nat',
+      table   => "ip6-${nftables::nat_table_name}",
       order   => '01',
       content => 'type nat hook postrouting priority 100';
     'POSTROUTING6-policy':
-      table   => 'ip6-nat',
+      table   => "ip6-${nftables::nat_table_name}",
       order   => '02',
       content => 'policy accept';
   }
