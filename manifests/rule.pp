@@ -36,7 +36,7 @@ define nftables::rule (
   Enum['present','absent'] $ensure = 'present',
   Nftables::RuleName $rulename = $title,
   Pattern[/^\d\d$/] $order = '50',
-  Optional[String] $table = 'inet-filter',
+  String $table = 'inet-filter',
   Optional[String] $content = undef,
   Optional[Variant[String,Array[String,1]]] $source = undef,
 ) {
