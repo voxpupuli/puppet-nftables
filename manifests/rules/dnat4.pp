@@ -8,7 +8,7 @@ define nftables::rules::dnat4 (
   String[1] $chain = 'default_fwd',
   Optional[String[1]] $iif = undef,
   Enum['tcp','udp'] $proto = 'tcp',
-  Optional[Variant[String,Stdlib::Port]] $dport = '',
+  Optional[Variant[String,Stdlib::Port]] $dport = undef,
   Enum['present','absent'] $ensure = 'present',
   # lint:endignore
 ) {
@@ -17,11 +17,11 @@ define nftables::rules::dnat4 (
     default => "iifname ${iif} ",
   }
   $filter_port = $dport ? {
-    ''      => $port,
+    undef   => $port,
     default => $dport,
   }
   $nat_port = $dport ? {
-    ''      => '',
+    undef   => '',
     default => ":${dport}",
   }
 
