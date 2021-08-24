@@ -21,7 +21,7 @@ class nftables::rules::docker_ce (
   Stdlib::IP::Address::V4::CIDR $docker_prefix        = '172.17.0.0/16',
   Boolean                       $manage_docker_chains = true,
   Boolean                       $manage_base_chains   = true,
-) inherits nftables {
+) {
   #
   # inet-filter
   #

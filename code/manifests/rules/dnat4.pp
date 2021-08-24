@@ -12,7 +12,6 @@ define nftables::rules::dnat4 (
   Enum['present','absent'] $ensure = 'present',
   # lint:endignore
 ) {
-  include nftables
   $iifname = $iif ? {
     undef   => '',
     default => "iifname ${iif} ",

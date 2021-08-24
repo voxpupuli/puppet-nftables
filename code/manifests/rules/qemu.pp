@@ -41,7 +41,7 @@ class nftables::rules::qemu (
   Boolean                                 $forward_traffic   = true,
   Boolean                                 $internal_traffic  = true,
   Boolean                                 $masquerade        = true,
-) inherits nftables {
+) {
   if $dns {
     nftables::rule {
       'default_in-qemu_udp_dns':

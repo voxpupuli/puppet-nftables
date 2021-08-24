@@ -12,7 +12,6 @@ define nftables::rules::masquerade (
   Enum['present','absent'] $ensure = 'present',
   # lint:endignore
 ) {
-  include nftables
   $oifname = $oif ? {
     undef   => '',
     default => "oifname ${oif} ",
