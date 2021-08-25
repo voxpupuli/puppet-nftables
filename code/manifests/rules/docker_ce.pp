@@ -79,7 +79,7 @@ class nftables::rules::docker_ce (
 
   if $manage_docker_chains {
     nftables::chain {
-      'DOCKER-nat':
+      "DOCKER-${nftables::nat_table_name}":
         table => "ip-${nftables::nat_table_name}",
         chain => 'DOCKER';
     }
@@ -87,10 +87,10 @@ class nftables::rules::docker_ce (
 
   if $manage_base_chains {
     nftables::chain {
-      'OUTPUT-nat':
+      "OUTPUT-${nftables::nat_table_name}":
         table => "ip-${nftables::nat_table_name}",
         chain => 'OUTPUT';
-      'INPUT-nat':
+      "INPUT-${nftables::nat_table_name}":
         table => "ip-${nftables::nat_table_name}",
         chain => 'INPUT';
     }
@@ -103,19 +103,19 @@ class nftables::rules::docker_ce (
     'PREROUTING-docker':
       table   => "ip-${nftables::nat_table_name}",
       content => 'fib daddr type local counter jump DOCKER';
-    'OUTPUT-jump_docker@ip-nat':
+    "OUTPUT-jump_docker@ip-${nftables::nat_table_name}":
       rulename => 'OUTPUT-jump_docker',
       table    => "ip-${nftables::nat_table_name}",
       content  => 'ip daddr != 127.0.0.0/8 fib daddr type local counter jump DOCKER';
     'DOCKER-counter':
       table   => "ip-${nftables::nat_table_name}",
       content => "iifname \"${docker_interface}\" counter return";
-    'INPUT-type@ip-nat':
+    "INPUT-type@ip-${nftables::nat_table_name}":
       rulename => 'INPUT-type',
       table    => "ip-${nftables::nat_table_name}",
       order    => '01',
       content  => 'type nat hook input priority 100';
-    'INPUT-policy@ip-nat':
+    "INPUT-policy@ip-${nftables::nat_table_name}":
       rulename => 'INPUT-policy',
       table    => "ip-${nftables::nat_table_name}",
       order    => '02',
