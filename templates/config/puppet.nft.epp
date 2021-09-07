@@ -26,6 +26,6 @@ include "custom-*.nft"
 include "inet-filter.nft"
 <% } -%>
 <% if $nat { -%>
-include "ip-nat.nft"
-include "ip6-nat.nft"
+include "ip-<%= $nftables::nat_table_name %>.nft"
+include "ip6-<%= $nftables::nat_table_name %>.nft"
 <% } -%>

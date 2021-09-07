@@ -38,7 +38,7 @@ define nftables::rules::snat4 (
   nftables::rule {
     "${chain}-${rulename}":
       ensure  => $ensure,
-      table   => 'ip-nat',
+      table   => "ip-${nftables::nat_table_name}",
       order   => $order,
       content => "${oifname}${src}${protocol}${port}snat ${snat}";
   }

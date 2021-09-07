@@ -42,7 +42,7 @@ define nftables::rules::masquerade (
   nftables::rule {
     "${chain}-${rulename}":
       ensure  => $ensure,
-      table   => 'ip-nat',
+      table   => "ip-${nftables::nat_table_name}",
       order   => $order,
       content => "${oifname}${src}${dst}${protocol}${port}masquerade";
   }
