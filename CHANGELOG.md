@@ -4,7 +4,27 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v2.0.0](https://github.com/voxpupuli/puppet-nftables/tree/v2.0.0) (2021-06-01)
+## [v2.1.0](https://github.com/voxpupuli/puppet-nftables/tree/v2.1.0) (2021-09-14)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v2.0.0...v2.1.0)
+
+**Implemented enhancements:**
+
+- nftables::set can only be assigned to 1 table [\#100](https://github.com/voxpupuli/puppet-nftables/issues/100)
+- support a different table name for 'nat' [\#107](https://github.com/voxpupuli/puppet-nftables/pull/107) ([figless](https://github.com/figless))
+- Allow declaring the same set in several tables [\#102](https://github.com/voxpupuli/puppet-nftables/pull/102) ([nbarrientos](https://github.com/nbarrientos))
+
+**Fixed bugs:**
+
+- fix datatype for $table and $dport [\#104](https://github.com/voxpupuli/puppet-nftables/pull/104) ([bastelfreak](https://github.com/bastelfreak))
+
+**Merged pull requests:**
+
+- Allow stdlib 8.0.0 [\#106](https://github.com/voxpupuli/puppet-nftables/pull/106) ([smortex](https://github.com/smortex))
+- switch from camptocamp/systemd to voxpupuli/systemd [\#103](https://github.com/voxpupuli/puppet-nftables/pull/103) ([bastelfreak](https://github.com/bastelfreak))
+- pull fixtures from git and not forge [\#99](https://github.com/voxpupuli/puppet-nftables/pull/99) ([bastelfreak](https://github.com/bastelfreak))
+
+## [v2.0.0](https://github.com/voxpupuli/puppet-nftables/tree/v2.0.0) (2021-06-03)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v1.3.0...v2.0.0)
 
@@ -43,6 +63,10 @@ These should not affect the functionality of the module.
 - Add nftables.version to structured fact. [\#84](https://github.com/voxpupuli/puppet-nftables/pull/84) ([traylenator](https://github.com/traylenator))
 - Add rules for Apache ActiveMQ [\#82](https://github.com/voxpupuli/puppet-nftables/pull/82) ([nbarrientos](https://github.com/nbarrientos))
 - Add Docker-CE default rules [\#80](https://github.com/voxpupuli/puppet-nftables/pull/80) ([luisfdez](https://github.com/luisfdez))
+
+**Closed issues:**
+
+- Increase puppetlabs/concat version in metadata [\#78](https://github.com/voxpupuli/puppet-nftables/issues/78)
 
 **Merged pull requests:**
 
