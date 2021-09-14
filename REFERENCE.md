@@ -133,6 +133,7 @@ The following parameters are available in the `nftables` class:
 * [`in_icmp`](#in_icmp)
 * [`inet_filter`](#inet_filter)
 * [`nat`](#nat)
+* [`nat_table_name`](#nat_table_name)
 * [`sets`](#sets)
 * [`log_prefix`](#log_prefix)
 * [`log_limit`](#log_limit)
@@ -224,6 +225,14 @@ Data type: `Boolean`
 Add default tables and chains to process NAT traffic.
 
 Default value: ``true``
+
+##### <a name="nat_table_name"></a>`nat_table_name`
+
+Data type: `String[1]`
+
+The name of the 'nat' table.
+
+Default value: `'nat'`
 
 ##### <a name="sets"></a>`sets`
 
@@ -1197,7 +1206,7 @@ Default value: `'50'`
 
 ##### <a name="table"></a>`table`
 
-Data type: `Optional[String]`
+Data type: `String`
 
 The name of the table to add this rule to.
 
@@ -1296,7 +1305,7 @@ Data type: `Optional[Variant[String,Stdlib::Port]]`
 
 
 
-Default value: `''`
+Default value: ``undef``
 
 ##### <a name="ensure"></a>`ensure`
 
