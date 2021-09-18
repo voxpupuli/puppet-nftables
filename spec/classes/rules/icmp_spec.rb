@@ -10,13 +10,13 @@ describe 'nftables::rules::icmp' do
         it {
           is_expected.to contain_nftables__rule('default_in-accept_icmpv4').with(
             content: 'ip protocol icmp accept',
-            order: '10',
+            order: '10'
           )
         }
         it {
           is_expected.to contain_nftables__rule('default_in-accept_icmpv6').with(
             content: 'ip6 nexthdr ipv6-icmp accept',
-            order: '10',
+            order: '10'
           )
         }
       end
@@ -32,19 +32,19 @@ describe 'nftables::rules::icmp' do
         it {
           is_expected.to contain_nftables__rule('default_in-accept_icmpv4_echo_request').with(
             content: 'ip protocol icmp icmp type echo-request limit rate 4/second accept',
-            order: '10',
+            order: '10'
           )
         }
         it {
           is_expected.to contain_nftables__rule('default_in-accept_icmpv4_echo_reply').with(
             content: 'ip protocol icmp icmp type echo-reply accept',
-            order: '10',
+            order: '10'
           )
         }
         it {
           is_expected.to contain_nftables__rule('default_in-accept_icmpv6').with(
             content: 'ip6 nexthdr ipv6-icmp accept',
-            order: '10',
+            order: '10'
           )
         }
       end
@@ -61,25 +61,25 @@ describe 'nftables::rules::icmp' do
         it {
           is_expected.to contain_nftables__rule('default_in-accept_icmpv4_echo_request').with(
             content: 'ip protocol icmp icmp type echo-request limit rate 4/second accept',
-            order: '10',
+            order: '10'
           )
         }
         it {
           is_expected.to contain_nftables__rule('default_in-accept_icmpv4_echo_reply').with(
             content: 'ip protocol icmp icmp type echo-reply accept',
-            order: '10',
+            order: '10'
           )
         }
         it {
           is_expected.to contain_nftables__rule('default_in-accept_icmpv6_echo_reply').with(
             content: 'ip6 nexthdr ipv6-icmp icmpv6 type echo-reply accept',
-            order: '10',
+            order: '10'
           )
         }
         it {
           is_expected.to contain_nftables__rule('default_in-accept_icmpv6_nd_router_advert').with(
             content: 'ip6 nexthdr ipv6-icmp icmpv6 type nd-router-advert accept',
-            order: '10',
+            order: '10'
           )
         }
       end

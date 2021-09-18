@@ -36,35 +36,35 @@ describe 'nftables' do
             owner:          'root',
             group:          'root',
             mode:           '0640',
-            ensure_newline: true,
+            ensure_newline: true
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-header').with(
             target:  'nftables-inet-filter-chain-default_fwd',
             content: %r{^chain default_fwd \{$},
-            order:   '00',
+            order:   '00'
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-rule-out').with(
             target:  'nftables-inet-filter-chain-default_fwd',
             content: %r{^  iifname eth1 oifname eth0 accept$},
-            order:   '20-nftables-inet-filter-chain-default_fwd-rule-out-b',
+            order:   '20-nftables-inet-filter-chain-default_fwd-rule-out-b'
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-rule-drop').with(
             target:  'nftables-inet-filter-chain-default_fwd',
             content: %r{^  iifname eth0 drop$},
-            order:   '90-nftables-inet-filter-chain-default_fwd-rule-drop-b',
+            order:   '90-nftables-inet-filter-chain-default_fwd-rule-drop-b'
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-footer').with(
             target:  'nftables-inet-filter-chain-default_fwd',
             content: %r{^\}$},
-            order:   '99',
+            order:   '99'
           )
         }
 
@@ -74,35 +74,35 @@ describe 'nftables' do
             owner:          'root',
             group:          'root',
             mode:           '0640',
-            ensure_newline: true,
+            ensure_newline: true
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-header').with(
             target:  'nftables-ip-nat-chain-PREROUTING',
             content: %r{^chain PREROUTING \{$},
-            order:   '00',
+            order:   '00'
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-type').with(
             target:  'nftables-ip-nat-chain-PREROUTING',
             content: %r{^  type nat hook prerouting priority -100$},
-            order:   '01-nftables-ip-nat-chain-PREROUTING-rule-type-b',
+            order:   '01-nftables-ip-nat-chain-PREROUTING-rule-type-b'
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-policy').with(
             target:  'nftables-ip-nat-chain-PREROUTING',
             content: %r{^  policy accept$},
-            order:   '02-nftables-ip-nat-chain-PREROUTING-rule-policy-b',
+            order:   '02-nftables-ip-nat-chain-PREROUTING-rule-policy-b'
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-footer').with(
             target:  'nftables-ip-nat-chain-PREROUTING',
             content: %r{^\}$},
-            order:   '99',
+            order:   '99'
           )
         }
 
@@ -112,42 +112,42 @@ describe 'nftables' do
             owner:          'root',
             group:          'root',
             mode:           '0640',
-            ensure_newline: true,
+            ensure_newline: true
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-header').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^chain POSTROUTING \{$},
-            order:   '00',
+            order:   '00'
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-type').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  type nat hook postrouting priority 100$},
-            order:   '01-nftables-ip-nat-chain-POSTROUTING-rule-type-b',
+            order:   '01-nftables-ip-nat-chain-POSTROUTING-rule-type-b'
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-policy').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  policy accept$},
-            order:   '02-nftables-ip-nat-chain-POSTROUTING-rule-policy-b',
+            order:   '02-nftables-ip-nat-chain-POSTROUTING-rule-policy-b'
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-masquerade').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  oifname eth0 masquerade$},
-            order:   '20-nftables-ip-nat-chain-POSTROUTING-rule-masquerade-b',
+            order:   '20-nftables-ip-nat-chain-POSTROUTING-rule-masquerade-b'
           )
         }
         it {
           is_expected.to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-footer').with(
             target:  'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^\}$},
-            order:   '99',
+            order:   '99'
           )
         }
       end

@@ -21,7 +21,7 @@ describe 'nftables::set' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-set-my_set').with(
             target:  'nftables-inet-filter',
             content: %r{^  set my_set \{\n    type ipv4_addr\n  \}$}m,
-            order:   '10',
+            order:   '10'
           )
         }
       end
@@ -72,7 +72,7 @@ describe 'nftables::set' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-set-my_set').with(
             target:  'nftables-inet-filter',
             content: %r{^  set my_set \{\n    type ipv6_addr\n    elements = \{ 2001:1458::/32, 2001:1458:1::/48 \}\n  \}$}m,
-            order:   '10',
+            order:   '10'
           )
         }
       end
@@ -92,7 +92,7 @@ describe 'nftables::set' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-set-my_set').with(
             target:  'nftables-inet-filter',
             content: %r{^  set my_set \{\n    type ipv4_addr\n    flags interval, timeout\n    elements = \{ 192.168.0.1/24 \}\n    auto-merge\n  \}$}m,
-            order:   '10',
+            order:   '10'
           )
         }
       end
@@ -111,7 +111,7 @@ describe 'nftables::set' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-set-my_set').with(
             target:  'nftables-inet-filter',
             content: %r{^  set my_set \{\n    type ether_addr\n    elements = \{ aa:bb:cc:dd:ee:ff \}\n    policy memory\n  \}$}m,
-            order:   '10',
+            order:   '10'
           )
         }
       end
@@ -128,7 +128,7 @@ describe 'nftables::set' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-set-my_set').with(
             target:  'nftables-inet-filter',
             content: '  set my_set { }',
-            order:   '10',
+            order:   '10'
           )
         }
       end
@@ -150,7 +150,7 @@ describe 'nftables::set' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-set-my-set').with(
             target:  'nftables-inet-filter',
             content: %r{^  set my-set \{\n    type ether_addr\n  \}$}m,
-            order:   '10',
+            order:   '10'
           )
         }
       end
@@ -169,7 +169,7 @@ describe 'nftables::set' do
           is_expected.to contain_concat__fragment('nftables-ip-nat-set-my_set').with(
             target:  'nftables-ip-nat',
             content: %r{^  set my_set \{\n    type ipv6_addr\n    elements = \{ 2001:1458::1, 2001:1458:1::2 \}\n  \}$}m,
-            order:   '10',
+            order:   '10'
           )
         }
       end
@@ -200,12 +200,12 @@ describe 'nftables::set' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-set-my_set').with(
             target:  'nftables-inet-filter',
             content: %r{^  set my_set \{\n    type ipv6_addr\n    elements = \{ 2001:1458::1, 2001:1458:1::2 \}\n  \}$}m,
-            order:   '10',
+            order:   '10'
           )
           is_expected.to contain_concat__fragment('nftables-ip-nat-set-my_set').with(
             target:  'nftables-ip-nat',
             content: %r{^  set my_set \{\n    type ipv6_addr\n    elements = \{ 2001:1458::1, 2001:1458:1::2 \}\n  \}$}m,
-            order:   '10',
+            order:   '10'
           )
         }
       end

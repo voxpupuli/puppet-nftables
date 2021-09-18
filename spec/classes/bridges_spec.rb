@@ -14,7 +14,7 @@ describe 'nftables' do
                   'lo' => {},
                   'br0' => {},
                   'br1-2' => {},
-                } },
+                } }
           )
         end
 
@@ -24,7 +24,7 @@ describe 'nftables' do
         it {
           is_expected.to contain_nftables__rule('default_fwd-bridge_br0_br0').with(
             order: '08',
-            content: 'iifname br0 oifname br0 accept',
+            content: 'iifname br0 oifname br0 accept'
           )
         }
 
@@ -32,7 +32,7 @@ describe 'nftables' do
         it {
           is_expected.to contain_nftables__rule('default_fwd-bridge_br1_br1').with(
             order: '08',
-            content: 'iifname br1 oifname br1 accept',
+            content: 'iifname br1 oifname br1 accept'
           )
         }
       end
