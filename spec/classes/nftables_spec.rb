@@ -17,7 +17,7 @@ describe 'nftables' do
           owner:  'root',
           group:  'root',
           mode:   '0640',
-          content: %r{flush ruleset},
+          content: %r{flush ruleset}
         )
       }
 
@@ -29,7 +29,7 @@ describe 'nftables' do
           mode:    '0750',
           purge:   true,
           force:   true,
-          recurse: true,
+          recurse: true
         )
       }
 
@@ -39,7 +39,7 @@ describe 'nftables' do
           owner:  'root',
           group:  'root',
           mode:   '0640',
-          content: %r{flush ruleset},
+          content: %r{flush ruleset}
         )
       }
 
@@ -51,14 +51,14 @@ describe 'nftables' do
           mode:    '0750',
           purge:   true,
           force:   true,
-          recurse: true,
+          recurse: true
         )
       }
 
       it {
         is_expected.to contain_exec('nft validate').with(
           refreshonly: true,
-          command: %r{^/usr/sbin/nft -I /etc/nftables/puppet-preflight -c -f /etc/nftables/puppet-preflight.nft.*},
+          command: %r{^/usr/sbin/nft -I /etc/nftables/puppet-preflight -c -f /etc/nftables/puppet-preflight.nft.*}
         )
       }
 
@@ -67,20 +67,20 @@ describe 'nftables' do
           ensure: 'running',
           enable: true,
           hasrestart: true,
-          restart: %r{/usr/bin/systemctl reload nft.*},
+          restart: %r{/usr/bin/systemctl reload nft.*}
         )
       }
 
       it {
         is_expected.to contain_systemd__dropin_file('puppet_nft.conf').with(
-          content: %r{^ExecReload=/sbin/nft -I /etc/nftables/puppet -f /etc/sysconfig/nftables.conf$},
+          content: %r{^ExecReload=/sbin/nft -I /etc/nftables/puppet -f /etc/sysconfig/nftables.conf$}
         )
       }
 
       it {
         is_expected.to contain_service('firewalld').with(
           ensure: 'stopped',
-          enable: 'mask',
+          enable: 'mask'
         )
       }
       it { is_expected.to contain_class('nftables::inet_filter') }
@@ -124,7 +124,7 @@ describe 'nftables' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-web_accept').with(
             target:  'nftables-inet-filter-chain-INPUT',
             content: %r{^  iifname eth0 tcp dport \{ 80, 443 \} accept$},
-            order:   '50-nftables-inet-filter-chain-INPUT-rule-web_accept-b',
+            order:   '50-nftables-inet-filter-chain-INPUT-rule-web_accept-b'
           )
         }
       end
@@ -149,14 +149,14 @@ describe 'nftables' do
           is_expected.to contain_nftables__set('testset1').with(
             type: 'ipv4_addr',
             gc_interval: 2,
-            table: 'inet-filter',
+            table: 'inet-filter'
           )
         }
         it {
           is_expected.to contain_nftables__set('testset2').with(
             type: 'ipv6_addr',
             elements: ['2a02:62:c601::dead:beef'],
-            table: 'inet-filter',
+            table: 'inet-filter'
           )
         }
       end
@@ -171,7 +171,7 @@ describe 'nftables' do
         it {
           is_expected.to contain_service('firewalld').with(
             ensure: 'stopped',
-            enable: false,
+            enable: false
           )
         }
       end

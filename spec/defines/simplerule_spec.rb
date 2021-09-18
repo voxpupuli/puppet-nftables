@@ -14,7 +14,7 @@ describe 'nftables::simplerule' do
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
             content: 'accept',
-            order: '50',
+            order: '50'
           )
         }
       end
@@ -59,7 +59,7 @@ describe 'nftables::simplerule' do
         it {
           is_expected.to contain_nftables__rule('default_out-my_big_rule').with(
             content: 'udp sport {444} udp dport {333} ip6 saddr 2001:145c::/32 ip6 daddr 2001:1458::/32 counter accept comment "this is my rule"',
-            order: '50',
+            order: '50'
           )
         }
       end
@@ -76,7 +76,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'tcp sport {1-2} tcp dport {333-334} accept',
+            content: 'tcp sport {1-2} tcp dport {333-334} accept'
           )
         }
       end
@@ -93,7 +93,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'tcp sport {433, 435} tcp dport {333, 335} accept',
+            content: 'tcp sport {433, 435} tcp dport {333, 335} accept'
           )
         }
       end
@@ -109,7 +109,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'tcp sport {555} accept',
+            content: 'tcp sport {555} accept'
           )
         }
       end
@@ -125,7 +125,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'ip version 4 tcp dport {333} accept',
+            content: 'ip version 4 tcp dport {333} accept'
           )
         }
       end
@@ -141,7 +141,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'ip6 version 6 udp dport {33} accept',
+            content: 'ip6 version 6 udp dport {33} accept'
           )
         }
       end
@@ -157,7 +157,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'ip6 version 6 tcp dport {35} accept',
+            content: 'ip6 version 6 tcp dport {35} accept'
           )
         }
       end
@@ -174,7 +174,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'tcp dport {33} ip daddr 192.168.0.1/24 accept',
+            content: 'tcp dport {33} ip daddr 192.168.0.1/24 accept'
           )
         }
       end
@@ -189,7 +189,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'ip6 daddr 2001:1458::1 accept',
+            content: 'ip6 daddr 2001:1458::1 accept'
           )
         }
       end
@@ -204,7 +204,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'ip6 saddr 2001:1458:0000:0000:0000:0000:0000:0003 accept',
+            content: 'ip6 saddr 2001:1458:0000:0000:0000:0000:0000:0003 accept'
           )
         }
       end
@@ -219,7 +219,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'ip saddr 172.16.1.5 accept',
+            content: 'ip saddr 172.16.1.5 accept'
           )
         }
       end
@@ -234,7 +234,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'ip6 daddr @my6_set accept',
+            content: 'ip6 daddr @my6_set accept'
           )
         }
       end
@@ -250,7 +250,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'ip daddr @my4_set accept',
+            content: 'ip daddr @my4_set accept'
           )
         }
       end
@@ -266,7 +266,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'ip6 saddr @my6_set accept',
+            content: 'ip6 saddr @my6_set accept'
           )
         }
       end
@@ -281,7 +281,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'counter accept',
+            content: 'counter accept'
           )
         }
       end
@@ -299,7 +299,7 @@ describe 'nftables::simplerule' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'tcp sport {80} counter continue',
+            content: 'tcp sport {80} counter continue'
           )
         }
       end
