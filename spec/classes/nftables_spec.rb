@@ -219,7 +219,7 @@ describe 'nftables' do
       context 'with not allowing un-managed changes' do
         let(:params) do
           {
-            'allow_unmanaged_rules' => false,
+            'purge_unmanaged_rules' => true,
             'inmem_rules_hash_file' => '/foo/bar',
           }
         end

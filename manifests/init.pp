@@ -43,8 +43,8 @@
 # @param nat
 #   Add default tables and chains to process NAT traffic.
 #
-# @param allow_unmanaged_rules
-#   Allows to have in-memory rules that are not declared in Puppet
+# @param purge_unmanaged_rules
+#   Disallows to have in-memory rules that are not declared in Puppet
 #   code. Setting this to true activates a check that reloads nftables
 #   if the rules in memory have been modified outwith Puppet.
 #
@@ -108,7 +108,7 @@ class nftables (
   Boolean $fwd_conntrack = false,
   Boolean $inet_filter = true,
   Boolean $nat = true,
-  Boolean $allow_unmanaged_rules = true,
+  Boolean $purge_unmanaged_rules = false,
   Hash $rules = {},
   Hash $sets = {},
   String $log_prefix = '[nftables] %<chain>s %<comment>s',
@@ -175,11 +175,7 @@ class nftables (
     restart    => '/usr/bin/systemctl reload nftables',
   }
 
-  if $allow_unmanaged_rules {
-    file { $inmem_rules_hash_file:
-      ensure => absent,
-    }
-  } else {
+  if $purge_unmanaged_rules {
     exec { 'Reload nftables if there are un-managed rules':
       command     => '/usr/bin/systemctl reload nftables',
       refreshonly => false,
@@ -193,13 +189,17 @@ class nftables (
       content => file('nftables/systemd/nft-hash-ruleset.sh'),
       before  => Systemd::Dropin_file['puppet_nft.conf'],
     }
+  } else {
+    file { $inmem_rules_hash_file:
+      ensure => absent,
+    }
   }
 
   systemd::dropin_file { 'puppet_nft.conf':
     ensure  => present,
     unit    => 'nftables.service',
     content => epp('nftables/systemd/puppet_nft.conf.epp', {
-        'allow_unmanaged' => $allow_unmanaged_rules,
+        'purge_unmanaged' => $purge_unmanaged_rules,
         'hash_file'       => $inmem_rules_hash_file,
     }),
     notify  => Service['nftables'],

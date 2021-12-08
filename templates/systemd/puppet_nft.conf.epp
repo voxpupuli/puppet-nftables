@@ -1,16 +1,16 @@
 <%- |
-  Boolean $allow_unmanaged,
+  Boolean $purge_unmanaged,
   Stdlib::Unixpath $hash_file,
 |-%>
 # Puppet Deployed
 [Service]
 ExecStart=
 ExecStart=/sbin/nft -I /etc/nftables/puppet -f /etc/sysconfig/nftables.conf
-<% if $allow_unmanaged == false { -%>
+<% if $purge_unmanaged { -%>
 ExecStartPost=/bin/bash /usr/local/sbin/nft-hash-ruleset.sh <%= $hash_file %>
 <% } -%>
 ExecReload=
 ExecReload=/sbin/nft -I /etc/nftables/puppet -f /etc/sysconfig/nftables.conf
-<% if $allow_unmanaged == false { -%>
+<% if $purge_unmanaged { -%>
 ExecReload=/bin/bash /usr/local/sbin/nft-hash-ruleset.sh <%= $hash_file -%>
 <% } -%>
