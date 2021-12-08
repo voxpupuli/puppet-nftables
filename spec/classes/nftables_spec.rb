@@ -78,7 +78,7 @@ describe 'nftables' do
           content: %r{^ExecReload=/sbin/nft -I /etc/nftables/puppet -f /etc/sysconfig/nftables.conf$}
         )
         is_expected.not_to contain_systemd__dropin_file('puppet_nft.conf').with(
-          content: %r{^ExecReload=.*nft-hash-ruleset.sh.*$}
+          content: %r{^ExecReload=.*nft-hash-ruleset\.sh.*$}
         )
         is_expected.not_to contain_systemd__dropin_file('puppet_nft.conf').with(
           content: %r{^ExecStartPost.*$}
@@ -235,12 +235,12 @@ describe 'nftables' do
         }
         it {
           is_expected.to contain_systemd__dropin_file('puppet_nft.conf').with(
-            content: %r{^ExecReload=/bin/bash /usr/local/sbin/nft-hash-ruleset.sh /foo/bar$}
+            content: %r{^ExecReload=/bin/bash /usr/local/sbin/nft-hash-ruleset\.sh /foo/bar$}
           )
         }
         it {
           is_expected.to contain_systemd__dropin_file('puppet_nft.conf').with(
-            content: %r{^ExecStartPost=/bin/bash /usr/local/sbin/nft-hash-ruleset.sh /foo/bar$}
+            content: %r{^ExecStartPost=/bin/bash /usr/local/sbin/nft-hash-ruleset\.sh /foo/bar$}
           )
         }
       end
