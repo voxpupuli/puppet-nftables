@@ -77,6 +77,12 @@ describe 'nftables' do
         expect(subject).to contain_systemd__dropin_file('puppet_nft.conf').with(
           content: %r{^ExecReload=/sbin/nft -I /etc/nftables/puppet -f /etc/sysconfig/nftables.conf$}
         )
+        is_expected.not_to contain_systemd__dropin_file('puppet_nft.conf').with(
+          content: %r{^ExecReload=.*nft-hash-ruleset.sh.*$}
+        )
+        is_expected.not_to contain_systemd__dropin_file('puppet_nft.conf').with(
+          content: %r{^ExecStartPost.*$}
+        )
       }
 
       it {
@@ -94,6 +100,9 @@ describe 'nftables' do
       it { is_expected.to contain_class('nftables::rules::out::chrony') }
       it { is_expected.not_to contain_class('nftables::rules::out::all') }
       it { is_expected.not_to contain_nftables__rule('default_out-all') }
+      it { is_expected.not_to contain_exec('Reload nftables if there are un-managed rules') }
+      it { is_expected.to contain_file('/var/cache/nft-memhash') }
+      it { is_expected.not_to contain_file('/usr/local/sbin/nft-hash-ruleset.sh') }
 
       context 'with out_all set true' do
         let(:params) do
@@ -205,6 +214,35 @@ describe 'nftables' do
         it { is_expected.to have_nftables__chain_resource_count(0) }
         it { is_expected.to have_nftables__rule_resource_count(0) }
         it { is_expected.to have_nftables__set_resource_count(0) }
+      end
+
+      context 'with not allowing un-managed changes' do
+        let(:params) do
+          {
+            'allow_unmanaged_rules' => false,
+            'inmem_rules_hash_file' => '/foo/bar',
+          }
+        end
+
+        it { is_expected.not_to contain_file('/foo/bar') }
+        it { is_expected.to contain_file('/usr/local/sbin/nft-hash-ruleset.sh') }
+        it {
+          is_expected.to contain_exec('Reload nftables if there are un-managed rules').with(
+            command: '/usr/bin/systemctl reload nftables',
+            refreshonly: false,
+            unless: '/usr/bin/test -s /foo/bar -a "$(nft -s list ruleset | sha1sum)" = "$(cat /foo/bar)"'
+          )
+        }
+        it {
+          is_expected.to contain_systemd__dropin_file('puppet_nft.conf').with(
+            content: %r{^ExecReload=/bin/bash /usr/local/sbin/nft-hash-ruleset.sh /foo/bar$}
+          )
+        }
+        it {
+          is_expected.to contain_systemd__dropin_file('puppet_nft.conf').with(
+            content: %r{^ExecStartPost=/bin/bash /usr/local/sbin/nft-hash-ruleset.sh /foo/bar$}
+          )
+        }
       end
 
       context 'with with noflush_tables parameter' do

@@ -43,8 +43,17 @@
 # @param nat
 #   Add default tables and chains to process NAT traffic.
 #
+# @param allow_unmanaged_rules
+#   Allows to have in-memory rules that are not declared in Puppet
+#   code. Setting this to true activates a check that reloads nftables
+#   if the rules in memory have been modified outwith Puppet.
+#
 # @param nat_table_name
 #   The name of the 'nat' table.
+#
+# @param inmem_rules_hash_file
+#   The name of the file where the hash of the in-memory rules
+#   will be stored.
 #
 # @param sets
 #   Allows sourcing set definitions directly from Hiera.
@@ -99,10 +108,12 @@ class nftables (
   Boolean $fwd_conntrack = false,
   Boolean $inet_filter = true,
   Boolean $nat = true,
+  Boolean $allow_unmanaged_rules = true,
   Hash $rules = {},
   Hash $sets = {},
   String $log_prefix = '[nftables] %<chain>s %<comment>s',
   String[1] $nat_table_name = 'nat',
+  Stdlib::Unixpath $inmem_rules_hash_file = '/var/cache/nft-memhash',
   Variant[Boolean[false], String] $log_limit = '3/minute burst 5 packets',
   Variant[Boolean[false], Pattern[/icmp(v6|x)? type .+|tcp reset/]] $reject_with = 'icmpx type port-unreachable',
   Variant[Boolean[false], Enum['mask']] $firewalld_enable = 'mask',
@@ -164,10 +175,33 @@ class nftables (
     restart    => '/usr/bin/systemctl reload nftables',
   }
 
+  if $allow_unmanaged_rules {
+    file { $inmem_rules_hash_file:
+      ensure => absent,
+    }
+  } else {
+    exec { 'Reload nftables if there are un-managed rules':
+      command     => '/usr/bin/systemctl reload nftables',
+      refreshonly => false,
+      unless      => "/usr/bin/test -s ${inmem_rules_hash_file} -a \"$(nft -s list ruleset | sha1sum)\" = \"$(cat ${inmem_rules_hash_file})\"",
+      require     => Service['nftables'],
+    }
+
+    file { '/usr/local/sbin/nft-hash-ruleset.sh' :
+      ensure  => file,
+      mode    => '0755',
+      content => file('nftables/systemd/nft-hash-ruleset.sh'),
+      before  => Systemd::Dropin_file['puppet_nft.conf'],
+    }
+  }
+
   systemd::dropin_file { 'puppet_nft.conf':
     ensure  => present,
     unit    => 'nftables.service',
-    content => file('nftables/systemd/puppet_nft.conf'),
+    content => epp('nftables/systemd/puppet_nft.conf.epp', {
+        'allow_unmanaged' => $allow_unmanaged_rules,
+        'hash_file'       => $inmem_rules_hash_file,
+    }),
     notify  => Service['nftables'],
   }
 
