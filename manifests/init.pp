@@ -44,7 +44,7 @@
 #   Add default tables and chains to process NAT traffic.
 #
 # @param purge_unmanaged_rules
-#   Disallows to have in-memory rules that are not declared in Puppet
+#   Prohibits in-memory rules that are not declared in Puppet
 #   code. Setting this to true activates a check that reloads nftables
 #   if the rules in memory have been modified outwith Puppet.
 #
