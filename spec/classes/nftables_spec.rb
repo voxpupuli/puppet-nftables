@@ -101,7 +101,7 @@ describe 'nftables' do
       it { is_expected.not_to contain_class('nftables::rules::out::all') }
       it { is_expected.not_to contain_nftables__rule('default_out-all') }
       it { is_expected.not_to contain_exec('Reload nftables if there are un-managed rules') }
-      it { is_expected.to contain_file('/var/cache/nft-memhash') }
+      it { is_expected.to contain_file('/run/puppet-nft-memhash') }
       it { is_expected.not_to contain_file('/usr/local/sbin/nft-hash-ruleset.sh') }
 
       context 'with out_all set true' do
