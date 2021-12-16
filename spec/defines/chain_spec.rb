@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'nftables::chain' do
@@ -17,7 +19,7 @@ describe 'nftables::chain' do
       it { is_expected.to contain_file('/etc/nftables/puppet/inet-filter-chain-MYCHAIN.nft').that_comes_before('Service[nftables]') }
 
       it {
-        is_expected.to contain_concat('nftables-inet-filter-chain-MYCHAIN').with(
+        expect(subject).to contain_concat('nftables-inet-filter-chain-MYCHAIN').with(
           path: '/etc/nftables/puppet-preflight/inet-filter-chain-MYCHAIN.nft',
           owner: 'root',
           group: 'root',
@@ -25,8 +27,9 @@ describe 'nftables::chain' do
           ensure_newline: true
         )
       }
+
       it {
-        is_expected.to contain_file('/etc/nftables/puppet/inet-filter-chain-MYCHAIN.nft').with(
+        expect(subject).to contain_file('/etc/nftables/puppet/inet-filter-chain-MYCHAIN.nft').with(
           ensure: 'file',
           source: '/etc/nftables/puppet-preflight/inet-filter-chain-MYCHAIN.nft',
           mode: '0640',
@@ -34,15 +37,17 @@ describe 'nftables::chain' do
           group: 'root'
         )
       }
+
       it {
-        is_expected.to contain_concat__fragment('nftables-inet-filter-chain-MYCHAIN-header').with(
+        expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-MYCHAIN-header').with(
           order: '00',
           content: "# Start of fragment order:00 MYCHAIN header\nchain MYCHAIN {",
           target: 'nftables-inet-filter-chain-MYCHAIN'
         )
       }
+
       it {
-        is_expected.to contain_concat__fragment('nftables-inet-filter-chain-MYCHAIN-footer').with(
+        expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-MYCHAIN-footer').with(
           order: '99',
           content: "# Start of fragment order:99 MYCHAIN footer\n}",
           target: 'nftables-inet-filter-chain-MYCHAIN'
@@ -57,7 +62,7 @@ describe 'nftables::chain' do
         end
 
         it {
-          is_expected.to contain_concat('nftables-ip6-foo-chain-MYCHAIN').with(
+          expect(subject).to contain_concat('nftables-ip6-foo-chain-MYCHAIN').with(
             path: '/etc/nftables/puppet-preflight/ip6-foo-chain-MYCHAIN.nft',
             owner: 'root',
             group: 'root',
@@ -65,8 +70,9 @@ describe 'nftables::chain' do
             ensure_newline: true
           )
         }
+
         it {
-          is_expected.to contain_file('/etc/nftables/puppet/ip6-foo-chain-MYCHAIN.nft').with(
+          expect(subject).to contain_file('/etc/nftables/puppet/ip6-foo-chain-MYCHAIN.nft').with(
             ensure: 'file',
             source: '/etc/nftables/puppet-preflight/ip6-foo-chain-MYCHAIN.nft',
             mode: '0640',
@@ -74,21 +80,24 @@ describe 'nftables::chain' do
             group: 'root'
           )
         }
+
         it {
-          is_expected.to contain_concat__fragment('nftables-ip6-foo-chain-MYCHAIN-header').with(
+          expect(subject).to contain_concat__fragment('nftables-ip6-foo-chain-MYCHAIN-header').with(
             order: '00',
             content: "# Start of fragment order:00 MYCHAIN header\nchain MYCHAIN {",
             target: 'nftables-ip6-foo-chain-MYCHAIN'
           )
         }
+
         it {
-          is_expected.to contain_concat__fragment('nftables-ip6-foo-chain-MYCHAIN-footer').with(
+          expect(subject).to contain_concat__fragment('nftables-ip6-foo-chain-MYCHAIN-footer').with(
             order: '99',
             content: "# Start of fragment order:99 MYCHAIN footer\n}",
             target: 'nftables-ip6-foo-chain-MYCHAIN'
           )
         }
       end
+
       context 'with inject set to 22-foobar' do
         let(:params) do
           {
@@ -97,19 +106,21 @@ describe 'nftables::chain' do
         end
 
         it { is_expected.to contain_nftables__rule('foobar-jump_MYCHAIN') }
+
         it {
-          is_expected.to contain_nftables__rule('foobar-jump_MYCHAIN').with(
+          expect(subject).to contain_nftables__rule('foobar-jump_MYCHAIN').with(
             order: '22',
             content: 'jump MYCHAIN'
           )
         }
+
         context 'with inject_oif set to alpha and inject_oif set to beta' do
           let(:params) do
             super().merge(inject_iif: 'alpha', inject_oif: 'beta')
           end
 
           it {
-            is_expected.to contain_nftables__rule('foobar-jump_MYCHAIN').with(
+            expect(subject).to contain_nftables__rule('foobar-jump_MYCHAIN').with(
               order: '22',
               content: 'iifname alpha oifname beta jump MYCHAIN'
             )

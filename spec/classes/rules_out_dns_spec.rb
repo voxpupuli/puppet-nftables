@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'nftables' do
@@ -15,17 +17,18 @@ describe 'nftables' do
         end
 
         it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnsudp').with(
-            target:  'nftables-inet-filter-chain-default_out',
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnsudp').with(
+            target: 'nftables-inet-filter-chain-default_out',
             content: %r{^  udp dport 53 accept$},
-            order:   '50-nftables-inet-filter-chain-default_out-rule-dnsudp-b'
+            order: '50-nftables-inet-filter-chain-default_out-rule-dnsudp-b'
           )
         }
+
         it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnstcp').with(
-            target:  'nftables-inet-filter-chain-default_out',
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnstcp').with(
+            target: 'nftables-inet-filter-chain-default_out',
             content: %r{^  tcp dport 53 accept$},
-            order:   '50-nftables-inet-filter-chain-default_out-rule-dnstcp-b'
+            order: '50-nftables-inet-filter-chain-default_out-rule-dnstcp-b'
           )
         }
       end
@@ -42,32 +45,34 @@ describe 'nftables' do
         it { is_expected.to compile }
 
         it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnsudp-0').with(
-            target:  'nftables-inet-filter-chain-default_out',
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnsudp-0').with(
+            target: 'nftables-inet-filter-chain-default_out',
             content: %r{^  ip daddr 192.0.2.1 udp dport 53 accept$},
-            order:   '50-nftables-inet-filter-chain-default_out-rule-dnsudp-0-b'
-          )
-        }
-        it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnstcp-0').with(
-            target:  'nftables-inet-filter-chain-default_out',
-            content: %r{^  ip daddr 192.0.2.1 tcp dport 53 accept$},
-            order:   '50-nftables-inet-filter-chain-default_out-rule-dnstcp-0-b'
+            order: '50-nftables-inet-filter-chain-default_out-rule-dnsudp-0-b'
           )
         }
 
         it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnsudp-1').with(
-            target:  'nftables-inet-filter-chain-default_out',
-            content: %r{^  ip6 daddr 2001:db8::1 udp dport 53 accept$},
-            order:   '50-nftables-inet-filter-chain-default_out-rule-dnsudp-1-b'
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnstcp-0').with(
+            target: 'nftables-inet-filter-chain-default_out',
+            content: %r{^  ip daddr 192.0.2.1 tcp dport 53 accept$},
+            order: '50-nftables-inet-filter-chain-default_out-rule-dnstcp-0-b'
           )
         }
+
         it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnstcp-1').with(
-            target:  'nftables-inet-filter-chain-default_out',
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnsudp-1').with(
+            target: 'nftables-inet-filter-chain-default_out',
+            content: %r{^  ip6 daddr 2001:db8::1 udp dport 53 accept$},
+            order: '50-nftables-inet-filter-chain-default_out-rule-dnsudp-1-b'
+          )
+        }
+
+        it {
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnstcp-1').with(
+            target: 'nftables-inet-filter-chain-default_out',
             content: %r{^  ip6 daddr 2001:db8::1 tcp dport 53 accept$},
-            order:   '50-nftables-inet-filter-chain-default_out-rule-dnstcp-1-b'
+            order: '50-nftables-inet-filter-chain-default_out-rule-dnstcp-1-b'
           )
         }
       end

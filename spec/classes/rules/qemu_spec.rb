@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'nftables::rules::qemu' do
@@ -8,58 +10,70 @@ describe 'nftables::rules::qemu' do
 
       context 'default options' do
         it { is_expected.to compile }
+
         it {
-          is_expected.to contain_nftables__rule('default_in-qemu_udp_dns').
+          expect(subject).to contain_nftables__rule('default_in-qemu_udp_dns').
             with_content('iifname "virbr0" udp dport 53 accept')
         }
+
         it {
-          is_expected.to contain_nftables__rule('default_in-qemu_tcp_dns').
+          expect(subject).to contain_nftables__rule('default_in-qemu_tcp_dns').
             with_content('iifname "virbr0" tcp dport 53 accept')
         }
+
         it {
-          is_expected.to contain_nftables__rule('default_in-qemu_dhcpv4').
+          expect(subject).to contain_nftables__rule('default_in-qemu_dhcpv4').
             with_content('iifname "virbr0" meta l4proto udp udp dport 67 accept')
         }
+
         it {
-          is_expected.to contain_nftables__rule('default_fwd-qemu_oip_v4').
+          expect(subject).to contain_nftables__rule('default_fwd-qemu_oip_v4').
             with_content('oifname "virbr0" ip daddr 192.168.122.0/24 ct state related,established accept')
         }
+
         it {
-          is_expected.to contain_nftables__rule('default_fwd-qemu_iip_v4').
+          expect(subject).to contain_nftables__rule('default_fwd-qemu_iip_v4').
             with_content('iifname "virbr0" ip saddr 192.168.122.0/24 accept')
         }
+
         it { is_expected.not_to contain_nftables__rule('default_fwd-qemu_oip_v6') }
         it { is_expected.not_to contain_nftables__rule('default_fwd-qemu_iip_v6') }
+
         it {
-          is_expected.to contain_nftables__rule('default_fwd-qemu_io_internal').
+          expect(subject).to contain_nftables__rule('default_fwd-qemu_io_internal').
             with_content('iifname "virbr0" oifname "virbr0" accept')
         }
+
         it {
-          is_expected.to contain_nftables__rule('POSTROUTING-qemu_ignore_multicast').with(
+          expect(subject).to contain_nftables__rule('POSTROUTING-qemu_ignore_multicast').with(
             content: 'ip saddr 192.168.122.0/24 ip daddr 224.0.0.0/24 return',
             table: 'ip-nat'
           )
         }
+
         it {
-          is_expected.to contain_nftables__rule('POSTROUTING-qemu_ignore_broadcast').with(
+          expect(subject).to contain_nftables__rule('POSTROUTING-qemu_ignore_broadcast').with(
             content: 'ip saddr 192.168.122.0/24 ip daddr 255.255.255.255 return',
             table: 'ip-nat'
           )
         }
+
         it {
-          is_expected.to contain_nftables__rule('POSTROUTING-qemu_masq_tcp').with(
+          expect(subject).to contain_nftables__rule('POSTROUTING-qemu_masq_tcp').with(
             content: 'meta l4proto tcp ip saddr 192.168.122.0/24 ip daddr != 192.168.122.0/24 masquerade to :1024-65535',
             table: 'ip-nat'
           )
         }
+
         it {
-          is_expected.to contain_nftables__rule('POSTROUTING-qemu_masq_udp').with(
+          expect(subject).to contain_nftables__rule('POSTROUTING-qemu_masq_udp').with(
             content: 'meta l4proto udp ip saddr 192.168.122.0/24 ip daddr != 192.168.122.0/24 masquerade to :1024-65535',
             table: 'ip-nat'
           )
         }
+
         it {
-          is_expected.to contain_nftables__rule('POSTROUTING-qemu_masq_ip').with(
+          expect(subject).to contain_nftables__rule('POSTROUTING-qemu_masq_ip').with(
             content: 'ip saddr 192.168.122.0/24 ip daddr != 192.168.122.0/24 masquerade',
             table: 'ip-nat'
           )
@@ -99,20 +113,24 @@ describe 'nftables::rules::qemu' do
         end
 
         it { is_expected.to compile }
+
         it {
-          is_expected.to contain_nftables__rule('default_fwd-qemu_oip_v4').
+          expect(subject).to contain_nftables__rule('default_fwd-qemu_oip_v4').
             with_content('oifname "virbr0" ip daddr 192.168.122.0/24 ct state related,established accept')
         }
+
         it {
-          is_expected.to contain_nftables__rule('default_fwd-qemu_iip_v4').
+          expect(subject).to contain_nftables__rule('default_fwd-qemu_iip_v4').
             with_content('iifname "virbr0" ip saddr 192.168.122.0/24 accept')
         }
+
         it {
-          is_expected.to contain_nftables__rule('default_fwd-qemu_oip_v6').
+          expect(subject).to contain_nftables__rule('default_fwd-qemu_oip_v6').
             with_content('oifname "virbr0" ip6 daddr 20ac:cafe:1:1::/64 ct state related,established accept')
         }
+
         it {
-          is_expected.to contain_nftables__rule('default_fwd-qemu_iip_v6').
+          expect(subject).to contain_nftables__rule('default_fwd-qemu_iip_v6').
             with_content('iifname "virbr0" ip6 saddr 20ac:cafe:1:1::/64 accept')
         }
       end
@@ -125,8 +143,9 @@ describe 'nftables::rules::qemu' do
         end
 
         it { is_expected.to compile }
+
         it {
-          is_expected.to contain_nftables__rule('default_fwd-qemu_iip_v4').
+          expect(subject).to contain_nftables__rule('default_fwd-qemu_iip_v4').
             with_content('iifname "vfoo0" ip saddr 192.168.122.0/24 accept')
         }
       end
@@ -139,8 +158,9 @@ describe 'nftables::rules::qemu' do
         end
 
         it { is_expected.to compile }
+
         it {
-          is_expected.to contain_nftables__rule('default_fwd-qemu_iip_v4').
+          expect(subject).to contain_nftables__rule('default_fwd-qemu_iip_v4').
             with_content('iifname "virbr0" ip saddr 172.16.0.0/12 accept')
         }
       end

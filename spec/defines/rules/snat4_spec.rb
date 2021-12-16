@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'nftables::rules::snat4' do
@@ -19,6 +21,7 @@ describe 'nftables::rules::snat4' do
 
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_nftables__rule('POSTROUTING-foobar').with_content('snat sausage') }
+
         context 'with dport specified' do
           let(:params) do
             super().merge(dport: 1234)

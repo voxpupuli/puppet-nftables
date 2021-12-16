@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'nftables::rule' do
@@ -15,6 +17,7 @@ describe 'nftables::rule' do
         context 'with source and content both unset' do
           it { is_expected.not_to compile }
         end
+
         context 'with source and content both set' do
           let(:params) do
             {
@@ -25,7 +28,7 @@ describe 'nftables::rule' do
 
           it {
             pending('Setting source and content should be made to fail')
-            is_expected.not_to compile
+            expect(subject).not_to compile
           }
         end
 
@@ -36,20 +39,23 @@ describe 'nftables::rule' do
 
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE') }
+
           it {
-            is_expected.to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE_header').with(
+            expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE_header').with(
               order: '50-nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-a',
               target: 'nftables-inet-filter-chain-CHAIN_NAME',
               content: %r{^#.*$}
             )
           }
+
           it {
-            is_expected.to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE').with(
+            expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE').with(
               order: '50-nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-b',
               target: 'nftables-inet-filter-chain-CHAIN_NAME',
               content: '  port 22 allow'
             )
           }
+
           context 'with optional parameters set' do
             let(:params) do
               super().merge(order: '85',
@@ -57,15 +63,17 @@ describe 'nftables::rule' do
             end
 
             it {
-              is_expected.to contain_concat__fragment('nftables-TABLE-chain-CHAIN_NAME-rule-RULE_header').with(
+              expect(subject).to contain_concat__fragment('nftables-TABLE-chain-CHAIN_NAME-rule-RULE_header').with(
                 order: '85-nftables-TABLE-chain-CHAIN_NAME-rule-RULE-a',
                 target: 'nftables-TABLE-chain-CHAIN_NAME',
                 content: %r{^#.*$}
               )
             }
+
             it { is_expected.to contain_concat__fragment('nftables-TABLE-chain-CHAIN_NAME-rule-RULE') }
+
             it {
-              is_expected.to contain_concat__fragment('nftables-TABLE-chain-CHAIN_NAME-rule-RULE').with(
+              expect(subject).to contain_concat__fragment('nftables-TABLE-chain-CHAIN_NAME-rule-RULE').with(
                 order: '85-nftables-TABLE-chain-CHAIN_NAME-rule-RULE-b',
                 target: 'nftables-TABLE-chain-CHAIN_NAME',
                 content: '  port 22 allow'
@@ -83,20 +91,23 @@ describe 'nftables::rule' do
 
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE') }
+
           it {
-            is_expected.to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE_header').with(
+            expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE_header').with(
               order: '50-nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-a',
               target: 'nftables-inet-filter-chain-CHAIN_NAME',
               content: %r{^#.*$}
             )
           }
+
           it {
-            is_expected.to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE').with(
+            expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE').with(
               order: '50-nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-b',
               target: 'nftables-inet-filter-chain-CHAIN_NAME',
               source: 'puppet:///modules/foo/bar'
             )
           }
+
           context 'with optional parameters set' do
             let(:params) do
               super().merge(order: '85',
@@ -104,15 +115,17 @@ describe 'nftables::rule' do
             end
 
             it {
-              is_expected.to contain_concat__fragment('nftables-TABLE-chain-CHAIN_NAME-rule-RULE_header').with(
+              expect(subject).to contain_concat__fragment('nftables-TABLE-chain-CHAIN_NAME-rule-RULE_header').with(
                 order: '85-nftables-TABLE-chain-CHAIN_NAME-rule-RULE-a',
                 target: 'nftables-TABLE-chain-CHAIN_NAME',
                 content: %r{^#.*$}
               )
             }
+
             it { is_expected.to contain_concat__fragment('nftables-TABLE-chain-CHAIN_NAME-rule-RULE') }
+
             it {
-              is_expected.to contain_concat__fragment('nftables-TABLE-chain-CHAIN_NAME-rule-RULE').with(
+              expect(subject).to contain_concat__fragment('nftables-TABLE-chain-CHAIN_NAME-rule-RULE').with(
                 order: '85-nftables-TABLE-chain-CHAIN_NAME-rule-RULE-b',
                 target: 'nftables-TABLE-chain-CHAIN_NAME',
                 source: 'puppet:///modules/foo/bar'
@@ -134,15 +147,17 @@ describe 'nftables::rule' do
 
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-22') }
+
           it {
-            is_expected.to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-22_header').with(
+            expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-22_header').with(
               order: '50-nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-22-a',
               target: 'nftables-inet-filter-chain-CHAIN_NAME',
               content: %r{^#.*$}
             )
           }
+
           it {
-            is_expected.to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-22').with(
+            expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-22').with(
               order: '50-nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-22-b',
               target: 'nftables-inet-filter-chain-CHAIN_NAME',
               content: '  port 22 allow'

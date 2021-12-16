@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper_acceptance'
 
 describe 'nftables class' do
@@ -50,6 +52,7 @@ describe 'nftables class' do
       it { is_expected.to be_directory }
     end
   end
+
   context 'with bad invalid nft rules' do
     it 'puppet fails but should leave nft service running' do
       pp = <<-EOS
@@ -76,11 +79,13 @@ describe 'nftables class' do
       EOS
       apply_manifest(pp, expect_failures: true)
     end
+
     describe service('nftables') do
       it { is_expected.to be_running }
       it { is_expected.to be_enabled }
     end
   end
+
   context 'with totally empty firewall' do
     it 'no rules validate okay' do
       pp = <<-EOS
@@ -106,11 +111,13 @@ describe 'nftables class' do
       EOS
       apply_manifest(pp, catch_failures: true)
     end
+
     describe service('nftables') do
       it { is_expected.to be_running }
       it { is_expected.to be_enabled }
     end
   end
+
   context 'with custom nat_table_name' do
     it 'no rules validate okay' do
       pp = <<-EOS
@@ -136,6 +143,7 @@ describe 'nftables class' do
       EOS
       apply_manifest(pp, catch_failures: true)
     end
+
     describe service('nftables') do
       it { is_expected.to be_running }
       it { is_expected.to be_enabled }

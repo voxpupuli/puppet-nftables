@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'nftables' do
@@ -51,142 +53,158 @@ describe 'nftables' do
         it { is_expected.to compile }
 
         it {
-          is_expected.to contain_concat('nftables-inet-filter-chain-default_fwd').with(
-            path:           '/etc/nftables/puppet-preflight/inet-filter-chain-default_fwd.nft',
-            owner:          'root',
-            group:          'root',
-            mode:           '0640',
+          expect(subject).to contain_concat('nftables-inet-filter-chain-default_fwd').with(
+            path: '/etc/nftables/puppet-preflight/inet-filter-chain-default_fwd.nft',
+            owner: 'root',
+            group: 'root',
+            mode: '0640',
             ensure_newline: true
           )
         }
+
         it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-header').with(
-            target:  'nftables-inet-filter-chain-default_fwd',
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-header').with(
+            target: 'nftables-inet-filter-chain-default_fwd',
             content: %r{^chain default_fwd \{$},
-            order:   '00'
+            order: '00'
           )
         }
+
         it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-rule-jump_ingoing').with(
-            target:  'nftables-inet-filter-chain-default_fwd',
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-rule-jump_ingoing').with(
+            target: 'nftables-inet-filter-chain-default_fwd',
             content: %r{^  iifname eth0 oifname eth1 jump ingoing$},
-            order:   '20-nftables-inet-filter-chain-default_fwd-rule-jump_ingoing-b'
-          )
-        }
-        it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-footer').with(
-            target:  'nftables-inet-filter-chain-default_fwd',
-            content: %r{^\}$},
-            order:   '99'
+            order: '20-nftables-inet-filter-chain-default_fwd-rule-jump_ingoing-b'
           )
         }
 
         it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-ingoing-header').with(
-            target:  'nftables-inet-filter-chain-ingoing',
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-default_fwd-footer').with(
+            target: 'nftables-inet-filter-chain-default_fwd',
+            content: %r{^\}$},
+            order: '99'
+          )
+        }
+
+        it {
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-ingoing-header').with(
+            target: 'nftables-inet-filter-chain-ingoing',
             content: %r{^chain ingoing \{$},
-            order:   '00'
-          )
-        }
-        it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-ingoing-rule-http').with(
-            target:  'nftables-inet-filter-chain-ingoing',
-            content: %r{^  ip daddr 192.0.2.2 tcp dport http accept$},
-            order:   '10-nftables-inet-filter-chain-ingoing-rule-http-b'
-          )
-        }
-        it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-ingoing-rule-https').with(
-            target:  'nftables-inet-filter-chain-ingoing',
-            content: %r{^  ip daddr 192.0.2.2 tcp dport https accept$},
-            order:   '10-nftables-inet-filter-chain-ingoing-rule-https-b'
-          )
-        }
-        it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-ingoing-rule-http_alt').with(
-            target:  'nftables-inet-filter-chain-ingoing',
-            content: %r{^  iifname eth0 ip daddr 192.0.2.2 tcp dport 8000 accept$},
-            order:   '10-nftables-inet-filter-chain-ingoing-rule-http_alt-b'
-          )
-        }
-        it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-ingoing-rule-wireguard').with(
-            target:  'nftables-inet-filter-chain-ingoing',
-            content: %r{^  iifname eth0 ip daddr 192.0.2.3 udp dport 51820 accept$},
-            order:   '10-nftables-inet-filter-chain-ingoing-rule-wireguard-b'
-          )
-        }
-        it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-ingoing-footer').with(
-            target:  'nftables-inet-filter-chain-ingoing',
-            content: %r{^\}$},
-            order:   '99'
+            order: '00'
           )
         }
 
         it {
-          is_expected.to contain_concat('nftables-ip-nat-chain-PREROUTING').with(
-            path:           '/etc/nftables/puppet-preflight/ip-nat-chain-PREROUTING.nft',
-            owner:          'root',
-            group:          'root',
-            mode:           '0640',
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-ingoing-rule-http').with(
+            target: 'nftables-inet-filter-chain-ingoing',
+            content: %r{^  ip daddr 192.0.2.2 tcp dport http accept$},
+            order: '10-nftables-inet-filter-chain-ingoing-rule-http-b'
+          )
+        }
+
+        it {
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-ingoing-rule-https').with(
+            target: 'nftables-inet-filter-chain-ingoing',
+            content: %r{^  ip daddr 192.0.2.2 tcp dport https accept$},
+            order: '10-nftables-inet-filter-chain-ingoing-rule-https-b'
+          )
+        }
+
+        it {
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-ingoing-rule-http_alt').with(
+            target: 'nftables-inet-filter-chain-ingoing',
+            content: %r{^  iifname eth0 ip daddr 192.0.2.2 tcp dport 8000 accept$},
+            order: '10-nftables-inet-filter-chain-ingoing-rule-http_alt-b'
+          )
+        }
+
+        it {
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-ingoing-rule-wireguard').with(
+            target: 'nftables-inet-filter-chain-ingoing',
+            content: %r{^  iifname eth0 ip daddr 192.0.2.3 udp dport 51820 accept$},
+            order: '10-nftables-inet-filter-chain-ingoing-rule-wireguard-b'
+          )
+        }
+
+        it {
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-ingoing-footer').with(
+            target: 'nftables-inet-filter-chain-ingoing',
+            content: %r{^\}$},
+            order: '99'
+          )
+        }
+
+        it {
+          expect(subject).to contain_concat('nftables-ip-nat-chain-PREROUTING').with(
+            path: '/etc/nftables/puppet-preflight/ip-nat-chain-PREROUTING.nft',
+            owner: 'root',
+            group: 'root',
+            mode: '0640',
             ensure_newline: true
           )
         }
+
         it {
-          is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-header').with(
-            target:  'nftables-ip-nat-chain-PREROUTING',
+          expect(subject).to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-header').with(
+            target: 'nftables-ip-nat-chain-PREROUTING',
             content: %r{^chain PREROUTING \{$},
-            order:   '00'
+            order: '00'
           )
         }
+
         it {
-          is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-type').with(
-            target:  'nftables-ip-nat-chain-PREROUTING',
+          expect(subject).to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-type').with(
+            target: 'nftables-ip-nat-chain-PREROUTING',
             content: %r{^  type nat hook prerouting priority -100$},
-            order:   '01-nftables-ip-nat-chain-PREROUTING-rule-type-b'
+            order: '01-nftables-ip-nat-chain-PREROUTING-rule-type-b'
           )
         }
+
         it {
-          is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-policy').with(
-            target:  'nftables-ip-nat-chain-PREROUTING',
+          expect(subject).to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-policy').with(
+            target: 'nftables-ip-nat-chain-PREROUTING',
             content: %r{^  policy accept$},
-            order:   '02-nftables-ip-nat-chain-PREROUTING-rule-policy-b'
+            order: '02-nftables-ip-nat-chain-PREROUTING-rule-policy-b'
           )
         }
+
         it {
-          is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-http').with(
-            target:  'nftables-ip-nat-chain-PREROUTING',
+          expect(subject).to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-http').with(
+            target: 'nftables-ip-nat-chain-PREROUTING',
             content: %r{^  tcp dport http dnat to 192.0.2.2$},
-            order:   '10-nftables-ip-nat-chain-PREROUTING-rule-http-b'
+            order: '10-nftables-ip-nat-chain-PREROUTING-rule-http-b'
           )
         }
+
         it {
-          is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-https').with(
-            target:  'nftables-ip-nat-chain-PREROUTING',
+          expect(subject).to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-https').with(
+            target: 'nftables-ip-nat-chain-PREROUTING',
             content: %r{^  tcp dport https dnat to 192.0.2.2$},
-            order:   '10-nftables-ip-nat-chain-PREROUTING-rule-https-b'
+            order: '10-nftables-ip-nat-chain-PREROUTING-rule-https-b'
           )
         }
+
         it {
-          is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-http_alt').with(
-            target:  'nftables-ip-nat-chain-PREROUTING',
+          expect(subject).to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-http_alt').with(
+            target: 'nftables-ip-nat-chain-PREROUTING',
             content: %r{^  iifname eth0 tcp dport 8080 dnat to 192.0.2.2:8000$},
-            order:   '10-nftables-ip-nat-chain-PREROUTING-rule-http_alt-b'
+            order: '10-nftables-ip-nat-chain-PREROUTING-rule-http_alt-b'
           )
         }
+
         it {
-          is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-wireguard').with(
-            target:  'nftables-ip-nat-chain-PREROUTING',
+          expect(subject).to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-wireguard').with(
+            target: 'nftables-ip-nat-chain-PREROUTING',
             content: %r{^  iifname eth0 udp dport 51820 dnat to 192.0.2.3$},
-            order:   '10-nftables-ip-nat-chain-PREROUTING-rule-wireguard-b'
+            order: '10-nftables-ip-nat-chain-PREROUTING-rule-wireguard-b'
           )
         }
+
         it {
-          is_expected.to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-footer').with(
-            target:  'nftables-ip-nat-chain-PREROUTING',
+          expect(subject).to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-footer').with(
+            target: 'nftables-ip-nat-chain-PREROUTING',
             content: %r{^\}$},
-            order:   '99'
+            order: '99'
           )
         }
       end
