@@ -123,7 +123,7 @@ describe 'nftables' do
         }
       end
 
-      context 'table ip nat chain postrouting' do
+      context 'table ipv4 nat chain postrouting' do
         it {
           expect(subject).to contain_concat('nftables-ip-nat-chain-POSTROUTING').with(
             path: '/etc/nftables/puppet-preflight/ip-nat-chain-POSTROUTING.nft',
@@ -211,7 +211,7 @@ describe 'nftables' do
         }
       end
 
-      context 'table ip nat chain postrouting' do
+      context 'table ipv6 nat chain postrouting' do
         it {
           expect(subject).to contain_concat('nftables-ip6-nat-chain-POSTROUTING6').with(
             path: '/etc/nftables/puppet-preflight/ip6-nat-chain-POSTROUTING6.nft',
