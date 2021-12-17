@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper_acceptance'
 
 describe 'nftables class' do
@@ -105,11 +107,7 @@ describe 'nftables class' do
       it { is_expected.to be_enabled }
     end
 
-    describe file('/etc/nftables/puppet.nft') do
-      it { is_expected.to be_file }
-    end
-
-    describe file('/etc/systemd/system/nftables.service.d/puppet_nft.conf') do
+    describe file('/etc/nftables/puppet.nft', '/etc/systemd/system/nftables.service.d/puppet_nft.conf') do
       it { is_expected.to be_file }
     end
 

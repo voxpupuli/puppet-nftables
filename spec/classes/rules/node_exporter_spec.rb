@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'nftables::rules::node_exporter' do
@@ -19,6 +21,7 @@ describe 'nftables::rules::node_exporter' do
 
         it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('default_in-node_exporter').with_content('tcp dport 100 accept') }
+
         context 'with prometheus_server set' do
           let(:params) do
             super().merge({ prometheus_server: ['127.0.0.1', '::1'] })

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'nftables' do
@@ -12,58 +14,58 @@ describe 'nftables' do
       it { is_expected.to contain_package('nftables') }
 
       it {
-        is_expected.to contain_file('/etc/nftables/puppet.nft').with(
+        expect(subject).to contain_file('/etc/nftables/puppet.nft').with(
           ensure: 'file',
-          owner:  'root',
-          group:  'root',
-          mode:   '0640',
+          owner: 'root',
+          group: 'root',
+          mode: '0640',
           content: %r{flush ruleset}
         )
       }
 
       it {
-        is_expected.to contain_file('/etc/nftables/puppet').with(
-          ensure:  'directory',
-          owner:   'root',
-          group:   'root',
-          mode:    '0750',
-          purge:   true,
-          force:   true,
+        expect(subject).to contain_file('/etc/nftables/puppet').with(
+          ensure: 'directory',
+          owner: 'root',
+          group: 'root',
+          mode: '0750',
+          purge: true,
+          force: true,
           recurse: true
         )
       }
 
       it {
-        is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').with(
+        expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').with(
           ensure: 'file',
-          owner:  'root',
-          group:  'root',
-          mode:   '0640',
+          owner: 'root',
+          group: 'root',
+          mode: '0640',
           content: %r{flush ruleset}
         )
       }
 
       it {
-        is_expected.to contain_file('/etc/nftables/puppet-preflight').with(
-          ensure:  'directory',
-          owner:   'root',
-          group:   'root',
-          mode:    '0750',
-          purge:   true,
-          force:   true,
+        expect(subject).to contain_file('/etc/nftables/puppet-preflight').with(
+          ensure: 'directory',
+          owner: 'root',
+          group: 'root',
+          mode: '0750',
+          purge: true,
+          force: true,
           recurse: true
         )
       }
 
       it {
-        is_expected.to contain_exec('nft validate').with(
+        expect(subject).to contain_exec('nft validate').with(
           refreshonly: true,
           command: %r{^/usr/sbin/nft -I /etc/nftables/puppet-preflight -c -f /etc/nftables/puppet-preflight.nft.*}
         )
       }
 
       it {
-        is_expected.to contain_service('nftables').with(
+        expect(subject).to contain_service('nftables').with(
           ensure: 'running',
           enable: true,
           hasrestart: true,
@@ -72,17 +74,18 @@ describe 'nftables' do
       }
 
       it {
-        is_expected.to contain_systemd__dropin_file('puppet_nft.conf').with(
+        expect(subject).to contain_systemd__dropin_file('puppet_nft.conf').with(
           content: %r{^ExecReload=/sbin/nft -I /etc/nftables/puppet -f /etc/sysconfig/nftables.conf$}
         )
       }
 
       it {
-        is_expected.to contain_service('firewalld').with(
+        expect(subject).to contain_service('firewalld').with(
           ensure: 'stopped',
           enable: 'mask'
         )
       }
+
       it { is_expected.to contain_class('nftables::inet_filter') }
       it { is_expected.to contain_class('nftables::ip_nat') }
       it { is_expected.to contain_class('nftables::rules::out::http') }
@@ -121,10 +124,10 @@ describe 'nftables' do
         end
 
         it {
-          is_expected.to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-web_accept').with(
-            target:  'nftables-inet-filter-chain-INPUT',
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-web_accept').with(
+            target: 'nftables-inet-filter-chain-INPUT',
             content: %r{^  iifname eth0 tcp dport \{ 80, 443 \} accept$},
-            order:   '50-nftables-inet-filter-chain-INPUT-rule-web_accept-b'
+            order: '50-nftables-inet-filter-chain-INPUT-rule-web_accept-b'
           )
         }
       end
@@ -146,14 +149,15 @@ describe 'nftables' do
         end
 
         it {
-          is_expected.to contain_nftables__set('testset1').with(
+          expect(subject).to contain_nftables__set('testset1').with(
             type: 'ipv4_addr',
             gc_interval: 2,
             table: 'inet-filter'
           )
         }
+
         it {
-          is_expected.to contain_nftables__set('testset2').with(
+          expect(subject).to contain_nftables__set('testset2').with(
             type: 'ipv6_addr',
             elements: ['2a02:62:c601::dead:beef'],
             table: 'inet-filter'
@@ -169,7 +173,7 @@ describe 'nftables' do
         end
 
         it {
-          is_expected.to contain_service('firewalld').with(
+          expect(subject).to contain_service('firewalld').with(
             ensure: 'stopped',
             enable: false
           )
@@ -216,37 +220,42 @@ describe 'nftables' do
 
         context 'with nftables fact matching' do
           let(:facts) do
-            super().merge(nftables: { tables: ['inet-abc', 'inet-f2b-table'] })
+            super().merge(nftables: { tables: %w[inet-abc inet-f2b-table] })
           end
 
           it {
-            is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').
+            expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').
               with_content(%r{^table inet abc \{\}$})
           }
+
           it {
-            is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').
+            expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').
               with_content(%r{^flush table inet abc$})
           }
         end
+
         context 'with nftables fact not matching' do
           let(:facts) do
-            super().merge(nftables: { tables: ['inet-abc', 'inet-ijk'] })
+            super().merge(nftables: { tables: %w[inet-abc inet-ijk] })
           end
 
           it {
-            is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').
+            expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').
               with_content(%r{^table inet abc \{\}$})
           }
+
           it {
-            is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').
+            expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').
               with_content(%r{^flush table inet abc$})
           }
+
           it {
-            is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').
+            expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').
               with_content(%r{^table inet ijk \{\}$})
           }
+
           it {
-            is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').
+            expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').
               with_content(%r{^flush table inet ijk$})
           }
         end

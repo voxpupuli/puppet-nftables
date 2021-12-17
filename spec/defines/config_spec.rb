@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'nftables::config' do
@@ -13,31 +15,37 @@ describe 'nftables::config' do
       context 'with source and content both unset' do
         it { is_expected.to compile }
         it { is_expected.to contain_concat('nftables-FOO-BAR') }
+
         it {
-          is_expected.to contain_concat('nftables-FOO-BAR').with(
+          expect(subject).to contain_concat('nftables-FOO-BAR').with(
             path: '/etc/nftables/puppet-preflight/custom-FOO-BAR.nft',
             ensure_newline: true,
             mode: '0640'
           )
         }
+
         it { is_expected.to contain_file('/etc/nftables/puppet/custom-FOO-BAR.nft') }
+
         it {
-          is_expected.to contain_file('/etc/nftables/puppet/custom-FOO-BAR.nft').with(
+          expect(subject).to contain_file('/etc/nftables/puppet/custom-FOO-BAR.nft').with(
             ensure: 'file',
             source: '/etc/nftables/puppet-preflight/custom-FOO-BAR.nft',
             mode: '0640'
           )
         }
+
         it { is_expected.to contain_concat_fragment('nftables-FOO-BAR-header') }
+
         it {
-          is_expected.to contain_concat_fragment('nftables-FOO-BAR-header').with(
+          expect(subject).to contain_concat_fragment('nftables-FOO-BAR-header').with(
             target: 'nftables-FOO-BAR',
             order: '00',
             content: 'table FOO BAR {'
           )
         }
+
         it {
-          is_expected.to contain_concat_fragment('nftables-FOO-BAR-body').with(
+          expect(subject).to contain_concat_fragment('nftables-FOO-BAR-body').with(
             target: 'nftables-FOO-BAR',
             order: '98',
             content: '  include "FOO-BAR-chain-*.nft"'
@@ -60,9 +68,10 @@ describe 'nftables::config' do
         end
 
         it {
-          is_expected.not_to compile
+          expect(subject).not_to compile
         }
       end
+
       context 'with content set' do
         let(:params) do
           {
@@ -72,37 +81,44 @@ describe 'nftables::config' do
 
         it { is_expected.to compile }
         it { is_expected.to contain_concat('nftables-FOO-BAR') }
+
         it {
-          is_expected.to contain_concat('nftables-FOO-BAR').with(
+          expect(subject).to contain_concat('nftables-FOO-BAR').with(
             path: '/etc/nftables/puppet-preflight/custom-FOO-BAR.nft',
             ensure_newline: true,
             mode: '0640'
           )
         }
+
         it { is_expected.to contain_file('/etc/nftables/puppet/custom-FOO-BAR.nft') }
+
         it {
-          is_expected.to contain_file('/etc/nftables/puppet/custom-FOO-BAR.nft').with(
+          expect(subject).to contain_file('/etc/nftables/puppet/custom-FOO-BAR.nft').with(
             ensure: 'file',
             source: '/etc/nftables/puppet-preflight/custom-FOO-BAR.nft',
             mode: '0640'
           )
         }
+
         it { is_expected.to contain_concat_fragment('nftables-FOO-BAR-header') }
+
         it {
-          is_expected.to contain_concat_fragment('nftables-FOO-BAR-header').with(
+          expect(subject).to contain_concat_fragment('nftables-FOO-BAR-header').with(
             target: 'nftables-FOO-BAR',
             order: '00',
             content: 'table FOO BAR {'
           )
         }
+
         it {
-          is_expected.to contain_concat_fragment('nftables-FOO-BAR-body').with(
+          expect(subject).to contain_concat_fragment('nftables-FOO-BAR-body').with(
             target: 'nftables-FOO-BAR',
             order: '98',
             content: 'strange content'
           )
         }
       end
+
       context 'with source set' do
         let(:params) do
           {
@@ -111,7 +127,7 @@ describe 'nftables::config' do
         end
 
         it {
-          is_expected.to contain_concat_fragment('nftables-FOO-BAR-body').with(
+          expect(subject).to contain_concat_fragment('nftables-FOO-BAR-body').with(
             target: 'nftables-FOO-BAR',
             order: '98',
             source: 'puppet:///modules/foo'

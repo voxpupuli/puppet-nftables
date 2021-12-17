@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'nftables' do
@@ -14,7 +16,7 @@ describe 'nftables' do
     let(:nft_version_result) { "nftables v0.9.15 (Topsy)\n" }
 
     it 'returns valid fact' do
-      expect(Facter.fact('nftables').value).to eq('tables' => ['inet-firewalld', 'ip-firewalld'], 'version' => '0.9.15')
+      expect(Facter.fact('nftables').value).to eq('tables' => %w[inet-firewalld ip-firewalld], 'version' => '0.9.15')
     end
   end
 
