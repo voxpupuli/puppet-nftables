@@ -9,7 +9,7 @@ describe 'nftables' do
     context "on #{os}" do
       context 'with bridge interfaces br0 and br1-2' do
         let(:facts) do
-          os_facts.merge(
+          os_facts.tap { |x| x.delete('networking') }.merge(
             networking:
               { interfaces:
                 {
@@ -30,12 +30,12 @@ describe 'nftables' do
           )
         }
 
-        it { is_expected.to contain_nftables__rule('default_fwd-bridge_br1_br1') }
+        it { is_expected.to contain_nftables__rule('default_fwd-bridge_br1_2_br1_2') }
 
         it {
-          expect(subject).to contain_nftables__rule('default_fwd-bridge_br1_br1').with(
+          expect(subject).to contain_nftables__rule('default_fwd-bridge_br1_2_br1_2').with(
             order: '08',
-            content: 'iifname br1 oifname br1 accept'
+            content: 'iifname br1-2 oifname br1-2 accept'
           )
         }
       end
