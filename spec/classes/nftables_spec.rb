@@ -14,6 +14,15 @@ describe 'nftables' do
       it { is_expected.to contain_package('nftables') }
 
       it {
+        is_expected.to contain_file('/etc/nftables').with(
+          ensure: 'directory',
+          owner: 'root',
+          group: 'root',
+          mode: '0750'
+        )
+      }
+
+      it {
         expect(subject).to contain_file('/etc/nftables/puppet.nft').with(
           ensure: 'file',
           owner: 'root',
@@ -73,18 +82,33 @@ describe 'nftables' do
         )
       }
 
-      it {
-        expect(subject).to contain_systemd__dropin_file('puppet_nft.conf').with(
-          content: %r{^ExecReload=/sbin/nft -I /etc/nftables/puppet -f /etc/sysconfig/nftables.conf$}
-        )
-      }
+      if os_facts[:os]['family'] == 'Archlinux'
+        it {
+          expect(subject).to contain_systemd__dropin_file('puppet_nft.conf').with(
+            content: %r{^ExecReload=/sbin/nft -I /etc/nftables/puppet -f /etc/nftables.conf$}
+          )
+        }
 
-      it {
-        expect(subject).to contain_service('firewalld').with(
-          ensure: 'stopped',
-          enable: 'mask'
-        )
-      }
+        it {
+          expect(subject).to contain_service('firewalld').with(
+            ensure: 'stopped',
+            enable: false
+          )
+        }
+      else
+        it {
+          expect(subject).to contain_systemd__dropin_file('puppet_nft.conf').with(
+            content: %r{^ExecReload=/sbin/nft -I /etc/nftables/puppet -f /etc/sysconfig/nftables.conf$}
+          )
+        }
+
+        it {
+          expect(subject).to contain_service('firewalld').with(
+            ensure: 'stopped',
+            enable: 'mask'
+          )
+        }
+      end
 
       it { is_expected.to contain_class('nftables::inet_filter') }
       it { is_expected.to contain_class('nftables::ip_nat') }
