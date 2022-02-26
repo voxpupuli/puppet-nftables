@@ -105,17 +105,17 @@ Configure nftables
 ##### allow dns out and do not allow ntp out
 
 ```puppet
-class{'nftables:
-  out_ntp = false,
-  out_dns = true,
+class{ 'nftables':
+  out_ntp => false,
+  out_dns => true,
 }
 ```
 
 ##### do not flush particular tables, fail2ban in this case
 
 ```puppet
-class{'nftables':
-  noflush_tables = ['inet-f2b-table'],
+class{ 'nftables':
+  noflush_tables => ['inet-f2b-table'],
 }
 ```
 
