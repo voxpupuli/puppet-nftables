@@ -1,14 +1,14 @@
 # @summary Configure nftables
 #
 # @example allow dns out and do not allow ntp out
-#   class{'nftables:
-#     out_ntp = false,
-#     out_dns = true,
+#   class{ 'nftables':
+#     out_ntp => false,
+#     out_dns => true,
 #   }
 #
 # @example do not flush particular tables, fail2ban in this case
-#   class{'nftables':
-#     noflush_tables = ['inet-f2b-table'],
+#   class{ 'nftables':
+#     noflush_tables => ['inet-f2b-table'],
 #   }
 #
 # @param out_all
