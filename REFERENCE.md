@@ -143,6 +143,7 @@ The following parameters are available in the `nftables` class:
 * [`firewalld_enable`](#firewalld_enable)
 * [`noflush_tables`](#noflush_tables)
 * [`rules`](#rules)
+* [`configuration_path`](#configuration_path)
 
 ##### <a name="out_all"></a>`out_all`
 
@@ -318,6 +319,13 @@ Data type: `Hash`
 Specify hashes of `nftables::rule`s via hiera
 
 Default value: `{}`
+
+##### <a name="configuration_path"></a>`configuration_path`
+
+Data type: `Stdlib::Unixpath`
+
+The absolute path to the principal nftables configuration file. The default
+varies depending on the system, and is set in the module's data.
 
 ### <a name="nftablesbridges"></a>`nftables::bridges`
 

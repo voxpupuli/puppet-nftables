@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.2.0](https://github.com/voxpupuli/puppet-nftables/tree/v2.2.0) (2022-02-27)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v2.1.0...v2.2.0)
+
+**Implemented enhancements:**
+
+- Add support for Arch Linux [\#124](https://github.com/voxpupuli/puppet-nftables/pull/124) ([hashworks](https://github.com/hashworks))
+- Declare support for RHEL9, CentOS9 and OL9 [\#120](https://github.com/voxpupuli/puppet-nftables/pull/120) ([nbarrientos](https://github.com/nbarrientos))
+- Rubocop corrections for rubocop 1.22.3 [\#118](https://github.com/voxpupuli/puppet-nftables/pull/118) ([traylenator](https://github.com/traylenator))
+- Use protocol number instead of label [\#112](https://github.com/voxpupuli/puppet-nftables/pull/112) ([keachi](https://github.com/keachi))
+
+**Fixed bugs:**
+
+- Ensure that nftables.service remains active after it exits [\#125](https://github.com/voxpupuli/puppet-nftables/pull/125) ([hashworks](https://github.com/hashworks))
+
+**Merged pull requests:**
+
+- Fix typos in initial reference examples [\#122](https://github.com/voxpupuli/puppet-nftables/pull/122) ([hashworks](https://github.com/hashworks))
+
 ## [v2.1.0](https://github.com/voxpupuli/puppet-nftables/tree/v2.1.0) (2021-09-14)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v2.0.0...v2.1.0)
