@@ -1,4 +1,6 @@
 ---
+spec/spec_helper.rb:
+  unmanaged: true
 
 spec/spec_helper_acceptance.rb:
   unmanaged: false
