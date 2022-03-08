@@ -4,7 +4,6 @@
 # https://voxpupuli.org/docs/updating-files-managed-with-modulesync/
 
 RSpec.configure do |c|
-  c.mock_with :mocha
 end
 
 # puppetlabs_spec_helper will set up coverage if the env variable is set.
