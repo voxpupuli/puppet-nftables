@@ -1,6 +1,6 @@
 ---
 spec/spec_helper.rb:
-  mock_with: ':mocha'
+  unmanaged: true
 
 spec/spec_helper_acceptance.rb:
   unmanaged: false

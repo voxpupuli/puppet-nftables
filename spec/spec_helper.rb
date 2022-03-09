@@ -4,7 +4,16 @@
 # https://voxpupuli.org/docs/updating-files-managed-with-modulesync/
 
 RSpec.configure do |c|
-  c.mock_with :mocha
+  c.before do
+    # select the systemd service provider even when on docker
+    # https://tickets.puppetlabs.com/browse/PUP-11167
+    if defined?(facts) && %w[Archlinux RedHat].include?(facts[:os]['family'])
+      allow(Puppet::FileSystem).to receive(:exist?).and_call_original
+      allow(Puppet::FileSystem).to receive(:exist?).with('/proc/1/comm').and_return(true)
+      allow(Puppet::FileSystem).to receive(:read).and_call_original
+      allow(Puppet::FileSystem).to receive(:read).with('/proc/1/comm').and_return(['systemd'])
+    end
+  end
 end
 
 # puppetlabs_spec_helper will set up coverage if the env variable is set.

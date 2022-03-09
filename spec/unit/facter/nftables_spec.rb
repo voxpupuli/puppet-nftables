@@ -5,10 +5,10 @@ require 'spec_helper'
 describe 'nftables' do
   before do
     Facter.clear
-    Process.stubs(:uid).returns(0)
-    Facter::Util::Resolution.stubs(:which).with('nft').returns('/usr/sbin/nft')
-    Facter::Core::Execution.stubs(:execute).with('/usr/sbin/nft list tables').returns(nft_tables_result)
-    Facter::Core::Execution.stubs(:execute).with('/usr/sbin/nft --version').returns(nft_version_result)
+    allow(Process).to receive(:uid).and_return(0)
+    allow(Facter::Util::Resolution).to receive(:which).with('nft').and_return('/usr/sbin/nft')
+    allow(Facter::Core::Execution).to receive(:execute).with('/usr/sbin/nft list tables').and_return(nft_tables_result)
+    allow(Facter::Core::Execution).to receive(:execute).with('/usr/sbin/nft --version').and_return(nft_version_result)
   end
 
   context 'nft present' do
@@ -25,8 +25,8 @@ describe 'nftables' do
     let(:nft_version_result) { :failed }
 
     it 'does not return a fact' do
-      Facter::Core::Execution.stubs(:execute).with('/usr/sbin/nft --version', on_fail: :failed).returns(:failed)
-      Facter::Core::Execution.stubs(:execute).with('/usr/sbin/nft list tables', on_fail: :failed).returns(:failed)
+      allow(Facter::Core::Execution).to receive(:execute).with('/usr/sbin/nft --version', onfail: :failed).and_return(:failed)
+      allow(Facter::Core::Execution).to receive(:execute).with('/usr/sbin/nft list tables', onfail: :failed).and_return(:failed)
 
       expect(Facter.fact('nftables').value).to be_nil
     end
