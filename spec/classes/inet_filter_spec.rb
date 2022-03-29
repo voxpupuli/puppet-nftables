@@ -96,22 +96,6 @@ describe 'nftables' do
         }
 
         it {
-          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-accept_established_related').with(
-            target: 'nftables-inet-filter-chain-INPUT',
-            content: %r{^  ct state established,related accept$},
-            order: '05-nftables-inet-filter-chain-INPUT-rule-accept_established_related-b'
-          )
-        }
-
-        it {
-          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-drop_invalid').with(
-            target: 'nftables-inet-filter-chain-INPUT',
-            content: %r{^  ct state invalid drop$},
-            order: '06-nftables-inet-filter-chain-INPUT-rule-drop_invalid-b'
-          )
-        }
-
-        it {
           expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-jump_default_in').with(
             target: 'nftables-inet-filter-chain-INPUT',
             content: %r{^  jump default_in$},
@@ -230,22 +214,6 @@ describe 'nftables' do
             target: 'nftables-inet-filter-chain-OUTPUT',
             content: %r{^  jump global$},
             order: '04-nftables-inet-filter-chain-OUTPUT-rule-jump_global-b'
-          )
-        }
-
-        it {
-          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-accept_established_related').with(
-            target: 'nftables-inet-filter-chain-OUTPUT',
-            content: %r{^  ct state established,related accept$},
-            order: '05-nftables-inet-filter-chain-OUTPUT-rule-accept_established_related-b'
-          )
-        }
-
-        it {
-          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-drop_invalid').with(
-            target: 'nftables-inet-filter-chain-OUTPUT',
-            content: %r{^  ct state invalid drop$},
-            order: '06-nftables-inet-filter-chain-OUTPUT-rule-drop_invalid-b'
           )
         }
 
@@ -396,11 +364,7 @@ describe 'nftables' do
         }
 
         it {
-          expect(subject).not_to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-accept_established_related')
-        }
-
-        it {
-          expect(subject).not_to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-drop_invalid')
+          expect(subject).not_to contain_class('nftables::inet_filter::fwd_conntrack')
         }
 
         it {
@@ -685,27 +649,23 @@ describe 'nftables' do
         end
 
         it {
-          expect(subject).not_to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-accept_established_related')
+          expect(subject).not_to contain_class('nftables::inet_filter::in_out_conntrack')
         }
 
         it {
-          expect(subject).not_to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-drop_invalid')
+          expect(subject).not_to contain_class('nftables::inet_filter::fwd_conntrack')
         }
+      end
+
+      context 'with fwd conntrack rules' do
+        let(:params) do
+          {
+            'fwd_conntrack' => true,
+          }
+        end
 
         it {
-          expect(subject).not_to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-accept_established_related')
-        }
-
-        it {
-          expect(subject).not_to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-drop_invalid')
-        }
-
-        it {
-          expect(subject).not_to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-accept_established_related')
-        }
-
-        it {
-          expect(subject).not_to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-drop_invalid')
+          expect(subject).to contain_class('nftables::inet_filter::fwd_conntrack')
         }
       end
 
