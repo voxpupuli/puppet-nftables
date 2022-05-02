@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.2.1](https://github.com/voxpupuli/puppet-nftables/tree/v2.2.1) (2022-04-27)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v2.2.0...v2.2.1)
+
+**Merged pull requests:**
+
+- rspec mock systemd process on docker [\#128](https://github.com/voxpupuli/puppet-nftables/pull/128) ([traylenator](https://github.com/traylenator))
+
 ## [v2.2.0](https://github.com/voxpupuli/puppet-nftables/tree/v2.2.0) (2022-02-27)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v2.1.0...v2.2.0)
