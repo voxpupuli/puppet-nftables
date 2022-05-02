@@ -1,6 +1,6 @@
 {
   "name": "puppet-nftables",
-  "version": "2.2.1",
+  "version": "2.2.2-rc0",
   "author": "Vox Pupuli",
   "summary": "Puppet nftables module",
   "license": "Apache-2.0",
