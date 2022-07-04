@@ -144,6 +144,7 @@ The following parameters are available in the `nftables` class:
 * [`noflush_tables`](#noflush_tables)
 * [`rules`](#rules)
 * [`configuration_path`](#configuration_path)
+* [`nft_path`](#nft_path)
 
 ##### <a name="out_all"></a>`out_all`
 
@@ -326,6 +327,12 @@ Data type: `Stdlib::Unixpath`
 
 The absolute path to the principal nftables configuration file. The default
 varies depending on the system, and is set in the module's data.
+
+##### <a name="nft_path"></a>`nft_path`
+
+Data type: `Stdlib::Unixpath`
+
+Path to the nft binary
 
 ### <a name="nftablesbridges"></a>`nftables::bridges`
 

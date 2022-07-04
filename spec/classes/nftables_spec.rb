@@ -9,7 +9,14 @@ describe 'nftables' do
     context "on #{os}" do
       let(:facts) { os_facts }
 
-      it { is_expected.to compile }
+      nft_path = case os_facts[:os]['family']
+                 when 'Archlinux'
+                   '/usr/bin/nft'
+                 else
+                   '/usr/sbin/nft'
+                 end
+
+      it { is_expected.to compile.with_all_deps }
 
       it { is_expected.to contain_package('nftables') }
 
@@ -69,7 +76,7 @@ describe 'nftables' do
       it {
         expect(subject).to contain_exec('nft validate').with(
           refreshonly: true,
-          command: %r{^/usr/sbin/nft -I /etc/nftables/puppet-preflight -c -f /etc/nftables/puppet-preflight.nft.*}
+          command: %r{^#{nft_path} -I /etc/nftables/puppet-preflight -c -f /etc/nftables/puppet-preflight.nft.*}
         )
       }
 
@@ -85,7 +92,7 @@ describe 'nftables' do
       if os_facts[:os]['family'] == 'Archlinux'
         it {
           expect(subject).to contain_systemd__dropin_file('puppet_nft.conf').with(
-            content: %r{^ExecReload=/sbin/nft -I /etc/nftables/puppet -f /etc/nftables.conf$}
+            content: %r{^ExecReload=#{nft_path} -I /etc/nftables/puppet -f /etc/nftables.conf$}
           )
         }
 
@@ -98,7 +105,7 @@ describe 'nftables' do
       else
         it {
           expect(subject).to contain_systemd__dropin_file('puppet_nft.conf').with(
-            content: %r{^ExecReload=/sbin/nft -I /etc/nftables/puppet -f /etc/sysconfig/nftables.conf$}
+            content: %r{^ExecReload=#{nft_path} -I /etc/nftables/puppet -f /etc/sysconfig/nftables.conf$}
           )
         }
 

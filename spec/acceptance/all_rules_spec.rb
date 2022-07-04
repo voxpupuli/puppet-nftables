@@ -78,13 +78,13 @@ describe 'nftables class' do
         elements   => ['192.168.0.1', '10.0.0.2'],
         table      => ['inet-filter', 'ip-nat'],
       }
-      $config_path = case $facts['os']['family'] {
-        'Archlinux': {
-          '/etc/nftables.conf'
-        }
-        default: {
-          '/etc/sysconfig/nftables.conf'
-        }
+      $config_path = $facts['os']['family'] ? {
+        'Archlinux' => '/etc/nftables.conf',
+        default => '/etc/sysconfig/nftables.conf',
+      }
+      $nft_path = $facts['os']['family'] ? {
+        'Archlinux' => '/usr/bin/nft',
+        default => '/usr/sbin/nft',
       }
       # nftables cannot be started in docker so replace service with a validation only.
       systemd::dropin_file{"zzz_docker_nft.conf":
@@ -93,9 +93,9 @@ describe 'nftables class' do
         content => [
           "[Service]",
           "ExecStart=",
-          "ExecStart=/sbin/nft -c -I /etc/nftables/puppet -f $config_path",
+          "ExecStart=${nft_path} -c -I /etc/nftables/puppet -f ${config_path}",
           "ExecReload=",
-          "ExecReload=/sbin/nft -c -I /etc/nftables/puppet -f $config_path",
+          "ExecReload=${nft_path} -c -I /etc/nftables/puppet -f ${config_path}",
           "",
           ].join("\n"),
         notify  => Service["nftables"],

@@ -1,7 +1,10 @@
+<%- | Stdlib::Unixpath $nft_path,
+      Stdlib::Unixpath $configuration_path,
+| -%>
 # Puppet Deployed
 [Service]
 RemainAfterExit=yes
 ExecStart=
-ExecStart=/sbin/nft -I /etc/nftables/puppet -f <%= $configuration_path %>
+ExecStart=<%= $nft_path %> -I /etc/nftables/puppet -f <%= $configuration_path %>
 ExecReload=
-ExecReload=/sbin/nft -I /etc/nftables/puppet -f <%= $configuration_path %>
+ExecReload=<%= $nft_path %> -I /etc/nftables/puppet -f <%= $configuration_path %>

@@ -11,13 +11,13 @@ describe 'nftables class' do
       class { 'nftables':
         firewalld_enable => false,
       }
-      $config_path = case $facts['os']['family'] {
-        'Archlinux': {
-          '/etc/nftables.conf'
-        }
-        default: {
-          '/etc/sysconfig/nftables.conf'
-        }
+      $config_path = $facts['os']['family'] ? {
+        'Archlinux' => '/etc/nftables.conf',
+        default => '/etc/sysconfig/nftables.conf',
+      }
+      $nft_path = $facts['os']['family'] ? {
+        'Archlinux' => '/usr/bin/nft',
+        default => '/usr/sbin/nft',
       }
       # nftables cannot be started in docker so replace service with a validation only.
       systemd::dropin_file{"zzz_docker_nft.conf":
@@ -26,9 +26,9 @@ describe 'nftables class' do
         content => [
           "[Service]",
           "ExecStart=",
-          "ExecStart=/sbin/nft -c -I /etc/nftables/puppet -f $config_path",
+          "ExecStart=${nft_path} -c -I /etc/nftables/puppet -f ${config_path}",
           "ExecReload=",
-          "ExecReload=/sbin/nft -c -I /etc/nftables/puppet -f $config_path",
+          "ExecReload=${nft_path} -c -I /etc/nftables/puppet -f ${config_path}",
           "",
           ].join("\n"),
         notify  => Service["nftables"],
@@ -66,13 +66,13 @@ describe 'nftables class' do
       nftables::rule{'default_out-junk':
         content => 'A load of junk',
       }
-      $config_path = case $facts['os']['family'] {
-        'Archlinux': {
-          '/etc/nftables.conf'
-        }
-        default: {
-          '/etc/sysconfig/nftables.conf'
-        }
+      $config_path = $facts['os']['family'] ? {
+        'Archlinux' => '/etc/nftables.conf',
+        default => '/etc/sysconfig/nftables.conf',
+      }
+      $nft_path = $facts['os']['family'] ? {
+        'Archlinux' => '/usr/bin/nft',
+        default => '/usr/sbin/nft',
       }
       # nftables cannot be started in docker so replace service with a validation only.
       systemd::dropin_file{"zzz_docker_nft.conf":
@@ -81,9 +81,9 @@ describe 'nftables class' do
         content => [
           "[Service]",
           "ExecStart=",
-          "ExecStart=/sbin/nft -c -I /etc/nftables/puppet -f $config_path",
+          "ExecStart=${nft_path} -c -I /etc/nftables/puppet -f $config_path",
           "ExecReload=",
-          "ExecReload=/sbin/nft -c -I /etc/nftables/puppet -f $config_path",
+          "ExecReload=${nft_path} -c -I /etc/nftables/puppet -f $config_path",
           "",
           ].join("\n"),
         notify  => Service["nftables"],
@@ -106,13 +106,13 @@ describe 'nftables class' do
         inet_filter => false,
         nat => false,
       }
-      $config_path = case $facts['os']['family'] {
-        'Archlinux': {
-          '/etc/nftables.conf'
-        }
-        default: {
-          '/etc/sysconfig/nftables.conf'
-        }
+      $config_path = $facts['os']['family'] ? {
+        'Archlinux' => '/etc/nftables.conf',
+        default => '/etc/sysconfig/nftables.conf',
+      }
+      $nft_path = $facts['os']['family'] ? {
+        'Archlinux' => '/usr/bin/nft',
+        default => '/usr/sbin/nft',
       }
       # nftables cannot be started in docker so replace service with a validation only.
       systemd::dropin_file{"zzz_docker_nft.conf":
@@ -121,9 +121,9 @@ describe 'nftables class' do
         content => [
           "[Service]",
           "ExecStart=",
-          "ExecStart=/sbin/nft -c -I /etc/nftables/puppet -f $config_path",
+          "ExecStart=${nft_path} -c -I /etc/nftables/puppet -f $config_path",
           "ExecReload=",
-          "ExecReload=/sbin/nft -c -I /etc/nftables/puppet -f $config_path",
+          "ExecReload=${nft_path} -c -I /etc/nftables/puppet -f $config_path",
           "",
           ].join("\n"),
         notify  => Service["nftables"],
@@ -146,13 +146,13 @@ describe 'nftables class' do
         nat => true,
         nat_table_name => 'mycustomtablename',
       }
-      $config_path = case $facts['os']['family'] {
-        'Archlinux': {
-          '/etc/nftables.conf'
-        }
-        default: {
-          '/etc/sysconfig/nftables.conf'
-        }
+      $config_path = $facts['os']['family'] ? {
+        'Archlinux' => '/etc/nftables.conf',
+        default => '/etc/sysconfig/nftables.conf',
+      }
+      $nft_path = $facts['os']['family'] ? {
+        'Archlinux' => '/usr/bin/nft',
+        default => '/usr/sbin/nft',
       }
       # nftables cannot be started in docker so replace service with a validation only.
       systemd::dropin_file{"zzz_docker_nft.conf":
@@ -161,9 +161,9 @@ describe 'nftables class' do
         content => [
           "[Service]",
           "ExecStart=",
-          "ExecStart=/sbin/nft -c -I /etc/nftables/puppet -f $config_path",
+          "ExecStart=${nft_path} -c -I /etc/nftables/puppet -f $config_path",
           "ExecReload=",
-          "ExecReload=/sbin/nft -c -I /etc/nftables/puppet -f $config_path",
+          "ExecReload=${nft_path} -c -I /etc/nftables/puppet -f $config_path",
           "",
           ].join("\n"),
         notify  => Service["nftables"],
