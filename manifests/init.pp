@@ -93,6 +93,9 @@
 # @param nft_path
 #   Path to the nft binary
 #
+# @param echo
+#   Path to the echo binary
+#
 class nftables (
   Boolean $in_ssh = true,
   Boolean $in_icmp = true,
@@ -114,6 +117,7 @@ class nftables (
   Variant[Boolean[false], Pattern[/icmp(v6|x)? type .+|tcp reset/]] $reject_with = 'icmpx type port-unreachable',
   Variant[Boolean[false], Enum['mask']] $firewalld_enable = 'mask',
   Optional[Array[Pattern[/^(ip|ip6|inet)-[-a-zA-Z0-9_]+$/],1]] $noflush_tables = undef,
+  Stdlib::Unixpath $echo = '/usr/bin/echo',
   Stdlib::Unixpath $configuration_path,
   Stdlib::Unixpath $nft_path,
 ) {
@@ -149,7 +153,7 @@ class nftables (
   } ~> exec {
     'nft validate':
       refreshonly => true,
-      command     => "${nft_path} -I /etc/nftables/puppet-preflight -c -f /etc/nftables/puppet-preflight.nft || ( /usr/bin/echo '#CONFIG BROKEN' >> /etc/nftables/puppet-preflight.nft && /bin/false)";
+      command     => "${nft_path} -I /etc/nftables/puppet-preflight -c -f /etc/nftables/puppet-preflight.nft || ( ${echo} '#CONFIG BROKEN' >> /etc/nftables/puppet-preflight.nft && /bin/false)";
   } -> file {
     default:
       owner => 'root',
