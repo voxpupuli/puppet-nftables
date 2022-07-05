@@ -83,10 +83,8 @@ describe 'nftables' do
       it {
         expect(subject).to contain_service('nftables').with(
           ensure: 'running',
-          enable: true,
-          hasrestart: true,
-          restart: %r{/usr/bin/systemctl reload nft.*}
-        )
+          enable: true
+        ).without('hasrestart').without('restart')
       }
 
       if os_facts[:os]['family'] == 'Archlinux'

@@ -174,10 +174,8 @@ class nftables (
       force   => true,
       recurse => true;
   } ~> service { 'nftables':
-    ensure     => running,
-    enable     => true,
-    hasrestart => true,
-    restart    => '/usr/bin/systemctl reload nftables',
+    ensure => running,
+    enable => true,
   }
 
   systemd::dropin_file { 'puppet_nft.conf':
