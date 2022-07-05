@@ -177,7 +177,7 @@ class nftables (
     ensure     => running,
     enable     => true,
     hasrestart => true,
-    restart    => '/usr/bin/systemctl reload nftables',
+    restart    => 'PATH=/usr/bin:/bin systemctl reload nftables',
   }
 
   systemd::dropin_file { 'puppet_nft.conf':
