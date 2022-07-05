@@ -90,6 +90,9 @@
 #   The absolute path to the principal nftables configuration file. The default
 #   varies depending on the system, and is set in the module's data.
 #
+# @param nft_path
+#   Path to the nft binary
+#
 class nftables (
   Boolean $in_ssh = true,
   Boolean $in_icmp = true,
@@ -112,6 +115,7 @@ class nftables (
   Variant[Boolean[false], Enum['mask']] $firewalld_enable = 'mask',
   Optional[Array[Pattern[/^(ip|ip6|inet)-[-a-zA-Z0-9_]+$/],1]] $noflush_tables = undef,
   Stdlib::Unixpath $configuration_path,
+  Stdlib::Unixpath $nft_path,
 ) {
   package { 'nftables':
     ensure => installed,
@@ -145,7 +149,7 @@ class nftables (
   } ~> exec {
     'nft validate':
       refreshonly => true,
-      command     => '/usr/sbin/nft -I /etc/nftables/puppet-preflight -c -f /etc/nftables/puppet-preflight.nft || ( /usr/bin/echo "#CONFIG BROKEN" >> /etc/nftables/puppet-preflight.nft && /bin/false)';
+      command     => "${nft_path} -I /etc/nftables/puppet-preflight -c -f /etc/nftables/puppet-preflight.nft || ( /usr/bin/echo '#CONFIG BROKEN' >> /etc/nftables/puppet-preflight.nft && /bin/false)";
   } -> file {
     default:
       owner => 'root',
@@ -177,6 +181,7 @@ class nftables (
     unit    => 'nftables.service',
     content => epp('nftables/systemd/puppet_nft.conf.epp', {
         'configuration_path' => $configuration_path,
+        'nft_path'           => $nft_path,
     }),
     notify  => Service['nftables'],
   }

@@ -1,0 +1,2 @@
+---
+nftables::nft_path: /usr/sbin/nft
