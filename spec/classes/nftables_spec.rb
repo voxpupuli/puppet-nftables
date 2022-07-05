@@ -85,7 +85,7 @@ describe 'nftables' do
           ensure: 'running',
           enable: true,
           hasrestart: true,
-          restart: %r{/usr/bin/systemctl reload nft.*}
+          restart: %r{PATH=/usr/bin:/bin systemctl reload nft.*}
         )
       }
 
