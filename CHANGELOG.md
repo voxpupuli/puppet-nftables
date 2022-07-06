@@ -4,7 +4,18 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v2.2.1](https://github.com/voxpupuli/puppet-nftables/tree/v2.2.1) (2022-04-27)
+## [v2.3.0](https://github.com/voxpupuli/puppet-nftables/tree/v2.3.0) (2022-07-06)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v2.2.1...v2.3.0)
+
+**Implemented enhancements:**
+
+- systemctl: Use relative path [\#136](https://github.com/voxpupuli/puppet-nftables/pull/136) ([bastelfreak](https://github.com/bastelfreak))
+- Add Debian support [\#134](https://github.com/voxpupuli/puppet-nftables/pull/134) ([bastelfreak](https://github.com/bastelfreak))
+- make path to echo configureable [\#133](https://github.com/voxpupuli/puppet-nftables/pull/133) ([bastelfreak](https://github.com/bastelfreak))
+- make path to `nft` binary configureable [\#132](https://github.com/voxpupuli/puppet-nftables/pull/132) ([bastelfreak](https://github.com/bastelfreak))
+
+## [v2.2.1](https://github.com/voxpupuli/puppet-nftables/tree/v2.2.1) (2022-05-02)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v2.2.0...v2.2.1)
 
