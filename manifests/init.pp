@@ -117,7 +117,7 @@ class nftables (
   Variant[Boolean[false], Pattern[/icmp(v6|x)? type .+|tcp reset/]] $reject_with = 'icmpx type port-unreachable',
   Variant[Boolean[false], Enum['mask']] $firewalld_enable = 'mask',
   Optional[Array[Pattern[/^(ip|ip6|inet)-[-a-zA-Z0-9_]+$/],1]] $noflush_tables = undef,
-  Stdlib::Unixpath $echo = '/usr/bin/echo',
+  Stdlib::Unixpath $echo,
   Stdlib::Unixpath $configuration_path,
   Stdlib::Unixpath $nft_path,
 ) {

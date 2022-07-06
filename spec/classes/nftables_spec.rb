@@ -15,6 +15,12 @@ describe 'nftables' do
                  else
                    '/usr/sbin/nft'
                  end
+      nft_config = case os_facts[:os]['family']
+                   when 'RedHat'
+                     '/etc/sysconfig/nftables.conf'
+                   else
+                     '/etc/nftables.conf'
+                   end
 
       it { is_expected.to compile.with_all_deps }
 
@@ -89,12 +95,14 @@ describe 'nftables' do
         )
       }
 
-      if os_facts[:os]['family'] == 'Archlinux'
-        it {
-          expect(subject).to contain_systemd__dropin_file('puppet_nft.conf').with(
-            content: %r{^ExecReload=#{nft_path} -I /etc/nftables/puppet -f /etc/nftables.conf$}
-          )
-        }
+      it {
+        expect(subject).to contain_systemd__dropin_file('puppet_nft.conf').with(
+          content: %r{^ExecReload=#{nft_path} -I /etc/nftables/puppet -f #{nft_config}$}
+        )
+      }
+
+      case os_facts[:os]['family']
+      when 'Archlinux'
 
         it {
           expect(subject).to contain_service('firewalld').with(
@@ -102,13 +110,14 @@ describe 'nftables' do
             enable: false
           )
         }
-      else
+      when 'Debian'
         it {
-          expect(subject).to contain_systemd__dropin_file('puppet_nft.conf').with(
-            content: %r{^ExecReload=#{nft_path} -I /etc/nftables/puppet -f /etc/sysconfig/nftables.conf$}
+          is_expected.to contain_service('firewalld').with(
+            ensure: 'stopped',
+            enable: false
           )
         }
-
+      else
         it {
           expect(subject).to contain_service('firewalld').with(
             ensure: 'stopped',

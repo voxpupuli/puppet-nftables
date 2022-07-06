@@ -1,2 +1,3 @@
 ---
 nftables::nft_path: /usr/sbin/nft
+nftables::echo: /usr/bin/echo
