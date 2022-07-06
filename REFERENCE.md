@@ -145,6 +145,7 @@ The following parameters are available in the `nftables` class:
 * [`rules`](#rules)
 * [`configuration_path`](#configuration_path)
 * [`nft_path`](#nft_path)
+* [`echo`](#echo)
 
 ##### <a name="out_all"></a>`out_all`
 
@@ -333,6 +334,12 @@ varies depending on the system, and is set in the module's data.
 Data type: `Stdlib::Unixpath`
 
 Path to the nft binary
+
+##### <a name="echo"></a>`echo`
+
+Data type: `Stdlib::Unixpath`
+
+Path to the echo binary
 
 ### <a name="nftablesbridges"></a>`nftables::bridges`
 
