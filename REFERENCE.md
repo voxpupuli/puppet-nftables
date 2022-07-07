@@ -60,6 +60,7 @@ and Manager Daemons (MGR).
 * [`nftables::rules::out::tor`](#nftablesrulesouttor): manage out tor
 * [`nftables::rules::out::wireguard`](#nftablesrulesoutwireguard): manage out wireguard
 * [`nftables::rules::puppet`](#nftablesrulespuppet): manage in puppet
+* [`nftables::rules::pxp_agent`](#nftablesrulespxp_agent): manage in pxp-agent
 * [`nftables::rules::qemu`](#nftablesrulesqemu): Bridged network configuration for qemu/libvirt
 * [`nftables::rules::samba`](#nftablesrulessamba): manage Samba, the suite to allow Windows file sharing on Linux resources.
 * [`nftables::rules::smtp`](#nftablesrulessmtp): manage in smtp
@@ -883,6 +884,24 @@ Data type: `Array[Integer,1]`
 puppet server ports
 
 Default value: `[8140]`
+
+### <a name="nftablesrulespxp_agent"></a>`nftables::rules::pxp_agent`
+
+manage in pxp-agent
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::pxp_agent` class:
+
+* [`ports`](#ports)
+
+##### <a name="ports"></a>`ports`
+
+Data type: `Array[Stdlib::Port]`
+
+pxp server ports
+
+Default value: `[8142]`
 
 ### <a name="nftablesrulesqemu"></a>`nftables::rules::qemu`
 

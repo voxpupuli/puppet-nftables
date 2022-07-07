@@ -28,6 +28,7 @@ describe 'nftables class' do
       include nftables::rules::ospf
       include nftables::rules::http
       include nftables::rules::puppet
+      include nftables::rules::pxp_agent
       include nftables::rules::icinga2
       include nftables::rules::tor
       include nftables::rules::ospf3
