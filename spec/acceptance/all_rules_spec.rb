@@ -57,6 +57,9 @@ describe 'nftables class' do
       class{'nftables::rules::out::puppet':
         puppetserver => '127.0.0.1',
       }
+      class{'nftables::rules::out::pxp_agent':
+        broker => '127.0.0.1',
+      }
       include nftables::rules::out::all
       include nftables::rules::out::tor
       include nftables::rules::out::ospf3
