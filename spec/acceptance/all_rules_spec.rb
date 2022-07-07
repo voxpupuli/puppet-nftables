@@ -28,6 +28,7 @@ describe 'nftables class' do
       include nftables::rules::ospf
       include nftables::rules::http
       include nftables::rules::puppet
+      include nftables::rules::pxp_agent
       include nftables::rules::icinga2
       include nftables::rules::tor
       include nftables::rules::ospf3
@@ -55,6 +56,9 @@ describe 'nftables class' do
       include nftables::rules::out::ssh::remove
       class{'nftables::rules::out::puppet':
         puppetserver => '127.0.0.1',
+      }
+      class{'nftables::rules::out::pxp_agent':
+        broker => '127.0.0.1',
       }
       include nftables::rules::out::all
       include nftables::rules::out::tor

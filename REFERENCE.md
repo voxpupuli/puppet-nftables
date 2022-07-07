@@ -53,6 +53,7 @@ and Manager Daemons (MGR).
 * [`nftables::rules::out::pop3`](#nftablesrulesoutpop3): allow outgoing pop3
 * [`nftables::rules::out::postgres`](#nftablesrulesoutpostgres): manage out postgres
 * [`nftables::rules::out::puppet`](#nftablesrulesoutpuppet): manage outgoing puppet
+* [`nftables::rules::out::pxp_agent`](#nftablesrulesoutpxp_agent): manage outgoing pxp-agent
 * [`nftables::rules::out::smtp`](#nftablesrulesoutsmtp): allow outgoing smtp
 * [`nftables::rules::out::smtp_client`](#nftablesrulesoutsmtp_client): allow outgoing smtp client
 * [`nftables::rules::out::ssh`](#nftablesrulesoutssh): manage out ssh
@@ -60,6 +61,7 @@ and Manager Daemons (MGR).
 * [`nftables::rules::out::tor`](#nftablesrulesouttor): manage out tor
 * [`nftables::rules::out::wireguard`](#nftablesrulesoutwireguard): manage out wireguard
 * [`nftables::rules::puppet`](#nftablesrulespuppet): manage in puppet
+* [`nftables::rules::pxp_agent`](#nftablesrulespxp_agent): manage in pxp-agent
 * [`nftables::rules::qemu`](#nftablesrulesqemu): Bridged network configuration for qemu/libvirt
 * [`nftables::rules::samba`](#nftablesrulessamba): manage Samba, the suite to allow Windows file sharing on Linux resources.
 * [`nftables::rules::smtp`](#nftablesrulessmtp): manage in smtp
@@ -828,6 +830,35 @@ puppetserver port
 
 Default value: `8140`
 
+### <a name="nftablesrulesoutpxp_agent"></a>`nftables::rules::out::pxp_agent`
+
+manage outgoing pxp-agent
+
+* **See also**
+  * also
+    * take a look at nftables::rules::out::puppet, because the PXP agent also connects to a Puppetserver
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::out::pxp_agent` class:
+
+* [`broker`](#broker)
+* [`broker_port`](#broker_port)
+
+##### <a name="broker"></a>`broker`
+
+Data type: `Variant[Stdlib::IP::Address,Array[Stdlib::IP::Address,1]]`
+
+PXP broker IP(s)
+
+##### <a name="broker_port"></a>`broker_port`
+
+Data type: `Stdlib::Port`
+
+PXP broker port
+
+Default value: `8142`
+
 ### <a name="nftablesrulesoutsmtp"></a>`nftables::rules::out::smtp`
 
 allow outgoing smtp
@@ -883,6 +914,24 @@ Data type: `Array[Integer,1]`
 puppet server ports
 
 Default value: `[8140]`
+
+### <a name="nftablesrulespxp_agent"></a>`nftables::rules::pxp_agent`
+
+manage in pxp-agent
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::pxp_agent` class:
+
+* [`ports`](#ports)
+
+##### <a name="ports"></a>`ports`
+
+Data type: `Array[Stdlib::Port]`
+
+pxp server ports
+
+Default value: `[8142]`
 
 ### <a name="nftablesrulesqemu"></a>`nftables::rules::qemu`
 
