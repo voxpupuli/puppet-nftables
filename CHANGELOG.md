@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.4.0](https://github.com/voxpupuli/puppet-nftables/tree/v2.4.0) (2022-07-11)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v2.3.0...v2.4.0)
+
+**Implemented enhancements:**
+
+- Add rule to allow outgoing whois queries [\#140](https://github.com/voxpupuli/puppet-nftables/pull/140) ([bastelfreak](https://github.com/bastelfreak))
+- chrony: Allow filtering for outgoing NTP servers [\#139](https://github.com/voxpupuli/puppet-nftables/pull/139) ([bastelfreak](https://github.com/bastelfreak))
+- Add class for pxp-agent firewalling [\#138](https://github.com/voxpupuli/puppet-nftables/pull/138) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v2.3.0](https://github.com/voxpupuli/puppet-nftables/tree/v2.3.0) (2022-07-06)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v2.2.1...v2.3.0)
