@@ -74,6 +74,7 @@ describe 'nftables class' do
       include nftables::rules::out::pop3
       include nftables::rules::out::chrony
       include nftables::rules::out::wireguard
+      include nftables::rules::out::whois
       include nftables::rules::wireguard
       include nftables::services::dhcpv6_client
       include nftables::services::openafs_client
