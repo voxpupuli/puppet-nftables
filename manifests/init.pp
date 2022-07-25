@@ -116,7 +116,7 @@ class nftables (
   Variant[Boolean[false], String] $log_limit = '3/minute burst 5 packets',
   Variant[Boolean[false], Pattern[/icmp(v6|x)? type .+|tcp reset/]] $reject_with = 'icmpx type port-unreachable',
   Variant[Boolean[false], Enum['mask']] $firewalld_enable = 'mask',
-  Optional[Array[Pattern[/^(ip|ip6|inet)-[-a-zA-Z0-9_]+$/],1]] $noflush_tables = undef,
+  Optional[Array[Pattern[/^(ip|ip6|inet|arp|bridge|netdev)-[-a-zA-Z0-9_]+$/],1]] $noflush_tables = undef,
   Stdlib::Unixpath $echo,
   Stdlib::Unixpath $configuration_path,
   Stdlib::Unixpath $nft_path,
