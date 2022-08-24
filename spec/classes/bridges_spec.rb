@@ -30,8 +30,6 @@ describe 'nftables' do
           )
         }
 
-        it { is_expected.to contain_nftables__rule('default_fwd-bridge_br1_2_br1_2') }
-
         it {
           expect(subject).to contain_nftables__rule('default_fwd-bridge_br1_2_br1_2').with(
             order: '08',
