@@ -247,57 +247,71 @@ describe 'nftables' do
         it { is_expected.to have_nftables__set_resource_count(0) }
       end
 
-      context 'with with noflush_tables parameter' do
-        let(:params) do
-          {
-            noflush_tables: ['inet-f2b-table'],
-          }
-        end
-
-        context 'with no nftables fact' do
-          it { is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').with_content(%r{^flush ruleset$}) }
-        end
-
-        context 'with nftables fact matching' do
-          let(:facts) do
-            super().merge(nftables: { tables: %w[inet-abc inet-f2b-table] })
+      %w[ip ip6 inet arp bridge netdev].each do |family|
+        context "with noflush_tables parameter set to valid family #{family}" do
+          let(:params) do
+            {
+              noflush_tables: ["#{family}-f2b-table"],
+            }
           end
 
-          it {
-            expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').
-              with_content(%r{^table inet abc \{\}$})
-          }
-
-          it {
-            expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').
-              with_content(%r{^flush table inet abc$})
-          }
-        end
-
-        context 'with nftables fact not matching' do
-          let(:facts) do
-            super().merge(nftables: { tables: %w[inet-abc inet-ijk] })
+          context 'with no nftables fact' do
+            it { is_expected.to contain_file('/etc/nftables/puppet-preflight.nft').with_content(%r{^flush ruleset$}) }
           end
 
-          it {
-            expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').
-              with_content(%r{^table inet abc \{\}$})
-          }
+          context 'with nftables fact matching' do
+            let(:facts) do
+              super().merge(nftables: { tables: %W[#{family}-abc #{family}-f2b-table] })
+            end
 
-          it {
-            expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').
-              with_content(%r{^flush table inet abc$})
-          }
+            it {
+              expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').
+                with_content(%r{^table #{family} abc \{\}$})
+            }
 
-          it {
-            expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').
-              with_content(%r{^table inet ijk \{\}$})
-          }
+            it {
+              expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').
+                with_content(%r{^flush table #{family} abc$})
+            }
+          end
 
-          it {
-            expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').
-              with_content(%r{^flush table inet ijk$})
-          }
+          context 'with nftables fact not matching' do
+            let(:facts) do
+              super().merge(nftables: { tables: %W[#{family}-abc #{family}-ijk] })
+            end
+
+            it {
+              expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').
+                with_content(%r{^table #{family} abc \{\}$})
+            }
+
+            it {
+              expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').
+                with_content(%r{^flush table #{family} abc$})
+            }
+
+            it {
+              expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').
+                with_content(%r{^table #{family} ijk \{\}$})
+            }
+
+            it {
+              expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').
+                with_content(%r{^flush table #{family} ijk$})
+            }
+          end
+        end
+      end
+
+      %w[it ip7 inter arpa brid netdevs].each do |family|
+        context "with noflush_tables parameter set to invalid family #{family}" do
+          let(:params) do
+            {
+              noflush_tables: ["#{family}-f2b-table"],
+            }
+          end
+
+          it { is_expected.not_to compile }
         end
       end
     end
