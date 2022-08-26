@@ -310,7 +310,7 @@ Default value: `'mask'`
 
 ##### <a name="noflush_tables"></a>`noflush_tables`
 
-Data type: `Optional[Array[Pattern[/^(ip|ip6|inet)-[-a-zA-Z0-9_]+$/],1]]`
+Data type: `Optional[Array[Pattern[/^(ip|ip6|inet|arp|bridge|netdev)-[-a-zA-Z0-9_]+$/],1]]`
 
 If specified only other existings tables will be flushed.
 If left unset all tables will be flushed via a `flush ruleset`
