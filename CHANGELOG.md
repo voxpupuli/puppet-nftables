@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.5.0](https://github.com/voxpupuli/puppet-nftables/tree/v2.5.0) (2022-08-26)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v2.4.0...v2.5.0)
+
+**Implemented enhancements:**
+
+- Add all nftables families as a valid noflush pattern [\#142](https://github.com/voxpupuli/puppet-nftables/pull/142) ([luisfdez](https://github.com/luisfdez))
+
+**Fixed bugs:**
+
+- Properly escape bridge in rulename [\#144](https://github.com/voxpupuli/puppet-nftables/pull/144) ([duritong](https://github.com/duritong))
+
+**Closed issues:**
+
+- nftables::bridges creates invalid rule names when bridge devices have multiple IP addresses [\#143](https://github.com/voxpupuli/puppet-nftables/issues/143)
+
 ## [v2.4.0](https://github.com/voxpupuli/puppet-nftables/tree/v2.4.0) (2022-07-11)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v2.3.0...v2.4.0)
