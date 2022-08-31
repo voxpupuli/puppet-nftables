@@ -78,6 +78,7 @@ and Manager Daemons (MGR).
 
 * [`nftables::chain`](#nftableschain): manage a chain
 * [`nftables::config`](#nftablesconfig): manage a config snippet
+* [`nftables::file`](#nftablesfile): Insert a file into the nftables configuration
 * [`nftables::rule`](#nftablesrule): Provides an interface to create a firewall rule
 * [`nftables::rules::dnat4`](#nftablesrulesdnat4): manage a ipv4 dnat rule
 * [`nftables::rules::masquerade`](#nftablesrulesmasquerade): masquerade all outgoing traffic
@@ -1232,6 +1233,65 @@ Data type: `String`
 
 
 Default value: `'custom-'`
+
+### <a name="nftablesfile"></a>`nftables::file`
+
+Insert a file into the nftables configuration
+
+#### Examples
+
+##### Include a file that includes other files
+
+```puppet
+nftables::file{'geoip':
+  content => @(EOT)
+    include "/var/local/geoipsets/dbip/nftset/ipv4/*.ipv4"
+    include "/var/local/geoipsets/dbip/nftset/ipv6/*.ipv6"
+    |EOT,
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `nftables::file` defined type:
+
+* [`label`](#label)
+* [`content`](#content)
+* [`source`](#source)
+* [`prefix`](#prefix)
+
+##### <a name="label"></a>`label`
+
+Data type: `String[1]`
+
+Unique name to include in filename.
+
+Default value: `$title`
+
+##### <a name="content"></a>`content`
+
+Data type: `Optional[String]`
+
+The content to place in the file.
+
+Default value: ``undef``
+
+##### <a name="source"></a>`source`
+
+Data type: `Optional[Variant[String,Array[String,1]]]`
+
+A source to obtain the file content from.
+
+Default value: ``undef``
+
+##### <a name="prefix"></a>`prefix`
+
+Data type: `String`
+
+Prefix of file name to be created, if left as `file-` it will be
+auto included in the main nft configuration
+
+Default value: `'file-'`
 
 ### <a name="nftablesrule"></a>`nftables::rule`
 

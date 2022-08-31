@@ -46,6 +46,12 @@ describe 'nftables' do
       }
 
       it {
+        expect(subject).to contain_file('/etc/nftables/puppet.nft').with(
+          content: %r{^include "file-\*\.nft"$}
+        )
+      }
+
+      it {
         expect(subject).to contain_file('/etc/nftables/puppet').with(
           ensure: 'directory',
           owner: 'root',
@@ -64,6 +70,12 @@ describe 'nftables' do
           group: 'root',
           mode: '0640',
           content: %r{flush ruleset}
+        )
+      }
+
+      it {
+        expect(subject).to contain_file('/etc/nftables/puppet-preflight.nft').with(
+          content: %r{^include "file-\*\.nft"$}
         )
       }
 

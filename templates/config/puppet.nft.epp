@@ -21,6 +21,7 @@ if $noflush and $facts['nftables'] and $facts['nftables']['tables'] {
 # drop any existing nftables ruleset, ensure tables are initialized
 <%= $_flush_command.join("\n") %>
 
+include "file-*.nft"
 include "custom-*.nft"
 <% if $inet_filter { -%>
 include "inet-filter.nft"
