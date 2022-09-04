@@ -57,14 +57,7 @@ class nftables::inet_filter inherits nftables {
     }
   }
   if $nftables::in_out_conntrack {
-    nftables::rule {
-      'INPUT-accept_established_related':
-        order   => '05',
-        content => 'ct state established,related accept';
-      'INPUT-drop_invalid':
-        order   => '06',
-        content => 'ct state invalid drop';
-    }
+    include nftables::inet_filter::in_out_conntrack
   }
 
   # inet-filter-chain-OUTPUT
@@ -93,14 +86,7 @@ class nftables::inet_filter inherits nftables {
     }
   }
   if $nftables::in_out_conntrack {
-    nftables::rule {
-      'OUTPUT-accept_established_related':
-        order   => '05',
-        content => 'ct state established,related accept';
-      'OUTPUT-drop_invalid':
-        order   => '06',
-        content => 'ct state invalid drop';
-    }
+    include nftables::inet_filter::in_out_conntrack
   }
 
   # inet-filter-chain-FORWARD
@@ -126,14 +112,7 @@ class nftables::inet_filter inherits nftables {
     }
   }
   if $nftables::fwd_conntrack {
-    nftables::rule {
-      'FORWARD-accept_established_related':
-        order   => '05',
-        content => 'ct state established,related accept';
-      'FORWARD-drop_invalid':
-        order   => '06',
-        content => 'ct state invalid drop';
-    }
+    include nftables::inet_filter::fwd_conntrack
   }
 
   # basic outgoing rules
