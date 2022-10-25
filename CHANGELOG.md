@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.6.0](https://github.com/voxpupuli/puppet-nftables/tree/v2.6.0) (2022-10-25)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v2.5.0...v2.6.0)
+
+**Implemented enhancements:**
+
+- Add class for outgoing HKP firewalling [\#153](https://github.com/voxpupuli/puppet-nftables/pull/153) ([bastelfreak](https://github.com/bastelfreak))
+- Add Ubuntu support [\#152](https://github.com/voxpupuli/puppet-nftables/pull/152) ([bastelfreak](https://github.com/bastelfreak))
+- split conntrack management into dedicated classes  [\#148](https://github.com/voxpupuli/puppet-nftables/pull/148) ([duritong](https://github.com/duritong))
+- New nftables::file type to include raw file [\#147](https://github.com/voxpupuli/puppet-nftables/pull/147) ([traylenator](https://github.com/traylenator))
+
+**Closed issues:**
+
+- Add ability to include completely raw files [\#146](https://github.com/voxpupuli/puppet-nftables/issues/146)
+- Add support for Debian [\#65](https://github.com/voxpupuli/puppet-nftables/issues/65)
+
 ## [v2.5.0](https://github.com/voxpupuli/puppet-nftables/tree/v2.5.0) (2022-08-26)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v2.4.0...v2.5.0)
