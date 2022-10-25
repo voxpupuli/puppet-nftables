@@ -54,6 +54,7 @@ describe 'nftables class' do
       include nftables::rules::out::openafs_client
       include nftables::rules::out::http
       include nftables::rules::out::ssh::remove
+      include nftables::rules::out::hkp
       class{'nftables::rules::out::puppet':
         puppetserver => '127.0.0.1',
       }

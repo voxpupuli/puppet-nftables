@@ -9,6 +9,8 @@
 * [`nftables`](#nftables): Configure nftables
 * [`nftables::bridges`](#nftablesbridges): allow forwarding traffic on bridges
 * [`nftables::inet_filter`](#nftablesinet_filter): manage basic chains in table inet filter
+* [`nftables::inet_filter::fwd_conntrack`](#nftablesinet_filterfwd_conntrack): enable conntrack for fwd
+* [`nftables::inet_filter::in_out_conntrack`](#nftablesinet_filterin_out_conntrack): manage input & output conntrack
 * [`nftables::ip_nat`](#nftablesip_nat): manage basic chains in table ip nat
 * [`nftables::rules::activemq`](#nftablesrulesactivemq): Provides input rules for Apache ActiveMQ
 * [`nftables::rules::afs3_callback`](#nftablesrulesafs3_callback): Open call back port for AFS clients
@@ -36,6 +38,7 @@ and Manager Daemons (MGR).
 * [`nftables::rules::out::dhcp`](#nftablesrulesoutdhcp): manage out dhcp
 * [`nftables::rules::out::dhcpv6_client`](#nftablesrulesoutdhcpv6_client): Allow DHCPv6 requests out of a host
 * [`nftables::rules::out::dns`](#nftablesrulesoutdns): manage out dns
+* [`nftables::rules::out::hkp`](#nftablesrulesouthkp): allow outgoing hkp connections to gpg keyservers
 * [`nftables::rules::out::http`](#nftablesrulesouthttp): manage out http
 * [`nftables::rules::out::https`](#nftablesrulesouthttps): manage out https
 * [`nftables::rules::out::icmp`](#nftablesrulesouticmp): control outbound icmp packages
@@ -376,6 +379,14 @@ Default value: `/^br.+/`
 
 manage basic chains in table inet filter
 
+### <a name="nftablesinet_filterfwd_conntrack"></a>`nftables::inet_filter::fwd_conntrack`
+
+enable conntrack for fwd
+
+### <a name="nftablesinet_filterin_out_conntrack"></a>`nftables::inet_filter::in_out_conntrack`
+
+manage input & output conntrack
+
 ### <a name="nftablesip_nat"></a>`nftables::ip_nat`
 
 manage basic chains in table ip nat
@@ -715,6 +726,10 @@ Data type: `Optional[Variant[String,Array[String,1]]]`
 specify dns_server name
 
 Default value: ``undef``
+
+### <a name="nftablesrulesouthkp"></a>`nftables::rules::out::hkp`
+
+allow outgoing hkp connections to gpg keyservers
 
 ### <a name="nftablesrulesouthttp"></a>`nftables::rules::out::http`
 
