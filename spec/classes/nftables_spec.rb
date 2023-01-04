@@ -22,6 +22,13 @@ describe 'nftables' do
                      '/etc/nftables.conf'
                    end
 
+      nft_mode = case os_facts[:os]['family']
+                 when 'RedHat'
+                   '0600'
+                 else
+                   '0640'
+                 end
+
       it { is_expected.to compile.with_all_deps }
 
       it { is_expected.to contain_package('nftables') }
@@ -31,7 +38,7 @@ describe 'nftables' do
           ensure: 'directory',
           owner: 'root',
           group: 'root',
-          mode: '0750'
+          mode: nft_mode
         )
       }
 
@@ -40,7 +47,7 @@ describe 'nftables' do
           ensure: 'file',
           owner: 'root',
           group: 'root',
-          mode: '0640',
+          mode: nft_mode,
           content: %r{flush ruleset}
         )
       }
@@ -56,7 +63,7 @@ describe 'nftables' do
           ensure: 'directory',
           owner: 'root',
           group: 'root',
-          mode: '0750',
+          mode: nft_mode,
           purge: true,
           force: true,
           recurse: true
@@ -68,7 +75,7 @@ describe 'nftables' do
           ensure: 'file',
           owner: 'root',
           group: 'root',
-          mode: '0640',
+          mode: nft_mode,
           content: %r{flush ruleset}
         )
       }
@@ -84,7 +91,7 @@ describe 'nftables' do
           ensure: 'directory',
           owner: 'root',
           group: 'root',
-          mode: '0750',
+          mode: nft_mode,
           purge: true,
           force: true,
           recurse: true

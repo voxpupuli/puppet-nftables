@@ -15,7 +15,7 @@ define nftables::chain (
       path           => "/etc/nftables/puppet-preflight/${table}-chain-${chain}.nft",
       owner          => root,
       group          => root,
-      mode           => '0640',
+      mode           => $nftables::default_config_mode,
       ensure_newline => true,
       require        => Package['nftables'],
   } ~> Exec['nft validate'] -> file {
@@ -24,7 +24,7 @@ define nftables::chain (
       source => "/etc/nftables/puppet-preflight/${table}-chain-${chain}.nft",
       owner  => root,
       group  => root,
-      mode   => '0640',
+      mode   => $nftables::default_config_mode,
   } ~> Service['nftables']
 
   concat::fragment {

@@ -96,6 +96,10 @@
 # @param echo
 #   Path to the echo binary
 #
+# @param default_config_mode
+#   The default file & dir mode for configuration files and directories. The
+#   default varies depending on the system, and is set in the module's data.
+#
 class nftables (
   Boolean $in_ssh = true,
   Boolean $in_icmp = true,
@@ -120,6 +124,7 @@ class nftables (
   Stdlib::Unixpath $echo,
   Stdlib::Unixpath $configuration_path,
   Stdlib::Unixpath $nft_path,
+  Stdlib::Filemode $default_config_mode,
 ) {
   package { 'nftables':
     ensure => installed,
@@ -132,13 +137,13 @@ class nftables (
     default:
       owner => 'root',
       group => 'root',
-      mode  => '0640';
+      mode  => $default_config_mode;
     '/etc/nftables':
       ensure => directory,
-      mode   => '0750';
+      mode   => $default_config_mode;
     '/etc/nftables/puppet-preflight':
       ensure  => directory,
-      mode    => '0750',
+      mode    => $default_config_mode,
       purge   => true,
       force   => true,
       recurse => true;
@@ -158,7 +163,7 @@ class nftables (
     default:
       owner => 'root',
       group => 'root',
-      mode  => '0640';
+      mode  => $default_config_mode;
     '/etc/nftables/puppet.nft':
       ensure  => file,
       content => epp('nftables/config/puppet.nft.epp', {
@@ -169,7 +174,7 @@ class nftables (
       );
     '/etc/nftables/puppet':
       ensure  => directory,
-      mode    => '0750',
+      mode    => $default_config_mode,
       purge   => true,
       force   => true,
       recurse => true;

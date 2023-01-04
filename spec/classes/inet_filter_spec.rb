@@ -9,7 +9,12 @@ describe 'nftables' do
     context "on #{os}" do
       let(:facts) { os_facts }
 
-      it { is_expected.to compile }
+      nft_mode = case os_facts[:os]['family']
+                 when 'RedHat'
+                   '0600'
+                 else
+                   '0640'
+                 end
 
       it {
         expect(subject).to contain_concat('nftables-inet-filter').with(
@@ -17,7 +22,7 @@ describe 'nftables' do
           ensure: 'present',
           owner: 'root',
           group: 'root',
-          mode: '0640'
+          mode: nft_mode
         )
       }
 
@@ -50,7 +55,7 @@ describe 'nftables' do
             path: '/etc/nftables/puppet-preflight/inet-filter-chain-INPUT.nft',
             owner: 'root',
             group: 'root',
-            mode: '0640',
+            mode: nft_mode,
             ensure_newline: true
           )
         }
@@ -132,7 +137,7 @@ describe 'nftables' do
             path: '/etc/nftables/puppet-preflight/inet-filter-chain-default_in.nft',
             owner: 'root',
             group: 'root',
-            mode: '0640',
+            mode: nft_mode,
             ensure_newline: true
           )
         }
@@ -172,7 +177,7 @@ describe 'nftables' do
             path: '/etc/nftables/puppet-preflight/inet-filter-chain-OUTPUT.nft',
             owner: 'root',
             group: 'root',
-            mode: '0640',
+            mode: nft_mode,
             ensure_newline: true
           )
         }
@@ -254,7 +259,7 @@ describe 'nftables' do
             path: '/etc/nftables/puppet-preflight/inet-filter-chain-default_out.nft',
             owner: 'root',
             group: 'root',
-            mode: '0640',
+            mode: nft_mode,
             ensure_newline: true
           )
         }
@@ -326,7 +331,7 @@ describe 'nftables' do
             path: '/etc/nftables/puppet-preflight/inet-filter-chain-FORWARD.nft',
             owner: 'root',
             group: 'root',
-            mode: '0640',
+            mode: nft_mode,
             ensure_newline: true
           )
         }
@@ -404,7 +409,7 @@ describe 'nftables' do
             path: '/etc/nftables/puppet-preflight/inet-filter-chain-default_fwd.nft',
             owner: 'root',
             group: 'root',
-            mode: '0640',
+            mode: nft_mode,
             ensure_newline: true
           )
         }
@@ -432,7 +437,7 @@ describe 'nftables' do
             path: '/etc/nftables/puppet-preflight/inet-filter-chain-global.nft',
             owner: 'root',
             group: 'root',
-            mode: '0640',
+            mode: nft_mode,
             ensure_newline: true
           )
         }

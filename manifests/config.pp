@@ -19,14 +19,14 @@ define nftables::config (
       ensure_newline => true,
       owner          => root,
       group          => root,
-      mode           => '0640',
+      mode           => $nftables::default_config_mode,
   } ~> Exec['nft validate'] -> file {
     "/etc/nftables/puppet/${prefix}${name}.nft":
       ensure => file,
       source => "/etc/nftables/puppet-preflight/${prefix}${name}.nft",
       owner  => root,
       group  => root,
-      mode   => '0640',
+      mode   => $nftables::default_config_mode,
   } ~> Service['nftables']
 
   $data = split($name, '-')
