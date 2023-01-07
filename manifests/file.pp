@@ -30,14 +30,14 @@ define nftables::file (
     ensure  => file,
     owner   => root,
     group   => root,
-    mode    => '0640',
+    mode    => $nftables::default_config_mode,
     content => $content,
     source  => $source,
   } ~> Exec['nft validate'] -> file { "/etc/nftables/puppet/${prefix}${label}.nft":
     ensure  => file,
     owner   => root,
     group   => root,
-    mode    => '0640',
+    mode    => $nftables::default_config_mode,
     content => $content,
     source  => $source,
   } ~> Service['nftables']

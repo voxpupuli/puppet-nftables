@@ -12,6 +12,13 @@ describe 'nftables::chain' do
         facts
       end
 
+      nft_mode = case facts[:os]['family']
+                 when 'RedHat'
+                   '0600'
+                 else
+                   '0640'
+                 end
+
       it { is_expected.to compile }
 
       it { is_expected.to contain_concat('nftables-inet-filter-chain-MYCHAIN').that_notifies('Exec[nft validate]') }
@@ -23,7 +30,7 @@ describe 'nftables::chain' do
           path: '/etc/nftables/puppet-preflight/inet-filter-chain-MYCHAIN.nft',
           owner: 'root',
           group: 'root',
-          mode: '0640',
+          mode: nft_mode,
           ensure_newline: true
         )
       }
@@ -32,7 +39,7 @@ describe 'nftables::chain' do
         expect(subject).to contain_file('/etc/nftables/puppet/inet-filter-chain-MYCHAIN.nft').with(
           ensure: 'file',
           source: '/etc/nftables/puppet-preflight/inet-filter-chain-MYCHAIN.nft',
-          mode: '0640',
+          mode: nft_mode,
           owner: 'root',
           group: 'root'
         )
@@ -66,7 +73,7 @@ describe 'nftables::chain' do
             path: '/etc/nftables/puppet-preflight/ip6-foo-chain-MYCHAIN.nft',
             owner: 'root',
             group: 'root',
-            mode: '0640',
+            mode: nft_mode,
             ensure_newline: true
           )
         }
@@ -75,7 +82,7 @@ describe 'nftables::chain' do
           expect(subject).to contain_file('/etc/nftables/puppet/ip6-foo-chain-MYCHAIN.nft').with(
             ensure: 'file',
             source: '/etc/nftables/puppet-preflight/ip6-foo-chain-MYCHAIN.nft',
-            mode: '0640',
+            mode: nft_mode,
             owner: 'root',
             group: 'root'
           )

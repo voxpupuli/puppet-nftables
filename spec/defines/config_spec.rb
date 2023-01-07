@@ -12,6 +12,13 @@ describe 'nftables::config' do
         facts
       end
 
+      nft_mode = case facts[:os]['family']
+                 when 'RedHat'
+                   '0600'
+                 else
+                   '0640'
+                 end
+
       context 'with source and content both unset' do
         it { is_expected.to compile }
         it { is_expected.to contain_concat('nftables-FOO-BAR') }
@@ -20,7 +27,7 @@ describe 'nftables::config' do
           expect(subject).to contain_concat('nftables-FOO-BAR').with(
             path: '/etc/nftables/puppet-preflight/custom-FOO-BAR.nft',
             ensure_newline: true,
-            mode: '0640'
+            mode: nft_mode
           )
         }
 
@@ -30,7 +37,7 @@ describe 'nftables::config' do
           expect(subject).to contain_file('/etc/nftables/puppet/custom-FOO-BAR.nft').with(
             ensure: 'file',
             source: '/etc/nftables/puppet-preflight/custom-FOO-BAR.nft',
-            mode: '0640'
+            mode: nft_mode
           )
         }
 
@@ -86,7 +93,7 @@ describe 'nftables::config' do
           expect(subject).to contain_concat('nftables-FOO-BAR').with(
             path: '/etc/nftables/puppet-preflight/custom-FOO-BAR.nft',
             ensure_newline: true,
-            mode: '0640'
+            mode: nft_mode
           )
         }
 
@@ -96,7 +103,7 @@ describe 'nftables::config' do
           expect(subject).to contain_file('/etc/nftables/puppet/custom-FOO-BAR.nft').with(
             ensure: 'file',
             source: '/etc/nftables/puppet-preflight/custom-FOO-BAR.nft',
-            mode: '0640'
+            mode: nft_mode
           )
         }
 

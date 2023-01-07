@@ -9,6 +9,13 @@ describe 'nftables' do
     context "on #{os}" do
       let(:facts) { os_facts }
 
+      nft_mode = case os_facts[:os]['family']
+                 when 'RedHat'
+                   '0600'
+                 else
+                   '0640'
+                 end
+
       context 'with snat4' do
         let(:pre_condition) do
           '
@@ -42,7 +49,7 @@ describe 'nftables' do
             path: '/etc/nftables/puppet-preflight/ip-nat-chain-POSTROUTING.nft',
             owner: 'root',
             group: 'root',
-            mode: '0640',
+            mode: nft_mode,
             ensure_newline: true
           )
         }

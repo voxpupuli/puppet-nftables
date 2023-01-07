@@ -9,6 +9,13 @@ describe 'nftables' do
     context "on #{os}" do
       let(:facts) { os_facts }
 
+      nft_mode = case os_facts[:os]['family']
+                 when 'RedHat'
+                   '0600'
+                 else
+                   '0640'
+                 end
+
       it { is_expected.to compile }
 
       it {
@@ -17,7 +24,7 @@ describe 'nftables' do
           ensure: 'present',
           owner: 'root',
           group: 'root',
-          mode: '0640'
+          mode: nft_mode
         )
       }
 
@@ -51,7 +58,7 @@ describe 'nftables' do
           ensure: 'present',
           owner: 'root',
           group: 'root',
-          mode: '0640'
+          mode: nft_mode
         )
       }
 
@@ -85,7 +92,7 @@ describe 'nftables' do
             path: '/etc/nftables/puppet-preflight/ip-nat-chain-PREROUTING.nft',
             owner: 'root',
             group: 'root',
-            mode: '0640',
+            mode: nft_mode,
             ensure_newline: true
           )
         }
@@ -129,7 +136,7 @@ describe 'nftables' do
             path: '/etc/nftables/puppet-preflight/ip-nat-chain-POSTROUTING.nft',
             owner: 'root',
             group: 'root',
-            mode: '0640',
+            mode: nft_mode,
             ensure_newline: true
           )
         }
@@ -173,7 +180,7 @@ describe 'nftables' do
             path: '/etc/nftables/puppet-preflight/ip6-nat-chain-PREROUTING6.nft',
             owner: 'root',
             group: 'root',
-            mode: '0640',
+            mode: nft_mode,
             ensure_newline: true
           )
         }
@@ -217,7 +224,7 @@ describe 'nftables' do
             path: '/etc/nftables/puppet-preflight/ip6-nat-chain-POSTROUTING6.nft',
             owner: 'root',
             group: 'root',
-            mode: '0640',
+            mode: nft_mode,
             ensure_newline: true
           )
         }
@@ -270,7 +277,7 @@ describe 'nftables' do
             ensure: 'present',
             owner: 'root',
             group: 'root',
-            mode: '0640'
+            mode: nft_mode
           )
         }
       end
