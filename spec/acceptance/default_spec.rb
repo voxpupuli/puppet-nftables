@@ -181,4 +181,57 @@ describe 'nftables class' do
       it { is_expected.to be_enabled }
     end
   end
+
+  context 'with only an empty netdev table' do
+    it 'rules validate okay' do
+      pp = <<-EOS
+      class{'nftables':
+        firewalld_enable => false,
+        inet_filter => false,
+        nat => false,
+      }
+      nftables::config {
+        'netdev-filter':
+          prefix => '',
+      }
+      nftables::chain {
+        [
+         'INPUT',
+         'OUTPUT',
+         'FORWARD',
+        ]:
+          table => 'netdev-filter';
+      }
+      $config_path = $facts['os']['family'] ? {
+        'Archlinux' => '/etc/nftables.conf',
+        'Debian' => '/etc/nftables.conf',
+        default => '/etc/sysconfig/nftables.conf',
+      }
+      $nft_path = $facts['os']['family'] ? {
+        'Archlinux' => '/usr/bin/nft',
+        default => '/usr/sbin/nft',
+      }
+      # nftables cannot be started in docker so replace service with a validation only.
+      systemd::dropin_file{"zzz_docker_nft.conf":
+        ensure  => present,
+        unit    => "nftables.service",
+        content => [
+          "[Service]",
+          "ExecStart=",
+          "ExecStart=${nft_path} -c -I /etc/nftables/puppet -f $config_path",
+          "ExecReload=",
+          "ExecReload=${nft_path} -c -I /etc/nftables/puppet -f $config_path",
+          "",
+          ].join("\n"),
+        notify  => Service["nftables"],
+      }
+      EOS
+      apply_manifest(pp, catch_failures: true)
+    end
+
+    describe service('nftables') do
+      it { is_expected.to be_running }
+      it { is_expected.to be_enabled }
+    end
+  end
 end
