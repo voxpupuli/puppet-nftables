@@ -37,17 +37,17 @@ by that module go into `files/config/puppet` and will also
 be purged if not managed anymore.
 
 The main configuration file includes dedicated files for
-the filter and nat tables, as well as processes any
+the filter and NAT tables, as well as processes any
 `custom-*.nft` files before hand.
 
 The filter and NAT tables both have all the master chains
-(INPUT, OUTPUT, FORWARD in case of filter and PREROUTING
-and POSTROUTING in case of NAT) configured, to which you
+(`INPUT`, `OUTPUT`, `FORWARD` in case of filter and `PREROUTING`
+and `POSTROUTING` in case of NAT) configured, to which you
 can hook in your own chains that can contain specific
 rules.
 
 All filter masterchains drop by default.
-By default we have a set of default_MASTERCHAIN chains
+By default we have a set of `default_MASTERCHAIN` chains
 configured to which you can easily add your custom rules.
 
 For specific needs you can add your own chain.
@@ -55,15 +55,14 @@ For specific needs you can add your own chain.
 There is a global chain, that defines the default behavior
 for all masterchains. This chain is empty by default.
 
-INPUT and OUTPUT to the loopback device is allowed by
+`INPUT` and `OUTPUT` to the loopback device is allowed by
 default, though you could restrict it later.
 
 On the other hand, if you don't want any of the default tables, chains
 and rules created by the module, you can set `nftables::inet_filter`
 and/or `nftables::nat` to `false` and build your whole nftables
 configuration from scratch by using the building blocks provided by
-this module. Looking at `nftables::inet_filter` for inspiration might
-be a good idea.
+this module. Look at `nftables::inet_filter` for inspiration.
 
 ## Rules Validation
 
