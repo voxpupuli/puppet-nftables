@@ -7,16 +7,27 @@
 
 This module manages an opinionated nftables configuration.
 
-By default it sets up a firewall that drops every incoming
-and outgoing connection.
+By default it sets up a firewall that drops every connection, except
+outbound ICMP, DNS, NTP, HTTP, and HTTPS, and inbound ICMP and SSH
+traffic:
 
-It only allows outgoing dns, ntp and web and ingoing ssh
-traffic, although this can be overridden using parameters.
+    include nftables
 
-The config file has a inet filter and a ip nat table setup.
+This can be overridden using parameters, for example, this allows all
+outbound traffic:
 
-Additionally, the module comes with a basic infrastructure
-to hook into different places.
+    class { 'nftables':
+        out_all => true,
+    }
+
+There are also pre-built rules for specific services, for example this
+will allow a web server to serve traffic over HTTPS:
+
+    include nftables
+    include nftables::rules::https
+
+Note that the module conflicts with the `firewalld` system and will
+stop it in Puppet runs.
 
 ## Configuration
 
