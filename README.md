@@ -69,7 +69,7 @@ this module. Look at `nftables::inet_filter` for inspiration.
 Initially puppet deploys all configuration to
 `/etc/nftables/puppet-preflight/` and
 `/etc/nftables/puppet-preflight.nft`. This is validated with
-`nfc -c -L /etc/nftables/puppet-preflight/ -f /etc/nftables/puppet-preflight.nft`.
+`nft -c -I /etc/nftables/puppet-preflight/ -f /etc/nftables/puppet-preflight.nft`.
 If and only if successful the configuration will be copied to
 the real locations before the service is reloaded.
 
