@@ -61,48 +61,50 @@ describe 'nftables::chain' do
         )
       }
 
-      context('with table set to ip6-foo') do
-        let(:params) do
-          {
-            table: 'ip6-foo',
+      %w[ip ip6 inet bridge netdev].each do |family|
+        context("with table set to #{family}-foo") do
+          let(:params) do
+            {
+              table: "#{family}-foo",
+            }
+          end
+
+          it {
+            expect(subject).to contain_concat("nftables-#{family}-foo-chain-MYCHAIN").with(
+              path: "/etc/nftables/puppet-preflight/#{family}-foo-chain-MYCHAIN.nft",
+              owner: 'root',
+              group: 'root',
+              mode: nft_mode,
+              ensure_newline: true
+            )
+          }
+
+          it {
+            expect(subject).to contain_file("/etc/nftables/puppet/#{family}-foo-chain-MYCHAIN.nft").with(
+              ensure: 'file',
+              source: "/etc/nftables/puppet-preflight/#{family}-foo-chain-MYCHAIN.nft",
+              mode: nft_mode,
+              owner: 'root',
+              group: 'root'
+            )
+          }
+
+          it {
+            expect(subject).to contain_concat__fragment("nftables-#{family}-foo-chain-MYCHAIN-header").with(
+              order: '00',
+              content: "# Start of fragment order:00 MYCHAIN header\nchain MYCHAIN {",
+              target: "nftables-#{family}-foo-chain-MYCHAIN"
+            )
+          }
+
+          it {
+            expect(subject).to contain_concat__fragment("nftables-#{family}-foo-chain-MYCHAIN-footer").with(
+              order: '99',
+              content: "# Start of fragment order:99 MYCHAIN footer\n}",
+              target: "nftables-#{family}-foo-chain-MYCHAIN"
+            )
           }
         end
-
-        it {
-          expect(subject).to contain_concat('nftables-ip6-foo-chain-MYCHAIN').with(
-            path: '/etc/nftables/puppet-preflight/ip6-foo-chain-MYCHAIN.nft',
-            owner: 'root',
-            group: 'root',
-            mode: nft_mode,
-            ensure_newline: true
-          )
-        }
-
-        it {
-          expect(subject).to contain_file('/etc/nftables/puppet/ip6-foo-chain-MYCHAIN.nft').with(
-            ensure: 'file',
-            source: '/etc/nftables/puppet-preflight/ip6-foo-chain-MYCHAIN.nft',
-            mode: nft_mode,
-            owner: 'root',
-            group: 'root'
-          )
-        }
-
-        it {
-          expect(subject).to contain_concat__fragment('nftables-ip6-foo-chain-MYCHAIN-header').with(
-            order: '00',
-            content: "# Start of fragment order:00 MYCHAIN header\nchain MYCHAIN {",
-            target: 'nftables-ip6-foo-chain-MYCHAIN'
-          )
-        }
-
-        it {
-          expect(subject).to contain_concat__fragment('nftables-ip6-foo-chain-MYCHAIN-footer').with(
-            order: '99',
-            content: "# Start of fragment order:99 MYCHAIN footer\n}",
-            target: 'nftables-ip6-foo-chain-MYCHAIN'
-          )
-        }
       end
 
       context 'with inject set to 22-foobar' do

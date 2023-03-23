@@ -1,7 +1,7 @@
 # manage a chain
 define nftables::chain (
   # lint:ignore:parameter_documentation
-  Pattern[/^(ip|ip6|inet|netdev)-[a-zA-Z0-9_]+$/] $table = 'inet-filter',
+  Pattern[/^(ip|ip6|inet|netdev|bridge)-[a-zA-Z0-9_]+$/] $table = 'inet-filter',
   Pattern[/^[a-zA-Z0-9_]+$/] $chain = $title,
   Optional[Pattern[/^\d\d-[a-zA-Z0-9_]+$/]] $inject = undef,
   Optional[String] $inject_iif = undef,

@@ -7,99 +7,99 @@
 ### Classes
 
 * [`nftables`](#nftables): Configure nftables
-* [`nftables::bridges`](#nftablesbridges): allow forwarding traffic on bridges
-* [`nftables::inet_filter`](#nftablesinet_filter): manage basic chains in table inet filter
-* [`nftables::inet_filter::fwd_conntrack`](#nftablesinet_filterfwd_conntrack): enable conntrack for fwd
-* [`nftables::inet_filter::in_out_conntrack`](#nftablesinet_filterin_out_conntrack): manage input & output conntrack
-* [`nftables::ip_nat`](#nftablesip_nat): manage basic chains in table ip nat
-* [`nftables::rules::activemq`](#nftablesrulesactivemq): Provides input rules for Apache ActiveMQ
-* [`nftables::rules::afs3_callback`](#nftablesrulesafs3_callback): Open call back port for AFS clients
-* [`nftables::rules::ceph`](#nftablesrulesceph): Ceph is a distributed object store and file system. Enable this to support Ceph's Object Storage Daemons (OSD), Metadata Server Daemons (MDS)
-* [`nftables::rules::ceph_mon`](#nftablesrulesceph_mon): Ceph is a distributed object store and file system.
+* [`nftables::bridges`](#nftables--bridges): allow forwarding traffic on bridges
+* [`nftables::inet_filter`](#nftables--inet_filter): manage basic chains in table inet filter
+* [`nftables::inet_filter::fwd_conntrack`](#nftables--inet_filter--fwd_conntrack): enable conntrack for fwd
+* [`nftables::inet_filter::in_out_conntrack`](#nftables--inet_filter--in_out_conntrack): manage input & output conntrack
+* [`nftables::ip_nat`](#nftables--ip_nat): manage basic chains in table ip nat
+* [`nftables::rules::activemq`](#nftables--rules--activemq): Provides input rules for Apache ActiveMQ
+* [`nftables::rules::afs3_callback`](#nftables--rules--afs3_callback): Open call back port for AFS clients
+* [`nftables::rules::ceph`](#nftables--rules--ceph): Ceph is a distributed object store and file system. Enable this to support Ceph's Object Storage Daemons (OSD), Metadata Server Daemons (MDS)
+* [`nftables::rules::ceph_mon`](#nftables--rules--ceph_mon): Ceph is a distributed object store and file system.
 Enable this option to support Ceph's Monitor Daemon.
-* [`nftables::rules::dhcpv6_client`](#nftablesrulesdhcpv6_client): allow DHCPv6 requests in to a host
-* [`nftables::rules::dns`](#nftablesrulesdns): manage in dns
-* [`nftables::rules::docker_ce`](#nftablesrulesdocker_ce): Default firewall configuration for Docker-CE
-* [`nftables::rules::http`](#nftablesruleshttp): manage in http
-* [`nftables::rules::https`](#nftablesruleshttps): manage in https
-* [`nftables::rules::icinga2`](#nftablesrulesicinga2): manage in icinga2
-* [`nftables::rules::icmp`](#nftablesrulesicmp)
-* [`nftables::rules::nfs`](#nftablesrulesnfs): manage in nfs4
-* [`nftables::rules::nfs3`](#nftablesrulesnfs3): manage in nfs3
-* [`nftables::rules::node_exporter`](#nftablesrulesnode_exporter): manage in node exporter
-* [`nftables::rules::ospf`](#nftablesrulesospf): manage in ospf
-* [`nftables::rules::ospf3`](#nftablesrulesospf3): manage in ospf3
-* [`nftables::rules::out::all`](#nftablesrulesoutall): allow all outbound
-* [`nftables::rules::out::ceph_client`](#nftablesrulesoutceph_client): Ceph is a distributed object store and file system.
+* [`nftables::rules::dhcpv6_client`](#nftables--rules--dhcpv6_client): allow DHCPv6 requests in to a host
+* [`nftables::rules::dns`](#nftables--rules--dns): manage in dns
+* [`nftables::rules::docker_ce`](#nftables--rules--docker_ce): Default firewall configuration for Docker-CE
+* [`nftables::rules::http`](#nftables--rules--http): manage in http
+* [`nftables::rules::https`](#nftables--rules--https): manage in https
+* [`nftables::rules::icinga2`](#nftables--rules--icinga2): manage in icinga2
+* [`nftables::rules::icmp`](#nftables--rules--icmp)
+* [`nftables::rules::nfs`](#nftables--rules--nfs): manage in nfs4
+* [`nftables::rules::nfs3`](#nftables--rules--nfs3): manage in nfs3
+* [`nftables::rules::node_exporter`](#nftables--rules--node_exporter): manage in node exporter
+* [`nftables::rules::ospf`](#nftables--rules--ospf): manage in ospf
+* [`nftables::rules::ospf3`](#nftables--rules--ospf3): manage in ospf3
+* [`nftables::rules::out::all`](#nftables--rules--out--all): allow all outbound
+* [`nftables::rules::out::ceph_client`](#nftables--rules--out--ceph_client): Ceph is a distributed object store and file system.
 Enable this to be a client of Ceph's Monitor (MON),
 Object Storage Daemons (OSD), Metadata Server Daemons (MDS),
 and Manager Daemons (MGR).
-* [`nftables::rules::out::chrony`](#nftablesrulesoutchrony): manage out chrony
-* [`nftables::rules::out::dhcp`](#nftablesrulesoutdhcp): manage out dhcp
-* [`nftables::rules::out::dhcpv6_client`](#nftablesrulesoutdhcpv6_client): Allow DHCPv6 requests out of a host
-* [`nftables::rules::out::dns`](#nftablesrulesoutdns): manage out dns
-* [`nftables::rules::out::hkp`](#nftablesrulesouthkp): allow outgoing hkp connections to gpg keyservers
-* [`nftables::rules::out::http`](#nftablesrulesouthttp): manage out http
-* [`nftables::rules::out::https`](#nftablesrulesouthttps): manage out https
-* [`nftables::rules::out::icmp`](#nftablesrulesouticmp): control outbound icmp packages
-* [`nftables::rules::out::imap`](#nftablesrulesoutimap): allow outgoing imap
-* [`nftables::rules::out::kerberos`](#nftablesrulesoutkerberos): allows outbound access for kerberos
-* [`nftables::rules::out::mysql`](#nftablesrulesoutmysql): manage out mysql
-* [`nftables::rules::out::nfs`](#nftablesrulesoutnfs): manage out nfs
-* [`nftables::rules::out::nfs3`](#nftablesrulesoutnfs3): manage out nfs3
-* [`nftables::rules::out::openafs_client`](#nftablesrulesoutopenafs_client): allows outbound access for afs clients
+* [`nftables::rules::out::chrony`](#nftables--rules--out--chrony): manage out chrony
+* [`nftables::rules::out::dhcp`](#nftables--rules--out--dhcp): manage out dhcp
+* [`nftables::rules::out::dhcpv6_client`](#nftables--rules--out--dhcpv6_client): Allow DHCPv6 requests out of a host
+* [`nftables::rules::out::dns`](#nftables--rules--out--dns): manage out dns
+* [`nftables::rules::out::hkp`](#nftables--rules--out--hkp): allow outgoing hkp connections to gpg keyservers
+* [`nftables::rules::out::http`](#nftables--rules--out--http): manage out http
+* [`nftables::rules::out::https`](#nftables--rules--out--https): manage out https
+* [`nftables::rules::out::icmp`](#nftables--rules--out--icmp): control outbound icmp packages
+* [`nftables::rules::out::imap`](#nftables--rules--out--imap): allow outgoing imap
+* [`nftables::rules::out::kerberos`](#nftables--rules--out--kerberos): allows outbound access for kerberos
+* [`nftables::rules::out::mysql`](#nftables--rules--out--mysql): manage out mysql
+* [`nftables::rules::out::nfs`](#nftables--rules--out--nfs): manage out nfs
+* [`nftables::rules::out::nfs3`](#nftables--rules--out--nfs3): manage out nfs3
+* [`nftables::rules::out::openafs_client`](#nftables--rules--out--openafs_client): allows outbound access for afs clients
 7000 - afs3-fileserver
 7002 - afs3-ptserver
 7003 - vlserver
-* [`nftables::rules::out::ospf`](#nftablesrulesoutospf): manage out ospf
-* [`nftables::rules::out::ospf3`](#nftablesrulesoutospf3): manage out ospf3
-* [`nftables::rules::out::pop3`](#nftablesrulesoutpop3): allow outgoing pop3
-* [`nftables::rules::out::postgres`](#nftablesrulesoutpostgres): manage out postgres
-* [`nftables::rules::out::puppet`](#nftablesrulesoutpuppet): manage outgoing puppet
-* [`nftables::rules::out::pxp_agent`](#nftablesrulesoutpxp_agent): manage outgoing pxp-agent
-* [`nftables::rules::out::smtp`](#nftablesrulesoutsmtp): allow outgoing smtp
-* [`nftables::rules::out::smtp_client`](#nftablesrulesoutsmtp_client): allow outgoing smtp client
-* [`nftables::rules::out::ssh`](#nftablesrulesoutssh): manage out ssh
-* [`nftables::rules::out::ssh::remove`](#nftablesrulesoutsshremove): disable outgoing ssh
-* [`nftables::rules::out::tor`](#nftablesrulesouttor): manage out tor
-* [`nftables::rules::out::whois`](#nftablesrulesoutwhois): allow clients to query remote whois server
-* [`nftables::rules::out::wireguard`](#nftablesrulesoutwireguard): manage out wireguard
-* [`nftables::rules::puppet`](#nftablesrulespuppet): manage in puppet
-* [`nftables::rules::pxp_agent`](#nftablesrulespxp_agent): manage in pxp-agent
-* [`nftables::rules::qemu`](#nftablesrulesqemu): Bridged network configuration for qemu/libvirt
-* [`nftables::rules::samba`](#nftablesrulessamba): manage Samba, the suite to allow Windows file sharing on Linux resources.
-* [`nftables::rules::smtp`](#nftablesrulessmtp): manage in smtp
-* [`nftables::rules::smtp_submission`](#nftablesrulessmtp_submission): manage in smtp submission
-* [`nftables::rules::smtps`](#nftablesrulessmtps): manage in smtps
-* [`nftables::rules::ssh`](#nftablesrulesssh): manage in ssh
-* [`nftables::rules::tor`](#nftablesrulestor): manage in tor
-* [`nftables::rules::wireguard`](#nftablesruleswireguard): manage in wireguard
-* [`nftables::services::dhcpv6_client`](#nftablesservicesdhcpv6_client): Allow in and outbound traffic for DHCPv6 server
-* [`nftables::services::openafs_client`](#nftablesservicesopenafs_client): Open inbound and outbound ports for an AFS client
+* [`nftables::rules::out::ospf`](#nftables--rules--out--ospf): manage out ospf
+* [`nftables::rules::out::ospf3`](#nftables--rules--out--ospf3): manage out ospf3
+* [`nftables::rules::out::pop3`](#nftables--rules--out--pop3): allow outgoing pop3
+* [`nftables::rules::out::postgres`](#nftables--rules--out--postgres): manage out postgres
+* [`nftables::rules::out::puppet`](#nftables--rules--out--puppet): manage outgoing puppet
+* [`nftables::rules::out::pxp_agent`](#nftables--rules--out--pxp_agent): manage outgoing pxp-agent
+* [`nftables::rules::out::smtp`](#nftables--rules--out--smtp): allow outgoing smtp
+* [`nftables::rules::out::smtp_client`](#nftables--rules--out--smtp_client): allow outgoing smtp client
+* [`nftables::rules::out::ssh`](#nftables--rules--out--ssh): manage out ssh
+* [`nftables::rules::out::ssh::remove`](#nftables--rules--out--ssh--remove): disable outgoing ssh
+* [`nftables::rules::out::tor`](#nftables--rules--out--tor): manage out tor
+* [`nftables::rules::out::whois`](#nftables--rules--out--whois): allow clients to query remote whois server
+* [`nftables::rules::out::wireguard`](#nftables--rules--out--wireguard): manage out wireguard
+* [`nftables::rules::puppet`](#nftables--rules--puppet): manage in puppet
+* [`nftables::rules::pxp_agent`](#nftables--rules--pxp_agent): manage in pxp-agent
+* [`nftables::rules::qemu`](#nftables--rules--qemu): Bridged network configuration for qemu/libvirt
+* [`nftables::rules::samba`](#nftables--rules--samba): manage Samba, the suite to allow Windows file sharing on Linux resources.
+* [`nftables::rules::smtp`](#nftables--rules--smtp): manage in smtp
+* [`nftables::rules::smtp_submission`](#nftables--rules--smtp_submission): manage in smtp submission
+* [`nftables::rules::smtps`](#nftables--rules--smtps): manage in smtps
+* [`nftables::rules::ssh`](#nftables--rules--ssh): manage in ssh
+* [`nftables::rules::tor`](#nftables--rules--tor): manage in tor
+* [`nftables::rules::wireguard`](#nftables--rules--wireguard): manage in wireguard
+* [`nftables::services::dhcpv6_client`](#nftables--services--dhcpv6_client): Allow in and outbound traffic for DHCPv6 server
+* [`nftables::services::openafs_client`](#nftables--services--openafs_client): Open inbound and outbound ports for an AFS client
 
 ### Defined types
 
-* [`nftables::chain`](#nftableschain): manage a chain
-* [`nftables::config`](#nftablesconfig): manage a config snippet
-* [`nftables::file`](#nftablesfile): Insert a file into the nftables configuration
-* [`nftables::rule`](#nftablesrule): Provides an interface to create a firewall rule
-* [`nftables::rules::dnat4`](#nftablesrulesdnat4): manage a ipv4 dnat rule
-* [`nftables::rules::masquerade`](#nftablesrulesmasquerade): masquerade all outgoing traffic
-* [`nftables::rules::snat4`](#nftablesrulessnat4): manage a ipv4 snat rule
-* [`nftables::set`](#nftablesset): manage a named set
-* [`nftables::simplerule`](#nftablessimplerule): Provides a simplified interface to nftables::rule
+* [`nftables::chain`](#nftables--chain): manage a chain
+* [`nftables::config`](#nftables--config): manage a config snippet
+* [`nftables::file`](#nftables--file): Insert a file into the nftables configuration
+* [`nftables::rule`](#nftables--rule): Provides an interface to create a firewall rule
+* [`nftables::rules::dnat4`](#nftables--rules--dnat4): manage a ipv4 dnat rule
+* [`nftables::rules::masquerade`](#nftables--rules--masquerade): masquerade all outgoing traffic
+* [`nftables::rules::snat4`](#nftables--rules--snat4): manage a ipv4 snat rule
+* [`nftables::set`](#nftables--set): manage a named set
+* [`nftables::simplerule`](#nftables--simplerule): Provides a simplified interface to nftables::rule
 
 ### Data types
 
-* [`Nftables::Addr`](#nftablesaddr): Represents an address expression to be used within a rule.
-* [`Nftables::Addr::Set`](#nftablesaddrset): Represents a set expression to be used within a rule.
-* [`Nftables::Port`](#nftablesport): Represents a port expression to be used within a rule.
-* [`Nftables::Port::Range`](#nftablesportrange): Represents a port range expression to be used within a rule.
-* [`Nftables::RuleName`](#nftablesrulename): Represents a rule name to be used in a raw rule created via nftables::rule.
+* [`Nftables::Addr`](#Nftables--Addr): Represents an address expression to be used within a rule.
+* [`Nftables::Addr::Set`](#Nftables--Addr--Set): Represents a set expression to be used within a rule.
+* [`Nftables::Port`](#Nftables--Port): Represents a port expression to be used within a rule.
+* [`Nftables::Port::Range`](#Nftables--Port--Range): Represents a port range expression to be used within a rule.
+* [`Nftables::RuleName`](#Nftables--RuleName): Represents a rule name to be used in a raw rule created via nftables::rule.
 It's a dash separated string. The first component describes the chain to
 add the rule to, the second the rule name and the (optional) third a number.
 Ex: 'default_in-sshd', 'default_out-my_service-2'.
-* [`Nftables::SimpleRuleName`](#nftablessimplerulename): Represents a simple rule name to be used in a rule created via nftables::simplerule
+* [`Nftables::SimpleRuleName`](#Nftables--SimpleRuleName): Represents a simple rule name to be used in a rule created via nftables::simplerule
 
 ## Classes
 
@@ -130,31 +130,32 @@ class{ 'nftables':
 
 The following parameters are available in the `nftables` class:
 
-* [`out_all`](#out_all)
-* [`out_ntp`](#out_ntp)
-* [`out_http`](#out_http)
-* [`out_dns`](#out_dns)
-* [`out_https`](#out_https)
-* [`out_icmp`](#out_icmp)
-* [`in_ssh`](#in_ssh)
-* [`in_icmp`](#in_icmp)
-* [`inet_filter`](#inet_filter)
-* [`nat`](#nat)
-* [`nat_table_name`](#nat_table_name)
-* [`sets`](#sets)
-* [`log_prefix`](#log_prefix)
-* [`log_limit`](#log_limit)
-* [`reject_with`](#reject_with)
-* [`in_out_conntrack`](#in_out_conntrack)
-* [`fwd_conntrack`](#fwd_conntrack)
-* [`firewalld_enable`](#firewalld_enable)
-* [`noflush_tables`](#noflush_tables)
-* [`rules`](#rules)
-* [`configuration_path`](#configuration_path)
-* [`nft_path`](#nft_path)
-* [`echo`](#echo)
+* [`out_all`](#-nftables--out_all)
+* [`out_ntp`](#-nftables--out_ntp)
+* [`out_http`](#-nftables--out_http)
+* [`out_dns`](#-nftables--out_dns)
+* [`out_https`](#-nftables--out_https)
+* [`out_icmp`](#-nftables--out_icmp)
+* [`in_ssh`](#-nftables--in_ssh)
+* [`in_icmp`](#-nftables--in_icmp)
+* [`inet_filter`](#-nftables--inet_filter)
+* [`nat`](#-nftables--nat)
+* [`nat_table_name`](#-nftables--nat_table_name)
+* [`sets`](#-nftables--sets)
+* [`log_prefix`](#-nftables--log_prefix)
+* [`log_limit`](#-nftables--log_limit)
+* [`reject_with`](#-nftables--reject_with)
+* [`in_out_conntrack`](#-nftables--in_out_conntrack)
+* [`fwd_conntrack`](#-nftables--fwd_conntrack)
+* [`firewalld_enable`](#-nftables--firewalld_enable)
+* [`noflush_tables`](#-nftables--noflush_tables)
+* [`rules`](#-nftables--rules)
+* [`configuration_path`](#-nftables--configuration_path)
+* [`nft_path`](#-nftables--nft_path)
+* [`echo`](#-nftables--echo)
+* [`default_config_mode`](#-nftables--default_config_mode)
 
-##### <a name="out_all"></a>`out_all`
+##### <a name="-nftables--out_all"></a>`out_all`
 
 Data type: `Boolean`
 
@@ -162,81 +163,81 @@ Allow all outbound connections. If `true` then all other
 out parameters `out_ntp`, `out_dns`, ... will be assuemed
 false.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="out_ntp"></a>`out_ntp`
+##### <a name="-nftables--out_ntp"></a>`out_ntp`
 
 Data type: `Boolean`
 
 Allow outbound to ntp servers.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="out_http"></a>`out_http`
+##### <a name="-nftables--out_http"></a>`out_http`
 
 Data type: `Boolean`
 
 Allow outbound to http servers.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="out_dns"></a>`out_dns`
+##### <a name="-nftables--out_dns"></a>`out_dns`
 
 Data type: `Boolean`
 
 Allow outbound to dns servers.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="out_https"></a>`out_https`
+##### <a name="-nftables--out_https"></a>`out_https`
 
 Data type: `Boolean`
 
 Allow outbound to https servers.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="out_icmp"></a>`out_icmp`
+##### <a name="-nftables--out_icmp"></a>`out_icmp`
 
 Data type: `Boolean`
 
 Allow outbound ICMPv4/v6 traffic.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="in_ssh"></a>`in_ssh`
+##### <a name="-nftables--in_ssh"></a>`in_ssh`
 
 Data type: `Boolean`
 
 Allow inbound to ssh servers.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="in_icmp"></a>`in_icmp`
+##### <a name="-nftables--in_icmp"></a>`in_icmp`
 
 Data type: `Boolean`
 
 Allow inbound ICMPv4/v6 traffic.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="inet_filter"></a>`inet_filter`
+##### <a name="-nftables--inet_filter"></a>`inet_filter`
 
 Data type: `Boolean`
 
 Add default tables, chains and rules to process traffic.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="nat"></a>`nat`
+##### <a name="-nftables--nat"></a>`nat`
 
 Data type: `Boolean`
 
 Add default tables and chains to process NAT traffic.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="nat_table_name"></a>`nat_table_name`
+##### <a name="-nftables--nat_table_name"></a>`nat_table_name`
 
 Data type: `String[1]`
 
@@ -244,7 +245,7 @@ The name of the 'nat' table.
 
 Default value: `'nat'`
 
-##### <a name="sets"></a>`sets`
+##### <a name="-nftables--sets"></a>`sets`
 
 Data type: `Hash`
 
@@ -252,7 +253,7 @@ Allows sourcing set definitions directly from Hiera.
 
 Default value: `{}`
 
-##### <a name="log_prefix"></a>`log_prefix`
+##### <a name="-nftables--log_prefix"></a>`log_prefix`
 
 Data type: `String`
 
@@ -263,7 +264,7 @@ two variables using standard sprintf() string-formatting:
 
 Default value: `'[nftables] %<chain>s %<comment>s'`
 
-##### <a name="log_limit"></a>`log_limit`
+##### <a name="-nftables--log_limit"></a>`log_limit`
 
 Data type: `Variant[Boolean[false], String]`
 
@@ -273,7 +274,7 @@ disable rate limiting.
 
 Default value: `'3/minute burst 5 packets'`
 
-##### <a name="reject_with"></a>`reject_with`
+##### <a name="-nftables--reject_with"></a>`reject_with`
 
 Data type: `Variant[Boolean[false], Pattern[/icmp(v6|x)? type .+|tcp reset/]]`
 
@@ -284,25 +285,25 @@ policy indicated by the value of this parameter.
 
 Default value: `'icmpx type port-unreachable'`
 
-##### <a name="in_out_conntrack"></a>`in_out_conntrack`
+##### <a name="-nftables--in_out_conntrack"></a>`in_out_conntrack`
 
 Data type: `Boolean`
 
 Adds INPUT and OUTPUT rules to allow traffic that's part of an
 established connection and also to drop invalid packets.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="fwd_conntrack"></a>`fwd_conntrack`
+##### <a name="-nftables--fwd_conntrack"></a>`fwd_conntrack`
 
 Data type: `Boolean`
 
 Adds FORWARD rules to allow traffic that's part of an
 established connection and also to drop invalid packets.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="firewalld_enable"></a>`firewalld_enable`
+##### <a name="-nftables--firewalld_enable"></a>`firewalld_enable`
 
 Data type: `Variant[Boolean[false], Enum['mask']]`
 
@@ -312,16 +313,16 @@ the system completely.
 
 Default value: `'mask'`
 
-##### <a name="noflush_tables"></a>`noflush_tables`
+##### <a name="-nftables--noflush_tables"></a>`noflush_tables`
 
 Data type: `Optional[Array[Pattern[/^(ip|ip6|inet|arp|bridge|netdev)-[-a-zA-Z0-9_]+$/],1]]`
 
 If specified only other existings tables will be flushed.
 If left unset all tables will be flushed via a `flush ruleset`
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="rules"></a>`rules`
+##### <a name="-nftables--rules"></a>`rules`
 
 Data type: `Hash`
 
@@ -329,26 +330,33 @@ Specify hashes of `nftables::rule`s via hiera
 
 Default value: `{}`
 
-##### <a name="configuration_path"></a>`configuration_path`
+##### <a name="-nftables--configuration_path"></a>`configuration_path`
 
 Data type: `Stdlib::Unixpath`
 
 The absolute path to the principal nftables configuration file. The default
 varies depending on the system, and is set in the module's data.
 
-##### <a name="nft_path"></a>`nft_path`
+##### <a name="-nftables--nft_path"></a>`nft_path`
 
 Data type: `Stdlib::Unixpath`
 
 Path to the nft binary
 
-##### <a name="echo"></a>`echo`
+##### <a name="-nftables--echo"></a>`echo`
 
 Data type: `Stdlib::Unixpath`
 
 Path to the echo binary
 
-### <a name="nftablesbridges"></a>`nftables::bridges`
+##### <a name="-nftables--default_config_mode"></a>`default_config_mode`
+
+Data type: `Stdlib::Filemode`
+
+The default file & dir mode for configuration files and directories. The
+default varies depending on the system, and is set in the module's data.
+
+### <a name="nftables--bridges"></a>`nftables::bridges`
 
 allow forwarding traffic on bridges
 
@@ -356,10 +364,10 @@ allow forwarding traffic on bridges
 
 The following parameters are available in the `nftables::bridges` class:
 
-* [`ensure`](#ensure)
-* [`bridgenames`](#bridgenames)
+* [`ensure`](#-nftables--bridges--ensure)
+* [`bridgenames`](#-nftables--bridges--bridgenames)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-nftables--bridges--ensure"></a>`ensure`
 
 Data type: `Enum['present','absent']`
 
@@ -367,7 +375,7 @@ Data type: `Enum['present','absent']`
 
 Default value: `'present'`
 
-##### <a name="bridgenames"></a>`bridgenames`
+##### <a name="-nftables--bridges--bridgenames"></a>`bridgenames`
 
 Data type: `Regexp`
 
@@ -375,23 +383,23 @@ Data type: `Regexp`
 
 Default value: `/^br.+/`
 
-### <a name="nftablesinet_filter"></a>`nftables::inet_filter`
+### <a name="nftables--inet_filter"></a>`nftables::inet_filter`
 
 manage basic chains in table inet filter
 
-### <a name="nftablesinet_filterfwd_conntrack"></a>`nftables::inet_filter::fwd_conntrack`
+### <a name="nftables--inet_filter--fwd_conntrack"></a>`nftables::inet_filter::fwd_conntrack`
 
 enable conntrack for fwd
 
-### <a name="nftablesinet_filterin_out_conntrack"></a>`nftables::inet_filter::in_out_conntrack`
+### <a name="nftables--inet_filter--in_out_conntrack"></a>`nftables::inet_filter::in_out_conntrack`
 
 manage input & output conntrack
 
-### <a name="nftablesip_nat"></a>`nftables::ip_nat`
+### <a name="nftables--ip_nat"></a>`nftables::ip_nat`
 
 manage basic chains in table ip nat
 
-### <a name="nftablesrulesactivemq"></a>`nftables::rules::activemq`
+### <a name="nftables--rules--activemq"></a>`nftables::rules::activemq`
 
 Provides input rules for Apache ActiveMQ
 
@@ -399,27 +407,27 @@ Provides input rules for Apache ActiveMQ
 
 The following parameters are available in the `nftables::rules::activemq` class:
 
-* [`tcp`](#tcp)
-* [`udp`](#udp)
-* [`port`](#port)
+* [`tcp`](#-nftables--rules--activemq--tcp)
+* [`udp`](#-nftables--rules--activemq--udp)
+* [`port`](#-nftables--rules--activemq--port)
 
-##### <a name="tcp"></a>`tcp`
+##### <a name="-nftables--rules--activemq--tcp"></a>`tcp`
 
 Data type: `Boolean`
 
 Create the rule for TCP traffic.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="udp"></a>`udp`
+##### <a name="-nftables--rules--activemq--udp"></a>`udp`
 
 Data type: `Boolean`
 
 Create the rule for UDP traffic.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="port"></a>`port`
+##### <a name="-nftables--rules--activemq--port"></a>`port`
 
 Data type: `Stdlib::Port`
 
@@ -427,7 +435,7 @@ The port number for the ActiveMQ daemon.
 
 Default value: `61616`
 
-### <a name="nftablesrulesafs3_callback"></a>`nftables::rules::afs3_callback`
+### <a name="nftables--rules--afs3_callback"></a>`nftables::rules::afs3_callback`
 
 Open call back port for AFS clients
 
@@ -445,9 +453,9 @@ class{'nftables::rules::afs3_callback':
 
 The following parameters are available in the `nftables::rules::afs3_callback` class:
 
-* [`saddr`](#saddr)
+* [`saddr`](#-nftables--rules--afs3_callback--saddr)
 
-##### <a name="saddr"></a>`saddr`
+##### <a name="-nftables--rules--afs3_callback--saddr"></a>`saddr`
 
 Data type: `Array[Stdlib::IP::Address::V4,1]`
 
@@ -455,13 +463,13 @@ list of source network ranges to a
 
 Default value: `['0.0.0.0/0']`
 
-### <a name="nftablesrulesceph"></a>`nftables::rules::ceph`
+### <a name="nftables--rules--ceph"></a>`nftables::rules::ceph`
 
 Ceph is a distributed object store and file system.
 Enable this to support Ceph's Object Storage Daemons (OSD),
 Metadata Server Daemons (MDS), or Manager Daemons (MGR).
 
-### <a name="nftablesrulesceph_mon"></a>`nftables::rules::ceph_mon`
+### <a name="nftables--rules--ceph_mon"></a>`nftables::rules::ceph_mon`
 
 Ceph is a distributed object store and file system.
 Enable this option to support Ceph's Monitor Daemon.
@@ -470,9 +478,9 @@ Enable this option to support Ceph's Monitor Daemon.
 
 The following parameters are available in the `nftables::rules::ceph_mon` class:
 
-* [`ports`](#ports)
+* [`ports`](#-nftables--rules--ceph_mon--ports)
 
-##### <a name="ports"></a>`ports`
+##### <a name="-nftables--rules--ceph_mon--ports"></a>`ports`
 
 Data type: `Array[Stdlib::Port,1]`
 
@@ -480,11 +488,11 @@ specify ports for ceph service
 
 Default value: `[3300, 6789]`
 
-### <a name="nftablesrulesdhcpv6_client"></a>`nftables::rules::dhcpv6_client`
+### <a name="nftables--rules--dhcpv6_client"></a>`nftables::rules::dhcpv6_client`
 
 allow DHCPv6 requests in to a host
 
-### <a name="nftablesrulesdns"></a>`nftables::rules::dns`
+### <a name="nftables--rules--dns"></a>`nftables::rules::dns`
 
 manage in dns
 
@@ -492,9 +500,9 @@ manage in dns
 
 The following parameters are available in the `nftables::rules::dns` class:
 
-* [`ports`](#ports)
+* [`ports`](#-nftables--rules--dns--ports)
 
-##### <a name="ports"></a>`ports`
+##### <a name="-nftables--rules--dns--ports"></a>`ports`
 
 Data type: `Array[Stdlib::Port,1]`
 
@@ -502,7 +510,7 @@ Specify ports for dns.
 
 Default value: `[53]`
 
-### <a name="nftablesrulesdocker_ce"></a>`nftables::rules::docker_ce`
+### <a name="nftables--rules--docker_ce"></a>`nftables::rules::docker_ce`
 
 The configuration distributed in this class represents the default firewall
 configuration done by docker-ce when the iptables integration is enabled.
@@ -516,12 +524,12 @@ When using this class 'docker::iptables: false' should be set.
 
 The following parameters are available in the `nftables::rules::docker_ce` class:
 
-* [`docker_interface`](#docker_interface)
-* [`docker_prefix`](#docker_prefix)
-* [`manage_docker_chains`](#manage_docker_chains)
-* [`manage_base_chains`](#manage_base_chains)
+* [`docker_interface`](#-nftables--rules--docker_ce--docker_interface)
+* [`docker_prefix`](#-nftables--rules--docker_ce--docker_prefix)
+* [`manage_docker_chains`](#-nftables--rules--docker_ce--manage_docker_chains)
+* [`manage_base_chains`](#-nftables--rules--docker_ce--manage_base_chains)
 
-##### <a name="docker_interface"></a>`docker_interface`
+##### <a name="-nftables--rules--docker_ce--docker_interface"></a>`docker_interface`
 
 Data type: `String[1]`
 
@@ -529,7 +537,7 @@ Interface name used by docker.
 
 Default value: `'docker0'`
 
-##### <a name="docker_prefix"></a>`docker_prefix`
+##### <a name="-nftables--rules--docker_ce--docker_prefix"></a>`docker_prefix`
 
 Data type: `Stdlib::IP::Address::V4::CIDR`
 
@@ -537,31 +545,31 @@ The address space used by docker.
 
 Default value: `'172.17.0.0/16'`
 
-##### <a name="manage_docker_chains"></a>`manage_docker_chains`
+##### <a name="-nftables--rules--docker_ce--manage_docker_chains"></a>`manage_docker_chains`
 
 Data type: `Boolean`
 
 Flag to control whether the class should create the docker related chains.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="manage_base_chains"></a>`manage_base_chains`
+##### <a name="-nftables--rules--docker_ce--manage_base_chains"></a>`manage_base_chains`
 
 Data type: `Boolean`
 
 Flag to control whether the class should create the base common chains.
 
-Default value: ``true``
+Default value: `true`
 
-### <a name="nftablesruleshttp"></a>`nftables::rules::http`
+### <a name="nftables--rules--http"></a>`nftables::rules::http`
 
 manage in http
 
-### <a name="nftablesruleshttps"></a>`nftables::rules::https`
+### <a name="nftables--rules--https"></a>`nftables::rules::https`
 
 manage in https
 
-### <a name="nftablesrulesicinga2"></a>`nftables::rules::icinga2`
+### <a name="nftables--rules--icinga2"></a>`nftables::rules::icinga2`
 
 manage in icinga2
 
@@ -569,9 +577,9 @@ manage in icinga2
 
 The following parameters are available in the `nftables::rules::icinga2` class:
 
-* [`ports`](#ports)
+* [`ports`](#-nftables--rules--icinga2--ports)
 
-##### <a name="ports"></a>`ports`
+##### <a name="-nftables--rules--icinga2--ports"></a>`ports`
 
 Data type: `Array[Stdlib::Port,1]`
 
@@ -579,7 +587,7 @@ Specify ports for icinga1
 
 Default value: `[5665]`
 
-### <a name="nftablesrulesicmp"></a>`nftables::rules::icmp`
+### <a name="nftables--rules--icmp"></a>`nftables::rules::icmp`
 
 The nftables::rules::icmp class.
 
@@ -587,27 +595,27 @@ The nftables::rules::icmp class.
 
 The following parameters are available in the `nftables::rules::icmp` class:
 
-* [`v4_types`](#v4_types)
-* [`v6_types`](#v6_types)
-* [`order`](#order)
+* [`v4_types`](#-nftables--rules--icmp--v4_types)
+* [`v6_types`](#-nftables--rules--icmp--v6_types)
+* [`order`](#-nftables--rules--icmp--order)
 
-##### <a name="v4_types"></a>`v4_types`
-
-Data type: `Optional[Array[String]]`
-
-
-
-Default value: ``undef``
-
-##### <a name="v6_types"></a>`v6_types`
+##### <a name="-nftables--rules--icmp--v4_types"></a>`v4_types`
 
 Data type: `Optional[Array[String]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="order"></a>`order`
+##### <a name="-nftables--rules--icmp--v6_types"></a>`v6_types`
+
+Data type: `Optional[Array[String]]`
+
+
+
+Default value: `undef`
+
+##### <a name="-nftables--rules--icmp--order"></a>`order`
 
 Data type: `String`
 
@@ -615,15 +623,15 @@ Data type: `String`
 
 Default value: `'10'`
 
-### <a name="nftablesrulesnfs"></a>`nftables::rules::nfs`
+### <a name="nftables--rules--nfs"></a>`nftables::rules::nfs`
 
 manage in nfs4
 
-### <a name="nftablesrulesnfs3"></a>`nftables::rules::nfs3`
+### <a name="nftables--rules--nfs3"></a>`nftables::rules::nfs3`
 
 manage in nfs3
 
-### <a name="nftablesrulesnode_exporter"></a>`nftables::rules::node_exporter`
+### <a name="nftables--rules--node_exporter"></a>`nftables::rules::node_exporter`
 
 manage in node exporter
 
@@ -631,18 +639,18 @@ manage in node exporter
 
 The following parameters are available in the `nftables::rules::node_exporter` class:
 
-* [`prometheus_server`](#prometheus_server)
-* [`port`](#port)
+* [`prometheus_server`](#-nftables--rules--node_exporter--prometheus_server)
+* [`port`](#-nftables--rules--node_exporter--port)
 
-##### <a name="prometheus_server"></a>`prometheus_server`
+##### <a name="-nftables--rules--node_exporter--prometheus_server"></a>`prometheus_server`
 
 Data type: `Optional[Variant[String,Array[String,1]]]`
 
 Specify server name
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="port"></a>`port`
+##### <a name="-nftables--rules--node_exporter--port"></a>`port`
 
 Data type: `Stdlib::Port`
 
@@ -650,19 +658,19 @@ Specify port to open
 
 Default value: `9100`
 
-### <a name="nftablesrulesospf"></a>`nftables::rules::ospf`
+### <a name="nftables--rules--ospf"></a>`nftables::rules::ospf`
 
 manage in ospf
 
-### <a name="nftablesrulesospf3"></a>`nftables::rules::ospf3`
+### <a name="nftables--rules--ospf3"></a>`nftables::rules::ospf3`
 
 manage in ospf3
 
-### <a name="nftablesrulesoutall"></a>`nftables::rules::out::all`
+### <a name="nftables--rules--out--all"></a>`nftables::rules::out::all`
 
 allow all outbound
 
-### <a name="nftablesrulesoutceph_client"></a>`nftables::rules::out::ceph_client`
+### <a name="nftables--rules--out--ceph_client"></a>`nftables::rules::out::ceph_client`
 
 Ceph is a distributed object store and file system.
 Enable this to be a client of Ceph's Monitor (MON),
@@ -673,9 +681,9 @@ and Manager Daemons (MGR).
 
 The following parameters are available in the `nftables::rules::out::ceph_client` class:
 
-* [`ports`](#ports)
+* [`ports`](#-nftables--rules--out--ceph_client--ports)
 
-##### <a name="ports"></a>`ports`
+##### <a name="-nftables--rules--out--ceph_client--ports"></a>`ports`
 
 Data type: `Array[Stdlib::Port,1]`
 
@@ -683,7 +691,7 @@ Specify ports to open
 
 Default value: `[3300, 6789]`
 
-### <a name="nftablesrulesoutchrony"></a>`nftables::rules::out::chrony`
+### <a name="nftables--rules--out--chrony"></a>`nftables::rules::out::chrony`
 
 manage out chrony
 
@@ -691,9 +699,9 @@ manage out chrony
 
 The following parameters are available in the `nftables::rules::out::chrony` class:
 
-* [`servers`](#servers)
+* [`servers`](#-nftables--rules--out--chrony--servers)
 
-##### <a name="servers"></a>`servers`
+##### <a name="-nftables--rules--out--chrony--servers"></a>`servers`
 
 Data type: `Array[Stdlib::IP::Address]`
 
@@ -701,15 +709,15 @@ single IP-Address or array of IP-addresses from NTP servers
 
 Default value: `[]`
 
-### <a name="nftablesrulesoutdhcp"></a>`nftables::rules::out::dhcp`
+### <a name="nftables--rules--out--dhcp"></a>`nftables::rules::out::dhcp`
 
 manage out dhcp
 
-### <a name="nftablesrulesoutdhcpv6_client"></a>`nftables::rules::out::dhcpv6_client`
+### <a name="nftables--rules--out--dhcpv6_client"></a>`nftables::rules::out::dhcpv6_client`
 
 Allow DHCPv6 requests out of a host
 
-### <a name="nftablesrulesoutdns"></a>`nftables::rules::out::dns`
+### <a name="nftables--rules--out--dns"></a>`nftables::rules::out::dns`
 
 manage out dns
 
@@ -717,29 +725,29 @@ manage out dns
 
 The following parameters are available in the `nftables::rules::out::dns` class:
 
-* [`dns_server`](#dns_server)
+* [`dns_server`](#-nftables--rules--out--dns--dns_server)
 
-##### <a name="dns_server"></a>`dns_server`
+##### <a name="-nftables--rules--out--dns--dns_server"></a>`dns_server`
 
 Data type: `Optional[Variant[String,Array[String,1]]]`
 
 specify dns_server name
 
-Default value: ``undef``
+Default value: `undef`
 
-### <a name="nftablesrulesouthkp"></a>`nftables::rules::out::hkp`
+### <a name="nftables--rules--out--hkp"></a>`nftables::rules::out::hkp`
 
 allow outgoing hkp connections to gpg keyservers
 
-### <a name="nftablesrulesouthttp"></a>`nftables::rules::out::http`
+### <a name="nftables--rules--out--http"></a>`nftables::rules::out::http`
 
 manage out http
 
-### <a name="nftablesrulesouthttps"></a>`nftables::rules::out::https`
+### <a name="nftables--rules--out--https"></a>`nftables::rules::out::https`
 
 manage out https
 
-### <a name="nftablesrulesouticmp"></a>`nftables::rules::out::icmp`
+### <a name="nftables--rules--out--icmp"></a>`nftables::rules::out::icmp`
 
 control outbound icmp packages
 
@@ -747,27 +755,27 @@ control outbound icmp packages
 
 The following parameters are available in the `nftables::rules::out::icmp` class:
 
-* [`v4_types`](#v4_types)
-* [`v6_types`](#v6_types)
-* [`order`](#order)
+* [`v4_types`](#-nftables--rules--out--icmp--v4_types)
+* [`v6_types`](#-nftables--rules--out--icmp--v6_types)
+* [`order`](#-nftables--rules--out--icmp--order)
 
-##### <a name="v4_types"></a>`v4_types`
-
-Data type: `Optional[Array[String]]`
-
-
-
-Default value: ``undef``
-
-##### <a name="v6_types"></a>`v6_types`
+##### <a name="-nftables--rules--out--icmp--v4_types"></a>`v4_types`
 
 Data type: `Optional[Array[String]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="order"></a>`order`
+##### <a name="-nftables--rules--out--icmp--v6_types"></a>`v6_types`
+
+Data type: `Optional[Array[String]]`
+
+
+
+Default value: `undef`
+
+##### <a name="-nftables--rules--out--icmp--order"></a>`order`
 
 Data type: `String`
 
@@ -775,27 +783,27 @@ Data type: `String`
 
 Default value: `'10'`
 
-### <a name="nftablesrulesoutimap"></a>`nftables::rules::out::imap`
+### <a name="nftables--rules--out--imap"></a>`nftables::rules::out::imap`
 
 allow outgoing imap
 
-### <a name="nftablesrulesoutkerberos"></a>`nftables::rules::out::kerberos`
+### <a name="nftables--rules--out--kerberos"></a>`nftables::rules::out::kerberos`
 
 allows outbound access for kerberos
 
-### <a name="nftablesrulesoutmysql"></a>`nftables::rules::out::mysql`
+### <a name="nftables--rules--out--mysql"></a>`nftables::rules::out::mysql`
 
 manage out mysql
 
-### <a name="nftablesrulesoutnfs"></a>`nftables::rules::out::nfs`
+### <a name="nftables--rules--out--nfs"></a>`nftables::rules::out::nfs`
 
 manage out nfs
 
-### <a name="nftablesrulesoutnfs3"></a>`nftables::rules::out::nfs3`
+### <a name="nftables--rules--out--nfs3"></a>`nftables::rules::out::nfs3`
 
 manage out nfs3
 
-### <a name="nftablesrulesoutopenafs_client"></a>`nftables::rules::out::openafs_client`
+### <a name="nftables--rules--out--openafs_client"></a>`nftables::rules::out::openafs_client`
 
 allows outbound access for afs clients
 7000 - afs3-fileserver
@@ -810,9 +818,9 @@ allows outbound access for afs clients
 
 The following parameters are available in the `nftables::rules::out::openafs_client` class:
 
-* [`ports`](#ports)
+* [`ports`](#-nftables--rules--out--openafs_client--ports)
 
-##### <a name="ports"></a>`ports`
+##### <a name="-nftables--rules--out--openafs_client--ports"></a>`ports`
 
 Data type: `Array[Stdlib::Port,1]`
 
@@ -820,23 +828,23 @@ port numbers to use
 
 Default value: `[7000, 7002, 7003]`
 
-### <a name="nftablesrulesoutospf"></a>`nftables::rules::out::ospf`
+### <a name="nftables--rules--out--ospf"></a>`nftables::rules::out::ospf`
 
 manage out ospf
 
-### <a name="nftablesrulesoutospf3"></a>`nftables::rules::out::ospf3`
+### <a name="nftables--rules--out--ospf3"></a>`nftables::rules::out::ospf3`
 
 manage out ospf3
 
-### <a name="nftablesrulesoutpop3"></a>`nftables::rules::out::pop3`
+### <a name="nftables--rules--out--pop3"></a>`nftables::rules::out::pop3`
 
 allow outgoing pop3
 
-### <a name="nftablesrulesoutpostgres"></a>`nftables::rules::out::postgres`
+### <a name="nftables--rules--out--postgres"></a>`nftables::rules::out::postgres`
 
 manage out postgres
 
-### <a name="nftablesrulesoutpuppet"></a>`nftables::rules::out::puppet`
+### <a name="nftables--rules--out--puppet"></a>`nftables::rules::out::puppet`
 
 manage outgoing puppet
 
@@ -844,16 +852,16 @@ manage outgoing puppet
 
 The following parameters are available in the `nftables::rules::out::puppet` class:
 
-* [`puppetserver`](#puppetserver)
-* [`puppetserver_port`](#puppetserver_port)
+* [`puppetserver`](#-nftables--rules--out--puppet--puppetserver)
+* [`puppetserver_port`](#-nftables--rules--out--puppet--puppetserver_port)
 
-##### <a name="puppetserver"></a>`puppetserver`
+##### <a name="-nftables--rules--out--puppet--puppetserver"></a>`puppetserver`
 
 Data type: `Variant[Stdlib::IP::Address,Array[Stdlib::IP::Address,1]]`
 
 puppetserver hostname
 
-##### <a name="puppetserver_port"></a>`puppetserver_port`
+##### <a name="-nftables--rules--out--puppet--puppetserver_port"></a>`puppetserver_port`
 
 Data type: `Stdlib::Port`
 
@@ -861,7 +869,7 @@ puppetserver port
 
 Default value: `8140`
 
-### <a name="nftablesrulesoutpxp_agent"></a>`nftables::rules::out::pxp_agent`
+### <a name="nftables--rules--out--pxp_agent"></a>`nftables::rules::out::pxp_agent`
 
 manage outgoing pxp-agent
 
@@ -873,16 +881,16 @@ manage outgoing pxp-agent
 
 The following parameters are available in the `nftables::rules::out::pxp_agent` class:
 
-* [`broker`](#broker)
-* [`broker_port`](#broker_port)
+* [`broker`](#-nftables--rules--out--pxp_agent--broker)
+* [`broker_port`](#-nftables--rules--out--pxp_agent--broker_port)
 
-##### <a name="broker"></a>`broker`
+##### <a name="-nftables--rules--out--pxp_agent--broker"></a>`broker`
 
 Data type: `Variant[Stdlib::IP::Address,Array[Stdlib::IP::Address,1]]`
 
 PXP broker IP(s)
 
-##### <a name="broker_port"></a>`broker_port`
+##### <a name="-nftables--rules--out--pxp_agent--broker_port"></a>`broker_port`
 
 Data type: `Stdlib::Port`
 
@@ -890,31 +898,31 @@ PXP broker port
 
 Default value: `8142`
 
-### <a name="nftablesrulesoutsmtp"></a>`nftables::rules::out::smtp`
+### <a name="nftables--rules--out--smtp"></a>`nftables::rules::out::smtp`
 
 allow outgoing smtp
 
-### <a name="nftablesrulesoutsmtp_client"></a>`nftables::rules::out::smtp_client`
+### <a name="nftables--rules--out--smtp_client"></a>`nftables::rules::out::smtp_client`
 
 allow outgoing smtp client
 
-### <a name="nftablesrulesoutssh"></a>`nftables::rules::out::ssh`
+### <a name="nftables--rules--out--ssh"></a>`nftables::rules::out::ssh`
 
 manage out ssh
 
-### <a name="nftablesrulesoutsshremove"></a>`nftables::rules::out::ssh::remove`
+### <a name="nftables--rules--out--ssh--remove"></a>`nftables::rules::out::ssh::remove`
 
 disable outgoing ssh
 
-### <a name="nftablesrulesouttor"></a>`nftables::rules::out::tor`
+### <a name="nftables--rules--out--tor"></a>`nftables::rules::out::tor`
 
 manage out tor
 
-### <a name="nftablesrulesoutwhois"></a>`nftables::rules::out::whois`
+### <a name="nftables--rules--out--whois"></a>`nftables::rules::out::whois`
 
 allow clients to query remote whois server
 
-### <a name="nftablesrulesoutwireguard"></a>`nftables::rules::out::wireguard`
+### <a name="nftables--rules--out--wireguard"></a>`nftables::rules::out::wireguard`
 
 manage out wireguard
 
@@ -922,9 +930,9 @@ manage out wireguard
 
 The following parameters are available in the `nftables::rules::out::wireguard` class:
 
-* [`ports`](#ports)
+* [`ports`](#-nftables--rules--out--wireguard--ports)
 
-##### <a name="ports"></a>`ports`
+##### <a name="-nftables--rules--out--wireguard--ports"></a>`ports`
 
 Data type: `Array[Integer,1]`
 
@@ -932,7 +940,7 @@ specify wireguard ports
 
 Default value: `[51820]`
 
-### <a name="nftablesrulespuppet"></a>`nftables::rules::puppet`
+### <a name="nftables--rules--puppet"></a>`nftables::rules::puppet`
 
 manage in puppet
 
@@ -940,9 +948,9 @@ manage in puppet
 
 The following parameters are available in the `nftables::rules::puppet` class:
 
-* [`ports`](#ports)
+* [`ports`](#-nftables--rules--puppet--ports)
 
-##### <a name="ports"></a>`ports`
+##### <a name="-nftables--rules--puppet--ports"></a>`ports`
 
 Data type: `Array[Integer,1]`
 
@@ -950,7 +958,7 @@ puppet server ports
 
 Default value: `[8140]`
 
-### <a name="nftablesrulespxp_agent"></a>`nftables::rules::pxp_agent`
+### <a name="nftables--rules--pxp_agent"></a>`nftables::rules::pxp_agent`
 
 manage in pxp-agent
 
@@ -958,9 +966,9 @@ manage in pxp-agent
 
 The following parameters are available in the `nftables::rules::pxp_agent` class:
 
-* [`ports`](#ports)
+* [`ports`](#-nftables--rules--pxp_agent--ports)
 
-##### <a name="ports"></a>`ports`
+##### <a name="-nftables--rules--pxp_agent--ports"></a>`ports`
 
 Data type: `Array[Stdlib::Port,1]`
 
@@ -968,7 +976,7 @@ pxp server ports
 
 Default value: `[8142]`
 
-### <a name="nftablesrulesqemu"></a>`nftables::rules::qemu`
+### <a name="nftables--rules--qemu"></a>`nftables::rules::qemu`
 
 This class configures the typical firewall setup that libvirt
 creates. Depending on your requirements you can switch on and off
@@ -981,16 +989,16 @@ forwarding and/or masquerading for IPv4 traffic.
 
 The following parameters are available in the `nftables::rules::qemu` class:
 
-* [`interface`](#interface)
-* [`network_v4`](#network_v4)
-* [`network_v6`](#network_v6)
-* [`dns`](#dns)
-* [`dhcpv4`](#dhcpv4)
-* [`forward_traffic`](#forward_traffic)
-* [`internal_traffic`](#internal_traffic)
-* [`masquerade`](#masquerade)
+* [`interface`](#-nftables--rules--qemu--interface)
+* [`network_v4`](#-nftables--rules--qemu--network_v4)
+* [`network_v6`](#-nftables--rules--qemu--network_v6)
+* [`dns`](#-nftables--rules--qemu--dns)
+* [`dhcpv4`](#-nftables--rules--qemu--dhcpv4)
+* [`forward_traffic`](#-nftables--rules--qemu--forward_traffic)
+* [`internal_traffic`](#-nftables--rules--qemu--internal_traffic)
+* [`masquerade`](#-nftables--rules--qemu--masquerade)
 
-##### <a name="interface"></a>`interface`
+##### <a name="-nftables--rules--qemu--interface"></a>`interface`
 
 Data type: `String[1]`
 
@@ -998,7 +1006,7 @@ Interface name used by the bridge.
 
 Default value: `'virbr0'`
 
-##### <a name="network_v4"></a>`network_v4`
+##### <a name="-nftables--rules--qemu--network_v4"></a>`network_v4`
 
 Data type: `Stdlib::IP::Address::V4::CIDR`
 
@@ -1006,57 +1014,57 @@ The IPv4 network prefix used in the virtual network.
 
 Default value: `'192.168.122.0/24'`
 
-##### <a name="network_v6"></a>`network_v6`
+##### <a name="-nftables--rules--qemu--network_v6"></a>`network_v6`
 
 Data type: `Optional[Stdlib::IP::Address::V6::CIDR]`
 
 The IPv6 network prefix used in the virtual network.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="dns"></a>`dns`
+##### <a name="-nftables--rules--qemu--dns"></a>`dns`
 
 Data type: `Boolean`
 
 Allow DNS traffic from the guests to the host.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="dhcpv4"></a>`dhcpv4`
+##### <a name="-nftables--rules--qemu--dhcpv4"></a>`dhcpv4`
 
 Data type: `Boolean`
 
 Allow DHCPv4 traffic from the guests to the host.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="forward_traffic"></a>`forward_traffic`
+##### <a name="-nftables--rules--qemu--forward_traffic"></a>`forward_traffic`
 
 Data type: `Boolean`
 
 Allow forwarded traffic (out all, in related/established)
 generated by the virtual network.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="internal_traffic"></a>`internal_traffic`
+##### <a name="-nftables--rules--qemu--internal_traffic"></a>`internal_traffic`
 
 Data type: `Boolean`
 
 Allow guests in the virtual network to talk to each other.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="masquerade"></a>`masquerade`
+##### <a name="-nftables--rules--qemu--masquerade"></a>`masquerade`
 
 Data type: `Boolean`
 
 Do NAT masquerade on all IPv4 traffic generated by guests
 to external networks.
 
-Default value: ``true``
+Default value: `true`
 
-### <a name="nftablesrulessamba"></a>`nftables::rules::samba`
+### <a name="nftables--rules--samba"></a>`nftables::rules::samba`
 
 manage Samba, the suite to allow Windows file sharing on Linux resources.
 
@@ -1064,29 +1072,29 @@ manage Samba, the suite to allow Windows file sharing on Linux resources.
 
 The following parameters are available in the `nftables::rules::samba` class:
 
-* [`ctdb`](#ctdb)
+* [`ctdb`](#-nftables--rules--samba--ctdb)
 
-##### <a name="ctdb"></a>`ctdb`
+##### <a name="-nftables--rules--samba--ctdb"></a>`ctdb`
 
 Data type: `Boolean`
 
 Enable ctdb-driven clustered Samba setups.
 
-Default value: ``false``
+Default value: `false`
 
-### <a name="nftablesrulessmtp"></a>`nftables::rules::smtp`
+### <a name="nftables--rules--smtp"></a>`nftables::rules::smtp`
 
 manage in smtp
 
-### <a name="nftablesrulessmtp_submission"></a>`nftables::rules::smtp_submission`
+### <a name="nftables--rules--smtp_submission"></a>`nftables::rules::smtp_submission`
 
 manage in smtp submission
 
-### <a name="nftablesrulessmtps"></a>`nftables::rules::smtps`
+### <a name="nftables--rules--smtps"></a>`nftables::rules::smtps`
 
 manage in smtps
 
-### <a name="nftablesrulesssh"></a>`nftables::rules::ssh`
+### <a name="nftables--rules--ssh"></a>`nftables::rules::ssh`
 
 manage in ssh
 
@@ -1094,9 +1102,9 @@ manage in ssh
 
 The following parameters are available in the `nftables::rules::ssh` class:
 
-* [`ports`](#ports)
+* [`ports`](#-nftables--rules--ssh--ports)
 
-##### <a name="ports"></a>`ports`
+##### <a name="-nftables--rules--ssh--ports"></a>`ports`
 
 Data type: `Array[Stdlib::Port,1]`
 
@@ -1104,7 +1112,7 @@ ssh ports
 
 Default value: `[22]`
 
-### <a name="nftablesrulestor"></a>`nftables::rules::tor`
+### <a name="nftables--rules--tor"></a>`nftables::rules::tor`
 
 manage in tor
 
@@ -1112,9 +1120,9 @@ manage in tor
 
 The following parameters are available in the `nftables::rules::tor` class:
 
-* [`ports`](#ports)
+* [`ports`](#-nftables--rules--tor--ports)
 
-##### <a name="ports"></a>`ports`
+##### <a name="-nftables--rules--tor--ports"></a>`ports`
 
 Data type: `Array[Stdlib::Port,1]`
 
@@ -1122,7 +1130,7 @@ ports for tor
 
 Default value: `[9001]`
 
-### <a name="nftablesruleswireguard"></a>`nftables::rules::wireguard`
+### <a name="nftables--rules--wireguard"></a>`nftables::rules::wireguard`
 
 manage in wireguard
 
@@ -1130,9 +1138,9 @@ manage in wireguard
 
 The following parameters are available in the `nftables::rules::wireguard` class:
 
-* [`ports`](#ports)
+* [`ports`](#-nftables--rules--wireguard--ports)
 
-##### <a name="ports"></a>`ports`
+##### <a name="-nftables--rules--wireguard--ports"></a>`ports`
 
 Data type: `Array[Stdlib::Port,1]`
 
@@ -1140,17 +1148,17 @@ wiregueard port
 
 Default value: `[51820]`
 
-### <a name="nftablesservicesdhcpv6_client"></a>`nftables::services::dhcpv6_client`
+### <a name="nftables--services--dhcpv6_client"></a>`nftables::services::dhcpv6_client`
 
 Allow in and outbound traffic for DHCPv6 server
 
-### <a name="nftablesservicesopenafs_client"></a>`nftables::services::openafs_client`
+### <a name="nftables--services--openafs_client"></a>`nftables::services::openafs_client`
 
 Open inbound and outbound ports for an AFS client
 
 ## Defined types
 
-### <a name="nftableschain"></a>`nftables::chain`
+### <a name="nftables--chain"></a>`nftables::chain`
 
 manage a chain
 
@@ -1158,21 +1166,21 @@ manage a chain
 
 The following parameters are available in the `nftables::chain` defined type:
 
-* [`table`](#table)
-* [`chain`](#chain)
-* [`inject`](#inject)
-* [`inject_iif`](#inject_iif)
-* [`inject_oif`](#inject_oif)
+* [`table`](#-nftables--chain--table)
+* [`chain`](#-nftables--chain--chain)
+* [`inject`](#-nftables--chain--inject)
+* [`inject_iif`](#-nftables--chain--inject_iif)
+* [`inject_oif`](#-nftables--chain--inject_oif)
 
-##### <a name="table"></a>`table`
+##### <a name="-nftables--chain--table"></a>`table`
 
-Data type: `Pattern[/^(ip|ip6|inet)-[a-zA-Z0-9_]+$/]`
+Data type: `Pattern[/^(ip|ip6|inet|netdev|bridge)-[a-zA-Z0-9_]+$/]`
 
 
 
 Default value: `'inet-filter'`
 
-##### <a name="chain"></a>`chain`
+##### <a name="-nftables--chain--chain"></a>`chain`
 
 Data type: `Pattern[/^[a-zA-Z0-9_]+$/]`
 
@@ -1180,31 +1188,31 @@ Data type: `Pattern[/^[a-zA-Z0-9_]+$/]`
 
 Default value: `$title`
 
-##### <a name="inject"></a>`inject`
+##### <a name="-nftables--chain--inject"></a>`inject`
 
 Data type: `Optional[Pattern[/^\d\d-[a-zA-Z0-9_]+$/]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="inject_iif"></a>`inject_iif`
-
-Data type: `Optional[String]`
-
-
-
-Default value: ``undef``
-
-##### <a name="inject_oif"></a>`inject_oif`
+##### <a name="-nftables--chain--inject_iif"></a>`inject_iif`
 
 Data type: `Optional[String]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-### <a name="nftablesconfig"></a>`nftables::config`
+##### <a name="-nftables--chain--inject_oif"></a>`inject_oif`
+
+Data type: `Optional[String]`
+
+
+
+Default value: `undef`
+
+### <a name="nftables--config"></a>`nftables::config`
 
 manage a config snippet
 
@@ -1212,12 +1220,12 @@ manage a config snippet
 
 The following parameters are available in the `nftables::config` defined type:
 
-* [`tablespec`](#tablespec)
-* [`content`](#content)
-* [`source`](#source)
-* [`prefix`](#prefix)
+* [`tablespec`](#-nftables--config--tablespec)
+* [`content`](#-nftables--config--content)
+* [`source`](#-nftables--config--source)
+* [`prefix`](#-nftables--config--prefix)
 
-##### <a name="tablespec"></a>`tablespec`
+##### <a name="-nftables--config--tablespec"></a>`tablespec`
 
 Data type: `Pattern[/^\w+-\w+$/]`
 
@@ -1225,23 +1233,23 @@ Data type: `Pattern[/^\w+-\w+$/]`
 
 Default value: `$title`
 
-##### <a name="content"></a>`content`
+##### <a name="-nftables--config--content"></a>`content`
 
 Data type: `Optional[String]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="source"></a>`source`
+##### <a name="-nftables--config--source"></a>`source`
 
 Data type: `Optional[Variant[String,Array[String,1]]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="prefix"></a>`prefix`
+##### <a name="-nftables--config--prefix"></a>`prefix`
 
 Data type: `String`
 
@@ -1249,7 +1257,7 @@ Data type: `String`
 
 Default value: `'custom-'`
 
-### <a name="nftablesfile"></a>`nftables::file`
+### <a name="nftables--file"></a>`nftables::file`
 
 Insert a file into the nftables configuration
 
@@ -1270,12 +1278,12 @@ nftables::file{'geoip':
 
 The following parameters are available in the `nftables::file` defined type:
 
-* [`label`](#label)
-* [`content`](#content)
-* [`source`](#source)
-* [`prefix`](#prefix)
+* [`label`](#-nftables--file--label)
+* [`content`](#-nftables--file--content)
+* [`source`](#-nftables--file--source)
+* [`prefix`](#-nftables--file--prefix)
 
-##### <a name="label"></a>`label`
+##### <a name="-nftables--file--label"></a>`label`
 
 Data type: `String[1]`
 
@@ -1283,23 +1291,23 @@ Unique name to include in filename.
 
 Default value: `$title`
 
-##### <a name="content"></a>`content`
+##### <a name="-nftables--file--content"></a>`content`
 
 Data type: `Optional[String]`
 
 The content to place in the file.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="source"></a>`source`
+##### <a name="-nftables--file--source"></a>`source`
 
 Data type: `Optional[Variant[String,Array[String,1]]]`
 
 A source to obtain the file content from.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="prefix"></a>`prefix`
+##### <a name="-nftables--file--prefix"></a>`prefix`
 
 Data type: `String`
 
@@ -1308,7 +1316,7 @@ auto included in the main nft configuration
 
 Default value: `'file-'`
 
-### <a name="nftablesrule"></a>`nftables::rule`
+### <a name="nftables--rule"></a>`nftables::rule`
 
 Provides an interface to create a firewall rule
 
@@ -1337,14 +1345,14 @@ nftables::rule {
 
 The following parameters are available in the `nftables::rule` defined type:
 
-* [`ensure`](#ensure)
-* [`rulename`](#rulename)
-* [`order`](#order)
-* [`table`](#table)
-* [`content`](#content)
-* [`source`](#source)
+* [`ensure`](#-nftables--rule--ensure)
+* [`rulename`](#-nftables--rule--rulename)
+* [`order`](#-nftables--rule--order)
+* [`table`](#-nftables--rule--table)
+* [`content`](#-nftables--rule--content)
+* [`source`](#-nftables--rule--source)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-nftables--rule--ensure"></a>`ensure`
 
 Data type: `Enum['present','absent']`
 
@@ -1352,7 +1360,7 @@ Should the rule be created.
 
 Default value: `'present'`
 
-##### <a name="rulename"></a>`rulename`
+##### <a name="-nftables--rule--rulename"></a>`rulename`
 
 Data type: `Nftables::RuleName`
 
@@ -1361,7 +1369,7 @@ format is defined by the Nftables::RuleName type.
 
 Default value: `$title`
 
-##### <a name="order"></a>`order`
+##### <a name="-nftables--rule--order"></a>`order`
 
 Data type: `Pattern[/^\d\d$/]`
 
@@ -1369,7 +1377,7 @@ A number representing the order of the rule.
 
 Default value: `'50'`
 
-##### <a name="table"></a>`table`
+##### <a name="-nftables--rule--table"></a>`table`
 
 Data type: `String`
 
@@ -1377,24 +1385,24 @@ The name of the table to add this rule to.
 
 Default value: `'inet-filter'`
 
-##### <a name="content"></a>`content`
+##### <a name="-nftables--rule--content"></a>`content`
 
 Data type: `Optional[String]`
 
 The raw statements that compose the rule represented using the nftables
 language.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="source"></a>`source`
+##### <a name="-nftables--rule--source"></a>`source`
 
 Data type: `Optional[Variant[String,Array[String,1]]]`
 
 Same goal as content but sourcing the value from a file.
 
-Default value: ``undef``
+Default value: `undef`
 
-### <a name="nftablesrulesdnat4"></a>`nftables::rules::dnat4`
+### <a name="nftables--rules--dnat4"></a>`nftables::rules::dnat4`
 
 manage a ipv4 dnat rule
 
@@ -1402,29 +1410,29 @@ manage a ipv4 dnat rule
 
 The following parameters are available in the `nftables::rules::dnat4` defined type:
 
-* [`daddr`](#daddr)
-* [`port`](#port)
-* [`rulename`](#rulename)
-* [`order`](#order)
-* [`chain`](#chain)
-* [`iif`](#iif)
-* [`proto`](#proto)
-* [`dport`](#dport)
-* [`ensure`](#ensure)
+* [`daddr`](#-nftables--rules--dnat4--daddr)
+* [`port`](#-nftables--rules--dnat4--port)
+* [`rulename`](#-nftables--rules--dnat4--rulename)
+* [`order`](#-nftables--rules--dnat4--order)
+* [`chain`](#-nftables--rules--dnat4--chain)
+* [`iif`](#-nftables--rules--dnat4--iif)
+* [`proto`](#-nftables--rules--dnat4--proto)
+* [`dport`](#-nftables--rules--dnat4--dport)
+* [`ensure`](#-nftables--rules--dnat4--ensure)
 
-##### <a name="daddr"></a>`daddr`
+##### <a name="-nftables--rules--dnat4--daddr"></a>`daddr`
 
 Data type: `Pattern[/^[12]?\d{1,2}\.[12]?\d{1,2}\.[12]?\d{1,2}\.[12]?\d{1,2}$/]`
 
 
 
-##### <a name="port"></a>`port`
+##### <a name="-nftables--rules--dnat4--port"></a>`port`
 
 Data type: `Variant[String,Stdlib::Port]`
 
 
 
-##### <a name="rulename"></a>`rulename`
+##### <a name="-nftables--rules--dnat4--rulename"></a>`rulename`
 
 Data type: `Pattern[/^[a-zA-Z0-9_]+$/]`
 
@@ -1432,7 +1440,7 @@ Data type: `Pattern[/^[a-zA-Z0-9_]+$/]`
 
 Default value: `$title`
 
-##### <a name="order"></a>`order`
+##### <a name="-nftables--rules--dnat4--order"></a>`order`
 
 Data type: `Pattern[/^\d\d$/]`
 
@@ -1440,7 +1448,7 @@ Data type: `Pattern[/^\d\d$/]`
 
 Default value: `'50'`
 
-##### <a name="chain"></a>`chain`
+##### <a name="-nftables--rules--dnat4--chain"></a>`chain`
 
 Data type: `String[1]`
 
@@ -1448,15 +1456,15 @@ Data type: `String[1]`
 
 Default value: `'default_fwd'`
 
-##### <a name="iif"></a>`iif`
+##### <a name="-nftables--rules--dnat4--iif"></a>`iif`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="proto"></a>`proto`
+##### <a name="-nftables--rules--dnat4--proto"></a>`proto`
 
 Data type: `Enum['tcp','udp']`
 
@@ -1464,15 +1472,15 @@ Data type: `Enum['tcp','udp']`
 
 Default value: `'tcp'`
 
-##### <a name="dport"></a>`dport`
+##### <a name="-nftables--rules--dnat4--dport"></a>`dport`
 
 Data type: `Optional[Variant[String,Stdlib::Port]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-nftables--rules--dnat4--ensure"></a>`ensure`
 
 Data type: `Enum['present','absent']`
 
@@ -1480,7 +1488,7 @@ Data type: `Enum['present','absent']`
 
 Default value: `'present'`
 
-### <a name="nftablesrulesmasquerade"></a>`nftables::rules::masquerade`
+### <a name="nftables--rules--masquerade"></a>`nftables::rules::masquerade`
 
 masquerade all outgoing traffic
 
@@ -1488,17 +1496,17 @@ masquerade all outgoing traffic
 
 The following parameters are available in the `nftables::rules::masquerade` defined type:
 
-* [`rulename`](#rulename)
-* [`order`](#order)
-* [`chain`](#chain)
-* [`oif`](#oif)
-* [`saddr`](#saddr)
-* [`daddr`](#daddr)
-* [`proto`](#proto)
-* [`dport`](#dport)
-* [`ensure`](#ensure)
+* [`rulename`](#-nftables--rules--masquerade--rulename)
+* [`order`](#-nftables--rules--masquerade--order)
+* [`chain`](#-nftables--rules--masquerade--chain)
+* [`oif`](#-nftables--rules--masquerade--oif)
+* [`saddr`](#-nftables--rules--masquerade--saddr)
+* [`daddr`](#-nftables--rules--masquerade--daddr)
+* [`proto`](#-nftables--rules--masquerade--proto)
+* [`dport`](#-nftables--rules--masquerade--dport)
+* [`ensure`](#-nftables--rules--masquerade--ensure)
 
-##### <a name="rulename"></a>`rulename`
+##### <a name="-nftables--rules--masquerade--rulename"></a>`rulename`
 
 Data type: `Pattern[/^[a-zA-Z0-9_]+$/]`
 
@@ -1506,7 +1514,7 @@ Data type: `Pattern[/^[a-zA-Z0-9_]+$/]`
 
 Default value: `$title`
 
-##### <a name="order"></a>`order`
+##### <a name="-nftables--rules--masquerade--order"></a>`order`
 
 Data type: `Pattern[/^\d\d$/]`
 
@@ -1514,7 +1522,7 @@ Data type: `Pattern[/^\d\d$/]`
 
 Default value: `'70'`
 
-##### <a name="chain"></a>`chain`
+##### <a name="-nftables--rules--masquerade--chain"></a>`chain`
 
 Data type: `String[1]`
 
@@ -1522,47 +1530,47 @@ Data type: `String[1]`
 
 Default value: `'POSTROUTING'`
 
-##### <a name="oif"></a>`oif`
+##### <a name="-nftables--rules--masquerade--oif"></a>`oif`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="saddr"></a>`saddr`
-
-Data type: `Optional[String[1]]`
-
-
-
-Default value: ``undef``
-
-##### <a name="daddr"></a>`daddr`
+##### <a name="-nftables--rules--masquerade--saddr"></a>`saddr`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="proto"></a>`proto`
+##### <a name="-nftables--rules--masquerade--daddr"></a>`daddr`
+
+Data type: `Optional[String[1]]`
+
+
+
+Default value: `undef`
+
+##### <a name="-nftables--rules--masquerade--proto"></a>`proto`
 
 Data type: `Optional[Enum['tcp','udp']]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="dport"></a>`dport`
+##### <a name="-nftables--rules--masquerade--dport"></a>`dport`
 
 Data type: `Optional[Variant[String,Stdlib::Port]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-nftables--rules--masquerade--ensure"></a>`ensure`
 
 Data type: `Enum['present','absent']`
 
@@ -1570,7 +1578,7 @@ Data type: `Enum['present','absent']`
 
 Default value: `'present'`
 
-### <a name="nftablesrulessnat4"></a>`nftables::rules::snat4`
+### <a name="nftables--rules--snat4"></a>`nftables::rules::snat4`
 
 manage a ipv4 snat rule
 
@@ -1578,23 +1586,23 @@ manage a ipv4 snat rule
 
 The following parameters are available in the `nftables::rules::snat4` defined type:
 
-* [`snat`](#snat)
-* [`rulename`](#rulename)
-* [`order`](#order)
-* [`chain`](#chain)
-* [`oif`](#oif)
-* [`saddr`](#saddr)
-* [`proto`](#proto)
-* [`dport`](#dport)
-* [`ensure`](#ensure)
+* [`snat`](#-nftables--rules--snat4--snat)
+* [`rulename`](#-nftables--rules--snat4--rulename)
+* [`order`](#-nftables--rules--snat4--order)
+* [`chain`](#-nftables--rules--snat4--chain)
+* [`oif`](#-nftables--rules--snat4--oif)
+* [`saddr`](#-nftables--rules--snat4--saddr)
+* [`proto`](#-nftables--rules--snat4--proto)
+* [`dport`](#-nftables--rules--snat4--dport)
+* [`ensure`](#-nftables--rules--snat4--ensure)
 
-##### <a name="snat"></a>`snat`
+##### <a name="-nftables--rules--snat4--snat"></a>`snat`
 
 Data type: `String[1]`
 
 
 
-##### <a name="rulename"></a>`rulename`
+##### <a name="-nftables--rules--snat4--rulename"></a>`rulename`
 
 Data type: `Pattern[/^[a-zA-Z0-9_]+$/]`
 
@@ -1602,7 +1610,7 @@ Data type: `Pattern[/^[a-zA-Z0-9_]+$/]`
 
 Default value: `$title`
 
-##### <a name="order"></a>`order`
+##### <a name="-nftables--rules--snat4--order"></a>`order`
 
 Data type: `Pattern[/^\d\d$/]`
 
@@ -1610,7 +1618,7 @@ Data type: `Pattern[/^\d\d$/]`
 
 Default value: `'70'`
 
-##### <a name="chain"></a>`chain`
+##### <a name="-nftables--rules--snat4--chain"></a>`chain`
 
 Data type: `String[1]`
 
@@ -1618,39 +1626,39 @@ Data type: `String[1]`
 
 Default value: `'POSTROUTING'`
 
-##### <a name="oif"></a>`oif`
+##### <a name="-nftables--rules--snat4--oif"></a>`oif`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="saddr"></a>`saddr`
+##### <a name="-nftables--rules--snat4--saddr"></a>`saddr`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="proto"></a>`proto`
+##### <a name="-nftables--rules--snat4--proto"></a>`proto`
 
 Data type: `Optional[Enum['tcp','udp']]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="dport"></a>`dport`
+##### <a name="-nftables--rules--snat4--dport"></a>`dport`
 
 Data type: `Optional[Variant[String,Stdlib::Port]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-nftables--rules--snat4--ensure"></a>`ensure`
 
 Data type: `Enum['present','absent']`
 
@@ -1658,7 +1666,7 @@ Data type: `Enum['present','absent']`
 
 Default value: `'present'`
 
-### <a name="nftablesset"></a>`nftables::set`
+### <a name="nftables--set"></a>`nftables::set`
 
 manage a named set
 
@@ -1679,22 +1687,22 @@ nftables::set{'my_set':
 
 The following parameters are available in the `nftables::set` defined type:
 
-* [`ensure`](#ensure)
-* [`setname`](#setname)
-* [`order`](#order)
-* [`type`](#type)
-* [`table`](#table)
-* [`flags`](#flags)
-* [`timeout`](#timeout)
-* [`gc_interval`](#gc_interval)
-* [`elements`](#elements)
-* [`size`](#size)
-* [`policy`](#policy)
-* [`auto_merge`](#auto_merge)
-* [`content`](#content)
-* [`source`](#source)
+* [`ensure`](#-nftables--set--ensure)
+* [`setname`](#-nftables--set--setname)
+* [`order`](#-nftables--set--order)
+* [`type`](#-nftables--set--type)
+* [`table`](#-nftables--set--table)
+* [`flags`](#-nftables--set--flags)
+* [`timeout`](#-nftables--set--timeout)
+* [`gc_interval`](#-nftables--set--gc_interval)
+* [`elements`](#-nftables--set--elements)
+* [`size`](#-nftables--set--size)
+* [`policy`](#-nftables--set--policy)
+* [`auto_merge`](#-nftables--set--auto_merge)
+* [`content`](#-nftables--set--content)
+* [`source`](#-nftables--set--source)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-nftables--set--ensure"></a>`ensure`
 
 Data type: `Enum['present','absent']`
 
@@ -1702,7 +1710,7 @@ should the set be created.
 
 Default value: `'present'`
 
-##### <a name="setname"></a>`setname`
+##### <a name="-nftables--set--setname"></a>`setname`
 
 Data type: `Pattern[/^[-a-zA-Z0-9_]+$/]`
 
@@ -1710,7 +1718,7 @@ name of set, equal to to title.
 
 Default value: `$title`
 
-##### <a name="order"></a>`order`
+##### <a name="-nftables--set--order"></a>`order`
 
 Data type: `Pattern[/^\d\d$/]`
 
@@ -1718,15 +1726,15 @@ concat ordering.
 
 Default value: `'10'`
 
-##### <a name="type"></a>`type`
+##### <a name="-nftables--set--type"></a>`type`
 
 Data type: `Optional[Enum['ipv4_addr', 'ipv6_addr', 'ether_addr', 'inet_proto', 'inet_service', 'mark']]`
 
 type of set.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="table"></a>`table`
+##### <a name="-nftables--set--table"></a>`table`
 
 Data type: `Variant[String, Array[String, 1]]`
 
@@ -1734,7 +1742,7 @@ table or array of tables to add the set to.
 
 Default value: `'inet-filter'`
 
-##### <a name="flags"></a>`flags`
+##### <a name="-nftables--set--flags"></a>`flags`
 
 Data type: `Array[Enum['constant', 'dynamic', 'interval', 'timeout'], 0, 4]`
 
@@ -1742,71 +1750,71 @@ specify flags for set
 
 Default value: `[]`
 
-##### <a name="timeout"></a>`timeout`
+##### <a name="-nftables--set--timeout"></a>`timeout`
 
 Data type: `Optional[Integer]`
 
 timeout in seconds
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="gc_interval"></a>`gc_interval`
+##### <a name="-nftables--set--gc_interval"></a>`gc_interval`
 
 Data type: `Optional[Integer]`
 
 garbage collection interval.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="elements"></a>`elements`
+##### <a name="-nftables--set--elements"></a>`elements`
 
 Data type: `Optional[Array[String]]`
 
 initialize the set with some elements in it.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="size"></a>`size`
+##### <a name="-nftables--set--size"></a>`size`
 
 Data type: `Optional[Integer]`
 
 limits the maximum number of elements of the set.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="policy"></a>`policy`
+##### <a name="-nftables--set--policy"></a>`policy`
 
 Data type: `Optional[Enum['performance', 'memory']]`
 
 determines set selection policy.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="auto_merge"></a>`auto_merge`
+##### <a name="-nftables--set--auto_merge"></a>`auto_merge`
 
 Data type: `Boolean`
 
 ?
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="content"></a>`content`
+##### <a name="-nftables--set--content"></a>`content`
 
 Data type: `Optional[String]`
 
 specify content of set.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="source"></a>`source`
+##### <a name="-nftables--set--source"></a>`source`
 
 Data type: `Optional[Variant[String,Array[String,1]]]`
 
 specify source of set.
 
-Default value: ``undef``
+Default value: `undef`
 
-### <a name="nftablessimplerule"></a>`nftables::simplerule`
+### <a name="nftables--simplerule"></a>`nftables::simplerule`
 
 Provides a simplified interface to nftables::rule
 
@@ -1830,22 +1838,22 @@ nftables::simplerule{'my_service_in':
 
 The following parameters are available in the `nftables::simplerule` defined type:
 
-* [`ensure`](#ensure)
-* [`rulename`](#rulename)
-* [`order`](#order)
-* [`chain`](#chain)
-* [`table`](#table)
-* [`action`](#action)
-* [`comment`](#comment)
-* [`dport`](#dport)
-* [`proto`](#proto)
-* [`daddr`](#daddr)
-* [`set_type`](#set_type)
-* [`sport`](#sport)
-* [`saddr`](#saddr)
-* [`counter`](#counter)
+* [`ensure`](#-nftables--simplerule--ensure)
+* [`rulename`](#-nftables--simplerule--rulename)
+* [`order`](#-nftables--simplerule--order)
+* [`chain`](#-nftables--simplerule--chain)
+* [`table`](#-nftables--simplerule--table)
+* [`action`](#-nftables--simplerule--action)
+* [`comment`](#-nftables--simplerule--comment)
+* [`dport`](#-nftables--simplerule--dport)
+* [`proto`](#-nftables--simplerule--proto)
+* [`daddr`](#-nftables--simplerule--daddr)
+* [`set_type`](#-nftables--simplerule--set_type)
+* [`sport`](#-nftables--simplerule--sport)
+* [`saddr`](#-nftables--simplerule--saddr)
+* [`counter`](#-nftables--simplerule--counter)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-nftables--simplerule--ensure"></a>`ensure`
 
 Data type: `Enum['present','absent']`
 
@@ -1853,7 +1861,7 @@ Should the rule be created.
 
 Default value: `'present'`
 
-##### <a name="rulename"></a>`rulename`
+##### <a name="-nftables--simplerule--rulename"></a>`rulename`
 
 Data type: `Nftables::SimpleRuleName`
 
@@ -1861,7 +1869,7 @@ The symbolic name for the rule to add. Defaults to the resource's title.
 
 Default value: `$title`
 
-##### <a name="order"></a>`order`
+##### <a name="-nftables--simplerule--order"></a>`order`
 
 Data type: `Pattern[/^\d\d$/]`
 
@@ -1869,7 +1877,7 @@ A number representing the order of the rule.
 
 Default value: `'50'`
 
-##### <a name="chain"></a>`chain`
+##### <a name="-nftables--simplerule--chain"></a>`chain`
 
 Data type: `String`
 
@@ -1877,7 +1885,7 @@ The name of the chain to add this rule to.
 
 Default value: `'default_in'`
 
-##### <a name="table"></a>`table`
+##### <a name="-nftables--simplerule--table"></a>`table`
 
 Data type: `String`
 
@@ -1885,7 +1893,7 @@ The name of the table to add this rule to.
 
 Default value: `'inet-filter'`
 
-##### <a name="action"></a>`action`
+##### <a name="-nftables--simplerule--action"></a>`action`
 
 Data type: `Enum['accept', 'continue', 'drop', 'queue', 'return']`
 
@@ -1893,39 +1901,39 @@ The verdict for the matched traffic.
 
 Default value: `'accept'`
 
-##### <a name="comment"></a>`comment`
+##### <a name="-nftables--simplerule--comment"></a>`comment`
 
 Data type: `Optional[String]`
 
 A typically human-readable comment for the rule.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="dport"></a>`dport`
+##### <a name="-nftables--simplerule--dport"></a>`dport`
 
 Data type: `Optional[Nftables::Port]`
 
 The destination port, ports or port range.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="proto"></a>`proto`
+##### <a name="-nftables--simplerule--proto"></a>`proto`
 
 Data type: `Optional[Enum['tcp', 'tcp4', 'tcp6', 'udp', 'udp4', 'udp6']]`
 
 The transport-layer protocol to match.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="daddr"></a>`daddr`
+##### <a name="-nftables--simplerule--daddr"></a>`daddr`
 
 Data type: `Optional[Nftables::Addr]`
 
 The destination address, CIDR or set to match.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="set_type"></a>`set_type`
+##### <a name="-nftables--simplerule--set_type"></a>`set_type`
 
 Data type: `Enum['ip', 'ip6']`
 
@@ -1934,92 +1942,68 @@ Use `ip` for sets of type `ipv4_addr`.
 
 Default value: `'ip6'`
 
-##### <a name="sport"></a>`sport`
+##### <a name="-nftables--simplerule--sport"></a>`sport`
 
 Data type: `Optional[Nftables::Port]`
 
 The source port, ports or port range.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="saddr"></a>`saddr`
+##### <a name="-nftables--simplerule--saddr"></a>`saddr`
 
 Data type: `Optional[Nftables::Addr]`
 
 The source address, CIDR or set to match.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="counter"></a>`counter`
+##### <a name="-nftables--simplerule--counter"></a>`counter`
 
 Data type: `Boolean`
 
 Enable traffic counters for the matched traffic.
 
-Default value: ``false``
+Default value: `false`
 
 ## Data types
 
-### <a name="nftablesaddr"></a>`Nftables::Addr`
+### <a name="Nftables--Addr"></a>`Nftables::Addr`
 
 Represents an address expression to be used within a rule.
 
-Alias of
+Alias of `Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Nftables::Addr::Set]`
 
-```puppet
-Variant[Stdlib::IP::Address::V6, Stdlib::IP::Address::V4, Nftables::Addr::Set]
-```
-
-### <a name="nftablesaddrset"></a>`Nftables::Addr::Set`
+### <a name="Nftables--Addr--Set"></a>`Nftables::Addr::Set`
 
 Represents a set expression to be used within a rule.
 
-Alias of
+Alias of `Pattern[/^@[-a-zA-Z0-9_]+$/]`
 
-```puppet
-Pattern[/^@[-a-zA-Z0-9_]+$/]
-```
-
-### <a name="nftablesport"></a>`Nftables::Port`
+### <a name="Nftables--Port"></a>`Nftables::Port`
 
 Represents a port expression to be used within a rule.
 
-Alias of
+Alias of `Variant[Array[Stdlib::Port, 1], Stdlib::Port, Nftables::Port::Range]`
 
-```puppet
-Variant[Array[Stdlib::Port, 1], Stdlib::Port, Nftables::Port::Range]
-```
-
-### <a name="nftablesportrange"></a>`Nftables::Port::Range`
+### <a name="Nftables--Port--Range"></a>`Nftables::Port::Range`
 
 Represents a port range expression to be used within a rule.
 
-Alias of
+Alias of `Pattern[/^\d+-\d+$/]`
 
-```puppet
-Pattern[/^\d+-\d+$/]
-```
-
-### <a name="nftablesrulename"></a>`Nftables::RuleName`
+### <a name="Nftables--RuleName"></a>`Nftables::RuleName`
 
 Represents a rule name to be used in a raw rule created via nftables::rule.
 It's a dash separated string. The first component describes the chain to
 add the rule to, the second the rule name and the (optional) third a number.
 Ex: 'default_in-sshd', 'default_out-my_service-2'.
 
-Alias of
+Alias of `Pattern[/^[a-zA-Z0-9_]+-[a-zA-Z0-9_]+(-\d+)?$/]`
 
-```puppet
-Pattern[/^[a-zA-Z0-9_]+-[a-zA-Z0-9_]+(-\d+)?$/]
-```
-
-### <a name="nftablessimplerulename"></a>`Nftables::SimpleRuleName`
+### <a name="Nftables--SimpleRuleName"></a>`Nftables::SimpleRuleName`
 
 Represents a simple rule name to be used in a rule created via nftables::simplerule
 
-Alias of
-
-```puppet
-Pattern[/^[a-zA-Z0-9_]+(-\d+)?$/]
-```
+Alias of `Pattern[/^[a-zA-Z0-9_]+(-\d+)?$/]`
 
