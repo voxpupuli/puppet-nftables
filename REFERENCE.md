@@ -153,6 +153,7 @@ The following parameters are available in the `nftables` class:
 * [`configuration_path`](#configuration_path)
 * [`nft_path`](#nft_path)
 * [`echo`](#echo)
+* [`default_config_mode`](#default_config_mode)
 
 ##### <a name="out_all"></a>`out_all`
 
@@ -347,6 +348,13 @@ Path to the nft binary
 Data type: `Stdlib::Unixpath`
 
 Path to the echo binary
+
+##### <a name="default_config_mode"></a>`default_config_mode`
+
+Data type: `Stdlib::Filemode`
+
+The default file & dir mode for configuration files and directories. The
+default varies depending on the system, and is set in the module's data.
 
 ### <a name="nftablesbridges"></a>`nftables::bridges`
 
@@ -1166,7 +1174,7 @@ The following parameters are available in the `nftables::chain` defined type:
 
 ##### <a name="table"></a>`table`
 
-Data type: `Pattern[/^(ip|ip6|inet)-[a-zA-Z0-9_]+$/]`
+Data type: `Pattern[/^(ip|ip6|inet|netdev|bridge)-[a-zA-Z0-9_]+$/]`
 
 
 
