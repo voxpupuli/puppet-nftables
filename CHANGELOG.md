@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.6.1](https://github.com/voxpupuli/puppet-nftables/tree/v2.6.1) (2023-03-23)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v2.6.0...v2.6.1)
+
+**Implemented enhancements:**
+
+- Add bridge as a valid family for chain tables [\#165](https://github.com/voxpupuli/puppet-nftables/pull/165) ([luisfdez](https://github.com/luisfdez))
+- Add Rocky 8 and 9 support [\#161](https://github.com/voxpupuli/puppet-nftables/pull/161) ([bastelfreak](https://github.com/bastelfreak))
+- Declare AlmaLinux8 and AlmaLinux9 support [\#160](https://github.com/voxpupuli/puppet-nftables/pull/160) ([nbarrientos](https://github.com/nbarrientos))
+- bump puppet/systemd to \< 5.0.0 [\#159](https://github.com/voxpupuli/puppet-nftables/pull/159) ([jhoblitt](https://github.com/jhoblitt))
+- Allow netdev as table family in defined type nftables::chain [\#149](https://github.com/voxpupuli/puppet-nftables/pull/149) ([hugendudel](https://github.com/hugendudel))
+
+**Fixed bugs:**
+
+- Align filemode on RedHat to distro default [\#157](https://github.com/voxpupuli/puppet-nftables/pull/157) ([duritong](https://github.com/duritong))
+
+**Closed issues:**
+
+- failing to setup a basic firewall [\#158](https://github.com/voxpupuli/puppet-nftables/issues/158)
+
+**Merged pull requests:**
+
+- README improvements [\#162](https://github.com/voxpupuli/puppet-nftables/pull/162) ([anarcat](https://github.com/anarcat))
+
 ## [v2.6.0](https://github.com/voxpupuli/puppet-nftables/tree/v2.6.0) (2022-10-25)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v2.5.0...v2.6.0)
