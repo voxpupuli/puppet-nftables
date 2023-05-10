@@ -583,7 +583,7 @@ The following parameters are available in the `nftables::rules::icinga2` class:
 
 Data type: `Array[Stdlib::Port,1]`
 
-Specify ports for icinga1
+Specify ports for icinga2
 
 Default value: `[5665]`
 
