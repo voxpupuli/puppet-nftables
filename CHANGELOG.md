@@ -4,7 +4,24 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v2.6.1](https://github.com/voxpupuli/puppet-nftables/tree/v2.6.1) (2023-03-23)
+## [v3.0.0](https://github.com/voxpupuli/puppet-nftables/tree/v3.0.0) (2023-05-24)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v2.6.1...v3.0.0)
+
+**Breaking changes:**
+
+- Drop puppet 6 support [\#173](https://github.com/voxpupuli/puppet-nftables/pull/173) ([traylenator](https://github.com/traylenator))
+
+**Implemented enhancements:**
+
+- Raise puppetlabs/concat upper limit to \< 9.0.0 [\#170](https://github.com/voxpupuli/puppet-nftables/pull/170) ([canihavethisone](https://github.com/canihavethisone))
+
+**Merged pull requests:**
+
+- Refresh REFERENCE [\#171](https://github.com/voxpupuli/puppet-nftables/pull/171) ([traylenator](https://github.com/traylenator))
+- Fix typo in icinga2 rule documentation [\#169](https://github.com/voxpupuli/puppet-nftables/pull/169) ([baldurmen](https://github.com/baldurmen))
+
+## [v2.6.1](https://github.com/voxpupuli/puppet-nftables/tree/v2.6.1) (2023-03-24)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v2.6.0...v2.6.1)
 
