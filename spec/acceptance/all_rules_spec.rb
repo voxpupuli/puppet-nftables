@@ -30,6 +30,7 @@ describe 'nftables class' do
       include nftables::rules::puppet
       include nftables::rules::pxp_agent
       include nftables::rules::icinga2
+      include nftables::rules::ldap
       include nftables::rules::tor
       include nftables::rules::ospf3
       include nftables::rules::ceph_mon
@@ -60,6 +61,12 @@ describe 'nftables class' do
       }
       class{'nftables::rules::out::pxp_agent':
         broker => '127.0.0.1',
+      }
+      class{'nftables::rules::out::ldap':
+        ldapserver => '127.0.0.1',
+      }
+      class{'nftables::rules::out::active_directory':
+        adserver => '127.0.0.1',
       }
       include nftables::rules::out::all
       include nftables::rules::out::tor

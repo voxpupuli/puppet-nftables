@@ -24,11 +24,13 @@ Enable this option to support Ceph's Monitor Daemon.
 * [`nftables::rules::https`](#nftables--rules--https): manage in https
 * [`nftables::rules::icinga2`](#nftables--rules--icinga2): manage in icinga2
 * [`nftables::rules::icmp`](#nftables--rules--icmp)
+* [`nftables::rules::ldap`](#nftables--rules--ldap): manage in ldap
 * [`nftables::rules::nfs`](#nftables--rules--nfs): manage in nfs4
 * [`nftables::rules::nfs3`](#nftables--rules--nfs3): manage in nfs3
 * [`nftables::rules::node_exporter`](#nftables--rules--node_exporter): manage in node exporter
 * [`nftables::rules::ospf`](#nftables--rules--ospf): manage in ospf
 * [`nftables::rules::ospf3`](#nftables--rules--ospf3): manage in ospf3
+* [`nftables::rules::out::active_directory`](#nftables--rules--out--active_directory): manage outgoing active diectory
 * [`nftables::rules::out::all`](#nftables--rules--out--all): allow all outbound
 * [`nftables::rules::out::ceph_client`](#nftables--rules--out--ceph_client): Ceph is a distributed object store and file system.
 Enable this to be a client of Ceph's Monitor (MON),
@@ -44,6 +46,7 @@ and Manager Daemons (MGR).
 * [`nftables::rules::out::icmp`](#nftables--rules--out--icmp): control outbound icmp packages
 * [`nftables::rules::out::imap`](#nftables--rules--out--imap): allow outgoing imap
 * [`nftables::rules::out::kerberos`](#nftables--rules--out--kerberos): allows outbound access for kerberos
+* [`nftables::rules::out::ldap`](#nftables--rules--out--ldap): manage outgoing ldap
 * [`nftables::rules::out::mysql`](#nftables--rules--out--mysql): manage out mysql
 * [`nftables::rules::out::nfs`](#nftables--rules--out--nfs): manage out nfs
 * [`nftables::rules::out::nfs3`](#nftables--rules--out--nfs3): manage out nfs3
@@ -623,6 +626,24 @@ Data type: `String`
 
 Default value: `'10'`
 
+### <a name="nftables--rules--ldap"></a>`nftables::rules::ldap`
+
+manage in ldap
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::ldap` class:
+
+* [`ports`](#-nftables--rules--ldap--ports)
+
+##### <a name="-nftables--rules--ldap--ports"></a>`ports`
+
+Data type: `Array[Integer,1]`
+
+ldap server ports
+
+Default value: `[389, 636]`
+
 ### <a name="nftables--rules--nfs"></a>`nftables::rules::nfs`
 
 manage in nfs4
@@ -665,6 +686,31 @@ manage in ospf
 ### <a name="nftables--rules--ospf3"></a>`nftables::rules::ospf3`
 
 manage in ospf3
+
+### <a name="nftables--rules--out--active_directory"></a>`nftables::rules::out::active_directory`
+
+manage outgoing active diectory
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::out::active_directory` class:
+
+* [`adserver`](#-nftables--rules--out--active_directory--adserver)
+* [`adserver_ports`](#-nftables--rules--out--active_directory--adserver_ports)
+
+##### <a name="-nftables--rules--out--active_directory--adserver"></a>`adserver`
+
+Data type: `Variant[Stdlib::IP::Address,Array[Stdlib::IP::Address,1]]`
+
+adserver IPs
+
+##### <a name="-nftables--rules--out--active_directory--adserver_ports"></a>`adserver_ports`
+
+Data type: `Array[Stdlib::Port,1]`
+
+adserver ports
+
+Default value: `[389, 636, 3268, 3269]`
 
 ### <a name="nftables--rules--out--all"></a>`nftables::rules::out::all`
 
@@ -790,6 +836,31 @@ allow outgoing imap
 ### <a name="nftables--rules--out--kerberos"></a>`nftables::rules::out::kerberos`
 
 allows outbound access for kerberos
+
+### <a name="nftables--rules--out--ldap"></a>`nftables::rules::out::ldap`
+
+manage outgoing ldap
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::out::ldap` class:
+
+* [`ldapserver`](#-nftables--rules--out--ldap--ldapserver)
+* [`ldapserver_ports`](#-nftables--rules--out--ldap--ldapserver_ports)
+
+##### <a name="-nftables--rules--out--ldap--ldapserver"></a>`ldapserver`
+
+Data type: `Variant[Stdlib::IP::Address,Array[Stdlib::IP::Address,1]]`
+
+ldapserver IPs
+
+##### <a name="-nftables--rules--out--ldap--ldapserver_ports"></a>`ldapserver_ports`
+
+Data type: `Array[Stdlib::Port,1]`
+
+ldapserver ports
+
+Default value: `[389, 636]`
 
 ### <a name="nftables--rules--out--mysql"></a>`nftables::rules::out::mysql`
 
