@@ -1708,6 +1708,19 @@ nftables::rule {
 }
 ```
 
+##### Redirect port 443 to port 8443
+
+```puppet
+nftables::rule { 'PREROUTING-redirect':
+  content => 'tcp dport 443 redirect to :8443',
+  table   => 'ip-nat',
+}
+nftables::rule{'PREROUTING6-redirect':
+  content => 'tcp dport 443 redirect to :8443',
+  table   => 'ip6-nat',
+}
+```
+
 #### Parameters
 
 The following parameters are available in the `nftables::rule` defined type:
