@@ -4,9 +4,26 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.1.0](https://github.com/voxpupuli/puppet-nftables/tree/v3.1.0) (2023-07-29)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.0.1...v3.1.0)
+
+**Implemented enhancements:**
+
+- puppetlabs/stdlib: Allow 9.x [\#182](https://github.com/voxpupuli/puppet-nftables/pull/182) ([bastelfreak](https://github.com/bastelfreak))
+- Declare puppet v8 support [\#181](https://github.com/voxpupuli/puppet-nftables/pull/181) ([traylenator](https://github.com/traylenator))
+
+**Merged pull requests:**
+
+- puppetlabs/concat: Allow 9.x [\#185](https://github.com/voxpupuli/puppet-nftables/pull/185) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v3.0.1](https://github.com/voxpupuli/puppet-nftables/tree/v3.0.1) (2023-06-20)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.0.0...v3.0.1)
+
+**Implemented enhancements:**
+
+- add ldap and active directory rules [\#177](https://github.com/voxpupuli/puppet-nftables/pull/177) ([SimonHoenscheid](https://github.com/SimonHoenscheid))
 
 **Closed issues:**
 
@@ -14,7 +31,6 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- add ldap and active directory rules [\#177](https://github.com/voxpupuli/puppet-nftables/pull/177) ([SimonHoenscheid](https://github.com/SimonHoenscheid))
 - Increased puppet/systemd upper limit to \< 6.0.0 [\#176](https://github.com/voxpupuli/puppet-nftables/pull/176) ([canihavethisone](https://github.com/canihavethisone))
 
 ## [v3.0.0](https://github.com/voxpupuli/puppet-nftables/tree/v3.0.0) (2023-05-25)
