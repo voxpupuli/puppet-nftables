@@ -101,6 +101,10 @@
 #   default varies depending on the system, and is set in the module's data.
 #
 class nftables (
+  Stdlib::Unixpath $echo,
+  Stdlib::Unixpath $configuration_path,
+  Stdlib::Unixpath $nft_path,
+  Stdlib::Filemode $default_config_mode,
   Boolean $in_ssh = true,
   Boolean $in_icmp = true,
   Boolean $out_ntp = true,
@@ -121,10 +125,6 @@ class nftables (
   Variant[Boolean[false], Pattern[/icmp(v6|x)? type .+|tcp reset/]] $reject_with = 'icmpx type port-unreachable',
   Variant[Boolean[false], Enum['mask']] $firewalld_enable = 'mask',
   Optional[Array[Pattern[/^(ip|ip6|inet|arp|bridge|netdev)-[-a-zA-Z0-9_]+$/],1]] $noflush_tables = undef,
-  Stdlib::Unixpath $echo,
-  Stdlib::Unixpath $configuration_path,
-  Stdlib::Unixpath $nft_path,
-  Stdlib::Filemode $default_config_mode,
 ) {
   package { 'nftables':
     ensure => installed,

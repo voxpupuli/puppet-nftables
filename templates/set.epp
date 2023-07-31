@@ -14,10 +14,10 @@
     flags <%= $flags.join(', ') %>
     <%- } -%>
     <%- if $timeout { -%>
-    timeout <%= $timeout %>
+    timeout <%= $timeout %>s
     <%- } -%>
     <%- if $gc_interval { -%>
-    gc-interval <%= $gc_interval %>
+    gc-interval <%= $gc_interval %>s
     <%- } -%>
     <%- if $elements and length($elements) > 0 { -%>
     elements = { <%= $elements.join(', ') %> }
