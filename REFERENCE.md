@@ -24,6 +24,7 @@ Enable this option to support Ceph's Monitor Daemon.
 * [`nftables::rules::https`](#nftables--rules--https): manage in https
 * [`nftables::rules::icinga2`](#nftables--rules--icinga2): manage in icinga2
 * [`nftables::rules::icmp`](#nftables--rules--icmp)
+* [`nftables::rules::igmp`](#nftables--rules--igmp): allow incoming IGMP messages
 * [`nftables::rules::ldap`](#nftables--rules--ldap): manage in ldap
 * [`nftables::rules::mdns`](#nftables--rules--mdns): allow incoming multicast DNS
 * [`nftables::rules::multicast`](#nftables--rules--multicast): allow incoming multicast traffic
@@ -46,6 +47,7 @@ and Manager Daemons (MGR).
 * [`nftables::rules::out::http`](#nftables--rules--out--http): manage out http
 * [`nftables::rules::out::https`](#nftables--rules--out--https): manage out https
 * [`nftables::rules::out::icmp`](#nftables--rules--out--icmp): control outbound icmp packages
+* [`nftables::rules::out::igmp`](#nftables--rules--out--igmp): allow outcoming IGMP messages
 * [`nftables::rules::out::imap`](#nftables--rules--out--imap): allow outgoing imap
 * [`nftables::rules::out::kerberos`](#nftables--rules--out--kerberos): allows outbound access for kerberos
 * [`nftables::rules::out::ldap`](#nftables--rules--out--ldap): manage outgoing ldap
@@ -629,6 +631,10 @@ Data type: `String`
 
 Default value: `'10'`
 
+### <a name="nftables--rules--igmp"></a>`nftables::rules::igmp`
+
+allow incoming IGMP messages
+
 ### <a name="nftables--rules--ldap"></a>`nftables::rules::ldap`
 
 manage in ldap
@@ -839,6 +845,10 @@ Data type: `String`
 
 
 Default value: `'10'`
+
+### <a name="nftables--rules--out--igmp"></a>`nftables::rules::out::igmp`
+
+allow outcoming IGMP messages
 
 ### <a name="nftables--rules--out--imap"></a>`nftables::rules::out::imap`
 
