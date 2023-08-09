@@ -25,6 +25,7 @@ Enable this option to support Ceph's Monitor Daemon.
 * [`nftables::rules::icinga2`](#nftables--rules--icinga2): manage in icinga2
 * [`nftables::rules::icmp`](#nftables--rules--icmp)
 * [`nftables::rules::ldap`](#nftables--rules--ldap): manage in ldap
+* [`nftables::rules::multicast`](#nftables--rules--multicast): allow incoming multicast traffic
 * [`nftables::rules::nfs`](#nftables--rules--nfs): manage in nfs4
 * [`nftables::rules::nfs3`](#nftables--rules--nfs3): manage in nfs3
 * [`nftables::rules::node_exporter`](#nftables--rules--node_exporter): manage in node exporter
@@ -643,6 +644,10 @@ Data type: `Array[Integer,1]`
 ldap server ports
 
 Default value: `[389, 636]`
+
+### <a name="nftables--rules--multicast"></a>`nftables::rules::multicast`
+
+allow incoming multicast traffic
 
 ### <a name="nftables--rules--nfs"></a>`nftables::rules::nfs`
 
