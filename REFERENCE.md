@@ -75,6 +75,7 @@ and Manager Daemons (MGR).
 * [`nftables::rules::smtp`](#nftables--rules--smtp): manage in smtp
 * [`nftables::rules::smtp_submission`](#nftables--rules--smtp_submission): manage in smtp submission
 * [`nftables::rules::smtps`](#nftables--rules--smtps): manage in smtps
+* [`nftables::rules::spotify`](#nftables--rules--spotify): allow incoming spotify
 * [`nftables::rules::ssh`](#nftables--rules--ssh): manage in ssh
 * [`nftables::rules::tor`](#nftables--rules--tor): manage in tor
 * [`nftables::rules::wireguard`](#nftables--rules--wireguard): manage in wireguard
@@ -1169,6 +1170,10 @@ manage in smtp submission
 ### <a name="nftables--rules--smtps"></a>`nftables::rules::smtps`
 
 manage in smtps
+
+### <a name="nftables--rules--spotify"></a>`nftables::rules::spotify`
+
+allow incoming spotify
 
 ### <a name="nftables--rules--ssh"></a>`nftables::rules::ssh`
 
