@@ -2055,7 +2055,7 @@ Alias of `Pattern[/^@[-a-zA-Z0-9_]+$/]`
 
 Represents a port expression to be used within a rule.
 
-Alias of `Variant[Array[Stdlib::Port, 1], Stdlib::Port, Nftables::Port::Range]`
+Alias of `Variant[Array[Variant[Nftables::Port::Range, Stdlib::Port], 1], Stdlib::Port, Nftables::Port::Range]`
 
 ### <a name="Nftables--Port--Range"></a>`Nftables::Port::Range`
 
