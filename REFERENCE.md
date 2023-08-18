@@ -657,6 +657,29 @@ Default value: `[389, 636]`
 
 allow incoming multicast DNS
 
+#### Parameters
+
+The following parameters are available in the `nftables::rules::mdns` class:
+
+* [`ipv4`](#-nftables--rules--mdns--ipv4)
+* [`ipv6`](#-nftables--rules--mdns--ipv6)
+
+##### <a name="-nftables--rules--mdns--ipv4"></a>`ipv4`
+
+Data type: `Boolean`
+
+Allow mdns over IPv4
+
+Default value: `true`
+
+##### <a name="-nftables--rules--mdns--ipv6"></a>`ipv6`
+
+Data type: `Boolean`
+
+Allow mdns over IPv6
+
+Default value: `true`
+
 ### <a name="nftables--rules--multicast"></a>`nftables::rules::multicast`
 
 allow incoming multicast traffic
