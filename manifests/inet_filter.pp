@@ -9,8 +9,8 @@ class nftables::inet_filter inherits nftables {
 
   nftables::config {
     'inet-filter':
-      prefix => '',
-      source => 'puppet:///modules/nftables/config/puppet-inet-filter.nft';
+      prefix  => '',
+      content => "  include \"inet-filter-chain-*.nft\"\n";
   }
 
   nftables::chain {
