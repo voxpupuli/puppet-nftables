@@ -51,6 +51,7 @@ and Manager Daemons (MGR).
 * [`nftables::rules::out::imap`](#nftables--rules--out--imap): allow outgoing imap
 * [`nftables::rules::out::kerberos`](#nftables--rules--out--kerberos): allows outbound access for kerberos
 * [`nftables::rules::out::ldap`](#nftables--rules--out--ldap): manage outgoing ldap
+* [`nftables::rules::out::mldv2`](#nftables--rules--out--mldv2): allow multicast listener requests
 * [`nftables::rules::out::mysql`](#nftables--rules--out--mysql): manage out mysql
 * [`nftables::rules::out::nfs`](#nftables--rules--out--nfs): manage out nfs
 * [`nftables::rules::out::nfs3`](#nftables--rules--out--nfs3): manage out nfs3
@@ -905,6 +906,10 @@ Data type: `Array[Stdlib::Port,1]`
 ldapserver ports
 
 Default value: `[389, 636]`
+
+### <a name="nftables--rules--out--mldv2"></a>`nftables::rules::out::mldv2`
+
+allow multicast listener requests
 
 ### <a name="nftables--rules--out--mysql"></a>`nftables::rules::out::mysql`
 
