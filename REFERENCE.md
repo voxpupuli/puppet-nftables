@@ -24,7 +24,10 @@ Enable this option to support Ceph's Monitor Daemon.
 * [`nftables::rules::https`](#nftables--rules--https): manage in https
 * [`nftables::rules::icinga2`](#nftables--rules--icinga2): manage in icinga2
 * [`nftables::rules::icmp`](#nftables--rules--icmp)
+* [`nftables::rules::igmp`](#nftables--rules--igmp): allow incoming IGMP messages
 * [`nftables::rules::ldap`](#nftables--rules--ldap): manage in ldap
+* [`nftables::rules::mdns`](#nftables--rules--mdns): allow incoming multicast DNS
+* [`nftables::rules::multicast`](#nftables--rules--multicast): allow incoming multicast traffic
 * [`nftables::rules::nfs`](#nftables--rules--nfs): manage in nfs4
 * [`nftables::rules::nfs3`](#nftables--rules--nfs3): manage in nfs3
 * [`nftables::rules::node_exporter`](#nftables--rules--node_exporter): manage in node exporter
@@ -44,9 +47,12 @@ and Manager Daemons (MGR).
 * [`nftables::rules::out::http`](#nftables--rules--out--http): manage out http
 * [`nftables::rules::out::https`](#nftables--rules--out--https): manage out https
 * [`nftables::rules::out::icmp`](#nftables--rules--out--icmp): control outbound icmp packages
+* [`nftables::rules::out::igmp`](#nftables--rules--out--igmp): allow outgoing IGMP messages
 * [`nftables::rules::out::imap`](#nftables--rules--out--imap): allow outgoing imap
 * [`nftables::rules::out::kerberos`](#nftables--rules--out--kerberos): allows outbound access for kerberos
 * [`nftables::rules::out::ldap`](#nftables--rules--out--ldap): manage outgoing ldap
+* [`nftables::rules::out::mdns`](#nftables--rules--out--mdns): allow outgoing multicast DNS
+* [`nftables::rules::out::mldv2`](#nftables--rules--out--mldv2): allow multicast listener requests
 * [`nftables::rules::out::mysql`](#nftables--rules--out--mysql): manage out mysql
 * [`nftables::rules::out::nfs`](#nftables--rules--out--nfs): manage out nfs
 * [`nftables::rules::out::nfs3`](#nftables--rules--out--nfs3): manage out nfs3
@@ -74,6 +80,7 @@ and Manager Daemons (MGR).
 * [`nftables::rules::smtp`](#nftables--rules--smtp): manage in smtp
 * [`nftables::rules::smtp_submission`](#nftables--rules--smtp_submission): manage in smtp submission
 * [`nftables::rules::smtps`](#nftables--rules--smtps): manage in smtps
+* [`nftables::rules::spotify`](#nftables--rules--spotify): allow incoming spotify
 * [`nftables::rules::ssh`](#nftables--rules--ssh): manage in ssh
 * [`nftables::rules::tor`](#nftables--rules--tor): manage in tor
 * [`nftables::rules::wireguard`](#nftables--rules--wireguard): manage in wireguard
@@ -626,6 +633,10 @@ Data type: `String`
 
 Default value: `'10'`
 
+### <a name="nftables--rules--igmp"></a>`nftables::rules::igmp`
+
+allow incoming IGMP messages
+
 ### <a name="nftables--rules--ldap"></a>`nftables::rules::ldap`
 
 manage in ldap
@@ -643,6 +654,37 @@ Data type: `Array[Integer,1]`
 ldap server ports
 
 Default value: `[389, 636]`
+
+### <a name="nftables--rules--mdns"></a>`nftables::rules::mdns`
+
+allow incoming multicast DNS
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::mdns` class:
+
+* [`ipv4`](#-nftables--rules--mdns--ipv4)
+* [`ipv6`](#-nftables--rules--mdns--ipv6)
+
+##### <a name="-nftables--rules--mdns--ipv4"></a>`ipv4`
+
+Data type: `Boolean`
+
+Allow mdns over IPv4
+
+Default value: `true`
+
+##### <a name="-nftables--rules--mdns--ipv6"></a>`ipv6`
+
+Data type: `Boolean`
+
+Allow mdns over IPv6
+
+Default value: `true`
+
+### <a name="nftables--rules--multicast"></a>`nftables::rules::multicast`
+
+allow incoming multicast traffic
 
 ### <a name="nftables--rules--nfs"></a>`nftables::rules::nfs`
 
@@ -829,6 +871,10 @@ Data type: `String`
 
 Default value: `'10'`
 
+### <a name="nftables--rules--out--igmp"></a>`nftables::rules::out::igmp`
+
+allow outgoing IGMP messages
+
 ### <a name="nftables--rules--out--imap"></a>`nftables::rules::out::imap`
 
 allow outgoing imap
@@ -861,6 +907,37 @@ Data type: `Array[Stdlib::Port,1]`
 ldapserver ports
 
 Default value: `[389, 636]`
+
+### <a name="nftables--rules--out--mdns"></a>`nftables::rules::out::mdns`
+
+allow outgoing multicast DNS
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::out::mdns` class:
+
+* [`ipv4`](#-nftables--rules--out--mdns--ipv4)
+* [`ipv6`](#-nftables--rules--out--mdns--ipv6)
+
+##### <a name="-nftables--rules--out--mdns--ipv4"></a>`ipv4`
+
+Data type: `Boolean`
+
+Allow mdns over IPv4
+
+Default value: `true`
+
+##### <a name="-nftables--rules--out--mdns--ipv6"></a>`ipv6`
+
+Data type: `Boolean`
+
+Allow mdns over IPv6
+
+Default value: `true`
+
+### <a name="nftables--rules--out--mldv2"></a>`nftables::rules::out::mldv2`
+
+allow multicast listener requests
 
 ### <a name="nftables--rules--out--mysql"></a>`nftables::rules::out::mysql`
 
@@ -1164,6 +1241,10 @@ manage in smtp submission
 ### <a name="nftables--rules--smtps"></a>`nftables::rules::smtps`
 
 manage in smtps
+
+### <a name="nftables--rules--spotify"></a>`nftables::rules::spotify`
+
+allow incoming spotify
 
 ### <a name="nftables--rules--ssh"></a>`nftables::rules::ssh`
 

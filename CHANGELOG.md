@@ -4,7 +4,30 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v3.1.0](https://github.com/voxpupuli/puppet-nftables/tree/v3.1.0) (2023-07-29)
+## [v3.2.0](https://github.com/voxpupuli/puppet-nftables/tree/v3.2.0) (2023-08-19)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.1.0...v3.2.0)
+
+**Implemented enhancements:**
+
+- Add rule for outgoing multicast DNS [\#199](https://github.com/voxpupuli/puppet-nftables/pull/199) ([bastelfreak](https://github.com/bastelfreak))
+- Add rule for multicast listener requests \(MLDv2\) [\#198](https://github.com/voxpupuli/puppet-nftables/pull/198) ([bastelfreak](https://github.com/bastelfreak))
+- Add rules for IGMP [\#194](https://github.com/voxpupuli/puppet-nftables/pull/194) ([bastelfreak](https://github.com/bastelfreak))
+- mDNS: Allow udp port 5353 [\#193](https://github.com/voxpupuli/puppet-nftables/pull/193) ([bastelfreak](https://github.com/bastelfreak))
+- Add rule to allow incoming spotify broadcast [\#192](https://github.com/voxpupuli/puppet-nftables/pull/192) ([bastelfreak](https://github.com/bastelfreak))
+- Add rule to allow multicast DNS [\#191](https://github.com/voxpupuli/puppet-nftables/pull/191) ([bastelfreak](https://github.com/bastelfreak))
+- Add rule to allow incoming multicast traffic [\#190](https://github.com/voxpupuli/puppet-nftables/pull/190) ([bastelfreak](https://github.com/bastelfreak))
+- Declare stdlib v9 support [\#180](https://github.com/voxpupuli/puppet-nftables/pull/180) ([traylenator](https://github.com/traylenator))
+
+**Fixed bugs:**
+
+- Add missing unit string for timeout,gc-interval [\#187](https://github.com/voxpupuli/puppet-nftables/pull/187) ([javier-angulo](https://github.com/javier-angulo))
+
+**Merged pull requests:**
+
+- Rewrite mdns rules to limit to multicast and allow IPv6 [\#197](https://github.com/voxpupuli/puppet-nftables/pull/197) ([ekohl](https://github.com/ekohl))
+
+## [v3.1.0](https://github.com/voxpupuli/puppet-nftables/tree/v3.1.0) (2023-07-30)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.0.1...v3.1.0)
 
