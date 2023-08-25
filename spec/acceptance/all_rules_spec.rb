@@ -86,6 +86,7 @@ describe 'nftables class' do
       include nftables::rules::wireguard
       include nftables::rules::multicast
       include nftables::rules::spotify
+      include nftables::rules::llmnr
       include nftables::rules::mdns
       include nftables::rules::igmp
       include nftables::rules::out::igmp
