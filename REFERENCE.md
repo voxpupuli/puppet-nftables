@@ -69,6 +69,7 @@ and Manager Daemons (MGR).
 * [`nftables::rules::out::pxp_agent`](#nftables--rules--out--pxp_agent): manage outgoing pxp-agent
 * [`nftables::rules::out::smtp`](#nftables--rules--out--smtp): allow outgoing smtp
 * [`nftables::rules::out::smtp_client`](#nftables--rules--out--smtp_client): allow outgoing smtp client
+* [`nftables::rules::out::ssdp`](#nftables--rules--out--ssdp): allow outgoing SSDP
 * [`nftables::rules::out::ssh`](#nftables--rules--out--ssh): manage out ssh
 * [`nftables::rules::out::ssh::remove`](#nftables--rules--out--ssh--remove): disable outgoing ssh
 * [`nftables::rules::out::tor`](#nftables--rules--out--tor): manage out tor
@@ -82,6 +83,7 @@ and Manager Daemons (MGR).
 * [`nftables::rules::smtp_submission`](#nftables--rules--smtp_submission): manage in smtp submission
 * [`nftables::rules::smtps`](#nftables--rules--smtps): manage in smtps
 * [`nftables::rules::spotify`](#nftables--rules--spotify): allow incoming spotify
+* [`nftables::rules::ssdp`](#nftables--rules--ssdp): allow incoming SSDP
 * [`nftables::rules::ssh`](#nftables--rules--ssh): manage in ssh
 * [`nftables::rules::tor`](#nftables--rules--tor): manage in tor
 * [`nftables::rules::wireguard`](#nftables--rules--wireguard): manage in wireguard
@@ -1085,6 +1087,36 @@ allow outgoing smtp
 
 allow outgoing smtp client
 
+### <a name="nftables--rules--out--ssdp"></a>`nftables::rules::out::ssdp`
+
+allow outgoing SSDP
+
+* **See also**
+  * https://datatracker.ietf.org/doc/html/draft-cai-ssdp-v1-03
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::out::ssdp` class:
+
+* [`ipv4`](#-nftables--rules--out--ssdp--ipv4)
+* [`ipv6`](#-nftables--rules--out--ssdp--ipv6)
+
+##### <a name="-nftables--rules--out--ssdp--ipv4"></a>`ipv4`
+
+Data type: `Boolean`
+
+Allow SSDP over IPv4
+
+Default value: `true`
+
+##### <a name="-nftables--rules--out--ssdp--ipv6"></a>`ipv6`
+
+Data type: `Boolean`
+
+Allow SSDP over IPv6
+
+Default value: `true`
+
 ### <a name="nftables--rules--out--ssh"></a>`nftables::rules::out::ssh`
 
 manage out ssh
@@ -1276,6 +1308,36 @@ manage in smtps
 ### <a name="nftables--rules--spotify"></a>`nftables::rules::spotify`
 
 allow incoming spotify
+
+### <a name="nftables--rules--ssdp"></a>`nftables::rules::ssdp`
+
+allow incoming SSDP
+
+* **See also**
+  * https://datatracker.ietf.org/doc/html/draft-cai-ssdp-v1-03
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::ssdp` class:
+
+* [`ipv4`](#-nftables--rules--ssdp--ipv4)
+* [`ipv6`](#-nftables--rules--ssdp--ipv6)
+
+##### <a name="-nftables--rules--ssdp--ipv4"></a>`ipv4`
+
+Data type: `Boolean`
+
+Allow SSDP over IPv4
+
+Default value: `true`
+
+##### <a name="-nftables--rules--ssdp--ipv6"></a>`ipv6`
+
+Data type: `Boolean`
+
+Allow SSDP over IPv6
+
+Default value: `true`
 
 ### <a name="nftables--rules--ssh"></a>`nftables::rules::ssh`
 
