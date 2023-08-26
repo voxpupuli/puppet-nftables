@@ -87,11 +87,13 @@ describe 'nftables class' do
       include nftables::rules::multicast
       include nftables::rules::spotify
       include nftables::rules::llmnr
+      include nftables::rules::ssdp
       include nftables::rules::mdns
       include nftables::rules::igmp
       include nftables::rules::out::igmp
       include nftables::rules::out::mldv2
       include nftables::rules::out::mdns
+      include nftables::rules::out::ssdp
       include nftables::services::dhcpv6_client
       include nftables::services::openafs_client
       nftables::set{'my_test_set':
