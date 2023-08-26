@@ -87,6 +87,7 @@ and Manager Daemons (MGR).
 * [`nftables::rules::ssh`](#nftables--rules--ssh): manage in ssh
 * [`nftables::rules::tor`](#nftables--rules--tor): manage in tor
 * [`nftables::rules::wireguard`](#nftables--rules--wireguard): manage in wireguard
+* [`nftables::rules::wsd`](#nftables--rules--wsd): allow incoming webservice discovery
 * [`nftables::services::dhcpv6_client`](#nftables--services--dhcpv6_client): Allow in and outbound traffic for DHCPv6 server
 * [`nftables::services::openafs_client`](#nftables--services--openafs_client): Open inbound and outbound ports for an AFS client
 
@@ -1392,6 +1393,36 @@ Data type: `Array[Stdlib::Port,1]`
 wiregueard port
 
 Default value: `[51820]`
+
+### <a name="nftables--rules--wsd"></a>`nftables::rules::wsd`
+
+allow incoming webservice discovery
+
+* **See also**
+  * https://docs.oasis-open.org/ws-dd/ns/discovery/2009/01
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::wsd` class:
+
+* [`ipv4`](#-nftables--rules--wsd--ipv4)
+* [`ipv6`](#-nftables--rules--wsd--ipv6)
+
+##### <a name="-nftables--rules--wsd--ipv4"></a>`ipv4`
+
+Data type: `Boolean`
+
+Allow ws-discovery over IPv4
+
+Default value: `true`
+
+##### <a name="-nftables--rules--wsd--ipv6"></a>`ipv6`
+
+Data type: `Boolean`
+
+Allow ws-discovery over IPv6
+
+Default value: `true`
 
 ### <a name="nftables--services--dhcpv6_client"></a>`nftables::services::dhcpv6_client`
 
