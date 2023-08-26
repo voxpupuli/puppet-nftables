@@ -158,7 +158,7 @@ class nftables (
   } ~> exec {
     'nft validate':
       refreshonly => true,
-      command     => "${nft_path} -I /etc/nftables/puppet-preflight -c -f /etc/nftables/puppet-preflight.nft || ( ${echo} '#CONFIG BROKEN' >> /etc/nftables/puppet-preflight.nft && /bin/false)";
+      command     => "${nft_path} -I /etc/nftables/puppet-preflight -c -f /etc/nftables/puppet-preflight.nft || ( ${echo} '#CONFIG BROKEN' >> /etc/nftables/puppet-preflight.nft && /bin/false)"; # lint:ignore:check_unsafe_interpolations
   } -> file {
     default:
       owner => 'root',

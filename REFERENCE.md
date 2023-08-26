@@ -26,6 +26,7 @@ Enable this option to support Ceph's Monitor Daemon.
 * [`nftables::rules::icmp`](#nftables--rules--icmp)
 * [`nftables::rules::igmp`](#nftables--rules--igmp): allow incoming IGMP messages
 * [`nftables::rules::ldap`](#nftables--rules--ldap): manage in ldap
+* [`nftables::rules::llmnr`](#nftables--rules--llmnr): allow incoming Link-Local Multicast Name Resolution
 * [`nftables::rules::mdns`](#nftables--rules--mdns): allow incoming multicast DNS
 * [`nftables::rules::multicast`](#nftables--rules--multicast): allow incoming multicast traffic
 * [`nftables::rules::nfs`](#nftables--rules--nfs): manage in nfs4
@@ -654,6 +655,36 @@ Data type: `Array[Integer,1]`
 ldap server ports
 
 Default value: `[389, 636]`
+
+### <a name="nftables--rules--llmnr"></a>`nftables::rules::llmnr`
+
+allow incoming Link-Local Multicast Name Resolution
+
+* **See also**
+  * https://datatracker.ietf.org/doc/html/rfc4795
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::llmnr` class:
+
+* [`ipv4`](#-nftables--rules--llmnr--ipv4)
+* [`ipv6`](#-nftables--rules--llmnr--ipv6)
+
+##### <a name="-nftables--rules--llmnr--ipv4"></a>`ipv4`
+
+Data type: `Boolean`
+
+Allow LLMNR over IPv4
+
+Default value: `true`
+
+##### <a name="-nftables--rules--llmnr--ipv6"></a>`ipv6`
+
+Data type: `Boolean`
+
+Allow LLMNR over IPv6
+
+Default value: `true`
 
 ### <a name="nftables--rules--mdns"></a>`nftables::rules::mdns`
 
