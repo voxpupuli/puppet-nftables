@@ -1285,14 +1285,23 @@ manage Samba, the suite to allow Windows file sharing on Linux resources.
 The following parameters are available in the `nftables::rules::samba` class:
 
 * [`ctdb`](#-nftables--rules--samba--ctdb)
+* [`action`](#-nftables--rules--samba--action)
 
 ##### <a name="-nftables--rules--samba--ctdb"></a>`ctdb`
 
 Data type: `Boolean`
 
-Enable ctdb-driven clustered Samba setups.
+Enable ctdb-driven clustered Samba setups
 
 Default value: `false`
+
+##### <a name="-nftables--rules--samba--action"></a>`action`
+
+Data type: `Enum['accept', 'drop']`
+
+if the traffic should be allowed or dropped
+
+Default value: `'accept'`
 
 ### <a name="nftables--rules--smtp"></a>`nftables::rules::smtp`
 
