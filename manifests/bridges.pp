@@ -2,12 +2,12 @@
 class nftables::bridges (
   # lint:ignore:parameter_documentation
   Enum['present','absent'] $ensure = 'present',
-  Regexp $bridgenames = /^br.+/
+  Pattern[/^\^.+/] $bridgenames = '^br.+',
   # lint:endignore
 ) {
   if $ensure == 'present' {
     $interfaces = keys($facts['networking']['interfaces'])
-    $bridges = $interfaces.filter |$items| { $items =~ $bridgenames }
+    $bridges = $interfaces.filter |$items| { $items =~ Regexp($bridgenames) }
 
     $bridges.each |String $bridge| {
       $bridge_rulename = regsubst($bridge, '-|:', '_', 'G')
