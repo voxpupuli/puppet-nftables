@@ -20,6 +20,7 @@ Enable this option to support Ceph's Monitor Daemon.
 * [`nftables::rules::dhcpv6_client`](#nftables--rules--dhcpv6_client): allow DHCPv6 requests in to a host
 * [`nftables::rules::dns`](#nftables--rules--dns): manage in dns
 * [`nftables::rules::docker_ce`](#nftables--rules--docker_ce): Default firewall configuration for Docker-CE
+* [`nftables::rules::ftp`](#nftables--rules--ftp): manage in ftp (with conntrack helper)
 * [`nftables::rules::http`](#nftables--rules--http): manage in http
 * [`nftables::rules::https`](#nftables--rules--https): manage in https
 * [`nftables::rules::icinga2`](#nftables--rules--icinga2): manage in icinga2
@@ -96,6 +97,7 @@ and Manager Daemons (MGR).
 * [`nftables::chain`](#nftables--chain): manage a chain
 * [`nftables::config`](#nftables--config): manage a config snippet
 * [`nftables::file`](#nftables--file): Insert a file into the nftables configuration
+* [`nftables::helper`](#nftables--helper): manage a conntrack helper
 * [`nftables::rule`](#nftables--rule): Provides an interface to create a firewall rule
 * [`nftables::rules::dnat4`](#nftables--rules--dnat4): manage a ipv4 dnat rule
 * [`nftables::rules::masquerade`](#nftables--rules--masquerade): masquerade all outgoing traffic
@@ -583,6 +585,33 @@ Data type: `Boolean`
 Flag to control whether the class should create the base common chains.
 
 Default value: `true`
+
+### <a name="nftables--rules--ftp"></a>`nftables::rules::ftp`
+
+manage in ftp (with conntrack helper)
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::ftp` class:
+
+* [`enable_passive`](#-nftables--rules--ftp--enable_passive)
+* [`passive_ports`](#-nftables--rules--ftp--passive_ports)
+
+##### <a name="-nftables--rules--ftp--enable_passive"></a>`enable_passive`
+
+Data type: `Boolean`
+
+Enable FTP passive mode support
+
+Default value: `true`
+
+##### <a name="-nftables--rules--ftp--passive_ports"></a>`passive_ports`
+
+Data type: `Nftables::Port::Range`
+
+Set the FTP passive mode port range
+
+Default value: `'10090-10100'`
 
 ### <a name="nftables--rules--http"></a>`nftables::rules::http`
 
@@ -1609,6 +1638,50 @@ Prefix of file name to be created, if left as `file-` it will be
 auto included in the main nft configuration
 
 Default value: `'file-'`
+
+### <a name="nftables--helper"></a>`nftables::helper`
+
+manage a conntrack helper
+
+#### Examples
+
+##### FTP helper
+
+```puppet
+nftables::helper { 'ftp-standard':
+  content => 'type "ftp" protocol tcp;',
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `nftables::helper` defined type:
+
+* [`content`](#-nftables--helper--content)
+* [`table`](#-nftables--helper--table)
+* [`helper`](#-nftables--helper--helper)
+
+##### <a name="-nftables--helper--content"></a>`content`
+
+Data type: `String`
+
+Conntrack helper definition.
+
+##### <a name="-nftables--helper--table"></a>`table`
+
+Data type: `Pattern[/^(ip|ip6|inet)-[a-zA-Z0-9_]+$/]`
+
+The name of the table to add this helper to.
+
+Default value: `'inet-filter'`
+
+##### <a name="-nftables--helper--helper"></a>`helper`
+
+Data type: `Pattern[/^[a-zA-Z0-9_][A-z0-9_-]*$/]`
+
+The symbolic name for the helper.
+
+Default value: `$title`
 
 ### <a name="nftables--rule"></a>`nftables::rule`
 
