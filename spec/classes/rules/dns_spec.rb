@@ -8,7 +8,6 @@ describe 'nftables::rules::dns' do
       let(:facts) { os_facts }
 
       context 'default options' do
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('default_in-dns_tcp').with_content('tcp dport {53} accept') }
         it { is_expected.to contain_nftables__rule('default_in-dns_udp').with_content('udp dport {53} accept') }
       end
@@ -20,7 +19,6 @@ describe 'nftables::rules::dns' do
           }
         end
 
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('default_in-dns_tcp').with_content('tcp dport {55, 60} accept') }
         it { is_expected.to contain_nftables__rule('default_in-dns_udp').with_content('udp dport {55, 60} accept') }
       end

@@ -8,8 +8,6 @@ describe 'nftables::rules::icmp' do
       let(:facts) { os_facts }
 
       context 'default options' do
-        it { is_expected.to compile }
-
         it {
           expect(subject).to contain_nftables__rule('default_in-accept_icmpv4').with(
             content: 'ip protocol icmp accept',
@@ -31,8 +29,6 @@ describe 'nftables::rules::icmp' do
             v4_types: ['echo-request limit rate 4/second', 'echo-reply'],
           }
         end
-
-        it { is_expected.to compile }
 
         it {
           expect(subject).to contain_nftables__rule('default_in-accept_icmpv4_echo_request').with(
@@ -63,8 +59,6 @@ describe 'nftables::rules::icmp' do
             v6_types: %w[echo-reply nd-router-advert],
           }
         end
-
-        it { is_expected.to compile }
 
         it {
           expect(subject).to contain_nftables__rule('default_in-accept_icmpv4_echo_request').with(

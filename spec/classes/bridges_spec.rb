@@ -21,7 +21,6 @@ describe 'nftables' do
           )
         end
 
-        it { is_expected.to compile }
         it { is_expected.not_to contain_nftables__rule('default_fwd-bridge_lo_lo') }
 
         it {

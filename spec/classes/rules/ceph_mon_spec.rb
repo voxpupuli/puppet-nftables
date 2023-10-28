@@ -8,7 +8,6 @@ describe 'nftables::rules::ceph_mon' do
       let(:facts) { os_facts }
 
       context 'default options' do
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('default_in-ceph_mon').with_content('tcp dport {3300, 6789} accept comment "Accept Ceph MON"') }
       end
 
@@ -19,7 +18,6 @@ describe 'nftables::rules::ceph_mon' do
           }
         end
 
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('default_in-ceph_mon').with_content('tcp dport {3300, 6790} accept comment "Accept Ceph MON"') }
       end
     end

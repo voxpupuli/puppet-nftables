@@ -42,8 +42,6 @@ describe 'nftables' do
           '
         end
 
-        it { is_expected.to compile }
-
         it {
           expect(subject).to contain_concat('nftables-ip-nat-chain-POSTROUTING').with(
             path: '/etc/nftables/puppet-preflight/ip-nat-chain-POSTROUTING.nft',

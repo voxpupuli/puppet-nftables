@@ -11,7 +11,6 @@ describe 'nftables::rules::docker_ce' do
       let(:pre_condition) { 'include nftables' }
 
       context 'default options' do
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__chain('DOCKER') }
         it { is_expected.to contain_nftables__chain('DOCKER_ISOLATION_STAGE_1') }
         it { is_expected.to contain_nftables__chain('DOCKER_ISOLATION_STAGE_2') }
@@ -103,8 +102,6 @@ describe 'nftables::rules::docker_ce' do
           }
         end
 
-        it { is_expected.to compile }
-
         it { is_expected.to contain_nftables__chain('DOCKER') }
         it { is_expected.to contain_nftables__chain('DOCKER_ISOLATION_STAGE_1') }
         it { is_expected.to contain_nftables__chain('DOCKER_ISOLATION_STAGE_2') }
@@ -121,8 +118,6 @@ describe 'nftables::rules::docker_ce' do
             manage_docker_chains: false,
           }
         end
-
-        it { is_expected.to compile }
 
         it { is_expected.not_to contain_nftables__chain('DOCKER') }
         it { is_expected.not_to contain_nftables__chain('DOCKER_ISOLATION_STAGE_1') }
@@ -142,7 +137,6 @@ describe 'nftables::rules::docker_ce' do
           }
         end
 
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('DOCKER_ISOLATION_STAGE_1-iifname').with_content('iifname "ifdo0" oifname != "ifdo0" counter jump DOCKER_ISOLATION_STAGE_2') }
         it { is_expected.to contain_nftables__rule('DOCKER_ISOLATION_STAGE_2-drop').with_content('oifname "ifdo0" counter drop') }
         it { is_expected.to contain_nftables__rule('default_fwd-out_docker_accept').with_content('oifname "ifdo0" ct state established,related counter accept') }

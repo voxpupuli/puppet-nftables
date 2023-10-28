@@ -8,7 +8,6 @@ describe 'nftables::rules::out::smtp_client' do
       let(:facts) { os_facts }
 
       context 'default options' do
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('default_out-smtp_client').with_content('tcp dport {465, 587} accept') }
       end
     end

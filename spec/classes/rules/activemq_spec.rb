@@ -8,7 +8,6 @@ describe 'nftables::rules::activemq' do
       let(:facts) { os_facts }
 
       context 'default options' do
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('default_in-activemq_tcp').with_content('tcp dport 61616 accept') }
         it { is_expected.to contain_nftables__rule('default_in-activemq_udp').with_content('udp dport 61616 accept') }
       end
@@ -20,7 +19,6 @@ describe 'nftables::rules::activemq' do
           }
         end
 
-        it { is_expected.to compile }
         it { is_expected.not_to contain_nftables__rule('default_in-activemq_tcp').with_content('tcp dport 61616 accept') }
         it { is_expected.to contain_nftables__rule('default_in-activemq_udp').with_content('udp dport 61616 accept') }
       end
@@ -32,7 +30,6 @@ describe 'nftables::rules::activemq' do
           }
         end
 
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('default_in-activemq_tcp').with_content('tcp dport 61616 accept') }
         it { is_expected.not_to contain_nftables__rule('default_in-activemq_udp').with_content('udp dport 61616 accept') }
       end

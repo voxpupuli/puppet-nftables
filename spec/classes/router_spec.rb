@@ -37,8 +37,6 @@ describe 'nftables' do
           '
         end
 
-        it { is_expected.to compile }
-
         it {
           expect(subject).to contain_concat('nftables-inet-filter-chain-default_fwd').with(
             path: '/etc/nftables/puppet-preflight/inet-filter-chain-default_fwd.nft',

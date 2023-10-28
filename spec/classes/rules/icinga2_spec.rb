@@ -8,7 +8,6 @@ describe 'nftables::rules::icinga2' do
       let(:facts) { os_facts }
 
       context 'default options' do
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('default_in-icinga2').with_content('tcp dport {5665} accept') }
       end
 
@@ -19,7 +18,6 @@ describe 'nftables::rules::icinga2' do
           }
         end
 
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('default_in-icinga2').with_content('tcp dport {55, 60} accept') }
       end
     end

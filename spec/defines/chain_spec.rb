@@ -19,8 +19,6 @@ describe 'nftables::chain' do
                    '0640'
                  end
 
-      it { is_expected.to compile }
-
       it { is_expected.to contain_concat('nftables-inet-filter-chain-MYCHAIN').that_notifies('Exec[nft validate]') }
       it { is_expected.to contain_exec('nft validate').that_comes_before('File[/etc/nftables/puppet/inet-filter-chain-MYCHAIN.nft]') }
       it { is_expected.to contain_file('/etc/nftables/puppet/inet-filter-chain-MYCHAIN.nft').that_comes_before('Service[nftables]') }

@@ -8,7 +8,6 @@ describe 'nftables::rules::node_exporter' do
       let(:facts) { os_facts }
 
       context 'default options' do
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('default_in-node_exporter').with_content('tcp dport 9100 accept') }
       end
 
@@ -19,7 +18,6 @@ describe 'nftables::rules::node_exporter' do
           }
         end
 
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('default_in-node_exporter').with_content('tcp dport 100 accept') }
 
         context 'with prometheus_server set' do

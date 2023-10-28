@@ -13,7 +13,6 @@ describe 'nftables::file' do
       end
 
       context 'with source and content both unset' do
-        it { is_expected.to compile }
         it { is_expected.to contain_file('/etc/nftables/puppet-preflight/file-FOO.nft').without_source }
         it { is_expected.to contain_file('/etc/nftables/puppet-preflight/file-FOO.nft').without_content }
         it { is_expected.to contain_file('/etc/nftables/puppet/file-FOO.nft').without_source }

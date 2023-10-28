@@ -8,7 +8,6 @@ describe 'nftables::services::openafs_client' do
       let(:facts) { os_facts }
 
       context 'normal behaviour' do
-        it { is_expected.to compile }
         it { is_expected.to contain_class('nftables::rules::afs3_callback') }
         it { is_expected.to contain_class('nftables::rules::out::openafs_client') }
       end

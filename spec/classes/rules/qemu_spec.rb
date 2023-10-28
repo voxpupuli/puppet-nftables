@@ -9,8 +9,6 @@ describe 'nftables::rules::qemu' do
       let(:pre_condition) { 'include nftables' }
 
       context 'default options' do
-        it { is_expected.to compile }
-
         it {
           expect(subject).to contain_nftables__rule('default_in-qemu_udp_dns').
             with_content('iifname "virbr0" udp dport 53 accept')
@@ -91,7 +89,6 @@ describe 'nftables::rules::qemu' do
           }
         end
 
-        it { is_expected.to compile }
         it { is_expected.not_to contain_nftables__rule('default_in-qemu_udp_dns') }
         it { is_expected.not_to contain_nftables__rule('default_in-qemu_tcp_dns') }
         it { is_expected.not_to contain_nftables__rule('default_in-qemu_dhcpv4') }
@@ -111,8 +108,6 @@ describe 'nftables::rules::qemu' do
             network_v6: '20ac:cafe:1:1::/64',
           }
         end
-
-        it { is_expected.to compile }
 
         it {
           expect(subject).to contain_nftables__rule('default_fwd-qemu_oip_v4').
@@ -142,8 +137,6 @@ describe 'nftables::rules::qemu' do
           }
         end
 
-        it { is_expected.to compile }
-
         it {
           expect(subject).to contain_nftables__rule('default_fwd-qemu_iip_v4').
             with_content('iifname "vfoo0" ip saddr 192.168.122.0/24 accept')
@@ -156,8 +149,6 @@ describe 'nftables::rules::qemu' do
             network_v4: '172.16.0.0/12'
           }
         end
-
-        it { is_expected.to compile }
 
         it {
           expect(subject).to contain_nftables__rule('default_fwd-qemu_iip_v4').

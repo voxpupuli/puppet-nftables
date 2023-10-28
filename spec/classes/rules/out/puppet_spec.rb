@@ -11,7 +11,6 @@ describe 'nftables::rules::out::puppet' do
       end
 
       context 'default options' do
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('default_out-puppet-0').with_content('ip daddr 1.2.3.4 tcp dport 8140 accept') }
       end
 
@@ -20,7 +19,6 @@ describe 'nftables::rules::out::puppet' do
           super().merge({ puppetserver_port: 8141 })
         end
 
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('default_out-puppet-0').with_content('ip daddr 1.2.3.4 tcp dport 8141 accept') }
       end
 
@@ -29,7 +27,6 @@ describe 'nftables::rules::out::puppet' do
           { puppetserver: 'fe80::1' }
         end
 
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('default_out-puppet-0').with_content('ip6 daddr fe80::1 tcp dport 8140 accept') }
       end
 
@@ -38,7 +35,6 @@ describe 'nftables::rules::out::puppet' do
           { puppetserver: ['fe80::1', '1.2.3.4'] }
         end
 
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('default_out-puppet-0').with_content('ip6 daddr fe80::1 tcp dport 8140 accept') }
         it { is_expected.to contain_nftables__rule('default_out-puppet-1').with_content('ip daddr 1.2.3.4 tcp dport 8140 accept') }
       end

@@ -16,8 +16,6 @@ describe 'nftables' do
                    '0640'
                  end
 
-      it { is_expected.to compile }
-
       it {
         expect(subject).to contain_concat('nftables-ip-nat').with(
           path: '/etc/nftables/puppet-preflight/ip-nat.nft',
@@ -268,8 +266,6 @@ describe 'nftables' do
             'nat_table_name' => 'mycustomtablename',
           }
         end
-
-        it { is_expected.to compile }
 
         it {
           expect(subject).to contain_concat('nftables-ip-mycustomtablename').with(

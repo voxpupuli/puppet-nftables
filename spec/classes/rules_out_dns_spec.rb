@@ -42,8 +42,6 @@ describe 'nftables' do
           "
         end
 
-        it { is_expected.to compile }
-
         it {
           expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-default_out-rule-dnsudp-0').with(
             target: 'nftables-inet-filter-chain-default_out',

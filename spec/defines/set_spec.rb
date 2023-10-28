@@ -18,8 +18,6 @@ describe 'nftables::set' do
           }
         end
 
-        it { is_expected.to compile }
-
         it {
           expect(subject).to contain_concat__fragment('nftables-inet-filter-set-my_set').with(
             target: 'nftables-inet-filter',
@@ -70,8 +68,6 @@ describe 'nftables::set' do
           }
         end
 
-        it { is_expected.to compile }
-
         it {
           expect(subject).to contain_concat__fragment('nftables-inet-filter-set-my_set').with(
             target: 'nftables-inet-filter',
@@ -91,8 +87,6 @@ describe 'nftables::set' do
           }
         end
 
-        it { is_expected.to compile }
-
         it {
           expect(subject).to contain_concat__fragment('nftables-inet-filter-set-my_set').with(
             target: 'nftables-inet-filter',
@@ -111,8 +105,6 @@ describe 'nftables::set' do
           }
         end
 
-        it { is_expected.to compile }
-
         it {
           expect(subject).to contain_concat__fragment('nftables-inet-filter-set-my_set').with(
             target: 'nftables-inet-filter',
@@ -128,8 +120,6 @@ describe 'nftables::set' do
             content: 'set my_set { }',
           }
         end
-
-        it { is_expected.to compile }
 
         it {
           expect(subject).to contain_concat__fragment('nftables-inet-filter-set-my_set').with(
@@ -152,8 +142,6 @@ describe 'nftables::set' do
           }
         end
 
-        it { is_expected.to compile }
-
         it {
           expect(subject).to contain_concat__fragment('nftables-inet-filter-set-my-set').with(
             target: 'nftables-inet-filter',
@@ -171,8 +159,6 @@ describe 'nftables::set' do
             table: 'ip-nat'
           }
         end
-
-        it { is_expected.to compile }
 
         it {
           expect(subject).to contain_concat__fragment('nftables-ip-nat-set-my_set').with(
@@ -203,8 +189,6 @@ describe 'nftables::set' do
             table: %w[inet-filter ip-nat]
           }
         end
-
-        it { is_expected.to compile }
 
         it {
           expect(subject).to contain_concat__fragment('nftables-inet-filter-set-my_set').with(

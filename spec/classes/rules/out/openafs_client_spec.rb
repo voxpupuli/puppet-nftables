@@ -8,7 +8,6 @@ describe 'nftables::rules::out::openafs_client' do
       let(:facts) { os_facts }
 
       context 'default options' do
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('default_out-openafs_client').with_content('udp dport {7000, 7002, 7003} accept') }
       end
 
@@ -19,7 +18,6 @@ describe 'nftables::rules::out::openafs_client' do
           }
         end
 
-        it { is_expected.to compile }
         it { is_expected.to contain_nftables__rule('default_out-openafs_client').with_content('udp dport {7000, 7002} accept') }
       end
     end

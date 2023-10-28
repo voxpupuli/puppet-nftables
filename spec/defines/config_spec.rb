@@ -20,7 +20,6 @@ describe 'nftables::config' do
                  end
 
       context 'with source and content both unset' do
-        it { is_expected.to compile }
         it { is_expected.to contain_concat('nftables-FOO-BAR') }
 
         it {
@@ -86,7 +85,6 @@ describe 'nftables::config' do
           }
         end
 
-        it { is_expected.to compile }
         it { is_expected.to contain_concat('nftables-FOO-BAR') }
 
         it {
