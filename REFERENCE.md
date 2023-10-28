@@ -157,6 +157,7 @@ The following parameters are available in the `nftables` class:
 * [`nat_table_name`](#-nftables--nat_table_name)
 * [`sets`](#-nftables--sets)
 * [`log_prefix`](#-nftables--log_prefix)
+* [`log_discarded`](#-nftables--log_discarded)
 * [`log_limit`](#-nftables--log_limit)
 * [`reject_with`](#-nftables--reject_with)
 * [`in_out_conntrack`](#-nftables--in_out_conntrack)
@@ -277,6 +278,14 @@ two variables using standard sprintf() string-formatting:
  * comment: Allows chains to add extra comments.
 
 Default value: `'[nftables] %<chain>s %<comment>s'`
+
+##### <a name="-nftables--log_discarded"></a>`log_discarded`
+
+Data type: `Boolean`
+
+Allow to log discarded packets
+
+Default value: `true`
 
 ##### <a name="-nftables--log_limit"></a>`log_limit`
 

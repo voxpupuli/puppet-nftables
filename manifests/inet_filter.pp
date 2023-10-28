@@ -45,9 +45,13 @@ class nftables::inet_filter inherits nftables {
     'INPUT-jump_global':
       order   => '04',
       content => 'jump global';
-    'INPUT-log_discarded':
-      order   => '97',
-      content => sprintf($_reject_rule, { 'chain' => 'INPUT' }),
+  }
+  if $nftables::log_discarded {
+    nftables::rule {
+      'INPUT-log_discarded':
+        order   => '97',
+        content => sprintf($_reject_rule, { 'chain' => 'INPUT' }),
+    }
   }
   if $nftables::reject_with {
     nftables::rule {
@@ -74,9 +78,13 @@ class nftables::inet_filter inherits nftables {
     'OUTPUT-jump_global':
       order   => '04',
       content => 'jump global';
-    'OUTPUT-log_discarded':
-      order   => '97',
-      content => sprintf($_reject_rule, { 'chain' => 'OUTPUT' }),
+  }
+  if $nftables::log_discarded {
+    nftables::rule {
+      'OUTPUT-log_discarded':
+        order   => '97',
+        content => sprintf($_reject_rule, { 'chain' => 'OUTPUT' }),
+    }
   }
   if $nftables::reject_with {
     nftables::rule {
@@ -100,9 +108,13 @@ class nftables::inet_filter inherits nftables {
     'FORWARD-jump_global':
       order   => '03',
       content => 'jump global';
-    'FORWARD-log_discarded':
-      order   => '97',
-      content => sprintf($_reject_rule, { 'chain' => 'FORWARD' });
+  }
+  if $nftables::log_discarded {
+    nftables::rule {
+      'FORWARD-log_discarded':
+        order   => '97',
+        content => sprintf($_reject_rule, { 'chain' => 'FORWARD' });
+    }
   }
   if $nftables::reject_with {
     nftables::rule {
