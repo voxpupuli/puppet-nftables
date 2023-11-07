@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.3.0](https://github.com/voxpupuli/puppet-nftables/tree/v3.3.0) (2023-08-28)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.2.0...v3.3.0)
+
+**Implemented enhancements:**
+
+- samba: Add option to drop traffic [\#204](https://github.com/voxpupuli/puppet-nftables/pull/204) ([bastelfreak](https://github.com/bastelfreak))
+- Add nftables rules for ws-discovery [\#203](https://github.com/voxpupuli/puppet-nftables/pull/203) ([bastelfreak](https://github.com/bastelfreak))
+- Add rule for incoming SSDP [\#202](https://github.com/voxpupuli/puppet-nftables/pull/202) ([bastelfreak](https://github.com/bastelfreak))
+- Add rule for incoming LLMNR [\#201](https://github.com/voxpupuli/puppet-nftables/pull/201) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v3.2.0](https://github.com/voxpupuli/puppet-nftables/tree/v3.2.0) (2023-08-19)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.1.0...v3.2.0)

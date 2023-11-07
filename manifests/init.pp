@@ -55,6 +55,9 @@
 #    * chain: Will be replaced by the name of the chain.
 #    * comment: Allows chains to add extra comments.
 #
+# @param log_discarded
+#   Allow to log discarded packets
+#
 # @param log_limit
 #  String with the content of a limit statement to be applied
 #  to the rules that log discarded traffic. Set to false to
@@ -121,6 +124,7 @@ class nftables (
   Hash $sets = {},
   String $log_prefix = '[nftables] %<chain>s %<comment>s',
   String[1] $nat_table_name = 'nat',
+  Boolean $log_discarded = true,
   Variant[Boolean[false], String] $log_limit = '3/minute burst 5 packets',
   Variant[Boolean[false], Pattern[/icmp(v6|x)? type .+|tcp reset/]] $reject_with = 'icmpx type port-unreachable',
   Variant[Boolean[false], Enum['mask']] $firewalld_enable = 'mask',
@@ -158,7 +162,7 @@ class nftables (
   } ~> exec {
     'nft validate':
       refreshonly => true,
-      command     => "${nft_path} -I /etc/nftables/puppet-preflight -c -f /etc/nftables/puppet-preflight.nft || ( ${echo} '#CONFIG BROKEN' >> /etc/nftables/puppet-preflight.nft && /bin/false)";
+      command     => "${nft_path} -I /etc/nftables/puppet-preflight -c -f /etc/nftables/puppet-preflight.nft || ( ${echo} '#CONFIG BROKEN' >> /etc/nftables/puppet-preflight.nft && /bin/false)"; # lint:ignore:check_unsafe_interpolations
   } -> file {
     default:
       owner => 'root',

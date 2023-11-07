@@ -26,6 +26,7 @@ Enable this option to support Ceph's Monitor Daemon.
 * [`nftables::rules::icmp`](#nftables--rules--icmp)
 * [`nftables::rules::igmp`](#nftables--rules--igmp): allow incoming IGMP messages
 * [`nftables::rules::ldap`](#nftables--rules--ldap): manage in ldap
+* [`nftables::rules::llmnr`](#nftables--rules--llmnr): allow incoming Link-Local Multicast Name Resolution
 * [`nftables::rules::mdns`](#nftables--rules--mdns): allow incoming multicast DNS
 * [`nftables::rules::multicast`](#nftables--rules--multicast): allow incoming multicast traffic
 * [`nftables::rules::nfs`](#nftables--rules--nfs): manage in nfs4
@@ -68,6 +69,7 @@ and Manager Daemons (MGR).
 * [`nftables::rules::out::pxp_agent`](#nftables--rules--out--pxp_agent): manage outgoing pxp-agent
 * [`nftables::rules::out::smtp`](#nftables--rules--out--smtp): allow outgoing smtp
 * [`nftables::rules::out::smtp_client`](#nftables--rules--out--smtp_client): allow outgoing smtp client
+* [`nftables::rules::out::ssdp`](#nftables--rules--out--ssdp): allow outgoing SSDP
 * [`nftables::rules::out::ssh`](#nftables--rules--out--ssh): manage out ssh
 * [`nftables::rules::out::ssh::remove`](#nftables--rules--out--ssh--remove): disable outgoing ssh
 * [`nftables::rules::out::tor`](#nftables--rules--out--tor): manage out tor
@@ -81,9 +83,11 @@ and Manager Daemons (MGR).
 * [`nftables::rules::smtp_submission`](#nftables--rules--smtp_submission): manage in smtp submission
 * [`nftables::rules::smtps`](#nftables--rules--smtps): manage in smtps
 * [`nftables::rules::spotify`](#nftables--rules--spotify): allow incoming spotify
+* [`nftables::rules::ssdp`](#nftables--rules--ssdp): allow incoming SSDP
 * [`nftables::rules::ssh`](#nftables--rules--ssh): manage in ssh
 * [`nftables::rules::tor`](#nftables--rules--tor): manage in tor
 * [`nftables::rules::wireguard`](#nftables--rules--wireguard): manage in wireguard
+* [`nftables::rules::wsd`](#nftables--rules--wsd): allow incoming webservice discovery
 * [`nftables::services::dhcpv6_client`](#nftables--services--dhcpv6_client): Allow in and outbound traffic for DHCPv6 server
 * [`nftables::services::openafs_client`](#nftables--services--openafs_client): Open inbound and outbound ports for an AFS client
 
@@ -153,6 +157,7 @@ The following parameters are available in the `nftables` class:
 * [`nat_table_name`](#-nftables--nat_table_name)
 * [`sets`](#-nftables--sets)
 * [`log_prefix`](#-nftables--log_prefix)
+* [`log_discarded`](#-nftables--log_discarded)
 * [`log_limit`](#-nftables--log_limit)
 * [`reject_with`](#-nftables--reject_with)
 * [`in_out_conntrack`](#-nftables--in_out_conntrack)
@@ -273,6 +278,14 @@ two variables using standard sprintf() string-formatting:
  * comment: Allows chains to add extra comments.
 
 Default value: `'[nftables] %<chain>s %<comment>s'`
+
+##### <a name="-nftables--log_discarded"></a>`log_discarded`
+
+Data type: `Boolean`
+
+Allow to log discarded packets
+
+Default value: `true`
 
 ##### <a name="-nftables--log_limit"></a>`log_limit`
 
@@ -654,6 +667,36 @@ Data type: `Array[Integer,1]`
 ldap server ports
 
 Default value: `[389, 636]`
+
+### <a name="nftables--rules--llmnr"></a>`nftables::rules::llmnr`
+
+allow incoming Link-Local Multicast Name Resolution
+
+* **See also**
+  * https://datatracker.ietf.org/doc/html/rfc4795
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::llmnr` class:
+
+* [`ipv4`](#-nftables--rules--llmnr--ipv4)
+* [`ipv6`](#-nftables--rules--llmnr--ipv6)
+
+##### <a name="-nftables--rules--llmnr--ipv4"></a>`ipv4`
+
+Data type: `Boolean`
+
+Allow LLMNR over IPv4
+
+Default value: `true`
+
+##### <a name="-nftables--rules--llmnr--ipv6"></a>`ipv6`
+
+Data type: `Boolean`
+
+Allow LLMNR over IPv6
+
+Default value: `true`
 
 ### <a name="nftables--rules--mdns"></a>`nftables::rules::mdns`
 
@@ -1054,6 +1097,36 @@ allow outgoing smtp
 
 allow outgoing smtp client
 
+### <a name="nftables--rules--out--ssdp"></a>`nftables::rules::out::ssdp`
+
+allow outgoing SSDP
+
+* **See also**
+  * https://datatracker.ietf.org/doc/html/draft-cai-ssdp-v1-03
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::out::ssdp` class:
+
+* [`ipv4`](#-nftables--rules--out--ssdp--ipv4)
+* [`ipv6`](#-nftables--rules--out--ssdp--ipv6)
+
+##### <a name="-nftables--rules--out--ssdp--ipv4"></a>`ipv4`
+
+Data type: `Boolean`
+
+Allow SSDP over IPv4
+
+Default value: `true`
+
+##### <a name="-nftables--rules--out--ssdp--ipv6"></a>`ipv6`
+
+Data type: `Boolean`
+
+Allow SSDP over IPv6
+
+Default value: `true`
+
 ### <a name="nftables--rules--out--ssh"></a>`nftables::rules::out::ssh`
 
 manage out ssh
@@ -1221,14 +1294,23 @@ manage Samba, the suite to allow Windows file sharing on Linux resources.
 The following parameters are available in the `nftables::rules::samba` class:
 
 * [`ctdb`](#-nftables--rules--samba--ctdb)
+* [`action`](#-nftables--rules--samba--action)
 
 ##### <a name="-nftables--rules--samba--ctdb"></a>`ctdb`
 
 Data type: `Boolean`
 
-Enable ctdb-driven clustered Samba setups.
+Enable ctdb-driven clustered Samba setups
 
 Default value: `false`
+
+##### <a name="-nftables--rules--samba--action"></a>`action`
+
+Data type: `Enum['accept', 'drop']`
+
+if the traffic should be allowed or dropped
+
+Default value: `'accept'`
 
 ### <a name="nftables--rules--smtp"></a>`nftables::rules::smtp`
 
@@ -1245,6 +1327,36 @@ manage in smtps
 ### <a name="nftables--rules--spotify"></a>`nftables::rules::spotify`
 
 allow incoming spotify
+
+### <a name="nftables--rules--ssdp"></a>`nftables::rules::ssdp`
+
+allow incoming SSDP
+
+* **See also**
+  * https://datatracker.ietf.org/doc/html/draft-cai-ssdp-v1-03
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::ssdp` class:
+
+* [`ipv4`](#-nftables--rules--ssdp--ipv4)
+* [`ipv6`](#-nftables--rules--ssdp--ipv6)
+
+##### <a name="-nftables--rules--ssdp--ipv4"></a>`ipv4`
+
+Data type: `Boolean`
+
+Allow SSDP over IPv4
+
+Default value: `true`
+
+##### <a name="-nftables--rules--ssdp--ipv6"></a>`ipv6`
+
+Data type: `Boolean`
+
+Allow SSDP over IPv6
+
+Default value: `true`
 
 ### <a name="nftables--rules--ssh"></a>`nftables::rules::ssh`
 
@@ -1299,6 +1411,36 @@ Data type: `Array[Stdlib::Port,1]`
 wiregueard port
 
 Default value: `[51820]`
+
+### <a name="nftables--rules--wsd"></a>`nftables::rules::wsd`
+
+allow incoming webservice discovery
+
+* **See also**
+  * https://docs.oasis-open.org/ws-dd/ns/discovery/2009/01
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::wsd` class:
+
+* [`ipv4`](#-nftables--rules--wsd--ipv4)
+* [`ipv6`](#-nftables--rules--wsd--ipv6)
+
+##### <a name="-nftables--rules--wsd--ipv4"></a>`ipv4`
+
+Data type: `Boolean`
+
+Allow ws-discovery over IPv4
+
+Default value: `true`
+
+##### <a name="-nftables--rules--wsd--ipv6"></a>`ipv6`
+
+Data type: `Boolean`
+
+Allow ws-discovery over IPv6
+
+Default value: `true`
 
 ### <a name="nftables--services--dhcpv6_client"></a>`nftables::services::dhcpv6_client`
 
