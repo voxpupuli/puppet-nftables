@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.4.0](https://github.com/voxpupuli/puppet-nftables/tree/v3.4.0) (2023-11-17)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.3.0...v3.4.0)
+
+**Implemented enhancements:**
+
+- allow puppet/systemd v6 [\#213](https://github.com/voxpupuli/puppet-nftables/pull/213) ([vchepkov](https://github.com/vchepkov))
+- Add Debian 12 support [\#211](https://github.com/voxpupuli/puppet-nftables/pull/211) ([bastelfreak](https://github.com/bastelfreak))
+- provide an option to disable logging rejected packets [\#209](https://github.com/voxpupuli/puppet-nftables/pull/209) ([vchepkov](https://github.com/vchepkov))
+- add ftp helper [\#208](https://github.com/voxpupuli/puppet-nftables/pull/208) ([vchepkov](https://github.com/vchepkov))
+
 ## [v3.3.0](https://github.com/voxpupuli/puppet-nftables/tree/v3.3.0) (2023-08-28)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.2.0...v3.3.0)
