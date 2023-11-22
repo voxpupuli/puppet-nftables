@@ -13,6 +13,16 @@
 #      table   => 'ip6-nat'
 #  }
 #
+# @example Redirect port 443 to port 8443
+#  nftables::rule { 'PREROUTING-redirect':
+#    content => 'tcp dport 443 redirect to :8443',
+#    table   => 'ip-nat',
+#  }
+#  nftables::rule{'PREROUTING6-redirect':
+#    content => 'tcp dport 443 redirect to :8443',
+#    table   => 'ip6-nat',
+#  }
+#
 # @param ensure
 #   Should the rule be created.
 #
