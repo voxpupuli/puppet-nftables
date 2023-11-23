@@ -76,6 +76,11 @@ and Manager Daemons (MGR).
 * [`nftables::rules::out::tor`](#nftables--rules--out--tor): manage out tor
 * [`nftables::rules::out::whois`](#nftables--rules--out--whois): allow clients to query remote whois server
 * [`nftables::rules::out::wireguard`](#nftables--rules--out--wireguard): manage out wireguard
+* [`nftables::rules::podman`](#nftables--rules--podman): Rules for Podman, a tool for managing OCI containers and pods.
+This class defines additional forwarding rules to let root containers
+reach external networks when using Netavark (since v4.0) or CNI (deprecated).
+At the time of writing, Podman supports automatic configuration
+of firewall rules with iptables and firewalld only.
 * [`nftables::rules::puppet`](#nftables--rules--puppet): manage in puppet
 * [`nftables::rules::pxp_agent`](#nftables--rules--pxp_agent): manage in pxp-agent
 * [`nftables::rules::qemu`](#nftables--rules--qemu): Bridged network configuration for qemu/libvirt
@@ -1189,6 +1194,14 @@ Data type: `Array[Integer,1]`
 specify wireguard ports
 
 Default value: `[51820]`
+
+### <a name="nftables--rules--podman"></a>`nftables::rules::podman`
+
+Rules for Podman, a tool for managing OCI containers and pods.
+This class defines additional forwarding rules to let root containers
+reach external networks when using Netavark (since v4.0) or CNI (deprecated).
+At the time of writing, Podman supports automatic configuration
+of firewall rules with iptables and firewalld only.
 
 ### <a name="nftables--rules--puppet"></a>`nftables::rules::puppet`
 

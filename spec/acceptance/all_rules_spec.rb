@@ -26,6 +26,7 @@ describe 'nftables class' do
       include nftables::rules::dhcpv6_client
       include nftables::rules::afs3_callback
       include nftables::rules::ospf
+      include nftables::rules::podman
       include nftables::rules::http
       include nftables::rules::puppet
       include nftables::rules::pxp_agent
