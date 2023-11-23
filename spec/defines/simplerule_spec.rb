@@ -104,6 +104,24 @@ describe 'nftables::simplerule' do
         }
       end
 
+      describe 'port array and range' do
+        let(:params) do
+          {
+            dport: [333, 335, '338-339'],
+            sport: [433, 435, '438-439'],
+            proto: 'tcp',
+          }
+        end
+
+        it { is_expected.to compile }
+
+        it {
+          expect(subject).to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'tcp sport {433, 435, 438-439} tcp dport {333, 335, 338-339} accept'
+          )
+        }
+      end
+
       describe 'only sport TCP traffic' do
         let(:params) do
           {
