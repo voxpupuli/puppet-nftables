@@ -24,6 +24,18 @@ describe 'nftables::rules::dns' do
         it { is_expected.to contain_nftables__rule('default_in-dns_tcp').with_content('tcp dport {55, 60} accept') }
         it { is_expected.to contain_nftables__rule('default_in-dns_udp').with_content('udp dport {55, 60} accept') }
       end
+
+      context 'with input interfaces set' do
+        let(:params) do
+          {
+            iifname: %w[docker0 eth0],
+          }
+        end
+
+        it { is_expected.to compile }
+        it { is_expected.to contain_nftables__rule('default_in-dns_tcp').with_content('iifname {docker0, eth0} tcp dport {53} accept') }
+        it { is_expected.to contain_nftables__rule('default_in-dns_udp').with_content('iifname {docker0, eth0} udp dport {53} accept') }
+      end
     end
   end
 end

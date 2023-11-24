@@ -526,11 +526,22 @@ allow DHCPv6 requests in to a host
 
 manage in dns
 
+#### Examples
+
+##### Allow access to stub dns resolver from docker containers
+
+```puppet
+class { 'nftables::rules::dns':
+  iifname => ['docker0'],
+}
+```
+
 #### Parameters
 
 The following parameters are available in the `nftables::rules::dns` class:
 
 * [`ports`](#-nftables--rules--dns--ports)
+* [`iifname`](#-nftables--rules--dns--iifname)
 
 ##### <a name="-nftables--rules--dns--ports"></a>`ports`
 
@@ -539,6 +550,14 @@ Data type: `Array[Stdlib::Port,1]`
 Specify ports for dns.
 
 Default value: `[53]`
+
+##### <a name="-nftables--rules--dns--iifname"></a>`iifname`
+
+Data type: `Optional[Array[String[1],1]]`
+
+Specify input interface names.
+
+Default value: `undef`
 
 ### <a name="nftables--rules--docker_ce"></a>`nftables::rules::docker_ce`
 
