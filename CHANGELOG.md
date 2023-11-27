@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.5.0](https://github.com/voxpupuli/puppet-nftables/tree/v3.5.0) (2023-11-27)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.4.0...v3.5.0)
+
+**Implemented enhancements:**
+
+- Support input interface specification to dns server [\#215](https://github.com/voxpupuli/puppet-nftables/pull/215) ([traylenator](https://github.com/traylenator))
+- Additional rules for podman root containers [\#214](https://github.com/voxpupuli/puppet-nftables/pull/214) ([traylenator](https://github.com/traylenator))
+- nftables::simplerule::dport - takes port ranges as part of the array [\#189](https://github.com/voxpupuli/puppet-nftables/pull/189) ([tskirvin](https://github.com/tskirvin))
+
+**Merged pull requests:**
+
+- Example how to redirect one port to another [\#183](https://github.com/voxpupuli/puppet-nftables/pull/183) ([traylenator](https://github.com/traylenator))
+
 ## [v3.4.0](https://github.com/voxpupuli/puppet-nftables/tree/v3.4.0) (2023-11-17)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.3.0...v3.4.0)
