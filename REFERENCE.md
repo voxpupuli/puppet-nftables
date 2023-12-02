@@ -45,6 +45,7 @@ and Manager Daemons (MGR).
 * [`nftables::rules::out::dhcp`](#nftables--rules--out--dhcp): manage out dhcp
 * [`nftables::rules::out::dhcpv6_client`](#nftables--rules--out--dhcpv6_client): Allow DHCPv6 requests out of a host
 * [`nftables::rules::out::dns`](#nftables--rules--out--dns): manage out dns
+* [`nftables::rules::out::dnsserver`](#nftables--rules--out--dnsserver): manage outgoing DNS responses from a DNS server
 * [`nftables::rules::out::hkp`](#nftables--rules--out--hkp): allow outgoing hkp connections to gpg keyservers
 * [`nftables::rules::out::http`](#nftables--rules--out--http): manage out http
 * [`nftables::rules::out::https`](#nftables--rules--out--https): manage out https
@@ -916,6 +917,24 @@ The following parameters are available in the `nftables::rules::out::dns` class:
 Data type: `Array[Stdlib::IP::Address]`
 
 specify dns_server name
+
+Default value: `[]`
+
+### <a name="nftables--rules--out--dnsserver"></a>`nftables::rules::out::dnsserver`
+
+manage outgoing DNS responses from a DNS server
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::out::dnsserver` class:
+
+* [`dns_servers`](#-nftables--rules--out--dnsserver--dns_servers)
+
+##### <a name="-nftables--rules--out--dnsserver--dns_servers"></a>`dns_servers`
+
+Data type: `Array[Stdlib::IP::Address]`
+
+optional list of local ip addresses from the DNS server
 
 Default value: `[]`
 

@@ -48,6 +48,7 @@ describe 'nftables class' do
       include nftables::rules::out::postgres
       include nftables::rules::out::icmp
       include nftables::rules::out::dns
+      include nftables::rules::out::dnsserver
       include nftables::rules::out::nfs3
       include nftables::rules::out::ssh
       include nftables::rules::out::kerberos
