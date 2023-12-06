@@ -19,7 +19,7 @@
 # @param elements initialize the set with some elements in it.
 # @param size limits the maximum number of elements of the set.
 # @param policy determines set selection policy.
-# @param auto_merge ?
+# @param auto_merge automatically merge adjacent/overlapping set elements (only valid for interval sets)
 # @param content specify content of set.
 # @param source specify source of set.
 define nftables::set (
