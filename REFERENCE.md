@@ -2264,6 +2264,7 @@ The following parameters are available in the `nftables::simplerule` defined typ
 * [`sport`](#-nftables--simplerule--sport)
 * [`saddr`](#-nftables--simplerule--saddr)
 * [`counter`](#-nftables--simplerule--counter)
+* [`iifname`](#-nftables--simplerule--iifname)
 
 ##### <a name="-nftables--simplerule--ensure"></a>`ensure`
 
@@ -2377,6 +2378,14 @@ Data type: `Boolean`
 Enable traffic counters for the matched traffic.
 
 Default value: `false`
+
+##### <a name="-nftables--simplerule--iifname"></a>`iifname`
+
+Data type: `Optional[String[1]]`
+
+Optional filter for the incoming interface
+
+Default value: `undef`
 
 ## Data types
 
