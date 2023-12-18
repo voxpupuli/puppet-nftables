@@ -2206,7 +2206,7 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-?
+automatically merge adjacent/overlapping set elements (only valid for interval sets)
 
 Default value: `false`
 
