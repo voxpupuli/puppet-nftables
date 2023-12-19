@@ -52,6 +52,9 @@
 #
 # @param counter
 #   Enable traffic counters for the matched traffic.
+#
+# @param iifname
+#   Optional filter for the incoming interface
 define nftables::simplerule (
   Enum['present','absent'] $ensure = 'present',
   Nftables::SimpleRuleName $rulename = $title,
@@ -67,6 +70,7 @@ define nftables::simplerule (
   Optional[Nftables::Port] $sport = undef,
   Optional[Nftables::Addr] $saddr = undef,
   Boolean $counter = false,
+  Optional[String[1]] $iifname = undef,
 ) {
   if $dport and !$proto {
     fail('Specifying a transport protocol via $proto is mandatory when passing a $dport')
@@ -89,6 +93,7 @@ define nftables::simplerule (
           'saddr'    => $saddr,
           'set_type' => $set_type,
           'sport'    => $sport,
+          'iifname'  => $iifname,
         }
       ),
       order   => $order,
