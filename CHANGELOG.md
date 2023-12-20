@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.6.0](https://github.com/voxpupuli/puppet-nftables/tree/v3.6.0) (2023-12-20)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.5.0...v3.6.0)
+
+**Implemented enhancements:**
+
+- Make "dropping invalid packets" configureable [\#225](https://github.com/voxpupuli/puppet-nftables/pull/225) ([bastelfreak](https://github.com/bastelfreak))
+- simplerule: Add support for outgoing interface filtering [\#224](https://github.com/voxpupuli/puppet-nftables/pull/224) ([bastelfreak](https://github.com/bastelfreak))
+- simplerule: Add support for incoming interface filtering [\#221](https://github.com/voxpupuli/puppet-nftables/pull/221) ([bastelfreak](https://github.com/bastelfreak))
+
+**Merged pull requests:**
+
+- rules::out:dns: refactor for better readability [\#222](https://github.com/voxpupuli/puppet-nftables/pull/222) ([bastelfreak](https://github.com/bastelfreak))
+- Document what the 'auto\_merge' set parameter does. [\#219](https://github.com/voxpupuli/puppet-nftables/pull/219) ([Tamerz](https://github.com/Tamerz))
+
 ## [v3.5.0](https://github.com/voxpupuli/puppet-nftables/tree/v3.5.0) (2023-11-27)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.4.0...v3.5.0)
