@@ -3,7 +3,7 @@
 require 'spec_helper_acceptance'
 
 describe 'nftables class' do
-  context 'configure a simple rule with input interface' do
+  context 'configure a simple rule with interface' do
     it_behaves_like 'an idempotent resource' do
       let(:manifest) do
         <<-EOS
@@ -19,10 +19,28 @@ describe 'nftables class' do
           in_ssh           => false,
           in_icmp          => false,
         }
+        # just incoming interface
         nftables::simplerule { 'dummyrule_in':
           action  => 'accept',
           iifname => $facts['networking']['primary'],
           comment => 'allow some multicast stuff',
+          daddr   => 'ff02::fb',
+        }
+        # just outgoing interface
+        nftables::simplerule { 'dummyrule_out':
+          action  => 'accept',
+          oifname => $facts['networking']['primary'],
+          comment => 'allow some multicast stuff',
+          chain   => 'default_out',
+          daddr   => 'ff02::fb',
+        }
+        # outgoing + incoming interface
+        nftables::simplerule { 'dummyrule_fwd':
+          action  => 'accept',
+          iifname => $facts['networking']['primary'],
+          oifname => 'lo',
+          comment => 'allow some multicast stuff',
+          chain   => 'default_fwd',
           daddr   => 'ff02::fb',
         }
         include nftables::rules::ssh

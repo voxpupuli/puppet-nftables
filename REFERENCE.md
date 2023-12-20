@@ -2265,6 +2265,7 @@ The following parameters are available in the `nftables::simplerule` defined typ
 * [`saddr`](#-nftables--simplerule--saddr)
 * [`counter`](#-nftables--simplerule--counter)
 * [`iifname`](#-nftables--simplerule--iifname)
+* [`oifname`](#-nftables--simplerule--oifname)
 
 ##### <a name="-nftables--simplerule--ensure"></a>`ensure`
 
@@ -2384,6 +2385,14 @@ Default value: `false`
 Data type: `Optional[String[1]]`
 
 Optional filter for the incoming interface
+
+Default value: `undef`
+
+##### <a name="-nftables--simplerule--oifname"></a>`oifname`
+
+Data type: `Optional[String[1]]`
+
+Optional filter for the outgoing interface
 
 Default value: `undef`
 
