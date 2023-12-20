@@ -71,14 +71,14 @@
 #
 # @param in_out_conntrack
 #   Adds INPUT and OUTPUT rules to allow traffic that's part of an
-#   established connection and also to drop invalid packets.
+#   established connection. Won't drop invalid pakets by default. Check parameter in_out_drop_invalid.
 #
 # @param in_out_drop_invalid
 #   Drops invalid packets in INPUT and OUTPUT
 #
 # @param fwd_conntrack
 #   Adds FORWARD rules to allow traffic that's part of an
-#   established connection and also to drop invalid packets.
+#   established connection. Won't drop invalid pakets by default. Check parameter fwd_drop_invalid.
 #
 # @param fwd_drop_invalid
 #   Drops invalid packets in FORWARD
@@ -123,9 +123,9 @@ class nftables (
   Boolean $out_icmp = true,
   Boolean $out_all = false,
   Boolean $in_out_conntrack = true,
-  Boolean $in_out_drop_invalid = $in_out_conntrack,
+  Boolean $in_out_drop_invalid = false,
   Boolean $fwd_conntrack = false,
-  Boolean $fwd_drop_invalid = $fwd_conntrack,
+  Boolean $fwd_drop_invalid = false,
   Boolean $inet_filter = true,
   Boolean $nat = true,
   Hash $rules = {},

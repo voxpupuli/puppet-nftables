@@ -322,7 +322,7 @@ Default value: `'icmpx type port-unreachable'`
 Data type: `Boolean`
 
 Adds INPUT and OUTPUT rules to allow traffic that's part of an
-established connection and also to drop invalid packets.
+established connection. Won't drop invalid pakets by default. Check parameter in_out_drop_invalid.
 
 Default value: `true`
 
@@ -332,14 +332,14 @@ Data type: `Boolean`
 
 Drops invalid packets in INPUT and OUTPUT
 
-Default value: `$in_out_conntrack`
+Default value: `false`
 
 ##### <a name="-nftables--fwd_conntrack"></a>`fwd_conntrack`
 
 Data type: `Boolean`
 
 Adds FORWARD rules to allow traffic that's part of an
-established connection and also to drop invalid packets.
+established connection. Won't drop invalid pakets by default. Check parameter fwd_drop_invalid.
 
 Default value: `false`
 
@@ -349,7 +349,7 @@ Data type: `Boolean`
 
 Drops invalid packets in FORWARD
 
-Default value: `$fwd_conntrack`
+Default value: `false`
 
 ##### <a name="-nftables--firewalld_enable"></a>`firewalld_enable`
 
