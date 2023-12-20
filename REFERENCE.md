@@ -168,7 +168,9 @@ The following parameters are available in the `nftables` class:
 * [`log_limit`](#-nftables--log_limit)
 * [`reject_with`](#-nftables--reject_with)
 * [`in_out_conntrack`](#-nftables--in_out_conntrack)
+* [`in_out_drop_invalid`](#-nftables--in_out_drop_invalid)
 * [`fwd_conntrack`](#-nftables--fwd_conntrack)
+* [`fwd_drop_invalid`](#-nftables--fwd_drop_invalid)
 * [`firewalld_enable`](#-nftables--firewalld_enable)
 * [`noflush_tables`](#-nftables--noflush_tables)
 * [`rules`](#-nftables--rules)
@@ -324,6 +326,14 @@ established connection and also to drop invalid packets.
 
 Default value: `true`
 
+##### <a name="-nftables--in_out_drop_invalid"></a>`in_out_drop_invalid`
+
+Data type: `Boolean`
+
+Drops invalid packets in INPUT and OUTPUT
+
+Default value: `$in_out_conntrack`
+
 ##### <a name="-nftables--fwd_conntrack"></a>`fwd_conntrack`
 
 Data type: `Boolean`
@@ -332,6 +342,14 @@ Adds FORWARD rules to allow traffic that's part of an
 established connection and also to drop invalid packets.
 
 Default value: `false`
+
+##### <a name="-nftables--fwd_drop_invalid"></a>`fwd_drop_invalid`
+
+Data type: `Boolean`
+
+Drops invalid packets in FORWARD
+
+Default value: `$fwd_conntrack`
 
 ##### <a name="-nftables--firewalld_enable"></a>`firewalld_enable`
 

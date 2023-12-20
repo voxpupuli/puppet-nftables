@@ -73,9 +73,15 @@
 #   Adds INPUT and OUTPUT rules to allow traffic that's part of an
 #   established connection and also to drop invalid packets.
 #
+# @param in_out_drop_invalid
+#   Drops invalid packets in INPUT and OUTPUT
+#
 # @param fwd_conntrack
 #   Adds FORWARD rules to allow traffic that's part of an
 #   established connection and also to drop invalid packets.
+#
+# @param fwd_drop_invalid
+#   Drops invalid packets in FORWARD
 #
 # @param firewalld_enable
 #   Configures how the firewalld systemd service unit is enabled. It might be
@@ -117,7 +123,9 @@ class nftables (
   Boolean $out_icmp = true,
   Boolean $out_all = false,
   Boolean $in_out_conntrack = true,
+  Boolean $in_out_drop_invalid = $in_out_conntrack,
   Boolean $fwd_conntrack = false,
+  Boolean $fwd_drop_invalid = $fwd_conntrack,
   Boolean $inet_filter = true,
   Boolean $nat = true,
   Hash $rules = {},
