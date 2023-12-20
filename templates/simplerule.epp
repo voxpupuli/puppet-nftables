@@ -8,6 +8,7 @@
       String                   $set_type,
       Optional[Nftables::Port] $sport,
       Optional[String[1]]      $iifname,
+      Optional[String[1]]      $oifname,
 | -%>
 <%- if $proto {
   $_proto = $proto ? {
@@ -75,4 +76,9 @@
 } else {
   $_iifname = undef
 } -%>
-<%= regsubst(strip([$_ip_version_filter, $_iifname, $_src_port, $_dst_port, $_src_hosts, $_dst_hosts, $_counter, $action, $_comment].join(' ')), '\s+', ' ', 'G') -%>
+<%- if $oifname {
+  $_oifname = "oifname \"${oifname}\""
+} else {
+  $_oifname = undef
+} -%>
+<%= regsubst(strip([$_ip_version_filter, $_iifname, $_oifname, $_src_port, $_dst_port, $_src_hosts, $_dst_hosts, $_counter, $action, $_comment].join(' ')), '\s+', ' ', 'G') -%>
