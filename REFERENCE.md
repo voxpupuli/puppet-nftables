@@ -913,11 +913,11 @@ The following parameters are available in the `nftables::rules::out::dns` class:
 
 ##### <a name="-nftables--rules--out--dns--dns_server"></a>`dns_server`
 
-Data type: `Optional[Variant[String,Array[String,1]]]`
+Data type: `Array[Stdlib::IP::Address]`
 
 specify dns_server name
 
-Default value: `undef`
+Default value: `[]`
 
 ### <a name="nftables--rules--out--hkp"></a>`nftables::rules::out::hkp`
 

@@ -1,34 +1,19 @@
 # @summary manage out dns
 # @param dns_server specify dns_server name
 class nftables::rules::out::dns (
-  Optional[Variant[String,Array[String,1]]] $dns_server = undef,
+  Array[Stdlib::IP::Address] $dns_server = [],
 ) {
-  if $dns_server {
-    any2array($dns_server).each |$index,$dns| {
-      nftables::rule {
-        "default_out-dnsudp-${index}":
+  unless empty($dns_server) {
+    $dns_server.each |$index,$dns| {
+      $content = $dns ? {
+        Stdlib::IP::Address::V6 => "ip6 daddr ${dns}",
+        Stdlib::IP::Address::V4 => "ip daddr ${dns}",
       }
-      if $dns =~ /:/ {
-        Nftables::Rule["default_out-dnsudp-${index}"] {
-          content => "ip6 daddr ${dns} udp dport 53 accept",
-        }
-      } else {
-        Nftables::Rule["default_out-dnsudp-${index}"] {
-          content => "ip daddr ${dns} udp dport 53 accept",
-        }
+      nftables::rule { "default_out-dnstcp-${index}":
+        content => "${content} tcp dport 53 accept",
       }
-
-      nftables::rule {
-        "default_out-dnstcp-${index}":
-      }
-      if $dns =~ /:/ {
-        Nftables::Rule["default_out-dnstcp-${index}"] {
-          content => "ip6 daddr ${dns} tcp dport 53 accept",
-        }
-      } else {
-        Nftables::Rule["default_out-dnstcp-${index}"] {
-          content => "ip daddr ${dns} tcp dport 53 accept",
-        }
+      nftables::rule { "default_out-dnsudp-${index}":
+        content => "${content} udp dport 53 accept",
       }
     }
   } else {
