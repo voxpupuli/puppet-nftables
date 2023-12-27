@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.7.0](https://github.com/voxpupuli/puppet-nftables/tree/v3.7.0) (2023-12-27)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.6.0...v3.7.0)
+
+**Implemented enhancements:**
+
+- simplerule: Allow multiple oifname/iifname [\#228](https://github.com/voxpupuli/puppet-nftables/pull/228) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v3.6.0](https://github.com/voxpupuli/puppet-nftables/tree/v3.6.0) (2023-12-20)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.5.0...v3.6.0)
