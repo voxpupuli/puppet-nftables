@@ -72,8 +72,8 @@ define nftables::simplerule (
   Optional[Nftables::Port] $sport = undef,
   Optional[Nftables::Addr] $saddr = undef,
   Boolean $counter = false,
-  Optional[String[1]] $iifname = undef,
-  Optional[String[1]] $oifname = undef,
+  Variant[Array[String[1]],String[1]] $iifname = [],
+  Variant[Array[String[1]],String[1]] $oifname = [],
 ) {
   if $dport and !$proto {
     fail('Specifying a transport protocol via $proto is mandatory when passing a $dport')
@@ -96,8 +96,8 @@ define nftables::simplerule (
           'saddr'    => $saddr,
           'set_type' => $set_type,
           'sport'    => $sport,
-          'iifname'  => $iifname,
-          'oifname'  => $oifname,
+          'iifname'  => [$iifname].flatten,
+          'oifname'  => [$oifname].flatten,
         }
       ),
       order   => $order,

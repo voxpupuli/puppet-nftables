@@ -2400,19 +2400,19 @@ Default value: `false`
 
 ##### <a name="-nftables--simplerule--iifname"></a>`iifname`
 
-Data type: `Optional[String[1]]`
+Data type: `Variant[Array[String[1]],String[1]]`
 
 Optional filter for the incoming interface
 
-Default value: `undef`
+Default value: `[]`
 
 ##### <a name="-nftables--simplerule--oifname"></a>`oifname`
 
-Data type: `Optional[String[1]]`
+Data type: `Variant[Array[String[1]],String[1]]`
 
 Optional filter for the outgoing interface
 
-Default value: `undef`
+Default value: `[]`
 
 ## Data types
 
