@@ -7,8 +7,8 @@
       Optional[Nftables::Addr] $saddr,
       String                   $set_type,
       Optional[Nftables::Port] $sport,
-      Optional[String[1]]      $iifname,
-      Optional[String[1]]      $oifname,
+      Array[String[1]]         $iifname,
+      Array[String[1]]         $oifname,
 | -%>
 <%- if $proto {
   $_proto = $proto ? {
@@ -71,14 +71,16 @@
 } else {
   $_counter = undef
 } -%>
-<%- if $iifname {
-  $_iifname = "iifname \"${iifname}\""
-} else {
+<%- if empty($iifname) {
   $_iifname = undef
-} -%>
-<%- if $oifname {
-  $_oifname = "oifname \"${oifname}\""
 } else {
+  $iifdata = $iifname.map |String[1] $interface| { "\"${interface}\"" }.join(', ')
+  $_iifname = "iifname { ${iifdata} }"
+} -%>
+<%- if empty($oifname) {
   $_oifname = undef
+} else {
+  $oifdata = $oifname.map |String[1] $interface| { "\"${interface}\"" }.join(', ')
+  $_oifname = "oifname { ${oifdata} }"
 } -%>
 <%= regsubst(strip([$_ip_version_filter, $_iifname, $_oifname, $_src_port, $_dst_port, $_src_hosts, $_dst_hosts, $_counter, $action, $_comment].join(' ')), '\s+', ' ', 'G') -%>
