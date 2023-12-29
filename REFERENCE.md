@@ -965,7 +965,7 @@ The following parameters are available in the `nftables::rules::out::icmp` class
 
 Data type: `Optional[Array[String]]`
 
-
+ICMP v4 types that should be allowed
 
 Default value: `undef`
 
@@ -973,7 +973,7 @@ Default value: `undef`
 
 Data type: `Optional[Array[String]]`
 
-
+ICMP v6 types that should be allowed
 
 Default value: `undef`
 
@@ -981,7 +981,7 @@ Default value: `undef`
 
 Data type: `String`
 
-
+the ordering of the rules
 
 Default value: `'10'`
 
