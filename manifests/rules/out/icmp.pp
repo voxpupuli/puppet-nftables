@@ -1,10 +1,13 @@
 # @summary control outbound icmp packages
+#
+# @param v4_types ICMP v4 types that should be allowed
+# @param v6_types ICMP v6 types that should be allowed
+# @param order the ordering of the rules
+#
 class nftables::rules::out::icmp (
-  # lint:ignore:parameter_documentation
   Optional[Array[String]] $v4_types = undef,
   Optional[Array[String]] $v6_types = undef,
   String $order = '10',
-  # lint:endignore
 ) {
   if $v4_types {
     $v4_types.each | String $icmp_type | {
