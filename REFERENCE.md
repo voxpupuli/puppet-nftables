@@ -24,7 +24,7 @@ Enable this option to support Ceph's Monitor Daemon.
 * [`nftables::rules::http`](#nftables--rules--http): manage in http
 * [`nftables::rules::https`](#nftables--rules--https): manage in https
 * [`nftables::rules::icinga2`](#nftables--rules--icinga2): manage in icinga2
-* [`nftables::rules::icmp`](#nftables--rules--icmp)
+* [`nftables::rules::icmp`](#nftables--rules--icmp): allows incoming ICMP
 * [`nftables::rules::igmp`](#nftables--rules--igmp): allow incoming IGMP messages
 * [`nftables::rules::ldap`](#nftables--rules--ldap): manage in ldap
 * [`nftables::rules::llmnr`](#nftables--rules--llmnr): allow incoming Link-Local Multicast Name Resolution
@@ -683,7 +683,7 @@ Default value: `[5665]`
 
 ### <a name="nftables--rules--icmp"></a>`nftables::rules::icmp`
 
-The nftables::rules::icmp class.
+allows incoming ICMP
 
 #### Parameters
 
@@ -697,7 +697,7 @@ The following parameters are available in the `nftables::rules::icmp` class:
 
 Data type: `Optional[Array[String]]`
 
-
+ICMP v4 types that should be allowed
 
 Default value: `undef`
 
@@ -705,7 +705,7 @@ Default value: `undef`
 
 Data type: `Optional[Array[String]]`
 
-
+ICMP v6 types that should be allowed
 
 Default value: `undef`
 
@@ -713,7 +713,7 @@ Default value: `undef`
 
 Data type: `String`
 
-
+the ordering of the rules
 
 Default value: `'10'`
 
