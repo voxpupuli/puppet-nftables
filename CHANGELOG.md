@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.7.1](https://github.com/voxpupuli/puppet-nftables/tree/v3.7.1) (2023-12-29)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.7.0...v3.7.1)
+
+**Fixed bugs:**
+
+- rules::icmp: Allow ICMP packets with extensions [\#231](https://github.com/voxpupuli/puppet-nftables/pull/231) ([bastelfreak](https://github.com/bastelfreak))
+- out::icmp: simplify filtering/fix ICMP bug [\#230](https://github.com/voxpupuli/puppet-nftables/pull/230) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v3.7.0](https://github.com/voxpupuli/puppet-nftables/tree/v3.7.0) (2023-12-27)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.6.0...v3.7.0)
