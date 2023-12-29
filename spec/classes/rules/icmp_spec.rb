@@ -8,21 +8,11 @@ describe 'nftables::rules::icmp' do
       let(:facts) { os_facts }
 
       context 'default options' do
-        it { is_expected.to compile }
+        it { is_expected.to compile.with_all_deps }
 
-        it {
-          expect(subject).to contain_nftables__rule('default_in-accept_icmpv4').with(
-            content: 'ip protocol icmp accept',
-            order: '10'
-          )
-        }
-
-        it {
-          expect(subject).to contain_nftables__rule('default_in-accept_icmpv6').with(
-            content: 'ip6 nexthdr ipv6-icmp accept',
-            order: '10'
-          )
-        }
+        it { is_expected.to contain_nftables__rule('default_in-accept_icmp').with_content('meta l4proto { icmp, icmpv6} accept').with_order('10') }
+        it { is_expected.not_to contain_nftables__rule('default_in-accept_icmpv4') }
+        it { is_expected.not_to contain_nftables__rule('default_in-accept_icmpv6') }
       end
 
       context 'with custom ICMP types (v4 only)' do
@@ -50,7 +40,7 @@ describe 'nftables::rules::icmp' do
 
         it {
           expect(subject).to contain_nftables__rule('default_in-accept_icmpv6').with(
-            content: 'ip6 nexthdr ipv6-icmp accept',
+            content: 'meta l4proto icmpv6 accept',
             order: '10'
           )
         }
