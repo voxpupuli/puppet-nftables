@@ -1032,6 +1032,7 @@ The following parameters are available in the `nftables::rules::out::mdns` class
 
 * [`ipv4`](#-nftables--rules--out--mdns--ipv4)
 * [`ipv6`](#-nftables--rules--out--mdns--ipv6)
+* [`oifname`](#-nftables--rules--out--mdns--oifname)
 
 ##### <a name="-nftables--rules--out--mdns--ipv4"></a>`ipv4`
 
@@ -1048,6 +1049,14 @@ Data type: `Boolean`
 Allow mdns over IPv6
 
 Default value: `true`
+
+##### <a name="-nftables--rules--out--mdns--oifname"></a>`oifname`
+
+Data type: `Array[String[1]]`
+
+optional name for outgoing interfaces
+
+Default value: `[]`
 
 ### <a name="nftables--rules--out--mldv2"></a>`nftables::rules::out::mldv2`
 
