@@ -1116,6 +1116,20 @@ manage out ospf
 
 manage out ospf3
 
+#### Parameters
+
+The following parameters are available in the `nftables::rules::out::ospf3` class:
+
+* [`oifname`](#-nftables--rules--out--ospf3--oifname)
+
+##### <a name="-nftables--rules--out--ospf3--oifname"></a>`oifname`
+
+Data type: `Array[String[1]]`
+
+optional list of outgoing interfaces to filter on
+
+Default value: `[]`
+
 ### <a name="nftables--rules--out--pop3"></a>`nftables::rules::out::pop3`
 
 allow outgoing pop3
