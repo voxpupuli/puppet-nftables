@@ -852,6 +852,20 @@ manage in ospf
 
 manage in ospf3
 
+#### Parameters
+
+The following parameters are available in the `nftables::rules::ospf3` class:
+
+* [`iifname`](#-nftables--rules--ospf3--iifname)
+
+##### <a name="-nftables--rules--ospf3--iifname"></a>`iifname`
+
+Data type: `Array[String[1]]`
+
+optional list of incoming interfaces to allow traffic
+
+Default value: `[]`
+
 ### <a name="nftables--rules--out--active_directory"></a>`nftables::rules::out::active_directory`
 
 manage outgoing active diectory
