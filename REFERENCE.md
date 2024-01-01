@@ -752,6 +752,7 @@ The following parameters are available in the `nftables::rules::llmnr` class:
 
 * [`ipv4`](#-nftables--rules--llmnr--ipv4)
 * [`ipv6`](#-nftables--rules--llmnr--ipv6)
+* [`iifname`](#-nftables--rules--llmnr--iifname)
 
 ##### <a name="-nftables--rules--llmnr--ipv4"></a>`ipv4`
 
@@ -768,6 +769,14 @@ Data type: `Boolean`
 Allow LLMNR over IPv6
 
 Default value: `true`
+
+##### <a name="-nftables--rules--llmnr--iifname"></a>`iifname`
+
+Data type: `Array[String[1]]`
+
+optional list of incoming interfaces to filter on
+
+Default value: `[]`
 
 ### <a name="nftables--rules--mdns"></a>`nftables::rules::mdns`
 
