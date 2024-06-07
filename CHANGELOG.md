@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [Unreleased](https://github.com/voxpupuli/puppet-nftables/tree/HEAD)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.7.1...HEAD)
+
+**Implemented enhancements:**
+
+- update puppet-systemd upper bound to 8.0.0 [\#242](https://github.com/voxpupuli/puppet-nftables/pull/242) ([TheMeier](https://github.com/TheMeier))
+- rules::llmnr: Allow interface filtering [\#235](https://github.com/voxpupuli/puppet-nftables/pull/235) ([bastelfreak](https://github.com/bastelfreak))
+- rules::ospf3 & rules::out::ospf3: Allow filtering on outgoing interfaces [\#234](https://github.com/voxpupuli/puppet-nftables/pull/234) ([bastelfreak](https://github.com/bastelfreak))
+- rules::out::mdns & rules::mdns: Allow interface filtering [\#233](https://github.com/voxpupuli/puppet-nftables/pull/233) ([bastelfreak](https://github.com/bastelfreak))
+
+**Closed issues:**
+
+- Error: /Stage\[main\]/Nftables/Service\[firewalld\]/enable: change from 'true' to 'false' failed: Could not disable firewalld: [\#239](https://github.com/voxpupuli/puppet-nftables/issues/239)
+
 ## [v3.7.1](https://github.com/voxpupuli/puppet-nftables/tree/v3.7.1) (2023-12-29)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.7.0...v3.7.1)
