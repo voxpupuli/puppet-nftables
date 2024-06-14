@@ -23,14 +23,6 @@ describe 'nftables::inet_filter::in_out_conntrack' do
       }
 
       it {
-        expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-drop_invalid').with(
-          target: 'nftables-inet-filter-chain-INPUT',
-          content: %r{^  ct state invalid drop$},
-          order: '06-nftables-inet-filter-chain-INPUT-rule-drop_invalid-b'
-        )
-      }
-
-      it {
         expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-accept_established_related').with(
           target: 'nftables-inet-filter-chain-OUTPUT',
           content: %r{^  ct state established,related accept$},
@@ -38,21 +30,29 @@ describe 'nftables::inet_filter::in_out_conntrack' do
         )
       }
 
-      it {
-        expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-drop_invalid').with(
-          target: 'nftables-inet-filter-chain-OUTPUT',
-          content: %r{^  ct state invalid drop$},
-          order: '06-nftables-inet-filter-chain-OUTPUT-rule-drop_invalid-b'
-        )
-      }
+      it { is_expected.not_to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-drop_invalid') }
+      it { is_expected.not_to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-drop_invalid') }
 
-      context 'with in_out_drop_invalid=false' do
+      context 'with in_out_drop_invalid=true' do
         let :pre_condition do
-          'class { "nftables": in_out_drop_invalid => false}'
+          'class { "nftables": in_out_drop_invalid => true}'
         end
 
-        it { is_expected.not_to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-drop_invalid') }
-        it { is_expected.not_to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-drop_invalid') }
+        it {
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-drop_invalid').with(
+            target: 'nftables-inet-filter-chain-INPUT',
+            content: %r{^  ct state invalid drop$},
+            order: '06-nftables-inet-filter-chain-INPUT-rule-drop_invalid-b'
+          )
+        }
+
+        it {
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-drop_invalid').with(
+            target: 'nftables-inet-filter-chain-OUTPUT',
+            content: %r{^  ct state invalid drop$},
+            order: '06-nftables-inet-filter-chain-OUTPUT-rule-drop_invalid-b'
+          )
+        }
       end
     end
   end
