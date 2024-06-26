@@ -109,11 +109,17 @@
 #   The default file & dir mode for configuration files and directories. The
 #   default varies depending on the system, and is set in the module's data.
 #
+# @param clobber_default_config
+#   Should the existing OS provided rules in the `configuration_path` be removed? If
+#   they are not being removed this module will add all of its configuration to the end of
+#   the existing rules.
+#
 class nftables (
   Stdlib::Unixpath $echo,
   Stdlib::Unixpath $configuration_path,
   Stdlib::Unixpath $nft_path,
   Stdlib::Filemode $default_config_mode,
+  Boolean $clobber_default_config = false,
   Boolean $in_ssh = true,
   Boolean $in_icmp = true,
   Boolean $out_ntp = true,
@@ -140,12 +146,30 @@ class nftables (
 ) {
   package { 'nftables':
     ensure => installed,
-  } -> file_line {
-    'enable_nftables':
-      line   => 'include "/etc/nftables/puppet.nft"',
-      path   => $configuration_path,
-      notify => Service['nftables'],
-  } -> file {
+  }
+
+  if $clobber_default_config {
+    file { $configuration_path:
+      ensure  => file,
+      owner   => 'root',
+      group   => 'root',
+      mode    => $default_config_mode,
+      content => "#Puppet Managed\ninclude \"/etc/nftables/puppet.nft\"\n",
+      require => Package['nftables'],
+      before  => File['/etc/nftables'],
+      notify  => Service['nftables'],
+    }
+  } else {
+    file_line { 'enable_nftables':
+      line    => 'include "/etc/nftables/puppet.nft"',
+      path    => $configuration_path,
+      require => Package['nftables'],
+      before  => File['/etc/nftables'],
+      notify  => Service['nftables'],
+    }
+  }
+
+  file {
     default:
       owner => 'root',
       group => 'root',

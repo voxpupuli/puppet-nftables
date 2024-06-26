@@ -178,6 +178,7 @@ The following parameters are available in the `nftables` class:
 * [`nft_path`](#-nftables--nft_path)
 * [`echo`](#-nftables--echo)
 * [`default_config_mode`](#-nftables--default_config_mode)
+* [`clobber_default_config`](#-nftables--clobber_default_config)
 
 ##### <a name="-nftables--out_all"></a>`out_all`
 
@@ -403,6 +404,16 @@ Data type: `Stdlib::Filemode`
 
 The default file & dir mode for configuration files and directories. The
 default varies depending on the system, and is set in the module's data.
+
+##### <a name="-nftables--clobber_default_config"></a>`clobber_default_config`
+
+Data type: `Boolean`
+
+Should the existing OS provided rules in the `configuration_path` be removed? If
+they are not being removed this module will add all of its configuration to the end of
+the existing rules.
+
+Default value: `false`
 
 ### <a name="nftables--bridges"></a>`nftables::bridges`
 
