@@ -6,17 +6,27 @@ describe 'nftables class' do
   context 'configure all nftables rules' do
     it 'works idempotently with no errors' do
       pp = <<-EOS
+      # Default ArchLinux rules contain "destroy" that requires kernel >= 6.3
+      # https://gitlab.archlinux.org/archlinux/packaging/packages/nftables/-/commit/f26a7145b2885d298925819782a5302905332dbe
+      # When running on docker this may not be the case.
+      if $facts['os']['family'] == 'Archlinux' and versioncmp($facts['kernelrelease'],'6.3') < 0 {
+        $_clobber_default_config = true
+      } else {
+        $_clobber_default_config = undef
+      }
+
       # default mask of firewalld service fails if service is not installed.
       # https://tickets.puppetlabs.com/browse/PUP-10814
       # Disable all default rules and include below explicitly
       class { 'nftables':
-        firewalld_enable => false,
-        out_ntp          => false,
-        out_http         => false,
-        out_https        => false,
-        out_icmp         => false,
-        in_ssh           => false,
-        in_icmp          => false,
+        firewalld_enable       => false,
+        out_ntp                => false,
+        out_http               => false,
+        out_https              => false,
+        out_icmp               => false,
+        in_ssh                 => false,
+        in_icmp                => false,
+        clobber_default_config => $_clobber_default_config,
       }
       include nftables::rules::icmp
       include nftables::rules::dns

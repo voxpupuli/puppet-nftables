@@ -33,6 +33,38 @@ describe 'nftables' do
 
       it { is_expected.to contain_package('nftables') }
 
+      context 'with clobber_default_config false' do
+        let(:params) do
+          { clobber_default_config: false }
+        end
+
+        it {
+          is_expected.to contain_file_line('enable_nftables').with(
+            line: 'include "/etc/nftables/puppet.nft"',
+            path: nft_config
+          )
+        }
+
+        it { is_expected.not_to contain_file(nft_config) }
+      end
+
+      context 'with clobber_default_config true' do
+        let(:params) do
+          { clobber_default_config: true }
+        end
+
+        it {
+          is_expected.to contain_file(nft_config).with(
+            ensure: 'file',
+            content: %r{^include "/etc/nftables/puppet.nft"$},
+            owner: 'root',
+            group: 'root'
+          )
+        }
+
+        it { is_expected.not_to contain_file_line('enable_nftables') }
+      end
+
       it {
         is_expected.to contain_file('/etc/nftables').with(
           ensure: 'directory',
