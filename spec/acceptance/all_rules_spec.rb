@@ -99,11 +99,6 @@ describe 'nftables class' do
       include nftables::rules::out::ssdp
       include nftables::services::dhcpv6_client
       include nftables::services::openafs_client
-      nftables::set{'my_test_set':
-        type       => 'ipv4_addr',
-        elements   => ['192.168.0.1', '10.0.0.2'],
-        table      => ['inet-filter', 'ip-nat'],
-      }
       $config_path = $facts['os']['family'] ? {
         'Archlinux' => '/etc/nftables.conf',
         'Debian' => '/etc/nftables.conf',
