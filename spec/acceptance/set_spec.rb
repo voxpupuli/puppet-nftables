@@ -5,7 +5,6 @@ require 'spec_helper_acceptance'
 describe 'nftables class' do
   context 'configure an nftables set' do
     it 'works idempotently with no errors' do
-      pending 'Debian 11 bug https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1063690' if (fact('os.family') == 'Debian') && (fact('os.release.major') == '11')
       pp = <<-EOS
       # default mask of firewalld service fails if service is not installed.
       # https://tickets.puppetlabs.com/browse/PUP-10814
