@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [Unreleased](https://github.com/voxpupuli/puppet-nftables/tree/HEAD)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.7.1...HEAD)
+
+**Breaking changes:**
+
+- Drop EOL CentOS 8 support [\#245](https://github.com/voxpupuli/puppet-nftables/pull/245) ([traylenator](https://github.com/traylenator))
+
+**Implemented enhancements:**
+
+- add support for conntrack helpers [\#207](https://github.com/voxpupuli/puppet-nftables/issues/207)
+- New clobber\_default\_config paramater [\#247](https://github.com/voxpupuli/puppet-nftables/pull/247) ([traylenator](https://github.com/traylenator))
+- update puppet-systemd upper bound to 8.0.0 [\#242](https://github.com/voxpupuli/puppet-nftables/pull/242) ([TheMeier](https://github.com/TheMeier))
+- rules::llmnr: Allow interface filtering [\#235](https://github.com/voxpupuli/puppet-nftables/pull/235) ([bastelfreak](https://github.com/bastelfreak))
+- rules::ospf3 & rules::out::ospf3: Allow filtering on outgoing interfaces [\#234](https://github.com/voxpupuli/puppet-nftables/pull/234) ([bastelfreak](https://github.com/bastelfreak))
+- rules::out::mdns & rules::mdns: Allow interface filtering [\#233](https://github.com/voxpupuli/puppet-nftables/pull/233) ([bastelfreak](https://github.com/bastelfreak))
+
+**Closed issues:**
+
+- Error: /Stage\[main\]/Nftables/Service\[firewalld\]/enable: change from 'true' to 'false' failed: Could not disable firewalld: [\#239](https://github.com/voxpupuli/puppet-nftables/issues/239)
+- default debian config not overwritten -\> noflush\_tables not working [\#155](https://github.com/voxpupuli/puppet-nftables/issues/155)
+
+**Merged pull requests:**
+
+- Run default destroying acceptance tests at end [\#249](https://github.com/voxpupuli/puppet-nftables/pull/249) ([traylenator](https://github.com/traylenator))
+- Accept on Debian 11 nftables::set will fail [\#246](https://github.com/voxpupuli/puppet-nftables/pull/246) ([traylenator](https://github.com/traylenator))
+
 ## [v3.7.1](https://github.com/voxpupuli/puppet-nftables/tree/v3.7.1) (2023-12-29)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.7.0...v3.7.1)
