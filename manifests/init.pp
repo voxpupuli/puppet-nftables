@@ -237,12 +237,12 @@ class nftables (
     exec { 'nftables_running_state_check':
       command => 'echo "reloading nftables"',
       path    => ['/usr/sbin', '/sbin', '/usr/bin', '/bin'],
-      unless  => "/usr/bin/test -s /var/tmp/nftables_hash -a \"$(nft -s list ruleset | sha1sum)\" = \"$(cat ${inmem_rules_hash_file})\"",
+      unless  => "/usr/bin/test -s ${inmem_rules_hash_file} -a \"$(nft -s list ruleset | sha1sum)\" = \"$(cat ${inmem_rules_hash_file})\"",
       notify  => Service['nftables'],
     }
 
     # Generate nftables_hash upon any changes from the nftables service 
-    exec { 'generate_nftables_hash':
+    exec { 'nftables_generate_hash':
       command     => "nft -s list ruleset | sha1sum > ${inmem_rules_hash_file}",
       path        => ['/usr/sbin', '/sbin', '/usr/bin', '/bin'],     
       subscribe   => Service['nftables'],

@@ -135,7 +135,7 @@ describe 'nftables' do
       }
 
       it {
-        expect(subject).not_to contain_exec('generate_ntfables_hash')
+        expect(subject).not_to contain_exec('nftables_generate_hash')
       }
 
       it {
@@ -323,11 +323,11 @@ describe 'nftables' do
           is_expected.to contain_exec('nftables_running_state_check').with(
             command: %r{^echo "reloading nftables"$},
             notify: 'Service[nftables]',
-            unless: %r{^/usr/bin/test -s /var/tmp/nftables_hash -a "\$\(nft -s list ruleset \| sha1sum\)" = "\$\(cat /foo/bar\)"$}
+            unless: %r{^/usr/bin/test -s /foo/bar -a "\$\(nft -s list ruleset \| sha1sum\)" = "\$\(cat /foo/bar\)"$}
           )
         }
         it {
-          is_expected.to contain_exec('generate_nftables_hash').with(
+          is_expected.to contain_exec('nftables_generate_hash').with(
             command: %r{^nft -s list ruleset \| sha1sum > /foo/bar$},
             subscribe: 'Service[nftables]',
             refreshonly: true,
