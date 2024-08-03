@@ -46,6 +46,15 @@
 # @param nat_table_name
 #   The name of the 'nat' table.
 #
+# @param purge_unmanaged_rules
+#   Prohibits in-memory rules that are not declared in Puppet
+#   code. Setting this to true activates a check that restarts nftables
+#   if the rules in memory have been modified without Puppet.
+#
+# @param inmem_rules_hash_file
+#   The name of the file where the hash of the in-memory rules
+#   will be stored.
+#
 # @param sets
 #   Allows sourcing set definitions directly from Hiera.
 #
@@ -134,10 +143,12 @@ class nftables (
   Boolean $fwd_drop_invalid = $fwd_conntrack,
   Boolean $inet_filter = true,
   Boolean $nat = true,
+  Boolean $purge_unmanaged_rules = false,
   Hash $rules = {},
   Hash $sets = {},
   String $log_prefix = '[nftables] %<chain>s %<comment>s',
   String[1] $nat_table_name = 'nat',
+  Stdlib::Unixpath $inmem_rules_hash_file = '/run/puppet-nft-memhash',
   Boolean $log_discarded = true,
   Variant[Boolean[false], String] $log_limit = '3/minute burst 5 packets',
   Variant[Boolean[false], Pattern[/icmp(v6|x)? type .+|tcp reset/]] $reject_with = 'icmpx type port-unreachable',
@@ -219,6 +230,24 @@ class nftables (
     enable     => true,
     hasrestart => true,
     restart    => 'PATH=/usr/bin:/bin systemctl reload nftables',
+  }
+
+  if $purge_unmanaged_rules {
+    # Reload the nftables ruleset from the on-disk ruleset if there are differences or it is absent. -s must be used to ignore counters
+    exec { 'nftables_running_state_check':
+      command => 'echo "reloading nftables"',
+      path    => ['/usr/sbin', '/sbin', '/usr/bin', '/bin'],
+      unless  => "/usr/bin/test -s /var/tmp/nftables_hash -a \"$(nft -s list ruleset | sha1sum)\" = \"$(cat ${inmem_rules_hash_file})\"",
+      notify  => Service['nftables'],
+    }
+
+    # Generate nftables_hash upon any changes from the nftables service 
+    exec { 'generate_nftables_hash':
+      command     => "nft -s list ruleset | sha1sum > ${inmem_rules_hash_file}",
+      path        => ['/usr/sbin', '/sbin', '/usr/bin', '/bin'],     
+      subscribe   => Service['nftables'],
+      refreshonly => true,
+    }
   }
 
   systemd::dropin_file { 'puppet_nft.conf':
