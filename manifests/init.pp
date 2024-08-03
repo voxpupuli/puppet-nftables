@@ -48,7 +48,7 @@
 #
 # @param purge_unmanaged_rules
 #   Prohibits in-memory rules that are not declared in Puppet
-#   code. Setting this to true activates a check that restarts nftables
+#   code. Setting this to true activates a check that reloads nftables
 #   if the rules in memory have been modified without Puppet.
 #
 # @param inmem_rules_hash_file
