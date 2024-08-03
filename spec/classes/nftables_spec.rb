@@ -321,9 +321,9 @@ describe 'nftables' do
         it { is_expected.not_to contain_file('/foo/bar') }
         it {
           is_expected.to contain_exec('nftables_memory_state_check').with(
-            command: %r{^echo "reloading nftables"$},
+            command: ["echo", "reloading_nftables"],
             notify: 'Service[nftables]',
-            unless: %r{^/usr/bin/test -s /foo/bar -a "\$\(nft -s list ruleset \| sha1sum\)" = "\$\(cat /foo/bar\)"$}
+            unless: ["test -s /foo/bar -a \"$(nft -s list ruleset | sha1sum)\" = \"$(cat /foo/bar)\""]
           )
         }
         it {
