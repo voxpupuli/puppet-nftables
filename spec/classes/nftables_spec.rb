@@ -131,7 +131,7 @@ describe 'nftables' do
       }
 
       it {
-        expect(subject).not_to contain_exec('nftables_running_state_check')
+        expect(subject).not_to contain_exec('nftables_memory_state_check')
       }
 
       it {
@@ -320,7 +320,7 @@ describe 'nftables' do
 
         it { is_expected.not_to contain_file('/foo/bar') }
         it {
-          is_expected.to contain_exec('nftables_running_state_check').with(
+          is_expected.to contain_exec('nftables_memory_state_check').with(
             command: %r{^echo "reloading nftables"$},
             notify: 'Service[nftables]',
             unless: %r{^/usr/bin/test -s /foo/bar -a "\$\(nft -s list ruleset \| sha1sum\)" = "\$\(cat /foo/bar\)"$}

@@ -234,7 +234,7 @@ class nftables (
 
   if $purge_unmanaged_rules {
     # Reload the nftables ruleset from the on-disk ruleset if there are differences or it is absent. -s must be used to ignore counters
-    exec { 'nftables_running_state_check':
+    exec { 'nftables_memory_state_check':
       command => 'echo "reloading nftables"',
       path    => ['/usr/sbin', '/sbin', '/usr/bin', '/bin'],
       unless  => "/usr/bin/test -s ${inmem_rules_hash_file} -a \"$(nft -s list ruleset | sha1sum)\" = \"$(cat ${inmem_rules_hash_file})\"",
