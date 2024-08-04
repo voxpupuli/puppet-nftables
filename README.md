@@ -73,6 +73,14 @@ Initially puppet deploys all configuration to
 If and only if successful the configuration will be copied to
 the real locations before the service is reloaded.
 
+## Un-managed rules
+
+By default, rules added manually by the administrator to the in-memory
+ruleset will be left untouched. However,
+`nftables::purge_unmanaged_rules` can be set to `true` to revert this
+behaviour and force a reload of the ruleset during the Puppet run if
+non-managed changes are detected.
+
 ## Basic types
 
 ### nftables::config

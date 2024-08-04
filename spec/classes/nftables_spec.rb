@@ -131,6 +131,18 @@ describe 'nftables' do
       }
 
       it {
+        expect(subject).not_to contain_exec('nftables_memory_state_check')
+      }
+
+      it {
+        expect(subject).not_to contain_exec('nftables_generate_hash')
+      }
+
+      it {
+        expect(subject).not_to contain_file('/var/tmp/puppet-nft-memhash')
+      }
+
+      it {
         expect(subject).to contain_exec('nft validate').with(
           refreshonly: true,
           command: %r{^#{nft_path} -I /etc/nftables/puppet-preflight -c -f /etc/nftables/puppet-preflight.nft.*}
@@ -296,6 +308,31 @@ describe 'nftables' do
         it { is_expected.to have_nftables__chain_resource_count(0) }
         it { is_expected.to have_nftables__rule_resource_count(0) }
         it { is_expected.to have_nftables__set_resource_count(0) }
+      end
+
+      context 'when purging unmanaged rules' do
+        let(:params) do
+          {
+            'purge_unmanaged_rules' => true,
+            'inmem_rules_hash_file' => '/foo/bar',
+          }
+        end
+
+        it {
+          is_expected.to contain_exec('nftables_memory_state_check').with(
+            command: %w[echo reloading_nftables],
+            notify: 'Service[nftables]',
+            unless: ['test -s /foo/bar -a "$(nft -s list ruleset | sha1sum)" = "$(cat /foo/bar)"']
+          )
+        }
+
+        it {
+          is_expected.to contain_exec('nftables_generate_hash').with(
+            command: ['nft -s list ruleset | sha1sum > /foo/bar'],
+            subscribe: 'Service[nftables]',
+            refreshonly: true
+          )
+        }
       end
 
       %w[ip ip6 inet arp bridge netdev].each do |family|

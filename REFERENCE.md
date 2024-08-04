@@ -162,6 +162,8 @@ The following parameters are available in the `nftables` class:
 * [`inet_filter`](#-nftables--inet_filter)
 * [`nat`](#-nftables--nat)
 * [`nat_table_name`](#-nftables--nat_table_name)
+* [`purge_unmanaged_rules`](#-nftables--purge_unmanaged_rules)
+* [`inmem_rules_hash_file`](#-nftables--inmem_rules_hash_file)
 * [`sets`](#-nftables--sets)
 * [`log_prefix`](#-nftables--log_prefix)
 * [`log_discarded`](#-nftables--log_discarded)
@@ -269,6 +271,25 @@ Data type: `String[1]`
 The name of the 'nat' table.
 
 Default value: `'nat'`
+
+##### <a name="-nftables--purge_unmanaged_rules"></a>`purge_unmanaged_rules`
+
+Data type: `Boolean`
+
+Prohibits in-memory rules that are not declared in Puppet
+code. Setting this to true activates a check that reloads nftables
+if the rules in memory have been modified without Puppet.
+
+Default value: `false`
+
+##### <a name="-nftables--inmem_rules_hash_file"></a>`inmem_rules_hash_file`
+
+Data type: `Stdlib::Unixpath`
+
+The name of the file where the hash of the in-memory rules
+will be stored.
+
+Default value: `'/var/tmp/puppet-nft-memhash'`
 
 ##### <a name="-nftables--sets"></a>`sets`
 
