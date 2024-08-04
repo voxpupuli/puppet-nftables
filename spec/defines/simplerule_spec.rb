@@ -208,6 +208,22 @@ describe 'nftables::simplerule' do
         }
       end
 
+      describe 'with an IPV4 array address as daddr' do
+        let(:params) do
+          {
+            daddr: ['172.16.1.5', '172.16.1.10', '172.16.1.15'],
+          }
+        end
+
+        it { is_expected.to compile }
+
+        it {
+          expect(subject).to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'ip daddr {172.16.1.5, 172.16.1.10, 172.16.1.15} accept'
+          )
+        }
+      end
+
       describe 'with an IPv6 address as daddr' do
         let(:params) do
           {
@@ -224,10 +240,10 @@ describe 'nftables::simplerule' do
         }
       end
 
-      describe 'with an IPv6 address as saddr' do
+      describe 'with an IPV6 array address as daddr' do
         let(:params) do
           {
-            saddr: '2001:1458:0000:0000:0000:0000:0000:0003',
+            daddr: ['2001:1458:0000:0000:0000:0000:0000:0003', '8896:d5d9:e6f4:dd8f:af69:f5c0:0131:264f'],
           }
         end
 
@@ -235,7 +251,73 @@ describe 'nftables::simplerule' do
 
         it {
           expect(subject).to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'ip6 saddr 2001:1458:0000:0000:0000:0000:0000:0003 accept'
+            content: 'ip6 daddr {2001:1458:0000:0000:0000:0000:0000:0003, 8896:d5d9:e6f4:dd8f:af69:f5c0:0131:264f} accept'
+          )
+        }
+      end
+
+      describe 'with a @addr IPV4 set as daddr' do
+        let(:params) do
+          {
+            daddr: '@my4_set',
+            set_type: 'ip',
+          }
+        end
+
+        it { is_expected.to compile }
+
+        it {
+          expect(subject).to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'ip daddr @my4_set accept'
+          )
+        }
+      end
+
+      describe 'with a @addr IPV4 array set as daddr' do
+        let(:params) do
+          {
+            daddr: ['@my4_1_set', '@my4_2_set'],
+            set_type: 'ip',
+          }
+        end
+
+        it { is_expected.to compile }
+
+        it {
+          expect(subject).to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'ip daddr {@my4_1_set, @my4_2_set} accept'
+          )
+        }
+      end
+
+      describe 'with an @addr IPV6 set as daddr, default set_type' do
+        let(:params) do
+          {
+            daddr: '@my6_set',
+          }
+        end
+
+        it { is_expected.to compile }
+
+        it {
+          expect(subject).to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'ip6 daddr @my6_set accept'
+          )
+        }
+      end
+
+      describe 'with an @addr IPV6 array set as daddr, default set_type' do
+        let(:params) do
+          {
+            daddr: ['@my6_1_set', '@my6_2_set'],
+          }
+        end
+
+        it { is_expected.to compile }
+
+        it {
+          expect(subject).to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'ip6 daddr {@my6_1_set, @my6_2_set} accept'
           )
         }
       end
@@ -256,10 +338,10 @@ describe 'nftables::simplerule' do
         }
       end
 
-      describe 'with an IPv6 set as daddr, default set_type' do
+      describe 'with an IPV4 array address as saddr' do
         let(:params) do
           {
-            daddr: '@my6_set',
+            saddr: ['172.16.1.5', '172.16.1.10', '172.16.1.15'],
           }
         end
 
@@ -267,15 +349,47 @@ describe 'nftables::simplerule' do
 
         it {
           expect(subject).to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'ip6 daddr @my6_set accept'
+            content: 'ip saddr {172.16.1.5, 172.16.1.10, 172.16.1.15} accept'
           )
         }
       end
 
-      describe 'with a IPv4 set as daddr' do
+      describe 'with an IPv6 address as saddr' do
         let(:params) do
           {
-            daddr: '@my4_set',
+            saddr: '2001:1458:0000:0000:0000:0000:0000:0003',
+          }
+        end
+
+        it { is_expected.to compile }
+
+        it {
+          expect(subject).to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'ip6 saddr 2001:1458:0000:0000:0000:0000:0000:0003 accept'
+          )
+        }
+      end
+
+      describe 'with an IPV6 array address as saddr' do
+        let(:params) do
+          {
+            saddr: ['2001:1458:0000:0000:0000:0000:0000:0003', '8896:d5d9:e6f4:dd8f:af69:f5c0:0131:264f'],
+          }
+        end
+
+        it { is_expected.to compile }
+
+        it {
+          expect(subject).to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'ip6 saddr {2001:1458:0000:0000:0000:0000:0000:0003, 8896:d5d9:e6f4:dd8f:af69:f5c0:0131:264f} accept'
+          )
+        }
+      end
+
+      describe 'with a @addr IPV4 set as saddr' do
+        let(:params) do
+          {
+            saddr: '@my4_set',
             set_type: 'ip',
           }
         end
@@ -284,16 +398,32 @@ describe 'nftables::simplerule' do
 
         it {
           expect(subject).to contain_nftables__rule('default_in-my_default_rule_name').with(
-            content: 'ip daddr @my4_set accept'
+            content: 'ip saddr @my4_set accept'
           )
         }
       end
 
-      describe 'with a IPv6 set as saddr' do
+      describe 'with a @addr IPV4 array set as saddr' do
+        let(:params) do
+          {
+            saddr: ['@my4_1_set', '@my4_2_set'],
+            set_type: 'ip',
+          }
+        end
+
+        it { is_expected.to compile }
+
+        it {
+          expect(subject).to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'ip saddr {@my4_1_set, @my4_2_set} accept'
+          )
+        }
+      end
+
+      describe 'with an @addr IPV6 set as saddr, default set_type' do
         let(:params) do
           {
             saddr: '@my6_set',
-            set_type: 'ip6',
           }
         end
 
@@ -302,6 +432,22 @@ describe 'nftables::simplerule' do
         it {
           expect(subject).to contain_nftables__rule('default_in-my_default_rule_name').with(
             content: 'ip6 saddr @my6_set accept'
+          )
+        }
+      end
+
+      describe 'with an @addr IPV6 array set as saddr, default set_type' do
+        let(:params) do
+          {
+            saddr: ['@my6_1_set', '@my6_2_set'],
+          }
+        end
+
+        it { is_expected.to compile }
+
+        it {
+          expect(subject).to contain_nftables__rule('default_in-my_default_rule_name').with(
+            content: 'ip6 saddr {@my6_1_set, @my6_2_set} accept'
           )
         }
       end
