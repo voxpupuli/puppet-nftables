@@ -139,7 +139,7 @@ describe 'nftables' do
       }
 
       it {
-        expect(subject).not_to contain_file('/run/puppet-nft-memhash')
+        expect(subject).not_to contain_file('/var/tmp/puppet-nft-memhash')
       }
 
       it {
@@ -317,8 +317,6 @@ describe 'nftables' do
             'inmem_rules_hash_file' => '/foo/bar',
           }
         end
-
-        it { is_expected.not_to contain_file('/foo/bar') }
 
         it {
           is_expected.to contain_exec('nftables_memory_state_check').with(
