@@ -233,7 +233,7 @@ class nftables (
   }
 
   if $purge_unmanaged_rules {
-    # Reload the nftables ruleset from the on-disk ruleset if there are differences or it is absent. -s must be used to ignore counters
+    # Reload nftables ruleset from disk if running state not match last service change hash, or is absent (-s required to ignore counters)
     exec { 'nftables_memory_state_check':
       command  => ['echo', 'reloading_nftables'],
       path     => $facts['path'],
@@ -242,7 +242,7 @@ class nftables (
       notify   => Service['nftables'],
     }
 
-    # Generate nftables_hash upon any changes from the nftables service 
+    # Generate nftables hash upon changes to the nftables service 
     exec { 'nftables_generate_hash':
       command     => ["nft -s list ruleset | sha1sum > ${inmem_rules_hash_file}"],
       path        => $facts['path'],
