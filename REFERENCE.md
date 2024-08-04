@@ -289,7 +289,7 @@ Data type: `Stdlib::Unixpath`
 The name of the file where the hash of the in-memory rules
 will be stored.
 
-Default value: `'/run/puppet-nft-memhash'`
+Default value: `'/var/tmp/puppet-nft-memhash'`
 
 ##### <a name="-nftables--sets"></a>`sets`
 
