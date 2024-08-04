@@ -319,18 +319,20 @@ describe 'nftables' do
         end
 
         it { is_expected.not_to contain_file('/foo/bar') }
+
         it {
           is_expected.to contain_exec('nftables_memory_state_check').with(
-            command: ["echo", "reloading_nftables"],
+            command: %w[echo reloading_nftables],
             notify: 'Service[nftables]',
-            unless: ["test -s /foo/bar -a \"$(nft -s list ruleset | sha1sum)\" = \"$(cat /foo/bar)\""]
+            unless: ['test -s /foo/bar -a "$(nft -s list ruleset | sha1sum)" = "$(cat /foo/bar)"']
           )
         }
+
         it {
           is_expected.to contain_exec('nftables_generate_hash').with(
-            command: %r{^nft -s list ruleset \| sha1sum > /foo/bar$},
+            command: ['nft -s list ruleset | sha1sum > /foo/bar'],
             subscribe: 'Service[nftables]',
-            refreshonly: true,
+            refreshonly: true
           )
         }
       end
