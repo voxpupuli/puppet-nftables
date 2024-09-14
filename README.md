@@ -20,7 +20,7 @@ outbound traffic:
 
 ```puppet
 class { 'nftables':
-    out_all => true,
+  out_all => true,
 }
 ```
 
