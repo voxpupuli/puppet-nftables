@@ -171,6 +171,7 @@ The following parameters are available in the `nftables` class:
 * [`log_prefix`](#-nftables--log_prefix)
 * [`log_discarded`](#-nftables--log_discarded)
 * [`log_limit`](#-nftables--log_limit)
+* [`log_group`](#-nftables--log_group)
 * [`reject_with`](#-nftables--reject_with)
 * [`in_out_conntrack`](#-nftables--in_out_conntrack)
 * [`in_out_drop_invalid`](#-nftables--in_out_drop_invalid)
@@ -330,6 +331,15 @@ to the rules that log discarded traffic. Set to false to
 disable rate limiting.
 
 Default value: `'3/minute burst 5 packets'`
+
+##### <a name="-nftables--log_group"></a>`log_group`
+
+Data type: `Optional[Integer]`
+
+When specified, the Linux kernel will pass the packet to nfnetlink_log
+which will send the log through a netlink socket to the specified group.
+
+Default value: `undef`
 
 ##### <a name="-nftables--reject_with"></a>`reject_with`
 
