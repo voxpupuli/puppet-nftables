@@ -571,6 +571,39 @@ describe 'nftables' do
         }
       end
 
+      context 'custom log group' do
+        let(:params) do
+          {
+            log_group: 1,
+            log_limit: '5/minute',
+          }
+        end
+
+        it {
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-INPUT-rule-log_discarded').with(
+            target: 'nftables-inet-filter-chain-INPUT',
+            content: %r{^  limit rate 5/minute log prefix "\[nftables\] INPUT Rejected: " group 1$},
+            order: '97-nftables-inet-filter-chain-INPUT-rule-log_discarded-b'
+          )
+        }
+
+        it {
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-OUTPUT-rule-log_discarded').with(
+            target: 'nftables-inet-filter-chain-OUTPUT',
+            content: %r{^  limit rate 5/minute log prefix "\[nftables\] OUTPUT Rejected: " group 1$},
+            order: '97-nftables-inet-filter-chain-OUTPUT-rule-log_discarded-b'
+          )
+        }
+
+        it {
+          expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-log_discarded').with(
+            target: 'nftables-inet-filter-chain-FORWARD',
+            content: %r{^  limit rate 5/minute log prefix "\[nftables\] FORWARD Rejected: " group 1$},
+            order: '97-nftables-inet-filter-chain-FORWARD-rule-log_discarded-b'
+          )
+        }
+      end
+
       context 'no reject rule, use chain policy without explicit reject' do
         let(:params) do
           {
