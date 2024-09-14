@@ -11,20 +11,26 @@ By default it sets up a firewall that drops every connection, except
 outbound ICMP, DNS, NTP, HTTP, and HTTPS, and inbound ICMP and SSH
 traffic:
 
-    include nftables
+```puppet
+include nftables
+```
 
 This can be overridden using parameters, for example, this allows all
 outbound traffic:
 
-    class { 'nftables':
-        out_all => true,
-    }
+```puppet
+class { 'nftables':
+    out_all => true,
+}
+```
 
 There are also pre-built rules for specific services, for example this
 will allow a web server to serve traffic over HTTPS:
 
-    include nftables
-    include nftables::rules::https
+```puppet
+include nftables
+include nftables::rules::https
+```
 
 Note that the module conflicts with the `firewalld` system and will
 stop it in Puppet runs.
