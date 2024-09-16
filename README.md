@@ -166,3 +166,16 @@ that could make your life easier when using the module. This is third
 party configuration that's only included here for reference so changes
 in the interfaces exposed by this module are not guaranteed to be
 automatically applied there.
+
+## Development
+
+This module relies on CI testing. To ensure the tests and documentation is complete.
+
+The following steps are a blueprint for the necessary work to add a new rule to the module:
+
+1. add a new class for the new rule (there are enough examples)
+2. document class and parameters
+3. Add a spec test for the new rule to `spec/classes/rules`
+4. add the rule to `spec/acceptance/all_rules_spec.rb`
+5. update the reference `bundle exec rake strings:generate:reference`
+6. commit, push and open a PR
