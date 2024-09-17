@@ -177,5 +177,5 @@ The following steps are a blueprint for the necessary work to add a new rule to 
 2. document class and parameters
 3. Add a spec test for the new rule to `spec/classes/rules`
 4. add the rule to `spec/acceptance/all_rules_spec.rb`
-5. update the reference `bundle exec rake strings:generate:reference`
+5. update the reference with `bundle exec rake strings:generate:reference`
 6. commit, push and open a PR
