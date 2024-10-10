@@ -1,7 +1,7 @@
 # @summary Insert a file into the nftables configuration
 # @example Include a file that includes other files
 #   nftables::file{'geoip':
-#     content => @("EOT"),
+#     content => @(EOT),
 #       include "/var/local/geoipsets/dbip/nftset/ipv4/*.ipv4"
 #       include "/var/local/geoipsets/dbip/nftset/ipv6/*.ipv6"
 #       |EOT
