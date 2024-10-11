@@ -48,6 +48,7 @@ and Manager Daemons (MGR).
 * [`nftables::rules::out::hkp`](#nftables--rules--out--hkp): allow outgoing hkp connections to gpg keyservers
 * [`nftables::rules::out::http`](#nftables--rules--out--http): manage out http
 * [`nftables::rules::out::https`](#nftables--rules--out--https): manage out https
+* [`nftables::rules::out::icinga2`](#nftables--rules--out--icinga2): allow outgoing icinga2
 * [`nftables::rules::out::icmp`](#nftables--rules--out--icmp): control outbound icmp packages
 * [`nftables::rules::out::igmp`](#nftables--rules--out--igmp): allow outgoing IGMP messages
 * [`nftables::rules::out::imap`](#nftables--rules--out--imap): allow outgoing imap
@@ -1012,6 +1013,24 @@ manage out http
 ### <a name="nftables--rules--out--https"></a>`nftables::rules::out::https`
 
 manage out https
+
+### <a name="nftables--rules--out--icinga2"></a>`nftables::rules::out::icinga2`
+
+allow outgoing icinga2
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::out::icinga2` class:
+
+* [`ports`](#-nftables--rules--out--icinga2--ports)
+
+##### <a name="-nftables--rules--out--icinga2--ports"></a>`ports`
+
+Data type: `Array[Stdlib::Port,1]`
+
+icinga2 ports
+
+Default value: `[5665]`
 
 ### <a name="nftables--rules--out--icmp"></a>`nftables::rules::out::icmp`
 
