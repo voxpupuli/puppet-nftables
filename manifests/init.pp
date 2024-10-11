@@ -72,6 +72,10 @@
 #  to the rules that log discarded traffic. Set to false to
 #  disable rate limiting.
 #
+# @param log_group
+#  When specified, the Linux kernel will pass the packet to nfnetlink_log
+#  which will send the log through a netlink socket to the specified group.
+#
 # @param reject_with
 #   How to discard packets not matching any rule. If `false`, the
 #   fate of the packet will be defined by the chain policy (normally
@@ -147,6 +151,7 @@ class nftables (
   Hash $rules = {},
   Hash $sets = {},
   String $log_prefix = '[nftables] %<chain>s %<comment>s',
+  Optional[Integer[0]] $log_group = undef,
   String[1] $nat_table_name = 'nat',
   Stdlib::Unixpath $inmem_rules_hash_file = '/var/tmp/puppet-nft-memhash',
   Boolean $log_discarded = true,
