@@ -151,7 +151,7 @@ class nftables (
   Hash $rules = {},
   Hash $sets = {},
   String $log_prefix = '[nftables] %<chain>s %<comment>s',
-  Optional[Integer] $log_group = undef,
+  Optional[Integer[0]] $log_group = undef,
   String[1] $nat_table_name = 'nat',
   Stdlib::Unixpath $inmem_rules_hash_file = '/var/tmp/puppet-nft-memhash',
   Boolean $log_discarded = true,
