@@ -11,7 +11,8 @@ class nftables::rules::out::icmp (
 ) {
   if $v4_types {
     $v4_types.each | String $icmp_type | {
-      nftables::rule { 'default_out-accept_icmpv4':
+      # make sure we get a unique rulename per icmp_type
+      nftables::rule { "default_out-accept_icmpv4_${regsubst(split($icmp_type, ' ')[0], '-', '_', 'G')}":
         content => "ip protocol icmp icmp type ${icmp_type} accept",
         order   => $order,
       }
@@ -25,7 +26,8 @@ class nftables::rules::out::icmp (
 
   if $v6_types {
     $v6_types.each | String $icmp_type | {
-      nftables::rule { 'default_out-accept_icmpv6':
+      # make sure we get a unique rulename per icmp_type
+      nftables::rule { "default_out-accept_icmpv6_${regsubst(split($icmp_type, ' ')[0], '-', '_', 'G')}":
         content => "ip6 nexthdr ipv6-icmp icmpv6 type ${icmp_type} accept",
         order   => $order,
       }
