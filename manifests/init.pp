@@ -242,7 +242,7 @@ class nftables (
       notify   => Service['nftables'],
     }
 
-    # Generate nftables hash upon changes to the nftables service 
+    # Generate nftables hash upon changes to the nftables service
     exec { 'nftables_generate_hash':
       command     => ["nft -s list ruleset | sha1sum > ${inmem_rules_hash_file}"],
       path        => $facts['path'],
