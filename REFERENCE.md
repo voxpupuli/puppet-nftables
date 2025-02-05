@@ -334,7 +334,7 @@ Default value: `'3/minute burst 5 packets'`
 
 ##### <a name="-nftables--log_group"></a>`log_group`
 
-Data type: `Optional[Integer]`
+Data type: `Optional[Integer[0]]`
 
 When specified, the Linux kernel will pass the packet to nfnetlink_log
 which will send the log through a netlink socket to the specified group.
