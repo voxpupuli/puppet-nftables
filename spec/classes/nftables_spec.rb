@@ -33,6 +33,13 @@ describe 'nftables' do
 
       it { is_expected.to contain_package('nftables') }
 
+      case [os_facts[:os]['name'], os_facts[:os]['release']['major']]
+      when ['Ubuntu', '20.04']
+        it { is_expected.to contain_package('netbase') }
+      else
+        it { is_expected.not_to contain_package('netbase') }
+      end
+
       context 'with clobber_default_config false' do
         let(:params) do
           { clobber_default_config: false }

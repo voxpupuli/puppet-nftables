@@ -159,6 +159,13 @@ class nftables (
     ensure => installed,
   }
 
+  # /etc/services file is needed, on newer OSes this is a dependency on nftables
+  if $facts['os']['name'] == 'Ubuntu' and $facts['os']['release']['major'] == '20.04' {
+    package { 'netbase':
+      ensure => present,
+    }
+  }
+
   if $clobber_default_config {
     file { $configuration_path:
       ensure  => file,
@@ -242,7 +249,7 @@ class nftables (
       notify   => Service['nftables'],
     }
 
-    # Generate nftables hash upon changes to the nftables service 
+    # Generate nftables hash upon changes to the nftables service
     exec { 'nftables_generate_hash':
       command     => ["nft -s list ruleset | sha1sum > ${inmem_rules_hash_file}"],
       path        => $facts['path'],
