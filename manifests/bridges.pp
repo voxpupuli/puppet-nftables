@@ -2,7 +2,7 @@
 class nftables::bridges (
   # lint:ignore:parameter_documentation
   Enum['present','absent'] $ensure = 'present',
-  Regexp $bridgenames = /^br.+/
+  Regexp $bridgenames = /^br\w+$/
   # lint:endignore
 ) {
   if $ensure == 'present' {
