@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.1.0](https://github.com/voxpupuli/puppet-nftables/tree/v4.1.0) (2025-02-18)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v4.0.0...v4.1.0)
+
+**Implemented enhancements:**
+
+- Add Ubuntu 24.04 support [\#270](https://github.com/voxpupuli/puppet-nftables/pull/270) ([bastelfreak](https://github.com/bastelfreak))
+- Install netbase for /etc/services on Ubuntu 20.04 [\#269](https://github.com/voxpupuli/puppet-nftables/pull/269) ([traylenator](https://github.com/traylenator))
+- Allow puppet-systemd 8.x [\#266](https://github.com/voxpupuli/puppet-nftables/pull/266) ([jay7x](https://github.com/jay7x))
+- add icinga2 rule for outgoing traffic [\#260](https://github.com/voxpupuli/puppet-nftables/pull/260) ([SimonHoenscheid](https://github.com/SimonHoenscheid))
+
 ## [v4.0.0](https://github.com/voxpupuli/puppet-nftables/tree/v4.0.0) (2024-08-05)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v3.7.1...v4.0.0)
