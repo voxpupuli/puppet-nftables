@@ -4,9 +4,9 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v6.2.0](https://github.com/voxpupuli/puppet-nftables/tree/v6.2.0) (2025-02-28)
+## [v4.2.0](https://github.com/voxpupuli/puppet-nftables/tree/v4.2.0) (2025-02-28)
 
-[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v4.1.0...v6.2.0)
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v4.1.0...v4.2.0)
 
 **Implemented enhancements:**
 
