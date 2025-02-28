@@ -103,6 +103,7 @@ describe 'nftables class' do
       include nftables::rules::igmp
       include nftables::rules::wsd
       include nftables::rules::ftp
+      include nftables::rules::rsync
       include nftables::rules::out::igmp
       include nftables::rules::out::mldv2
       include nftables::rules::out::mdns
