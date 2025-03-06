@@ -48,6 +48,7 @@ describe 'nftables class' do
       include nftables::rules::smtp_submission
       include nftables::rules::https
       include nftables::rules::nfs
+      include nftables::rules::nomad
       include nftables::rules::smtps
       include nftables::rules::smtp
       include nftables::rules::ceph
