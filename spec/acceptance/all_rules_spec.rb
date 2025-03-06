@@ -48,7 +48,6 @@ describe 'nftables class' do
       include nftables::rules::smtp_submission
       include nftables::rules::https
       include nftables::rules::nfs
-      include nftables::rules::nomad
       include nftables::rules::smtps
       include nftables::rules::smtp
       include nftables::rules::ceph
@@ -56,6 +55,11 @@ describe 'nftables class' do
       include nftables::rules::activemq
       include nftables::rules::docker_ce
       include nftables::rules::qemu
+      # Rules with sets are known to fail on Debian 11
+      # See spec/acceptance/set_spec.rb for details.
+      if $facts['os']['name'] != 'Debian' or $facts['os']['release']['major'] != '11' {
+        include nftables::rules::nomad
+      }
       include nftables::rules::out::postgres
       include nftables::rules::out::icmp
       include nftables::rules::out::dns
