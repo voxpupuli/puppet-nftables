@@ -33,6 +33,7 @@ Enable this option to support Ceph's Monitor Daemon.
 * [`nftables::rules::nfs`](#nftables--rules--nfs): manage in nfs4
 * [`nftables::rules::nfs3`](#nftables--rules--nfs3): manage in nfs3
 * [`nftables::rules::node_exporter`](#nftables--rules--node_exporter): manage in node exporter
+* [`nftables::rules::nomad`](#nftables--rules--nomad): manage port openings for a nomad cluster
 * [`nftables::rules::ospf`](#nftables--rules--ospf): manage in ospf
 * [`nftables::rules::ospf3`](#nftables--rules--ospf3): manage in ospf3
 * [`nftables::rules::out::active_directory`](#nftables--rules--out--active_directory): manage outgoing active diectory
@@ -886,6 +887,64 @@ Data type: `Stdlib::Port`
 Specify port to open
 
 Default value: `9100`
+
+### <a name="nftables--rules--nomad"></a>`nftables::rules::nomad`
+
+manage port openings for a nomad cluster
+
+#### Examples
+
+##### Simple two node nomad cluster
+
+```puppet
+class{ 'nftables::rules::nomad':
+  cluster_elements = [
+    '10.0.0.1','10.0.0.2',
+    '::1', '::2'',
+  ],
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::nomad` class:
+
+* [`cluster_elements`](#-nftables--rules--nomad--cluster_elements)
+* [`http`](#-nftables--rules--nomad--http)
+* [`rpc`](#-nftables--rules--nomad--rpc)
+* [`serf`](#-nftables--rules--nomad--serf)
+
+##### <a name="-nftables--rules--nomad--cluster_elements"></a>`cluster_elements`
+
+Data type: `Array[Stdlib::IP::Address,1]`
+
+IP addreses of nomad cluster nodes
+
+Default value: `['127.0.0.1','::1']`
+
+##### <a name="-nftables--rules--nomad--http"></a>`http`
+
+Data type: `Stdlib::Port`
+
+Specify http api port to open to the world.
+
+Default value: `4646`
+
+##### <a name="-nftables--rules--nomad--rpc"></a>`rpc`
+
+Data type: `Stdlib::Port`
+
+Specify rpc port to open within the nomad cluster
+
+Default value: `4647`
+
+##### <a name="-nftables--rules--nomad--serf"></a>`serf`
+
+Data type: `Stdlib::Port`
+
+Specify serf port to open within the nomad cluster
+
+Default value: `4648`
 
 ### <a name="nftables--rules--ospf"></a>`nftables::rules::ospf`
 
