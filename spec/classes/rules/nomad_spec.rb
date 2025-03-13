@@ -29,7 +29,7 @@ describe 'nftables::rules::nomad' do
         }
 
         it {
-          is_expected.to contain_nftables__rule('default_in-nomad_http').with_content('tcp dport 4646')
+          is_expected.to contain_nftables__rule('default_in-nomad_http').with_content('tcp dport 4646 accept')
           is_expected.to contain_nftables__rule('default_in-nomad_rpc_ip6').with_content('tcp dport 4647 ip6 saddr @nomad_ip6 accept')
           is_expected.to contain_nftables__rule('default_in-nomad_rpc_ip').with_content('tcp dport 4647 ip saddr @nomad_ip accept')
           is_expected.to contain_nftables__rule('default_in-nomad_serf_tcp_ip6').with_content('tcp dport 4648 ip6 saddr @nomad_ip6 accept')
@@ -56,7 +56,7 @@ describe 'nftables::rules::nomad' do
         }
 
         it {
-          is_expected.to contain_nftables__rule('default_in-nomad_http').with_content('tcp dport 1000')
+          is_expected.to contain_nftables__rule('default_in-nomad_http').with_content('tcp dport 1000 accept')
           is_expected.to contain_nftables__rule('default_in-nomad_rpc_ip6').with_content('tcp dport 2000 ip6 saddr @nomad_ip6 accept')
           is_expected.to contain_nftables__rule('default_in-nomad_rpc_ip').with_content('tcp dport 2000 ip saddr @nomad_ip accept')
           is_expected.to contain_nftables__rule('default_in-nomad_serf_tcp_ip6').with_content('tcp dport 3000 ip6 saddr @nomad_ip6 accept')
@@ -85,7 +85,7 @@ describe 'nftables::rules::nomad' do
         it { is_expected.not_to contain_nftables__set('nomad_ip6') }
 
         it {
-          is_expected.to contain_nftables__rule('default_in-nomad_http').with_content('tcp dport 4646')
+          is_expected.to contain_nftables__rule('default_in-nomad_http').with_content('tcp dport 4646 accept')
           is_expected.not_to contain_nftables__rule('default_in-nomad_rpc_ip6')
           is_expected.to contain_nftables__rule('default_in-nomad_rpc_ip').with_content('tcp dport 4647 ip saddr @nomad_ip accept')
           is_expected.not_to contain_nftables__rule('default_in-nomad_serf_tcp_ip6')

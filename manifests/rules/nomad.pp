@@ -22,7 +22,7 @@ class nftables::rules::nomad (
   # Open http api port to everything.
   #
   nftables::rule { 'default_in-nomad_http':
-    content => "tcp dport ${http}",
+    content => "tcp dport ${http} accept",
   }
 
   ['ip','ip6'].each | $_family | {
