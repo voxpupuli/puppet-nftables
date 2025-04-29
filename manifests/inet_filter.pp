@@ -3,7 +3,8 @@ class nftables::inet_filter inherits nftables {
   $_reject_rule = epp('nftables/reject_rule.epp',
     {
       'log_prefix' => sprintf($nftables::log_prefix, { 'chain' => '%<chain>s', 'comment' => 'Rejected: ' }),
-      'log_limit'  => $nftables::log_limit
+      'log_limit'  => $nftables::log_limit,
+      'log_group'  => $nftables::log_group,
     }
   )
 

@@ -1,5 +1,5 @@
 <% if $log_limit { -%>
-limit rate <%= $log_limit %> log prefix "<%= $log_prefix %>" flags all counter
-<% } else { -%>
-log prefix "<%= $log_prefix %>" flags all counter
-<% } -%>
+limit rate <%= $log_limit %><%= ' ' -%>
+<% } -%> log prefix "<%= $log_prefix %>"<% if $log_group { -%>
+ group <%= $log_group -%>
+<% } else { %> flags all counter<% } -%>
