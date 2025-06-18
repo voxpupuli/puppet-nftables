@@ -1,5 +1,3 @@
-# This file can be used to install module dependencies for unit testing
-# See https://github.com/puppetlabs/puppetlabs_spec_helper#using-fixtures for details
 ---
 fixtures:
   repositories:
