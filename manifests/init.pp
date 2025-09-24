@@ -267,10 +267,12 @@ class nftables (
   systemd::dropin_file { 'puppet_nft.conf':
     ensure  => present,
     unit    => 'nftables.service',
-    content => epp('nftables/systemd/puppet_nft.conf.epp', {
+    content => epp('nftables/systemd/puppet_nft.conf.epp',
+      {
         'configuration_path' => $configuration_path,
         'nft_path'           => $nft_path,
-    }),
+      },
+    ),
     notify  => Service['nftables'],
   }
 
