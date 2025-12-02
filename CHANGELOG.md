@@ -4,6 +4,38 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v7.0.0](https://github.com/voxpupuli/puppet-nftables/tree/v7.0.0) (2025-12-02)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v4.2.0...v7.0.0)
+
+Due to an erroneous upload to puppet forge, renovate misupdates `Puppetfile`.
+
+Once upon a time `v4.2.0` was supposed to be released, but `v6.2.0` got released and retracted, which caused follow-up problems on forge.puppet.com
+
+Here are links if you want to dig deeper
+
+ * https://github.com/renovatebot/renovate/discussions/39684
+ * https://forge.puppet.com/v3/modules/puppet-nftables
+
+We have to do a major release (due to requiring `openvox`-v8) and will publish as major version 7
+
+**Breaking changes:**
+
+- drop support for EOL Ubuntu-20.04 [\#293](https://github.com/voxpupuli/puppet-nftables/pull/293) ([marcusdots](https://github.com/marcusdots))
+- Drop puppet, update openvox minimum version to 8.19 [\#283](https://github.com/voxpupuli/puppet-nftables/pull/283) ([TheMeier](https://github.com/TheMeier))
+
+**Implemented enhancements:**
+
+- Add EL10, add Debian13 [\#295](https://github.com/voxpupuli/puppet-nftables/pull/295) ([marcusdots](https://github.com/marcusdots))
+- Allow puppet-systemd 9.x [\#290](https://github.com/voxpupuli/puppet-nftables/pull/290) ([marcusdots](https://github.com/marcusdots))
+- metadata.json: Add OpenVox [\#279](https://github.com/voxpupuli/puppet-nftables/pull/279) ([jstraw](https://github.com/jstraw))
+- Add ruleset for a Nomad cluster [\#276](https://github.com/voxpupuli/puppet-nftables/pull/276) ([traylenator](https://github.com/traylenator))
+- Support logging to NFLOG group [\#258](https://github.com/voxpupuli/puppet-nftables/pull/258) ([deric](https://github.com/deric))
+
+**Fixed bugs:**
+
+- Correct nomad http api port opening [\#277](https://github.com/voxpupuli/puppet-nftables/pull/277) ([traylenator](https://github.com/traylenator))
+
 ## [v4.2.0](https://github.com/voxpupuli/puppet-nftables/tree/v4.2.0) (2025-02-28)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v4.1.0...v4.2.0)
@@ -77,7 +109,7 @@ These should not affect the functionality of the module.
 **Merged pull requests:**
 
 - rules::out:dns: refactor for better readability [\#222](https://github.com/voxpupuli/puppet-nftables/pull/222) ([bastelfreak](https://github.com/bastelfreak))
-- Document what the 'auto\_merge' set parameter does. [\#219](https://github.com/voxpupuli/puppet-nftables/pull/219) ([Tamerz](https://github.com/Tamerz))
+- Document what the 'auto\_merge' set parameter does. [\#219](https://github.com/voxpupuli/puppet-nftables/pull/219) ([tamerz](https://github.com/tamerz))
 
 ## [v3.5.0](https://github.com/voxpupuli/puppet-nftables/tree/v3.5.0) (2023-11-27)
 
