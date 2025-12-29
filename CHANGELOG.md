@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v7.1.0](https://github.com/voxpupuli/puppet-nftables/tree/v7.1.0) (2025-12-29)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v7.0.0...v7.1.0)
+
+**Implemented enhancements:**
+
+- Add rule for outgoing choria connections [\#296](https://github.com/voxpupuli/puppet-nftables/pull/296) ([bastelfreak](https://github.com/bastelfreak))
+
+**Fixed bugs:**
+
+- \(\#264\) - ensure non-duplicate rule names for multiple icmp types [\#265](https://github.com/voxpupuli/puppet-nftables/pull/265) ([duritong](https://github.com/duritong))
+
+**Closed issues:**
+
+- nftables::rules::out::icmp::v4\_types and v6\_types prodcues errors [\#264](https://github.com/voxpupuli/puppet-nftables/issues/264)
+
 ## [v7.0.0](https://github.com/voxpupuli/puppet-nftables/tree/v7.0.0) (2025-12-02)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v4.2.0...v7.0.0)
