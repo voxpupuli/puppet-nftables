@@ -114,6 +114,7 @@ describe 'nftables class' do
       include nftables::rules::out::mdns
       include nftables::rules::out::ssdp
       include nftables::rules::out::icinga2
+      include nftables::rules::out::choria
       include nftables::services::dhcpv6_client
       include nftables::services::openafs_client
       $config_path = $facts['os']['family'] ? {

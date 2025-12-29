@@ -42,6 +42,7 @@ Enable this option to support Ceph's Monitor Daemon.
 Enable this to be a client of Ceph's Monitor (MON),
 Object Storage Daemons (OSD), Metadata Server Daemons (MDS),
 and Manager Daemons (MGR).
+* [`nftables::rules::out::choria`](#nftables--rules--out--choria): manage outgoing connections to choria brokers
 * [`nftables::rules::out::chrony`](#nftables--rules--out--chrony): manage out chrony
 * [`nftables::rules::out::dhcp`](#nftables--rules--out--dhcp): manage out dhcp
 * [`nftables::rules::out::dhcpv6_client`](#nftables--rules--out--dhcpv6_client): Allow DHCPv6 requests out of a host
@@ -1027,6 +1028,54 @@ Data type: `Array[Stdlib::Port,1]`
 Specify ports to open
 
 Default value: `[3300, 6789]`
+
+### <a name="nftables--rules--out--choria"></a>`nftables::rules::out::choria`
+
+manage outgoing connections to choria brokers
+
+* **See also**
+  * https://choria.io/docs/deployment/broker/
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::out::choria` class:
+
+* [`brokers`](#-nftables--rules--out--choria--brokers)
+* [`choria_port`](#-nftables--rules--out--choria--choria_port)
+* [`websocket_port`](#-nftables--rules--out--choria--websocket_port)
+* [`enable_websockets`](#-nftables--rules--out--choria--enable_websockets)
+
+##### <a name="-nftables--rules--out--choria--brokers"></a>`brokers`
+
+Data type: `Array[Stdlib::IP::Address]`
+
+list of brokers where you want to connect to
+
+Default value: `[]`
+
+##### <a name="-nftables--rules--out--choria--choria_port"></a>`choria_port`
+
+Data type: `Stdlib::Port`
+
+where the broker listens for incoming server connections
+
+Default value: `4222`
+
+##### <a name="-nftables--rules--out--choria--websocket_port"></a>`websocket_port`
+
+Data type: `Stdlib::Port`
+
+where the broker listens for incoming websocket connections from servers
+
+Default value: `4333`
+
+##### <a name="-nftables--rules--out--choria--enable_websockets"></a>`enable_websockets`
+
+Data type: `Boolean`
+
+websockets are optional and use a different port
+
+Default value: `true`
 
 ### <a name="nftables--rules--out--chrony"></a>`nftables::rules::out::chrony`
 
