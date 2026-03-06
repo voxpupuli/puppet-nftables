@@ -15,7 +15,7 @@ describe 'nftables::rules::nomad' do
             {
               type: 'ipv4_addr',
               elements: ['127.0.0.1'],
-            }
+            },
           )
         }
 
@@ -24,7 +24,7 @@ describe 'nftables::rules::nomad' do
             {
               type: 'ipv6_addr',
               elements: ['::1'],
-            }
+            },
           )
         }
 
@@ -69,7 +69,7 @@ describe 'nftables::rules::nomad' do
       context 'with ipv4 hosts only' do
         let(:params) do
           {
-            cluster_elements: ['127.0.0.1', '127.0.0.2']
+            cluster_elements: ['127.0.0.1', '127.0.0.2'],
           }
         end
 
@@ -78,7 +78,7 @@ describe 'nftables::rules::nomad' do
             {
               type: 'ipv4_addr',
               elements: ['127.0.0.1', '127.0.0.2'],
-            }
+            },
           )
         }
 

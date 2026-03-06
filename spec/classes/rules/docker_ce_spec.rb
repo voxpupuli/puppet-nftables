@@ -20,21 +20,21 @@ describe 'nftables::rules::docker_ce' do
         it {
           expect(subject).to contain_nftables__chain('DOCKER-nat').with(
             chain: 'DOCKER',
-            table: 'ip-nat'
+            table: 'ip-nat',
           )
         }
 
         it {
           expect(subject).to contain_nftables__chain('OUTPUT-nat').with(
             chain: 'OUTPUT',
-            table: 'ip-nat'
+            table: 'ip-nat',
           )
         }
 
         it {
           expect(subject).to contain_nftables__chain('INPUT-nat').with(
             chain: 'INPUT',
-            table: 'ip-nat'
+            table: 'ip-nat',
           )
         }
 
@@ -53,14 +53,14 @@ describe 'nftables::rules::docker_ce' do
         it {
           expect(subject).to contain_nftables__rule('POSTROUTING-docker').with(
             content: 'oifname != "docker0" ip saddr 172.17.0.0/16 counter masquerade',
-            table: 'ip-nat'
+            table: 'ip-nat',
           )
         }
 
         it {
           expect(subject).to contain_nftables__rule('PREROUTING-docker').with(
             content: 'fib daddr type local counter jump DOCKER',
-            table: 'ip-nat'
+            table: 'ip-nat',
           )
         }
 
@@ -68,14 +68,14 @@ describe 'nftables::rules::docker_ce' do
           expect(subject).to contain_nftables__rule('OUTPUT-jump_docker@ip-nat').with(
             rulename: 'OUTPUT-jump_docker',
             content: 'ip daddr != 127.0.0.0/8 fib daddr type local counter jump DOCKER',
-            table: 'ip-nat'
+            table: 'ip-nat',
           )
         }
 
         it {
           expect(subject).to contain_nftables__rule('DOCKER-counter').with(
             content: 'iifname "docker0" counter return',
-            table: 'ip-nat'
+            table: 'ip-nat',
           )
         }
 
@@ -83,7 +83,7 @@ describe 'nftables::rules::docker_ce' do
           expect(subject).to contain_nftables__rule('INPUT-type@ip-nat').with(
             rulename: 'INPUT-type',
             content: 'type nat hook input priority 100',
-            table: 'ip-nat'
+            table: 'ip-nat',
           )
         }
 
@@ -91,7 +91,7 @@ describe 'nftables::rules::docker_ce' do
           expect(subject).to contain_nftables__rule('INPUT-policy@ip-nat').with(
             rulename: 'INPUT-policy',
             content: 'policy accept',
-            table: 'ip-nat'
+            table: 'ip-nat',
           )
         }
       end
@@ -153,14 +153,14 @@ describe 'nftables::rules::docker_ce' do
         it {
           expect(subject).to contain_nftables__rule('POSTROUTING-docker').with(
             content: 'oifname != "ifdo0" ip saddr 192.168.4.0/24 counter masquerade',
-            table: 'ip-nat'
+            table: 'ip-nat',
           )
         }
 
         it {
           expect(subject).to contain_nftables__rule('DOCKER-counter').with(
             content: 'iifname "ifdo0" counter return',
-            table: 'ip-nat'
+            table: 'ip-nat',
           )
         }
       end

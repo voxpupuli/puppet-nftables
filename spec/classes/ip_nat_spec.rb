@@ -24,7 +24,7 @@ describe 'nftables' do
           ensure: 'present',
           owner: 'root',
           group: 'root',
-          mode: nft_mode
+          mode: nft_mode,
         )
       }
 
@@ -32,7 +32,7 @@ describe 'nftables' do
         expect(subject).to contain_concat__fragment('nftables-ip-nat-header').with(
           target: 'nftables-ip-nat',
           content: %r{^table ip nat \{$},
-          order: '00'
+          order: '00',
         )
       }
 
@@ -40,7 +40,7 @@ describe 'nftables' do
         expect(subject).to contain_concat__fragment('nftables-ip-nat-body').with(
           target: 'nftables-ip-nat',
           content: %r{^\s+include "ip-nat-chain-\*\.nft"$},
-          order: '98'
+          order: '98',
         )
       }
 
@@ -48,7 +48,7 @@ describe 'nftables' do
         expect(subject).to contain_concat__fragment('nftables-ip-nat-footer').with(
           target: 'nftables-ip-nat',
           content: %r{^\}$},
-          order: '99'
+          order: '99',
         )
       }
 
@@ -58,7 +58,7 @@ describe 'nftables' do
           ensure: 'present',
           owner: 'root',
           group: 'root',
-          mode: nft_mode
+          mode: nft_mode,
         )
       }
 
@@ -66,7 +66,7 @@ describe 'nftables' do
         expect(subject).to contain_concat__fragment('nftables-ip6-nat-header').with(
           target: 'nftables-ip6-nat',
           content: %r{^table ip6 nat \{$},
-          order: '00'
+          order: '00',
         )
       }
 
@@ -74,7 +74,7 @@ describe 'nftables' do
         expect(subject).to contain_concat__fragment('nftables-ip6-nat-body').with(
           target: 'nftables-ip6-nat',
           content: %r{^\s+include "ip6-nat-chain-\*\.nft"$},
-          order: '98'
+          order: '98',
         )
       }
 
@@ -82,7 +82,7 @@ describe 'nftables' do
         expect(subject).to contain_concat__fragment('nftables-ip6-nat-footer').with(
           target: 'nftables-ip6-nat',
           content: %r{^\}$},
-          order: '99'
+          order: '99',
         )
       }
 
@@ -93,7 +93,7 @@ describe 'nftables' do
             owner: 'root',
             group: 'root',
             mode: nft_mode,
-            ensure_newline: true
+            ensure_newline: true,
           )
         }
 
@@ -101,7 +101,7 @@ describe 'nftables' do
           expect(subject).to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-header').with(
             target: 'nftables-ip-nat-chain-PREROUTING',
             content: %r{^chain PREROUTING \{$},
-            order: '00'
+            order: '00',
           )
         }
 
@@ -109,7 +109,7 @@ describe 'nftables' do
           expect(subject).to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-type').with(
             target: 'nftables-ip-nat-chain-PREROUTING',
             content: %r{^  type nat hook prerouting priority -100$},
-            order: '01-nftables-ip-nat-chain-PREROUTING-rule-type-b'
+            order: '01-nftables-ip-nat-chain-PREROUTING-rule-type-b',
           )
         }
 
@@ -117,7 +117,7 @@ describe 'nftables' do
           expect(subject).to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-rule-policy').with(
             target: 'nftables-ip-nat-chain-PREROUTING',
             content: %r{^  policy accept$},
-            order: '02-nftables-ip-nat-chain-PREROUTING-rule-policy-b'
+            order: '02-nftables-ip-nat-chain-PREROUTING-rule-policy-b',
           )
         }
 
@@ -125,7 +125,7 @@ describe 'nftables' do
           expect(subject).to contain_concat__fragment('nftables-ip-nat-chain-PREROUTING-footer').with(
             target: 'nftables-ip-nat-chain-PREROUTING',
             content: %r{^\}$},
-            order: '99'
+            order: '99',
           )
         }
       end
@@ -137,7 +137,7 @@ describe 'nftables' do
             owner: 'root',
             group: 'root',
             mode: nft_mode,
-            ensure_newline: true
+            ensure_newline: true,
           )
         }
 
@@ -145,7 +145,7 @@ describe 'nftables' do
           expect(subject).to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-header').with(
             target: 'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^chain POSTROUTING \{$},
-            order: '00'
+            order: '00',
           )
         }
 
@@ -153,7 +153,7 @@ describe 'nftables' do
           expect(subject).to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-type').with(
             target: 'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  type nat hook postrouting priority 100$},
-            order: '01-nftables-ip-nat-chain-POSTROUTING-rule-type-b'
+            order: '01-nftables-ip-nat-chain-POSTROUTING-rule-type-b',
           )
         }
 
@@ -161,7 +161,7 @@ describe 'nftables' do
           expect(subject).to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-rule-policy').with(
             target: 'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^  policy accept$},
-            order: '02-nftables-ip-nat-chain-POSTROUTING-rule-policy-b'
+            order: '02-nftables-ip-nat-chain-POSTROUTING-rule-policy-b',
           )
         }
 
@@ -169,7 +169,7 @@ describe 'nftables' do
           expect(subject).to contain_concat__fragment('nftables-ip-nat-chain-POSTROUTING-footer').with(
             target: 'nftables-ip-nat-chain-POSTROUTING',
             content: %r{^\}$},
-            order: '99'
+            order: '99',
           )
         }
       end
@@ -181,7 +181,7 @@ describe 'nftables' do
             owner: 'root',
             group: 'root',
             mode: nft_mode,
-            ensure_newline: true
+            ensure_newline: true,
           )
         }
 
@@ -189,7 +189,7 @@ describe 'nftables' do
           expect(subject).to contain_concat__fragment('nftables-ip6-nat-chain-PREROUTING6-header').with(
             target: 'nftables-ip6-nat-chain-PREROUTING6',
             content: %r{^chain PREROUTING6 \{$},
-            order: '00'
+            order: '00',
           )
         }
 
@@ -197,7 +197,7 @@ describe 'nftables' do
           expect(subject).to contain_concat__fragment('nftables-ip6-nat-chain-PREROUTING6-rule-type').with(
             target: 'nftables-ip6-nat-chain-PREROUTING6',
             content: %r{^  type nat hook prerouting priority -100$},
-            order: '01-nftables-ip6-nat-chain-PREROUTING6-rule-type-b'
+            order: '01-nftables-ip6-nat-chain-PREROUTING6-rule-type-b',
           )
         }
 
@@ -205,7 +205,7 @@ describe 'nftables' do
           expect(subject).to contain_concat__fragment('nftables-ip6-nat-chain-PREROUTING6-rule-policy').with(
             target: 'nftables-ip6-nat-chain-PREROUTING6',
             content: %r{^  policy accept$},
-            order: '02-nftables-ip6-nat-chain-PREROUTING6-rule-policy-b'
+            order: '02-nftables-ip6-nat-chain-PREROUTING6-rule-policy-b',
           )
         }
 
@@ -213,7 +213,7 @@ describe 'nftables' do
           expect(subject).to contain_concat__fragment('nftables-ip6-nat-chain-PREROUTING6-footer').with(
             target: 'nftables-ip6-nat-chain-PREROUTING6',
             content: %r{^\}$},
-            order: '99'
+            order: '99',
           )
         }
       end
@@ -225,7 +225,7 @@ describe 'nftables' do
             owner: 'root',
             group: 'root',
             mode: nft_mode,
-            ensure_newline: true
+            ensure_newline: true,
           )
         }
 
@@ -233,7 +233,7 @@ describe 'nftables' do
           expect(subject).to contain_concat__fragment('nftables-ip6-nat-chain-POSTROUTING6-header').with(
             target: 'nftables-ip6-nat-chain-POSTROUTING6',
             content: %r{^chain POSTROUTING6 \{$},
-            order: '00'
+            order: '00',
           )
         }
 
@@ -241,7 +241,7 @@ describe 'nftables' do
           expect(subject).to contain_concat__fragment('nftables-ip6-nat-chain-POSTROUTING6-rule-type').with(
             target: 'nftables-ip6-nat-chain-POSTROUTING6',
             content: %r{^  type nat hook postrouting priority 100$},
-            order: '01-nftables-ip6-nat-chain-POSTROUTING6-rule-type-b'
+            order: '01-nftables-ip6-nat-chain-POSTROUTING6-rule-type-b',
           )
         }
 
@@ -249,7 +249,7 @@ describe 'nftables' do
           expect(subject).to contain_concat__fragment('nftables-ip6-nat-chain-POSTROUTING6-rule-policy').with(
             target: 'nftables-ip6-nat-chain-POSTROUTING6',
             content: %r{^  policy accept$},
-            order: '02-nftables-ip6-nat-chain-POSTROUTING6-rule-policy-b'
+            order: '02-nftables-ip6-nat-chain-POSTROUTING6-rule-policy-b',
           )
         }
 
@@ -257,7 +257,7 @@ describe 'nftables' do
           expect(subject).to contain_concat__fragment('nftables-ip6-nat-chain-POSTROUTING6-footer').with(
             target: 'nftables-ip6-nat-chain-POSTROUTING6',
             content: %r{^\}$},
-            order: '99'
+            order: '99',
           )
         }
       end
@@ -277,7 +277,7 @@ describe 'nftables' do
             ensure: 'present',
             owner: 'root',
             group: 'root',
-            mode: nft_mode
+            mode: nft_mode,
           )
         }
       end
