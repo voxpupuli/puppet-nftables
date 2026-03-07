@@ -20,7 +20,7 @@ describe 'nftables::rules::masquerade' do
       context 'with dport specified' do
         let(:params) do
           {
-            dport: 1000
+            dport: 1000,
           }
         end
 

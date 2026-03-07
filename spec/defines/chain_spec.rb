@@ -31,7 +31,7 @@ describe 'nftables::chain' do
           owner: 'root',
           group: 'root',
           mode: nft_mode,
-          ensure_newline: true
+          ensure_newline: true,
         )
       }
 
@@ -41,7 +41,7 @@ describe 'nftables::chain' do
           source: '/etc/nftables/puppet-preflight/inet-filter-chain-MYCHAIN.nft',
           mode: nft_mode,
           owner: 'root',
-          group: 'root'
+          group: 'root',
         )
       }
 
@@ -49,7 +49,7 @@ describe 'nftables::chain' do
         expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-MYCHAIN-header').with(
           order: '00',
           content: "# Start of fragment order:00 MYCHAIN header\nchain MYCHAIN {",
-          target: 'nftables-inet-filter-chain-MYCHAIN'
+          target: 'nftables-inet-filter-chain-MYCHAIN',
         )
       }
 
@@ -57,7 +57,7 @@ describe 'nftables::chain' do
         expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-MYCHAIN-footer').with(
           order: '99',
           content: "# Start of fragment order:99 MYCHAIN footer\n}",
-          target: 'nftables-inet-filter-chain-MYCHAIN'
+          target: 'nftables-inet-filter-chain-MYCHAIN',
         )
       }
 
@@ -75,7 +75,7 @@ describe 'nftables::chain' do
               owner: 'root',
               group: 'root',
               mode: nft_mode,
-              ensure_newline: true
+              ensure_newline: true,
             )
           }
 
@@ -85,7 +85,7 @@ describe 'nftables::chain' do
               source: "/etc/nftables/puppet-preflight/#{family}-foo-chain-MYCHAIN.nft",
               mode: nft_mode,
               owner: 'root',
-              group: 'root'
+              group: 'root',
             )
           }
 
@@ -93,7 +93,7 @@ describe 'nftables::chain' do
             expect(subject).to contain_concat__fragment("nftables-#{family}-foo-chain-MYCHAIN-header").with(
               order: '00',
               content: "# Start of fragment order:00 MYCHAIN header\nchain MYCHAIN {",
-              target: "nftables-#{family}-foo-chain-MYCHAIN"
+              target: "nftables-#{family}-foo-chain-MYCHAIN",
             )
           }
 
@@ -101,7 +101,7 @@ describe 'nftables::chain' do
             expect(subject).to contain_concat__fragment("nftables-#{family}-foo-chain-MYCHAIN-footer").with(
               order: '99',
               content: "# Start of fragment order:99 MYCHAIN footer\n}",
-              target: "nftables-#{family}-foo-chain-MYCHAIN"
+              target: "nftables-#{family}-foo-chain-MYCHAIN",
             )
           }
         end
@@ -119,7 +119,7 @@ describe 'nftables::chain' do
         it {
           expect(subject).to contain_nftables__rule('foobar-jump_MYCHAIN').with(
             order: '22',
-            content: 'jump MYCHAIN'
+            content: 'jump MYCHAIN',
           )
         }
 
@@ -131,7 +131,7 @@ describe 'nftables::chain' do
           it {
             expect(subject).to contain_nftables__rule('foobar-jump_MYCHAIN').with(
               order: '22',
-              content: 'iifname alpha oifname beta jump MYCHAIN'
+              content: 'iifname alpha oifname beta jump MYCHAIN',
             )
           }
         end

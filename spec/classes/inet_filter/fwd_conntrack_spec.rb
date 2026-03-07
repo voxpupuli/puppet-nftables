@@ -18,7 +18,7 @@ describe 'nftables::inet_filter::fwd_conntrack' do
         expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-accept_established_related').with(
           target: 'nftables-inet-filter-chain-FORWARD',
           content: %r{^  ct state established,related accept$},
-          order: '05-nftables-inet-filter-chain-FORWARD-rule-accept_established_related-b'
+          order: '05-nftables-inet-filter-chain-FORWARD-rule-accept_established_related-b',
         )
       }
 
@@ -33,7 +33,7 @@ describe 'nftables::inet_filter::fwd_conntrack' do
           is_expected.to contain_concat__fragment('nftables-inet-filter-chain-FORWARD-rule-drop_invalid').with(
             target: 'nftables-inet-filter-chain-FORWARD',
             content: %r{^  ct state invalid drop$},
-            order: '06-nftables-inet-filter-chain-FORWARD-rule-drop_invalid-b'
+            order: '06-nftables-inet-filter-chain-FORWARD-rule-drop_invalid-b',
           )
         }
       end

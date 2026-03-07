@@ -421,6 +421,8 @@ Data type: `Stdlib::Unixpath`
 The absolute path to the principal nftables configuration file. The default
 varies depending on the system, and is set in the module's data.
 
+Default value: `'/etc/sysconfig/nftables.conf'`
+
 ##### <a name="-nftables--nft_path"></a>`nft_path`
 
 Data type: `Stdlib::Unixpath`
@@ -439,6 +441,8 @@ Data type: `Stdlib::Filemode`
 
 The default file & dir mode for configuration files and directories. The
 default varies depending on the system, and is set in the module's data.
+
+Default value: `'0640'`
 
 ##### <a name="-nftables--clobber_default_config"></a>`clobber_default_config`
 

@@ -44,7 +44,7 @@ describe 'nftables::rule' do
             expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE_header').with(
               order: '50-nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-a',
               target: 'nftables-inet-filter-chain-CHAIN_NAME',
-              content: %r{^#.*$}
+              content: %r{^#.*$},
             )
           }
 
@@ -52,7 +52,7 @@ describe 'nftables::rule' do
             expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE').with(
               order: '50-nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-b',
               target: 'nftables-inet-filter-chain-CHAIN_NAME',
-              content: '  port 22 allow'
+              content: '  port 22 allow',
             )
           }
 
@@ -66,7 +66,7 @@ describe 'nftables::rule' do
               expect(subject).to contain_concat__fragment('nftables-TABLE-chain-CHAIN_NAME-rule-RULE_header').with(
                 order: '85-nftables-TABLE-chain-CHAIN_NAME-rule-RULE-a',
                 target: 'nftables-TABLE-chain-CHAIN_NAME',
-                content: %r{^#.*$}
+                content: %r{^#.*$},
               )
             }
 
@@ -76,7 +76,7 @@ describe 'nftables::rule' do
               expect(subject).to contain_concat__fragment('nftables-TABLE-chain-CHAIN_NAME-rule-RULE').with(
                 order: '85-nftables-TABLE-chain-CHAIN_NAME-rule-RULE-b',
                 target: 'nftables-TABLE-chain-CHAIN_NAME',
-                content: '  port 22 allow'
+                content: '  port 22 allow',
               )
             }
           end
@@ -96,7 +96,7 @@ describe 'nftables::rule' do
             expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE_header').with(
               order: '50-nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-a',
               target: 'nftables-inet-filter-chain-CHAIN_NAME',
-              content: %r{^#.*$}
+              content: %r{^#.*$},
             )
           }
 
@@ -104,7 +104,7 @@ describe 'nftables::rule' do
             expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE').with(
               order: '50-nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-b',
               target: 'nftables-inet-filter-chain-CHAIN_NAME',
-              source: 'puppet:///modules/foo/bar'
+              source: 'puppet:///modules/foo/bar',
             )
           }
 
@@ -118,7 +118,7 @@ describe 'nftables::rule' do
               expect(subject).to contain_concat__fragment('nftables-TABLE-chain-CHAIN_NAME-rule-RULE_header').with(
                 order: '85-nftables-TABLE-chain-CHAIN_NAME-rule-RULE-a',
                 target: 'nftables-TABLE-chain-CHAIN_NAME',
-                content: %r{^#.*$}
+                content: %r{^#.*$},
               )
             }
 
@@ -128,7 +128,7 @@ describe 'nftables::rule' do
               expect(subject).to contain_concat__fragment('nftables-TABLE-chain-CHAIN_NAME-rule-RULE').with(
                 order: '85-nftables-TABLE-chain-CHAIN_NAME-rule-RULE-b',
                 target: 'nftables-TABLE-chain-CHAIN_NAME',
-                source: 'puppet:///modules/foo/bar'
+                source: 'puppet:///modules/foo/bar',
               )
             }
           end
@@ -152,7 +152,7 @@ describe 'nftables::rule' do
             expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-22_header').with(
               order: '50-nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-22-a',
               target: 'nftables-inet-filter-chain-CHAIN_NAME',
-              content: %r{^#.*$}
+              content: %r{^#.*$},
             )
           }
 
@@ -160,7 +160,7 @@ describe 'nftables::rule' do
             expect(subject).to contain_concat__fragment('nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-22').with(
               order: '50-nftables-inet-filter-chain-CHAIN_NAME-rule-RULE-22-b',
               target: 'nftables-inet-filter-chain-CHAIN_NAME',
-              content: '  port 22 allow'
+              content: '  port 22 allow',
             )
           }
         end
