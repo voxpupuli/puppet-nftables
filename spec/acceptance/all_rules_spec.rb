@@ -33,6 +33,7 @@ describe 'nftables class' do
       include nftables::rules::node_exporter
       include nftables::rules::nfs3
       include nftables::rules::ssh
+      include nftables::rules::mosh
       include nftables::rules::dhcpv6_client
       include nftables::rules::afs3_callback
       include nftables::rules::ospf
