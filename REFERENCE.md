@@ -29,6 +29,7 @@ Enable this option to support Ceph's Monitor Daemon.
 * [`nftables::rules::ldap`](#nftables--rules--ldap): manage in ldap
 * [`nftables::rules::llmnr`](#nftables--rules--llmnr): allow incoming Link-Local Multicast Name Resolution
 * [`nftables::rules::mdns`](#nftables--rules--mdns): allow incoming multicast DNS
+* [`nftables::rules::mosh`](#nftables--rules--mosh): manage in mosh
 * [`nftables::rules::multicast`](#nftables--rules--multicast): allow incoming multicast traffic
 * [`nftables::rules::nfs`](#nftables--rules--nfs): manage in nfs4
 * [`nftables::rules::nfs3`](#nftables--rules--nfs3): manage in nfs3
@@ -863,6 +864,24 @@ Data type: `Array[String[1]]`
 name for incoming interfaces to filter
 
 Default value: `[]`
+
+### <a name="nftables--rules--mosh"></a>`nftables::rules::mosh`
+
+manage in mosh
+
+#### Parameters
+
+The following parameters are available in the `nftables::rules::mosh` class:
+
+* [`ports`](#-nftables--rules--mosh--ports)
+
+##### <a name="-nftables--rules--mosh--ports"></a>`ports`
+
+Data type: `Nftables::Port::Range`
+
+mosh port range
+
+Default value: `'60000-61000'`
 
 ### <a name="nftables--rules--multicast"></a>`nftables::rules::multicast`
 
