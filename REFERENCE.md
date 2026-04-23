@@ -169,7 +169,9 @@ The following parameters are available in the `nftables` class:
 * [`nat_table_name`](#-nftables--nat_table_name)
 * [`purge_unmanaged_rules`](#-nftables--purge_unmanaged_rules)
 * [`inmem_rules_hash_file`](#-nftables--inmem_rules_hash_file)
+* [`chains`](#-nftables--chains)
 * [`sets`](#-nftables--sets)
+* [`rules`](#-nftables--rules)
 * [`log_prefix`](#-nftables--log_prefix)
 * [`log_discarded`](#-nftables--log_discarded)
 * [`log_limit`](#-nftables--log_limit)
@@ -181,7 +183,6 @@ The following parameters are available in the `nftables` class:
 * [`fwd_drop_invalid`](#-nftables--fwd_drop_invalid)
 * [`firewalld_enable`](#-nftables--firewalld_enable)
 * [`noflush_tables`](#-nftables--noflush_tables)
-* [`rules`](#-nftables--rules)
 * [`configuration_path`](#-nftables--configuration_path)
 * [`nft_path`](#-nftables--nft_path)
 * [`echo`](#-nftables--echo)
@@ -297,11 +298,27 @@ will be stored.
 
 Default value: `'/var/tmp/puppet-nft-memhash'`
 
+##### <a name="-nftables--chains"></a>`chains`
+
+Data type: `Hash`
+
+Allows sourcing chain definitions directly from Hiera.
+
+Default value: `{}`
+
 ##### <a name="-nftables--sets"></a>`sets`
 
 Data type: `Hash`
 
 Allows sourcing set definitions directly from Hiera.
+
+Default value: `{}`
+
+##### <a name="-nftables--rules"></a>`rules`
+
+Data type: `Hash`
+
+Specify hashes of `nftables::rule`s via hiera
 
 Default value: `{}`
 
@@ -406,14 +423,6 @@ If specified only other existings tables will be flushed.
 If left unset all tables will be flushed via a `flush ruleset`
 
 Default value: `undef`
-
-##### <a name="-nftables--rules"></a>`rules`
-
-Data type: `Hash`
-
-Specify hashes of `nftables::rule`s via hiera
-
-Default value: `{}`
 
 ##### <a name="-nftables--configuration_path"></a>`configuration_path`
 

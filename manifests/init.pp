@@ -55,8 +55,14 @@
 #   The name of the file where the hash of the in-memory rules
 #   will be stored.
 #
+# @param chains
+#   Allows sourcing chain definitions directly from Hiera.
+#
 # @param sets
 #   Allows sourcing set definitions directly from Hiera.
+#
+# @param rules
+#   Specify hashes of `nftables::rule`s via hiera
 #
 # @param log_prefix
 #   String that will be used as prefix when logging packets. It can contain
@@ -105,9 +111,6 @@
 #   If specified only other existings tables will be flushed.
 #   If left unset all tables will be flushed via a `flush ruleset`
 #
-# @param rules
-#   Specify hashes of `nftables::rule`s via hiera
-#
 # @param configuration_path
 #   The absolute path to the principal nftables configuration file. The default
 #   varies depending on the system, and is set in the module's data.
@@ -148,6 +151,7 @@ class nftables (
   Boolean $inet_filter = true,
   Boolean $nat = true,
   Boolean $purge_unmanaged_rules = false,
+  Hash $chains = {},
   Hash $rules = {},
   Hash $sets = {},
   String $log_prefix = '[nftables] %<chain>s %<comment>s',
@@ -289,6 +293,14 @@ class nftables (
 
   if $nat {
     include nftables::ip_nat
+  }
+
+  # inject custom chains e.g. from hiera
+  $chains.each |$n,$v| {
+    nftables::chain {
+      $n:
+        * => $v,
+    }
   }
 
   # inject custom rules e.g. from hiera
