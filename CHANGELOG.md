@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v7.2.0](https://github.com/voxpupuli/puppet-nftables/tree/v7.2.0) (2026-04-23)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v7.1.0...v7.2.0)
+
+**Implemented enhancements:**
+
+- add `$chains` parameter for ease-of-use via hiera [\#302](https://github.com/voxpupuli/puppet-nftables/pull/302) ([foxxx0](https://github.com/foxxx0))
+- Add nftables::rules::mosh [\#288](https://github.com/voxpupuli/puppet-nftables/pull/288) ([Sharpie](https://github.com/Sharpie))
+
 ## [v7.1.0](https://github.com/voxpupuli/puppet-nftables/tree/v7.1.0) (2025-12-29)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v7.0.0...v7.1.0)
@@ -18,7 +27,7 @@ These should not affect the functionality of the module.
 
 **Closed issues:**
 
-- nftables::rules::out::icmp::v4\_types and v6\_types prodcues errors [\#264](https://github.com/voxpupuli/puppet-nftables/issues/264)
+- nftables::rules::out::icmp::v4\_types and v6\_types produces errors [\#264](https://github.com/voxpupuli/puppet-nftables/issues/264)
 
 ## [v7.0.0](https://github.com/voxpupuli/puppet-nftables/tree/v7.0.0) (2025-12-02)
 
