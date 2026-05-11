@@ -26,7 +26,7 @@ define nftables::set (
   Enum['present','absent'] $ensure = 'present',
   Pattern[/^[-a-zA-Z0-9_]+$/] $setname = $title,
   Pattern[/^\d\d$/] $order = '10',
-  Optional[Enum['ipv4_addr', 'ipv6_addr', 'ether_addr', 'inet_proto', 'inet_service', 'mark']] $type = undef,
+  Optional[Enum['ipv4_addr', 'ipv6_addr', 'ether_addr', 'inet_proto', 'inet_service', 'mark', 'icmp_type', 'icmpv6_type']] $type = undef,
   Variant[String, Array[String, 1]] $table = 'inet-filter',
   Array[Enum['constant', 'dynamic', 'interval', 'timeout'], 0, 4] $flags = [],
   Optional[Integer] $timeout = undef,
