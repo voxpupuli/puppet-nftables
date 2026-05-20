@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v7.3.0](https://github.com/voxpupuli/puppet-nftables/tree/v7.3.0) (2026-05-20)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v7.2.0...v7.3.0)
+
+**Implemented enhancements:**
+
+- puppetlabs/concat: Allow 10.x [\#305](https://github.com/voxpupuli/puppet-nftables/pull/305) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v7.2.0](https://github.com/voxpupuli/puppet-nftables/tree/v7.2.0) (2026-04-23)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v7.1.0...v7.2.0)
