@@ -70,6 +70,20 @@ and/or `nftables::nat` to `false` and build your whole nftables
 configuration from scratch by using the building blocks provided by
 this module. Look at `nftables::inet_filter` for inspiration.
 
+> **Warning: the default OS config may flush your un-managed tables.**
+> On most distributions the package ships a default `/etc/nftables.conf`
+> that begins with `flush ruleset`. By default this module does **not**
+> replace that file; it only appends its own `include` line to the end.
+> As a result every service reload runs the distro's `flush ruleset`
+> *before* this module's configuration is processed, wiping any tables
+> not managed by Puppet — even when you have set
+> `nftables::noflush_tables`, because the flush happens in the parent
+> config before `noflush_tables` ever applies.
+>
+> To avoid this, set `nftables::clobber_default_config` to `true` so the
+> module owns `/etc/nftables.conf` and the only flushing is the
+> `noflush_tables`-aware flush performed inside the module's own config.
+
 ## Rules Validation
 
 Initially puppet deploys all configuration to

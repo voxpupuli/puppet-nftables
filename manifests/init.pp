@@ -111,6 +111,11 @@
 #   If specified only other existings tables will be flushed.
 #   If left unset all tables will be flushed via a `flush ruleset`
 #
+#   This only governs the flush performed inside the module's own config. It
+#   has no effect on a `flush ruleset` present in the OS provided
+#   `configuration_path`; set `clobber_default_config` to `true` to remove
+#   that. See `clobber_default_config` for details.
+#
 # @param configuration_path
 #   The absolute path to the principal nftables configuration file. The default
 #   varies depending on the system, and is set in the module's data.
