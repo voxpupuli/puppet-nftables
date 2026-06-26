@@ -422,6 +422,11 @@ Data type: `Optional[Array[Pattern[/^(ip|ip6|inet|arp|bridge|netdev)-[-a-zA-Z0-9
 If specified only other existings tables will be flushed.
 If left unset all tables will be flushed via a `flush ruleset`
 
+This only governs the flush performed inside the module's own config. It
+has no effect on a `flush ruleset` present in the OS provided
+`configuration_path`; set `clobber_default_config` to `true` to remove
+that. See `clobber_default_config` for details.
+
 Default value: `undef`
 
 ##### <a name="-nftables--configuration_path"></a>`configuration_path`
