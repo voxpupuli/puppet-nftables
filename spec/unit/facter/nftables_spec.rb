@@ -6,7 +6,7 @@ describe 'nftables' do
   before do
     Facter.clear
     allow(Process).to receive(:uid).and_return(0)
-    allow(Facter::Util::Resolution).to receive(:which).with('nft').and_return('/usr/sbin/nft')
+    allow(Facter::Core::Execution).to receive(:which).with('nft').and_return('/usr/sbin/nft')
     allow(Facter::Core::Execution).to receive(:execute).with('/usr/sbin/nft list tables').and_return(nft_tables_result)
     allow(Facter::Core::Execution).to receive(:execute).with('/usr/sbin/nft --version').and_return(nft_version_result)
   end

@@ -12,7 +12,7 @@
 # nftables v0.9.3 (Topsy)
 #
 Facter.add(:nftables) do
-  @nft_cmd = Facter::Util::Resolution.which('nft')
+  @nft_cmd = Facter::Core::Execution.which('nft')
   confine { @nft_cmd }
 
   setcode do
