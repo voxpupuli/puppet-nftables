@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v7.4.0](https://github.com/voxpupuli/puppet-nftables/tree/v7.4.0) (2026-09-14)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v7.3.0...v7.4.0)
+
+**Implemented enhancements:**
+
+- Replace deprecated calls with `Facter::Core::Execution` [\#308](https://github.com/voxpupuli/puppet-nftables/pull/308) ([corporate-gadfly](https://github.com/corporate-gadfly))
+
+**Merged pull requests:**
+
+- Add more info that the default config is still in use [\#307](https://github.com/voxpupuli/puppet-nftables/pull/307) ([TrayserCassa](https://github.com/TrayserCassa))
+
 ## [v7.3.0](https://github.com/voxpupuli/puppet-nftables/tree/v7.3.0) (2026-05-20)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v7.2.0...v7.3.0)
