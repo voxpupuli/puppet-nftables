@@ -100,6 +100,7 @@ describe 'nftables class' do
       include nftables::rules::out::chrony
       include nftables::rules::out::wireguard
       include nftables::rules::out::whois
+      include nftables::rules::out::rsync
       include nftables::rules::wireguard
       include nftables::rules::multicast
       include nftables::rules::spotify

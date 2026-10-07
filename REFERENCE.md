@@ -72,6 +72,7 @@ and Manager Daemons (MGR).
 * [`nftables::rules::out::postgres`](#nftables--rules--out--postgres): manage out postgres
 * [`nftables::rules::out::puppet`](#nftables--rules--out--puppet): manage outgoing puppet
 * [`nftables::rules::out::pxp_agent`](#nftables--rules--out--pxp_agent): manage outgoing pxp-agent
+* [`nftables::rules::out::rsync`](#nftables--rules--out--rsync): allow outgoing rsync connections
 * [`nftables::rules::out::smtp`](#nftables--rules--out--smtp): allow outgoing smtp
 * [`nftables::rules::out::smtp_client`](#nftables--rules--out--smtp_client): allow outgoing smtp client
 * [`nftables::rules::out::ssdp`](#nftables--rules--out--ssdp): allow outgoing SSDP
@@ -88,7 +89,7 @@ of firewall rules with iptables and firewalld only.
 * [`nftables::rules::puppet`](#nftables--rules--puppet): manage in puppet
 * [`nftables::rules::pxp_agent`](#nftables--rules--pxp_agent): manage in pxp-agent
 * [`nftables::rules::qemu`](#nftables--rules--qemu): Bridged network configuration for qemu/libvirt
-* [`nftables::rules::rsync`](#nftables--rules--rsync): allow rsync connections
+* [`nftables::rules::rsync`](#nftables--rules--rsync): allow incoming rsync connections
 * [`nftables::rules::samba`](#nftables--rules--samba): manage Samba, the suite to allow Windows file sharing on Linux resources.
 * [`nftables::rules::smtp`](#nftables--rules--smtp): manage in smtp
 * [`nftables::rules::smtp_submission`](#nftables--rules--smtp_submission): manage in smtp submission
@@ -1422,6 +1423,10 @@ PXP broker port
 
 Default value: `8142`
 
+### <a name="nftables--rules--out--rsync"></a>`nftables::rules::out::rsync`
+
+allow outgoing rsync connections
+
 ### <a name="nftables--rules--out--smtp"></a>`nftables::rules::out::smtp`
 
 allow outgoing smtp
@@ -1628,7 +1633,7 @@ Default value: `true`
 
 ### <a name="nftables--rules--rsync"></a>`nftables::rules::rsync`
 
-allow rsync connections
+allow incoming rsync connections
 
 ### <a name="nftables--rules--samba"></a>`nftables::rules::samba`
 
@@ -2720,4 +2725,3 @@ Alias of `Pattern[/^[a-zA-Z0-9_]+-[a-zA-Z0-9_]+(-\d+)?$/]`
 Represents a simple rule name to be used in a rule created via nftables::simplerule
 
 Alias of `Pattern[/^[a-zA-Z0-9_]+(-\d+)?$/]`
-
