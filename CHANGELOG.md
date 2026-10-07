@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v7.5.0](https://github.com/voxpupuli/puppet-nftables/tree/v7.5.0) (2026-10-07)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v7.4.0...v7.5.0)
+
+**Implemented enhancements:**
+
+- Add rule for outgoing rsync connections [\#312](https://github.com/voxpupuli/puppet-nftables/pull/312) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v7.4.0](https://github.com/voxpupuli/puppet-nftables/tree/v7.4.0) (2026-09-14)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v7.3.0...v7.4.0)
