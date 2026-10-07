@@ -1,4 +1,4 @@
-# @summary allow rsync connections
+# @summary allow incoming rsync connections
 class nftables::rules::rsync {
   nftables::rule {
     'default_in-rsync':
