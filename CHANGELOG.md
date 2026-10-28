@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v7.7.0](https://github.com/voxpupuli/puppet-nftables/tree/v7.7.0) (2026-10-28)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v7.6.0...v7.7.0)
+
+**Implemented enhancements:**
+
+- puppet/systemd: Allow 11.x [\#316](https://github.com/voxpupuli/puppet-nftables/pull/316) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v7.6.0](https://github.com/voxpupuli/puppet-nftables/tree/v7.6.0) (2026-10-16)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nftables/compare/v7.5.0...v7.6.0)
